@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AURA NOIR — Maison de Beauté · Koleksi Eksklusif</title>
+<meta name="description" content="AURA NOIR — A Jakarta-born atelier of luxury serums, lipsticks, and fragrances. Composed in midnight. Worn at golden hour." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar">
+  Free shipping for orders above Rp 500.000 <span class="dot"></span> Complimentary samples with every order <span class="dot"></span> Atelier Jakarta · Bali · Singapore
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar-aura">
+  <div class="container-xl d-flex align-items-center justify-content-between">
+    <a href="index.html" class="brand-mark">
+      <span class="glyph">A</span> AURA&nbsp;NOIR
+    </a>
+    <div class="nav-links">
+      <a href="shop.html">Shop</a>
+      <a href="index.html#rituals">Rituals</a>
+      <a href="index.html#journal">Journal</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="icon-btn" aria-label="Search"><i class="bi bi-search"></i></a>
+      <a href="#" class="icon-btn" aria-label="Account"><i class="bi bi-person"></i></a>
+      <a href="#" class="icon-btn" data-open-cart aria-label="Cart">
+        <i class="bi bi-bag"></i>
+        <span class="badge-count">2</span>
+      </a>
+      <button class="mobile-nav-toggle" aria-label="Menu"><i class="bi bi-list"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="shop.html">Shop</a>
+  <a href="index.html#rituals">Rituals</a>
+  <a href="index.html#journal">Journal</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="cart.html">Cart</a>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container-xl">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow eyebrow-line mb-4">Maison de Beauté · Est. MMXIV</div>
+        <h1 class="display-hero hero-headline">Composed in midnight, worn at golden hour.</h1>
+        <p class="mt-4 text-muted-soft reveal-up" style="max-width: 480px; font-size: 16px;">
+          AURA NOIR is a Jakarta-born atelier of nocturnal beauty &mdash; serums, lipsticks, and parfums distilled in small batches, then rested under a slow flame of patience until they remember the skin.
+        </p>
+        <div class="d-flex flex-wrap gap-3 mt-5 reveal-up">
+          <span class="magnetic"><a href="shop.html" class="btn-aura btn-solid">Discover the Ritual <i class="bi bi-arrow-up-right"></i></a></span>
+          <span class="magnetic"><a href="about.html" class="btn-aura">Our Maison</a></span>
+        </div>
+        <div class="hero-meta reveal-up">
+          <div class="item"><span>12+</span>Years of craft</div>
+          <div class="item"><span>03</span>Atelier studios</div>
+          <div class="item"><span>50K</span>Devotees</div>
+        </div>
+      </div>
+      <div class="hero-visual reveal-fade">
+        <div class="shimmer-rotate"></div>
+        <span class="stamp">No. 07 · Edition</span>
+        <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMid meet">
+          <!-- Bottle silhouette -->
+          <defs>
+            <linearGradient id="bottleG" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#d4af7a" stop-opacity="0.6"/>
+              <stop offset="50%" stop-color="#d4af7a" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#d4af7a" stop-opacity="0.55"/>
+            </linearGradient>
+            <linearGradient id="capG" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f5e6c8"/>
+              <stop offset="100%" stop-color="#8a6b3e"/>
+            </linearGradient>
+          </defs>
+          <rect x="30" y="38" width="40" height="80" rx="2" fill="url(#bottleG)" stroke="#d4af7a" stroke-width="0.4" opacity="0.8"/>
+          <rect x="40" y="22" width="20" height="18" fill="url(#capG)" stroke="#d4af7a" stroke-width="0.3"/>
+          <rect x="44" y="14" width="12" height="10" fill="#1a1a1a" stroke="#d4af7a" stroke-width="0.3"/>
+          <line x1="35" y1="70" x2="65" y2="70" stroke="#d4af7a" stroke-width="0.25" opacity="0.5"/>
+          <text x="50" y="85" font-family="Cormorant Garamond" font-size="5" fill="#d4af7a" text-anchor="middle" letter-spacing="0.4">AURA NOIR</text>
+          <text x="50" y="92" font-family="Cormorant Garamond" font-size="3" fill="#d4af7a" text-anchor="middle" font-style="italic" opacity="0.7">élixir N°07</text>
+          <text x="50" y="106" font-family="Inter" font-size="2.2" fill="#d4af7a" text-anchor="middle" letter-spacing="0.6" opacity="0.7">PARFUM &middot; 50ML</text>
+        </svg>
+        <div class="caption">Élixir N°07 &mdash; oud, mandarin, smoked vanilla</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<section class="scroll-marquee">
+  <div class="marquee-track">
+    <span>Atelier Jakarta</span>
+    <span>Slow craft</span>
+    <span>Limited editions</span>
+    <span>Pressed by hand</span>
+    <span>Composed in midnight</span>
+    <span>Worn at golden hour</span>
+    <span>Atelier Jakarta</span>
+    <span>Slow craft</span>
+    <span>Limited editions</span>
+    <span>Pressed by hand</span>
+    <span>Composed in midnight</span>
+    <span>Worn at golden hour</span>
+  </div>
+</section>
+
+<!-- BRAND STATEMENT -->
+<section class="section">
+  <div class="container-xl">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5">
+        <div class="eyebrow eyebrow-line mb-4">Filosofi</div>
+        <h2 class="display-1 reveal-up">Where the dark hours <span class="italic-accent">begin to bloom.</span></h2>
+      </div>
+      <div class="col-lg-6 offset-lg-1">
+        <p class="reveal-up" style="font-size: 17px; line-height: 1.85; color: var(--text);">
+          We do not chase trends. We listen for them in old apothecary notebooks, in the slow burn of bakhoor at dawn, in the way a single drop of oud can hold an entire room still. Each formula at AURA NOIR is composed the way a parfum is composed &mdash; in layers, in silences, and in the small, golden hesitation between one breath and the next.
+        </p>
+        <div class="row mt-5 g-4">
+          <div class="col-6">
+            <div class="eyebrow mb-2">Crafted in</div>
+            <h5 class="serif">Jakarta · Bali · Marrakech</h5>
+          </div>
+          <div class="col-6">
+            <div class="eyebrow mb-2">Pressed since</div>
+            <h5 class="serif">MMXIV / 2014</h5>
+          </div>
+        </div>
+        <div class="mt-5"><a href="about.html" class="btn-link-arrow">Read the maison story <i class="bi bi-arrow-right"></i></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container-xl"><div class="line-divider"></div></div>
+
+<!-- FEATURED PRODUCTS -->
+<section class="section" id="featured">
+  <div class="container-xl">
+    <div class="d-flex align-items-end justify-content-between flex-wrap mb-5 gap-3">
+      <div>
+        <div class="eyebrow eyebrow-line mb-3">Koleksi Eksklusif</div>
+        <h2 class="display-1">The latest <span class="italic-accent">vespertine</span> edit.</h2>
+      </div>
+      <a href="shop.html" class="btn-link-arrow">View the full atelier <i class="bi bi-arrow-right"></i></a>
+    </div>
+
+    <div class="row g-4 reveal-up">
+      <!-- card 1 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="product-card">
+          <div class="position-relative">
+            <span class="product-tag">Nouveau</span>
+            <div class="product-img-placeholder">
+              <svg viewBox="0 0 100 140"><rect x="32" y="32" width="36" height="80" rx="2" fill="none" stroke="#d4af7a" stroke-width="0.5"/><rect x="42" y="18" width="16" height="14" fill="none" stroke="#d4af7a" stroke-width="0.5"/><line x1="36" y1="80" x2="64" y2="80" stroke="#d4af7a" stroke-width="0.3"/><text x="50" y="74" font-size="4" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond">NOIR</text></svg>
+            </div>
+            <div class="product-overlay">
+              <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+              <button class="btn-ghost-sm" title="Wishlist"><i class="bi bi-heart"></i></button>
+            </div>
+          </div>
+          <div class="product-body">
+            <div class="product-cat">Skincare · Serum</div>
+            <h5 class="product-title"><a href="product.html" class="text-cream">Noir Élixir Serum</a></h5>
+            <div class="product-price">
+              <span class="price">Rp 1.450.000</span>
+              <span class="rating">★★★★★ 142</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- card 2 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="product-card">
+          <div class="position-relative">
+            <span class="product-tag dark">Edition</span>
+            <div class="product-img-placeholder">
+              <svg viewBox="0 0 100 140"><ellipse cx="50" cy="60" rx="14" ry="34" fill="none" stroke="#d4af7a" stroke-width="0.5"/><rect x="46" y="22" width="8" height="12" fill="none" stroke="#d4af7a" stroke-width="0.5"/><text x="50" y="64" font-size="4" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic">rouge</text></svg>
+            </div>
+            <div class="product-overlay">
+              <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+              <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+            </div>
+          </div>
+          <div class="product-body">
+            <div class="product-cat">Lips · Velvet matte</div>
+            <h5 class="product-title"><a href="product.html" class="text-cream">Velvet Rouge N°12</a></h5>
+            <div class="product-price">
+              <span class="price">Rp 580.000</span>
+              <span class="rating">★★★★★ 88</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- card 3 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="product-card">
+          <div class="position-relative">
+            <div class="product-img-placeholder">
+              <svg viewBox="0 0 100 140"><rect x="28" y="44" width="44" height="64" rx="2" fill="none" stroke="#d4af7a" stroke-width="0.5"/><circle cx="50" cy="30" r="10" fill="none" stroke="#d4af7a" stroke-width="0.5"/><text x="50" y="80" font-size="4" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond">eye crème</text></svg>
+            </div>
+            <div class="product-overlay">
+              <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+              <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+            </div>
+          </div>
+          <div class="product-body">
+            <div class="product-cat">Eyes · Treatment</div>
+            <h5 class="product-title"><a href="product.html" class="text-cream">Gold Leaf Eye Crème</a></h5>
+            <div class="product-price">
+              <span class="price">Rp 980.000</span>
+              <span class="rating">★★★★☆ 64</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- card 4 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="product-card">
+          <div class="position-relative">
+            <span class="product-tag">Bestseller</span>
+            <div class="product-img-placeholder">
+              <svg viewBox="0 0 100 140"><path d="M30 30 Q50 18 70 30 L70 110 Q50 120 30 110 Z" fill="none" stroke="#d4af7a" stroke-width="0.5"/><rect x="44" y="14" width="12" height="14" fill="none" stroke="#d4af7a" stroke-width="0.5"/><text x="50" y="72" font-size="3.5" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic">parfum</text><text x="50" y="78" font-size="3" fill="#d4af7a" text-anchor="middle" font-family="Inter" letter-spacing="0.5">N°07</text></svg>
+            </div>
+            <div class="product-overlay">
+              <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+              <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+            </div>
+          </div>
+          <div class="product-body">
+            <div class="product-cat">Fragrance · Eau de Parfum</div>
+            <h5 class="product-title"><a href="product.html" class="text-cream">Atelier Parfum No.7</a></h5>
+            <div class="product-price">
+              <span class="price">Rp 2.400.000</span>
+              <span class="rating">★★★★★ 211</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container-xl"><div class="line-divider"></div></div>
+
+<!-- RITUALS -->
+<section class="section" id="rituals">
+  <div class="container-xl">
+    <div class="section-header reveal-up">
+      <div class="eyebrow eyebrow-line mb-3">Le Rituel</div>
+      <h2 class="display-1">A four-step nightly <span class="italic-accent">ceremony.</span></h2>
+      <p class="mt-4 text-muted-soft mx-auto" style="max-width: 540px;">Beauty, at AURA NOIR, is not a transaction &mdash; it is a return. A slow undoing of the day. A small, golden pause before sleep.</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3 reveal-up">
+        <div class="ritual-card" data-num="01">
+          <div class="icon-circle"><i class="bi bi-droplet"></i></div>
+          <h4>Cleanse</h4>
+          <p>Begin with the Midnight Cleansing Oil. Warm between palms. Inhale the smoked vanilla, then dissolve the day from the skin in slow circles.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 reveal-up">
+        <div class="ritual-card" data-num="02">
+          <div class="icon-circle"><i class="bi bi-moisture"></i></div>
+          <h4>Tone</h4>
+          <p>A single press of the Onyx Toning Mist. Three breaths. Let the rose-water and amber resin settle into the bare canvas of the face.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 reveal-up">
+        <div class="ritual-card" data-num="03">
+          <div class="icon-circle"><i class="bi bi-flower3"></i></div>
+          <h4>Treat</h4>
+          <p>Three drops of Noir Élixir Serum. Pressed, never rubbed, into temple, throat, décolletage. The skin remembers what is given slowly.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 reveal-up">
+        <div class="ritual-card" data-num="04">
+          <div class="icon-circle"><i class="bi bi-stars"></i></div>
+          <h4>Seal</h4>
+          <p>Finish with the Gold Leaf Crème. A whisper of 24-karat shimmer. Sleep arrives, gilded, and the morning finds you new.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL SPLIT -->
+<section class="section">
+  <div class="container-xl">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6">
+        <div class="editorial-image">
+          <div class="label">EDITORIAL · ATELIER<br>JAKARTA · DUSK</div>
+        </div>
+      </div>
+      <div class="col-lg-5 offset-lg-1">
+        <div class="eyebrow eyebrow-line mb-4">Maison Notes</div>
+        <h2 class="display-2 mb-4 reveal-up">Each batch, signed by the hand that pressed it.</h2>
+        <p class="reveal-up" style="font-size: 16px; line-height: 1.8;">
+          Our serums rest for forty-two days in amber glass before they leave the maison. Every bottle is numbered. Every cap, hand-tightened. We make exactly as much as we can make slowly &mdash; never one drop more.
+        </p>
+        <ul class="list-unstyled mt-4 reveal-up" style="font-size: 14px;">
+          <li class="d-flex gap-3 py-2 border-bottom" style="border-color: rgba(212,175,122,0.1) !important;"><i class="bi bi-check2 text-gold"></i> Vegan formulas, cruelty-free across the entire atelier</li>
+          <li class="d-flex gap-3 py-2 border-bottom" style="border-color: rgba(212,175,122,0.1) !important;"><i class="bi bi-check2 text-gold"></i> Glass bottles, refillable architecture, recycled cartons</li>
+          <li class="d-flex gap-3 py-2 border-bottom" style="border-color: rgba(212,175,122,0.1) !important;"><i class="bi bi-check2 text-gold"></i> 100% Indonesian-sourced botanicals where the climate permits</li>
+          <li class="d-flex gap-3 py-2"><i class="bi bi-check2 text-gold"></i> Each edition limited; once released, never restocked</li>
+        </ul>
+        <div class="mt-5"><a href="about.html" class="btn-aura"><span class="magnetic d-inline-flex align-items-center gap-2">Inside the maison <i class="bi bi-arrow-up-right"></i></span></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container-xl"><div class="line-divider"></div></div>
+
+<!-- TESTIMONIAL -->
+<section class="section">
+  <div class="container-xl">
+    <div class="testimonial reveal-up">
+      <div class="eyebrow eyebrow-line mb-4 d-inline-flex">Devotees</div>
+      <p class="testimonial-quote">
+        &ldquo;It does not feel like a skincare brand. It feels like an inheritance &mdash; something a Javanese grandmother might have left in a velvet box, intended only for the women she loved.&rdquo;
+      </p>
+      <div class="testimonial-cite">
+        Tara Wijaya
+        <span>Vogue Indonesia · Beauty Editor</span>
+      </div>
+      <div class="testimonial-dots">
+        <span class="active"></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNAL -->
+<section class="section" id="journal">
+  <div class="container-xl">
+    <div class="d-flex align-items-end justify-content-between flex-wrap mb-5 gap-3">
+      <div>
+        <div class="eyebrow eyebrow-line mb-3">Le Journal</div>
+        <h2 class="display-1">Slow notes from the <span class="italic-accent">atelier.</span></h2>
+      </div>
+      <a href="#" class="btn-link-arrow">Read all entries <i class="bi bi-arrow-right"></i></a>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4 reveal-up">
+        <article>
+          <div class="editorial-image" style="aspect-ratio: 4/3;"><div class="label">EDITORIAL · OUD</div></div>
+          <div class="eyebrow mt-4">Composition · 06 min read</div>
+          <h4 class="serif mt-3" style="font-size: 28px;">The geography of a single drop of oud</h4>
+          <p class="text-muted-soft mt-2">Following our master perfumer from Banda Aceh to Marrakech, in search of the smokiest agarwood ever pressed.</p>
+        </article>
+      </div>
+      <div class="col-md-4 reveal-up">
+        <article>
+          <div class="editorial-image" style="aspect-ratio: 4/3;"><div class="label">EDITORIAL · RITUAL</div></div>
+          <div class="eyebrow mt-4">Ritual · 04 min read</div>
+          <h4 class="serif mt-3" style="font-size: 28px;">Sebelum tidur: a four-minute evening ceremony</h4>
+          <p class="text-muted-soft mt-2">The maison's nightly skincare ritual, slowed down and broken into four small, golden movements.</p>
+        </article>
+      </div>
+      <div class="col-md-4 reveal-up">
+        <article>
+          <div class="editorial-image" style="aspect-ratio: 4/3;"><div class="label">EDITORIAL · ATELIER</div></div>
+          <div class="eyebrow mt-4">Inside · 08 min read</div>
+          <h4 class="serif mt-3" style="font-size: 28px;">Forty-two days of waiting, by hand</h4>
+          <p class="text-muted-soft mt-2">Why every Noir Élixir Serum rests, untouched, for six weeks before the cap is ever sealed.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="section">
+  <div class="container-xl">
+    <div class="newsletter-block reveal-up">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <div class="eyebrow eyebrow-line mb-4">Bergabunglah</div>
+          <h2 class="display-2 mb-3">Letters from the <span class="italic-accent">midnight desk.</span></h2>
+          <p class="text-muted-soft" style="max-width: 480px;">
+            One slow note a month. New editions, private rituals, the occasional poem. No noise, ever.
+          </p>
+        </div>
+        <div class="col-lg-5">
+          <form class="d-flex flex-column gap-3">
+            <input type="email" class="newsletter-input" placeholder="vous@maison-noir.id" required />
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+              <small class="text-muted-soft" style="letter-spacing:0.1em;">By subscribing you agree to our privacy ritual.</small>
+              <span class="magnetic"><button type="submit" class="btn-aura btn-solid">Subscribe <i class="bi bi-arrow-right"></i></button></span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container-xl">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <a href="index.html" class="brand-mark"><span class="glyph">A</span> AURA&nbsp;NOIR</a>
+        <p class="mt-4 text-muted-soft" style="font-size: 14px; max-width: 360px;">
+          A Jakarta-born atelier of nocturnal beauty. Serums, lipsticks, and parfums pressed slowly, by hand, in editions that do not return.
+        </p>
+        <div class="footer-social mt-4">
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+          <a href="#" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
+          <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Atelier</h6>
+        <ul class="footer-links">
+          <li><a href="shop.html">All Products</a></li>
+          <li><a href="shop.html">Skincare</a></li>
+          <li><a href="shop.html">Lips</a></li>
+          <li><a href="shop.html">Fragrance</a></li>
+          <li><a href="shop.html">Limited Editions</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Maison</h6>
+        <ul class="footer-links">
+          <li><a href="about.html">Our story</a></li>
+          <li><a href="about.html">Sustainability</a></li>
+          <li><a href="contact.html">Atelier locations</a></li>
+          <li><a href="contact.html">Press &amp; partnerships</a></li>
+          <li><a href="contact.html">Careers</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6>Letters from the midnight desk</h6>
+        <p class="text-muted-soft" style="font-size:13px;">Receive private editions, slow rituals, and quiet field notes. One letter a month.</p>
+        <form class="mt-3">
+          <input type="email" class="newsletter-input" placeholder="vous@maison-noir.id" />
+          <button type="submit" class="btn-aura btn-ghost mt-4" style="padding: 14px 28px; font-size: 10px;">Subscribe <i class="bi bi-arrow-right"></i></button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 AURA NOIR · Maison de Beauté · Atelier Jakarta</div>
+      <div class="d-flex gap-4">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+        <a href="#">Imprint</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<aside class="cart-drawer" id="cart-drawer" aria-label="Cart">
+  <div class="drawer-head">
+    <h5>Votre Sac (2)</h5>
+    <button class="drawer-close" data-close-cart aria-label="Close"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="drawer-items">
+    <div class="drawer-item">
+      <div class="drawer-thumb"><svg viewBox="0 0 100 140"><rect x="32" y="32" width="36" height="80" rx="2" fill="none" stroke="#d4af7a" stroke-width="0.6"/><rect x="42" y="18" width="16" height="14" fill="none" stroke="#d4af7a" stroke-width="0.6"/></svg></div>
+      <div class="drawer-item-info">
+        <h6>Noir Élixir Serum</h6>
+        <div class="meta">30 ml · Skincare</div>
+        <div class="qty-line">
+          <small class="text-muted-soft">Qty 1</small>
+          <span class="price">Rp 1.450.000</span>
+        </div>
+      </div>
+    </div>
+    <div class="drawer-item">
+      <div class="drawer-thumb"><svg viewBox="0 0 100 140"><ellipse cx="50" cy="60" rx="14" ry="34" fill="none" stroke="#d4af7a" stroke-width="0.6"/><rect x="46" y="22" width="8" height="12" fill="none" stroke="#d4af7a" stroke-width="0.6"/></svg></div>
+      <div class="drawer-item-info">
+        <h6>Velvet Rouge N°12</h6>
+        <div class="meta">3.8 g · Lips</div>
+        <div class="qty-line">
+          <small class="text-muted-soft">Qty 1</small>
+          <span class="price">Rp 580.000</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <div class="subtotal">
+      <span class="lbl">Subtotal</span>
+      <span class="val">Rp 2.030.000</span>
+    </div>
+    <a href="cart.html" class="btn-aura btn-solid">Proceed to Checkout <i class="bi bi-arrow-right"></i></a>
+    <div class="small-note">Free shipping unlocked</div>
+  </div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

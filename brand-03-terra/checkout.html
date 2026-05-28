@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout — Terra Botanica</title>
+<meta name="description" content="Complete your apothecary order.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="grain-overlay"></div>
+
+<div class="announcement">
+  <i class="bi bi-flower2"></i>
+  &nbsp;Gratis ongkir untuk Bali &amp; Jakarta
+  <span class="pulse-dot"></span>
+  Pre-order panen Maret 2026 — Verbena &amp; Calendula
+</div>
+
+<nav class="tb-navbar">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="tb-brand">TERRA <span class="dot">·</span> BOTANICA<small>Apotek Botani · Est. 2018</small></a>
+      <div class="d-flex align-items-center gap-2">
+        <a href="cart.html" class="tb-icon-btn"><i class="bi bi-arrow-left"></i> &nbsp;Kembali ke keranjang</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Checkout -->
+<section class="section-pad-sm pt-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="eyebrow" data-fade>§ Checkout</span>
+      <h1 style="font-family:var(--serif); font-size:clamp(2rem,4vw,3.5rem); margin-top:1rem;" data-fade>Selesaikan pesanan Anda.</h1>
+    </div>
+
+    <!-- Steps -->
+    <div class="checkout-steps mx-auto" style="max-width:760px;" data-fade>
+      <div class="checkout-step active"><span class="num">01</span> Pengiriman</div>
+      <div class="checkout-step"><span class="num">02</span> Pembayaran</div>
+      <div class="checkout-step"><span class="num">03</span> Konfirmasi</div>
+    </div>
+
+    <div class="row g-5">
+      <div class="col-lg-7">
+
+        <!-- Panel 1: Delivery -->
+        <div data-checkout-panel data-fade>
+          <h3 style="font-family:var(--serif); color:var(--forest); font-size:1.8rem; margin-bottom:2rem;">Alamat Pengiriman</h3>
+
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="form-floating-line">
+                <input type="text" id="fname" placeholder=" " value="Putri">
+                <label for="fname">Nama depan</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating-line">
+                <input type="text" id="lname" placeholder=" " value="Wijayanti">
+                <label for="lname">Nama belakang</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating-line">
+                <input type="email" id="cemail" placeholder=" " value="putri@email.id">
+                <label for="cemail">Surel</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating-line">
+                <input type="text" id="addr" placeholder=" " value="Jl. Kemang Selatan No. 14">
+                <label for="addr">Alamat lengkap</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating-line">
+                <input type="text" id="ccity" placeholder=" " value="Jakarta Selatan">
+                <label for="ccity">Kota</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating-line">
+                <input type="text" id="cpost" placeholder=" " value="12730">
+                <label for="cpost">Kode Pos</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating-line">
+                <input type="tel" id="cphone" placeholder=" " value="+62 812 9876 5432">
+                <label for="cphone">Nomor telepon</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating-line">
+                <select id="ccountry">
+                  <option>Indonesia</option>
+                  <option>Singapore</option>
+                  <option>Malaysia</option>
+                  <option>Japan</option>
+                  <option>Australia</option>
+                </select>
+                <label for="ccountry">Negara</label>
+              </div>
+            </div>
+          </div>
+
+          <h4 style="font-family:var(--serif); color:var(--forest); font-size:1.3rem; margin: 2.5rem 0 1.5rem;">Metode Pengiriman</h4>
+
+          <div class="shipping-option selected">
+            <div class="radio"></div>
+            <div class="flex-grow-1">
+              <h5>JNT Eco · Carbon-neutral</h5>
+              <small class="text-muted-leaf">Tiba dalam 2-4 hari kerja. 100% offset emisi pengiriman.</small>
+            </div>
+            <span class="price text-moss">Gratis</span>
+          </div>
+
+          <div class="shipping-option">
+            <div class="radio"></div>
+            <div class="flex-grow-1">
+              <h5>Same-day Bike Courier</h5>
+              <small class="text-muted-leaf">Khusus Jakarta &middot; tiba sebelum 19:00 (pesan sebelum 11:00).</small>
+            </div>
+            <span class="price">Rp 45.000</span>
+          </div>
+
+          <div class="shipping-option">
+            <div class="radio"></div>
+            <div class="flex-grow-1">
+              <h5>DHL GoGreen International</h5>
+              <small class="text-muted-leaf">5-9 hari kerja, terlacak. Bea cukai dihitung saat checkout.</small>
+            </div>
+            <span class="price">Rp 285.000</span>
+          </div>
+
+          <div class="shipping-option">
+            <div class="radio"></div>
+            <div class="flex-grow-1">
+              <h5>Apothecary Pickup &middot; Munduk</h5>
+              <small class="text-muted-leaf">Ambil sendiri dari atelier kami. Termasuk teh dan tur singkat.</small>
+            </div>
+            <span class="price text-moss">Gratis</span>
+          </div>
+        </div>
+
+        <!-- Panel 2: Payment (hidden by default) -->
+        <div data-checkout-panel style="display:none;">
+          <h3 style="font-family:var(--serif); color:var(--forest); font-size:1.8rem; margin-bottom:2rem;">Metode Pembayaran</h3>
+          <div class="shipping-option selected"><div class="radio"></div><div class="flex-grow-1"><h5>Credit/Debit Card</h5><small class="text-muted-leaf">Visa, Mastercard, JCB &mdash; processed via Midtrans.</small></div></div>
+          <div class="shipping-option"><div class="radio"></div><div class="flex-grow-1"><h5>GoPay / OVO / Dana</h5><small class="text-muted-leaf">Bayar instan dari aplikasi e-wallet.</small></div></div>
+          <div class="shipping-option"><div class="radio"></div><div class="flex-grow-1"><h5>Bank Transfer · BCA / Mandiri</h5><small class="text-muted-leaf">Virtual account &mdash; selesaikan dalam 3 jam.</small></div></div>
+          <div class="shipping-option"><div class="radio"></div><div class="flex-grow-1"><h5>QRIS</h5><small class="text-muted-leaf">Scan dengan aplikasi mobile banking Anda.</small></div></div>
+        </div>
+
+        <!-- Panel 3: Review (hidden) -->
+        <div data-checkout-panel style="display:none;">
+          <h3 style="font-family:var(--serif); color:var(--forest); font-size:1.8rem; margin-bottom:2rem;">Konfirmasi &amp; Selesaikan</h3>
+          <p class="text-muted-leaf">Mohon tinjau pesanan Anda sekali lagi sebelum kami mulai meramunya di Munduk.</p>
+          <div class="mt-4 p-4" style="border:1px solid var(--line-strong); background:rgba(135,121,78,0.04);">
+            <small class="eyebrow eyebrow-moss d-block mb-2">Pesanan menuju:</small>
+            <p style="font-family:var(--serif); color:var(--forest); margin:0;">Putri Wijayanti<br>Jl. Kemang Selatan No. 14, Jakarta Selatan, 12730</p>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-5 pt-3" style="border-top:1px solid var(--line);">
+          <a href="cart.html" class="btn-link-arrow"><i class="bi bi-arrow-left"></i> Back to cart</a>
+          <button class="btn-terra">Continue to Payment</button>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="col-lg-5">
+        <div class="cart-summary" data-fade>
+          <h3>Ringkasan</h3>
+
+          <div class="d-flex gap-3 py-3" style="border-bottom:1px solid var(--line);">
+            <div style="width:60px; aspect-ratio:3/4; background:linear-gradient(160deg, #e8e0d0, #c4b794); border:1px solid var(--line); position:relative;">
+              <svg viewBox="0 0 100 130" style="position:absolute; inset:0; margin:auto; width:60%;"><rect x="32" y="25" width="36" height="85" fill="#c4956c"/></svg>
+            </div>
+            <div class="flex-grow-1">
+              <small class="product-cat">No.02</small>
+              <div style="font-family:var(--serif); color:var(--forest); font-size:0.95rem;">Rosehip Glow Serum</div>
+              <small class="text-muted-leaf">Qty 1 · 30 ml</small>
+            </div>
+            <small style="font-family:var(--serif); color:var(--forest);">Rp 485.000</small>
+          </div>
+
+          <div class="d-flex gap-3 py-3" style="border-bottom:1px solid var(--line);">
+            <div style="width:60px; aspect-ratio:3/4; background:linear-gradient(160deg, #e8e0d0, #c4b794); border:1px solid var(--line); position:relative;">
+              <svg viewBox="0 0 100 130" style="position:absolute; inset:0; margin:auto; width:60%;"><circle cx="50" cy="70" r="34" fill="#2d3b2c"/></svg>
+            </div>
+            <div class="flex-grow-1">
+              <small class="product-cat">No.06</small>
+              <div style="font-family:var(--serif); color:var(--forest); font-size:0.95rem;">Volcanic Clay Mask</div>
+              <small class="text-muted-leaf">Qty 1 · 60 g</small>
+            </div>
+            <small style="font-family:var(--serif); color:var(--forest);">Rp 395.000</small>
+          </div>
+
+          <div class="d-flex gap-3 py-3" style="border-bottom:1px solid var(--line);">
+            <div style="width:60px; aspect-ratio:3/4; background:linear-gradient(160deg, #e8e0d0, #c4b794); border:1px solid var(--line); position:relative;">
+              <svg viewBox="0 0 100 130" style="position:absolute; inset:0; margin:auto; width:60%;"><rect x="28" y="20" width="44" height="90" fill="#6b7a4f"/></svg>
+            </div>
+            <div class="flex-grow-1">
+              <small class="product-cat">No.08</small>
+              <div style="font-family:var(--serif); color:var(--forest); font-size:0.95rem;">Eucalyptus Body Oil</div>
+              <small class="text-muted-leaf">Qty 1 · 100 ml</small>
+            </div>
+            <small style="font-family:var(--serif); color:var(--forest);">Rp 425.000</small>
+          </div>
+
+          <div class="mt-3">
+            <div class="cart-line"><span>Subtotal</span><span>Rp 1.305.000</span></div>
+            <div class="cart-line"><span>Pengiriman</span><span style="color:var(--moss);">Gratis</span></div>
+            <div class="cart-line"><span>Carbon-neutral</span><span>Rp 5.000</span></div>
+            <div class="cart-line"><span>PPN 11%</span><span>Rp 143.550</span></div>
+            <div class="cart-line total"><span>Total</span><span>Rp 1.453.550</span></div>
+          </div>
+
+          <div class="mt-3" style="background:rgba(135,121,78,0.08); padding:1rem 1.25rem; border-left:2px solid var(--moss);">
+            <small style="font-family:var(--serif); color:var(--forest); font-size:0.9rem;">
+              <i class="bi bi-tree text-moss"></i> &nbsp;1 pohon ditanam atas nama Anda di kebun Munduk kami.
+            </small>
+          </div>
+
+          <small class="d-block text-center mt-3 text-muted-leaf" style="font-size:0.72rem;"><i class="bi bi-shield-check"></i> Secure SSL · 30-day returns · BPOM Registered</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer (mini) -->
+<footer class="bg-cream-deep mt-5 pt-5 pb-4" style="border-top:1px solid var(--line);">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 text-center text-lg-start mb-3 mb-lg-0">
+        <small class="text-muted-leaf" style="font-size:0.78rem;">&copy; 2026 PT Terra Botanica Nusantara &middot; Made slowly in Munduk, Bali.</small>
+      </div>
+      <div class="col-lg-6 text-center text-lg-end">
+        <small class="text-muted-leaf" style="font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase;">
+          <a href="contact.html" style="color:var(--sage); text-decoration:none;">Bantuan</a>
+          &nbsp;&middot;&nbsp;
+          <a href="contact.html" style="color:var(--sage); text-decoration:none;">Privasi</a>
+          &nbsp;&middot;&nbsp;
+          <a href="contact.html" style="color:var(--sage); text-decoration:none;">Syarat</a>
+        </small>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

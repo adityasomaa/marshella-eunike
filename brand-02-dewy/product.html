@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glass Skin Essence — DEWY</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
+<link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="announce-bar">
+  <i class="bi bi-gift-fill me-1"></i> Free Glass Skin Mini Kit on orders Rp 750K+ &nbsp;&middot;&nbsp; only today
+</div>
+
+<nav class="dewy-nav">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+      <a href="index.html" class="brand-mark">DEWY <span class="dot"></span></a>
+      <div class="d-none d-lg-flex align-items-center gap-1">
+        <a href="shop.html" class="nav-link-dewy active">Shop</a>
+        <a href="index.html#ritual" class="nav-link-dewy">Routine</a>
+        <a href="about.html#journal" class="nav-link-dewy">Journal</a>
+        <a href="about.html" class="nav-link-dewy">About</a>
+        <a href="contact.html" class="nav-link-dewy">Contact</a>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <a href="cart.html" class="cart-btn" data-open-cart>
+          <i class="bi bi-handbag"></i>
+          <span class="d-none d-sm-inline">Bag</span>
+          <span class="cart-badge">2</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Breadcrumb -->
+<div class="container pt-4">
+  <div class="small text-soft">
+    <a href="index.html" style="color:inherit; text-decoration:none;">Home</a>
+    <span class="divider-dot"></span>
+    <a href="shop.html" style="color:inherit; text-decoration:none;">Shop</a>
+    <span class="divider-dot"></span>
+    <a href="shop.html" style="color:inherit; text-decoration:none;">Treat</a>
+    <span class="divider-dot"></span>
+    <span class="fw-600 text-rose">Glass Skin Essence</span>
+  </div>
+</div>
+
+<!-- Product hero -->
+<section class="container py-5">
+  <div class="row g-5">
+    <!-- Gallery -->
+    <div class="col-lg-6">
+      <div class="row g-3">
+        <div class="col-3 d-none d-md-block">
+          <div class="d-flex flex-column gap-3">
+            <div class="gallery-thumb active">
+              <svg viewBox="0 0 100 120" style="position:absolute; inset:0; margin:auto; width:55%;">
+                <ellipse cx="50" cy="70" rx="22" ry="40" fill="#fff" stroke="#f78aa1" stroke-width="0.6"/>
+                <rect x="42" y="15" width="16" height="20" rx="5" fill="#fff" stroke="#f78aa1" stroke-width="0.6"/>
+              </svg>
+            </div>
+            <div class="gallery-thumb" style="background:radial-gradient(circle at 30% 30%, #ffd9c4, #ffb5b5);">
+              <svg viewBox="0 0 100 120" style="position:absolute; inset:0; margin:auto; width:55%;">
+                <ellipse cx="50" cy="60" rx="34" ry="30" fill="#fff" stroke="#f78aa1" stroke-width="0.6"/>
+              </svg>
+            </div>
+            <div class="gallery-thumb">
+              <svg viewBox="0 0 100 120" style="position:absolute; inset:0; margin:auto; width:55%;">
+                <rect x="30" y="40" width="40" height="40" rx="20" fill="#fff" stroke="#f78aa1" stroke-width="0.6"/>
+              </svg>
+            </div>
+            <div class="gallery-thumb" style="background:radial-gradient(circle at 70% 70%, #ffd9c4, #f78aa1);">
+              <svg viewBox="0 0 100 120" style="position:absolute; inset:0; margin:auto; width:55%;">
+                <circle cx="50" cy="60" r="22" fill="#fff" stroke="#f78aa1" stroke-width="0.6"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="gallery-main">
+            <div class="dewy-drop" style="width:120px; height:120px; top:14%; left:18%;"></div>
+            <div class="dewy-drop" style="width:90px; height:90px; top:60%; right:20%;"></div>
+            <div class="dewy-drop" style="width:60px; height:60px; top:30%; right:18%;"></div>
+            <span class="badge-soft badge-new" style="position:absolute; top:1.5rem; left:1.5rem; z-index:2;">BEST SELLER</span>
+            <svg viewBox="0 0 200 240" style="position:absolute; inset:0; margin:auto; width:45%; z-index:1;">
+              <defs>
+                <linearGradient id="bottle2" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#fff"/>
+                  <stop offset="100%" stop-color="#fff5ee"/>
+                </linearGradient>
+              </defs>
+              <ellipse cx="100" cy="140" rx="60" ry="90" fill="url(#bottle2)" stroke="#f78aa1" stroke-width="1"/>
+              <rect x="80" y="20" width="40" height="40" rx="10" fill="#fff" stroke="#f78aa1" stroke-width="1"/>
+              <rect x="92" y="8" width="16" height="14" rx="3" fill="#f78aa1"/>
+              <text x="100" y="150" font-family="Fraunces" font-size="18" fill="#f78aa1" text-anchor="middle" font-style="italic">essence</text>
+              <text x="100" y="172" font-family="Plus Jakarta Sans" font-size="7" fill="#2a2330" text-anchor="middle" letter-spacing="2">GLASS SKIN</text>
+              <line x1="60" y1="190" x2="140" y2="190" stroke="#ffd9c4" stroke-width="0.8"/>
+              <text x="100" y="208" font-family="Plus Jakarta Sans" font-size="6" fill="#9b8fa3" text-anchor="middle" letter-spacing="1">50 ML / 1.69 FL OZ</text>
+            </svg>
+          </div>
+          <!-- Mobile thumbs -->
+          <div class="d-flex gap-2 mt-3 d-md-none overflow-auto">
+            <div class="gallery-thumb active" style="width:80px; flex-shrink:0;"></div>
+            <div class="gallery-thumb" style="width:80px; flex-shrink:0; background:radial-gradient(circle at 30% 30%, #ffd9c4, #ffb5b5);"></div>
+            <div class="gallery-thumb" style="width:80px; flex-shrink:0;"></div>
+            <div class="gallery-thumb" style="width:80px; flex-shrink:0; background:radial-gradient(circle at 70% 70%, #ffd9c4, #f78aa1);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="col-lg-6">
+      <span class="step-pill">Step 02 &middot; Treat</span>
+      <h1 class="display-2 mt-3 mb-2">Glass Skin <em class="serif-italic text-rose">Essence.</em></h1>
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <span class="star-row">
+          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+        </span>
+        <span class="fw-600">4.9</span>
+        <span class="text-muted-rose small">/ 2.184 reviews</span>
+        <span class="divider-dot"></span>
+        <span class="small text-soft"><i class="bi bi-check-circle-fill text-rose"></i> Restock arrived</span>
+      </div>
+      <p class="text-soft mb-4" style="font-size:1.05rem;">
+        Essence kembar dari Seoul, sekarang untuk tropical skin. Featherweight, soaks in 3 detik, locks moisture deep — bukan cuma di surface. 12 hours plump, dewy finish.
+      </p>
+
+      <div class="d-flex align-items-end gap-3 mb-4">
+        <div class="serif" style="font-size:2rem; font-weight:500;">Rp 385.000</div>
+        <div class="text-muted-rose text-decoration-line-through pb-2">Rp 450.000</div>
+        <span class="badge-soft pb-1" style="background:var(--rose); color:#fff;">−15%</span>
+      </div>
+
+      <!-- Size -->
+      <div class="mb-4">
+        <small class="text-muted-rose d-block mb-2 fw-600">Ukuran</small>
+        <div class="d-flex flex-wrap gap-2" data-chip-group>
+          <a href="#" class="chip">30ml &middot; Rp 245K</a>
+          <a href="#" class="chip active">50ml &middot; Rp 385K</a>
+          <a href="#" class="chip">100ml &middot; Rp 685K</a>
+        </div>
+      </div>
+
+      <!-- Qty + Add -->
+      <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+        <div class="qty-stepper">
+          <button class="minus">−</button><span>1</span><button class="plus">+</button>
+        </div>
+        <button class="btn-pillow btn-pillow-peach flex-grow-1 justify-content-center" data-add-bag>
+          <i class="bi bi-handbag"></i> Tambahkan ke Tas
+        </button>
+        <button class="cart-btn"><i class="bi bi-heart"></i></button>
+      </div>
+
+      <!-- Perks -->
+      <div class="row g-2 mb-4">
+        <div class="col-6">
+          <div class="d-flex gap-2 align-items-center text-soft small">
+            <i class="bi bi-truck text-rose"></i> Free shipping ≥ 500K
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="d-flex gap-2 align-items-center text-soft small">
+            <i class="bi bi-arrow-clockwise text-rose"></i> 30 hari free return
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="d-flex gap-2 align-items-center text-soft small">
+            <i class="bi bi-shield-check text-rose"></i> Cruelty-free always
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="d-flex gap-2 align-items-center text-soft small">
+            <i class="bi bi-leaf text-rose"></i> Recyclable glass
+          </div>
+        </div>
+      </div>
+
+      <!-- Ingredients -->
+      <h5 class="serif mt-5 mb-3">Key ingredients</h5>
+      <div class="row g-2">
+        <div class="col-6">
+          <div class="ingredient-tag">
+            <div class="ic">🌾</div>
+            <div>
+              <div class="fw-600 small">Rice Water 12%</div>
+              <small class="text-muted-rose">Brightens, smooths</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="ingredient-tag">
+            <div class="ic">🍯</div>
+            <div>
+              <div class="fw-600 small">Honey Extract</div>
+              <small class="text-muted-rose">Moisture magnet</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="ingredient-tag">
+            <div class="ic">💧</div>
+            <div>
+              <div class="fw-600 small">Hyaluronic 5x</div>
+              <small class="text-muted-rose">Multi-weight plump</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="ingredient-tag">
+            <div class="ic">🍃</div>
+            <div>
+              <div class="fw-600 small">Centella Asiatica</div>
+              <small class="text-muted-rose">Soothes redness</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How to use -->
+<section class="section">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5" data-fade>
+        <span class="eyebrow">How to use</span>
+        <h2 class="display-2 mt-3">Layer it <em class="serif-italic text-rose">gentle.</em></h2>
+        <p class="text-soft mb-4">3-5 tetes ke telapak tangan, hangatkan, lalu tepuk-tepuk lembut ke wajah yang masih sedikit lembab dari toner. Gunakan pagi & malam.</p>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="chip chip-peach">Pagi ☀</span>
+          <span class="chip chip-peach">Malam 🌙</span>
+          <span class="chip">Semua jenis kulit</span>
+        </div>
+      </div>
+      <div class="col-lg-7" data-stagger>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="card-soft p-4 text-center">
+              <div class="ingredient-icon mb-3">1</div>
+              <h6 class="serif mb-2" style="font-weight:500;">Bersihkan</h6>
+              <small class="text-soft">Mulai dengan kulit bersih & sedikit lembab</small>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card-soft p-4 text-center">
+              <div class="ingredient-icon mb-3">2</div>
+              <h6 class="serif mb-2" style="font-weight:500;">Teteskan</h6>
+              <small class="text-soft">3-5 tetes ke telapak tangan</small>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card-soft p-4 text-center">
+              <div class="ingredient-icon mb-3">3</div>
+              <h6 class="serif mb-2" style="font-weight:500;">Tepuk pelan</h6>
+              <small class="text-soft">Tepuk lembut hingga meresap penuh</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="section">
+  <div class="container">
+    <div class="row align-items-end mb-5" data-fade>
+      <div class="col-lg-7">
+        <span class="eyebrow">Glow squad says</span>
+        <h2 class="display-2 mt-3">2.184 reviews <em class="serif-italic text-rose">— 4.9★</em></h2>
+      </div>
+      <div class="col-lg-5 text-lg-end">
+        <a href="#" class="btn-ghost">Lihat semua review <i class="bi bi-arrow-right icon-bounce"></i></a>
+      </div>
+    </div>
+
+    <div class="row g-4" data-stagger>
+      <div class="col-md-4">
+        <div class="review-card">
+          <div class="d-flex gap-3 align-items-center mb-3">
+            <div class="review-avatar">N</div>
+            <div>
+              <div class="fw-600">Nadya P.</div>
+              <small class="text-muted-rose">Verified buyer &middot; 2 minggu lalu</small>
+            </div>
+          </div>
+          <div class="star-row mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+          <h6 class="serif" style="font-weight:500;">Glass skin beneran!</h6>
+          <p class="text-soft small mb-0">Pemakaian 2 minggu, skin texture saya jauh lebih halus & glow. Kombinasi dengan toner-nya benar-benar magic. Wajib repurchase!</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="review-card">
+          <div class="d-flex gap-3 align-items-center mb-3">
+            <div class="review-avatar">C</div>
+            <div>
+              <div class="fw-600">Cyntia O.</div>
+              <small class="text-muted-rose">Verified buyer &middot; 1 bulan lalu</small>
+            </div>
+          </div>
+          <div class="star-row mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+          <h6 class="serif" style="font-weight:500;">Cocok untuk kombinasi</h6>
+          <p class="text-soft small mb-0">Skin saya kombinasi & gampang berminyak di T-zone. Essence ini ringan banget, gak lengket, dan hidrasinya tahan seharian. Love it!</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="review-card">
+          <div class="d-flex gap-3 align-items-center mb-3">
+            <div class="review-avatar">L</div>
+            <div>
+              <div class="fw-600">Livi A.</div>
+              <small class="text-muted-rose">Verified buyer &middot; 3 minggu lalu</small>
+            </div>
+          </div>
+          <div class="star-row mb-2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+          <h6 class="serif" style="font-weight:500;">Botol-nya cantik</h6>
+          <p class="text-soft small mb-0">Selain isinya bagus, packagingnya juga aesthetic — kerasa premium. Sudah jadi essence harian aku selama 3 bulan terakhir.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Complete the routine -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-5" data-fade>
+      <span class="eyebrow">Pairs beautifully</span>
+      <h2 class="display-2 mt-3">Lengkapi <em class="serif-italic text-rose">routine</em> kamu.</h2>
+      <p class="text-soft mt-2">Pilih trio untuk hasil glass-skin maksimal. Save 20% kalau beli set.</p>
+    </div>
+    <div class="row g-4" data-stagger>
+      <div class="col-6 col-lg-3">
+        <a href="product.html" class="product-card">
+          <div class="product-img" style="background:radial-gradient(circle at 30% 30%, #fff5ee, #ffd9c4);">
+            <span class="badge-soft" style="position:absolute; top:1rem; left:1rem; z-index:2;">STEP 01</span>
+            <svg viewBox="0 0 100 120" style="position:absolute; inset:0; margin:auto; width:55%;">
+              <rect x="38" y="22" width="24" height="78" rx="6" fill="#fff" stroke="#f78aa1" stroke-width="0.6"/>
+              <rect x="42" y="10" width="16" height="14" rx="3" fill="#f78aa1"/>
+            </svg>
+          </div>
+          <div class="px-2 pt-2 pb-1">
+            <small class="text-muted-rose">Cleanse</small>
+            <h5 class="serif my-1" style="font-size:1.05rem; font-weight:500;">Rice Water Cleanser</h5>
+            <span class="price">Rp 185.000</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-6 col-lg-3">
+        <a href="product.html" class="product-card">
+          <div class="product-img" style="background:radial-gradient(circle at 30% 30%, #ffd9c4, #ffb5b5);">
+            <span class="badge-soft" style="position:absolute; top:1rem; left:1rem; z-index:2;">STEP 02</span>
+            <svg viewBox="0 0 100 120" style="position:absolute; inset:0; margin:auto; width:55%;">
+              <rect x="38" y="20" width="24" height="80" rx="12" fill="#fff" stroke="#f78aa1" stroke-width="0.6"/>
+              <circle cx="50" cy="15" r="6" fill="#fff" stroke="#f78aa1" stroke-width="0.6"/>
+            </svg>
+          </div>
+          <div class="px-2 pt-2 pb-1">
+            <small class="text-muted-rose">Treat</small>
+            <h5 class="serif my-1" style="font-size:1.05rem; font-weight:500;">Honey Glow Toner</h5>
+            <span class="price">Rp 235.000</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-6 col-lg-3">
+        <a href="product.html" class="product-card">
+          <div class="product-img" style="background:radial-gradient(circle at 30% 30%, #ffeadb, #ffd9c4);">
+            <span class="badge-soft" style="position:absolute; top:1rem; left:1rem; z-index:2;">STEP 03</span>
+            <svg viewBox="0 0 100 120" style="position:absolute; inset:0; margin:auto; width:55%;">
+              <ellipse cx="50" cy="70" rx="28" ry="22" fill="#fff" stroke="#f78aa1" stroke-width="0.6"/>
+              <rect x="40" y="38" width="20" height="10" rx="3" fill="#f78aa1"/>
+            </svg>
+          </div>
+          <div class="px-2 pt-2 pb-1">
+            <small class="text-muted-rose">Moisturize</small>
+            <h5 class="serif my-1" style="font-size:1.05rem; font-weight:500;">Cica Calming Cream</h5>
+            <span class="price">Rp 295.000</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-6 col-lg-3">
+        <a href="product.html" class="product-card">
+          <div class="product-img" style="background:radial-gradient(circle at 30% 30%, #ffeadb, #ffb5b5);">
+            <span class="badge-soft" style="position:absolute; top:1rem; left:1rem; z-index:2;">STEP 04</span>
+            <svg viewBox="0 0 100 120" style="position:absolute; inset:0; margin:auto; width:55%;">
+              <rect x="40" y="14" width="20" height="86" rx="8" fill="#fff" stroke="#f78aa1" stroke-width="0.6"/>
+              <circle cx="50" cy="9" r="4" fill="#f78aa1"/>
+            </svg>
+          </div>
+          <div class="px-2 pt-2 pb-1">
+            <small class="text-muted-rose">Protect</small>
+            <h5 class="serif my-1" style="font-size:1.05rem; font-weight:500;">Sunlight SPF50</h5>
+            <span class="price">Rp 325.000</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <a href="#" class="btn-pillow btn-pillow-peach" data-add-bag>Beli full routine — hemat Rp 240K <i class="bi bi-arrow-right icon-bounce"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer (shared) -->
+<footer class="footer">
+  <div class="footer-blob"></div>
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <div class="footer-illu">
+          <svg viewBox="0 0 40 40" width="48"><circle cx="20" cy="20" r="14" fill="#fff" opacity="0.9"/><circle cx="16" cy="18" r="2.5" fill="#2a2330"/><circle cx="24" cy="18" r="2.5" fill="#2a2330"/><path d="M16 24 Q20 27 24 24" stroke="#f78aa1" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <a href="index.html" class="brand-mark mb-3 d-inline-flex">DEWY <span class="dot"></span></a>
+        <p class="text-soft" style="max-width: 320px;">Skincare K-beauty buat tropical skin. Made small, made dewy. Berbasis di Jakarta, Indonesia.</p>
+        <div class="mt-3">
+          <a href="#" class="social-pill"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-pill"><i class="bi bi-tiktok"></i></a>
+          <a href="#" class="social-pill"><i class="bi bi-youtube"></i></a>
+          <a href="#" class="social-pill"><i class="bi bi-spotify"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Shop</h6>
+        <a href="shop.html">All products</a>
+        <a href="shop.html">Cleanse</a>
+        <a href="shop.html">Treat</a>
+        <a href="shop.html">Moisturize</a>
+        <a href="shop.html">Protect</a>
+        <a href="shop.html">Body</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Help</h6>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html">FAQ</a>
+        <a href="contact.html">Shipping</a>
+        <a href="contact.html">Returns</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="col-lg-4">
+        <h6>Stay glowing</h6>
+        <p class="text-soft small mb-3">Drop your email — kita kirim tips skincare tiap Senin pagi.</p>
+        <form onsubmit="event.preventDefault();" class="d-flex gap-2">
+          <input type="email" class="input-soft" placeholder="you@dewyskin.id" style="border-radius:999px;">
+          <button class="btn-pillow btn-pillow-peach" style="padding:0.7rem 1.2rem;"><i class="bi bi-arrow-right"></i></button>
+        </form>
+      </div>
+    </div>
+    <hr style="border-color: var(--line); margin: 3rem 0 1.5rem;">
+    <div class="d-flex flex-wrap justify-content-between align-items-center small text-muted-rose">
+      <div>© 2026 DEWY Skin Co. Made dengan ❤ di Jakarta.</div>
+      <div class="d-flex gap-3">
+        <a href="#" style="color:inherit;">Privacy</a>
+        <a href="#" style="color:inherit;">Terms</a>
+        <a href="#" style="color:inherit;">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart drawer -->
+<div class="cart-drawer-backdrop" data-close-cart></div>
+<aside class="cart-drawer">
+  <div class="cart-drawer-head">
+    <h5 class="serif mb-0">Tas kamu <small class="text-muted-rose ms-2">(2)</small></h5>
+    <button class="close-pill" data-close-cart><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="cart-drawer-body">
+    <div class="cart-item">
+      <div class="cart-item-img">
+        <svg viewBox="0 0 40 50" style="position:absolute; inset:0; margin:auto; width:50%;">
+          <ellipse cx="20" cy="30" rx="14" ry="18" fill="#fff" stroke="#f78aa1" stroke-width="0.6"/>
+        </svg>
+      </div>
+      <div class="flex-grow-1">
+        <h6 class="serif mb-1" style="font-weight:500;">Glass Skin Essence</h6>
+        <small class="text-muted-rose d-block mb-2">50ml</small>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="qty-stepper" style="padding:0.2rem;">
+            <button class="minus">−</button><span>1</span><button class="plus">+</button>
+          </div>
+          <span class="fw-600">Rp 385.000</span>
+        </div>
+      </div>
+    </div>
+    <div class="gift-milestone mt-3">
+      <div class="gift-icon"><i class="bi bi-gift-fill"></i></div>
+      <div class="flex-grow-1">
+        <small class="d-block mb-1">Rp 70.000 lagi untuk free <strong>Glass Skin Mini Kit</strong></small>
+        <div class="progress-peach"><div class="bar" style="width:90%;"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="cart-drawer-foot">
+    <a href="checkout.html" class="btn-pillow btn-pillow-peach w-100 justify-content-center">Checkout <i class="bi bi-arrow-right icon-bounce"></i></a>
+  </div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

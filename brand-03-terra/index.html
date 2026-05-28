@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terra Botanica — Botanical Apothecary from Bali Highlands</title>
+<meta name="description" content="Hand-blended botanical skincare from Indonesia. Wild-crafted ingredients, slow-living rituals, planet-first formulation since 2018.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="grain-overlay"></div>
+
+<!-- Announcement -->
+<div class="announcement">
+  <i class="bi bi-flower2"></i>
+  &nbsp;Gratis ongkir untuk Bali &amp; Jakarta
+  <span class="pulse-dot"></span>
+  Pre-order panen Maret 2026 — Verbena &amp; Calendula
+</div>
+
+<!-- Navbar -->
+<nav class="tb-navbar">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="tb-brand">
+        TERRA <span class="dot">·</span> BOTANICA
+        <small>Apotek Botani · Est. 2018</small>
+      </a>
+      <div class="d-none d-lg-flex align-items-center">
+        <a href="shop.html" class="tb-nav-link">Apotek</a>
+        <a href="about.html" class="tb-nav-link">Ingredients</a>
+        <a href="index.html" class="tb-nav-link active">Journal</a>
+        <a href="about.html" class="tb-nav-link">About</a>
+        <a href="contact.html" class="tb-nav-link">Contact</a>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <a href="contact.html" class="tb-icon-btn d-none d-md-inline-flex"><i class="bi bi-search"></i></a>
+        <a href="#" data-open-cart class="tb-icon-btn">
+          <i class="bi bi-basket2"></i>
+          <span class="tb-cart-count">3</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero-wrap">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="hero-eyebrow" data-hero-anim>
+          <span class="line"></span>
+          Botanical Apothecary · Bali Highlands
+        </div>
+        <h1 class="hero-title" data-hero-anim>
+          Diramu dari<br>
+          <em>akar &amp; daun</em><br>
+          yang dipanen tangan.
+        </h1>
+        <p class="hero-sub" data-hero-anim>
+          A small apothecary in the cool air of Munduk — twelve botanical remedies pressed,
+          steeped and blended slowly. From soil to skin in fewer than thirty days.
+        </p>
+        <div class="d-flex flex-wrap gap-3" data-hero-anim>
+          <a href="shop.html" class="btn-terra">Lihat Apotek</a>
+          <a href="about.html" class="btn-terra-outline">Our Story</a>
+        </div>
+        <div class="hero-meta" data-hero-anim>
+          <div class="meta-item">
+            <span>2018</span>
+            <small>Established</small>
+          </div>
+          <div class="meta-item">
+            <span>12</span>
+            <small>Botanical Remedies</small>
+          </div>
+          <div class="meta-item">
+            <span>6 Ha</span>
+            <small>Organic Farm</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="hero-art" data-hero-anim>
+          <span class="corner-tag">No. 02 · Rosehip Glow</span>
+          <span class="corner-num">SS · 2026</span>
+          <svg viewBox="0 0 400 540" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background botanical illustration -->
+            <defs>
+              <radialGradient id="hg" cx="50%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#f5f1ea" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#87794e" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#hg)"/>
+
+            <!-- Stems -->
+            <path d="M200 540 C 200 420, 180 340, 200 220 C 220 140, 200 80, 200 30"
+                  stroke="#2d3b2c" stroke-width="1.4" fill="none"/>
+            <path d="M200 420 C 150 380, 110 350, 80 300"
+                  stroke="#2d3b2c" stroke-width="1" fill="none"/>
+            <path d="M200 380 C 250 360, 290 330, 320 280"
+                  stroke="#2d3b2c" stroke-width="1" fill="none"/>
+            <path d="M200 300 C 160 280, 130 260, 110 220"
+                  stroke="#2d3b2c" stroke-width="0.8" fill="none"/>
+            <path d="M200 260 C 240 240, 270 220, 290 180"
+                  stroke="#2d3b2c" stroke-width="0.8" fill="none"/>
+
+            <!-- Leaves (organic shapes) -->
+            <g opacity="0.78">
+              <path d="M80 300 C 60 290, 50 270, 55 250 C 80 260, 90 280, 80 300 Z" fill="#6b7a4f"/>
+              <path d="M320 280 C 340 270, 350 250, 345 230 C 320 240, 310 260, 320 280 Z" fill="#6b7a4f"/>
+              <path d="M110 220 C 90 215, 80 200, 85 185 C 105 195, 115 210, 110 220 Z" fill="#87794e"/>
+              <path d="M290 180 C 310 175, 320 160, 315 145 C 295 155, 285 170, 290 180 Z" fill="#87794e"/>
+              <path d="M195 220 C 175 215, 165 200, 170 185 C 190 195, 200 210, 195 220 Z" fill="#6b7a4f"/>
+              <path d="M205 220 C 225 215, 235 200, 230 185 C 210 195, 200 210, 205 220 Z" fill="#6b7a4f"/>
+              <path d="M195 150 C 175 145, 165 130, 170 115 C 190 125, 200 140, 195 150 Z" fill="#87794e"/>
+              <path d="M205 150 C 225 145, 235 130, 230 115 C 210 125, 200 140, 205 150 Z" fill="#87794e"/>
+            </g>
+
+            <!-- Flowers / berries -->
+            <circle cx="200" cy="80" r="14" fill="#c4956c" opacity="0.85"/>
+            <circle cx="200" cy="80" r="6" fill="#2d3b2c" opacity="0.4"/>
+            <circle cx="180" cy="95" r="6" fill="#c4956c" opacity="0.7"/>
+            <circle cx="220" cy="95" r="6" fill="#c4956c" opacity="0.7"/>
+            <circle cx="200" cy="50" r="9" fill="#c4956c" opacity="0.75"/>
+
+            <!-- Roots at base -->
+            <path d="M200 540 C 180 510, 160 490, 130 480 M200 540 C 220 510, 240 490, 270 480 M200 540 C 195 510, 190 490, 175 470"
+                  stroke="#2d3b2c" stroke-width="0.5" fill="none" opacity="0.5"/>
+
+            <!-- Small leaf cluster bottom -->
+            <g opacity="0.5">
+              <ellipse cx="150" cy="495" rx="22" ry="6" fill="#6b7a4f"/>
+              <ellipse cx="250" cy="495" rx="22" ry="6" fill="#87794e"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Philosophy -->
+<section class="section-pad">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 mb-4 mb-lg-0">
+        <span class="eyebrow" data-fade>§ 01 — Philosophy</span>
+      </div>
+      <div class="col-lg-9">
+        <h2 style="font-size:clamp(1.8rem,3.5vw,3rem); line-height:1.2; max-width:24ch; margin-bottom:2.5rem;" data-fade>
+          We believe a face cream should be as honest as the soil it came from
+          &mdash; <em style="color:var(--moss); font-style:italic;">slow, traceable, and quietly effective.</em>
+        </h2>
+        <div class="row g-5">
+          <div class="col-md-4" data-fade>
+            <span class="eyebrow eyebrow-moss mb-3 d-block">Lambat</span>
+            <p class="text-muted-leaf">Each formula is steeped between 21 and 45 days. We do not rush — botanicals release their actives on their own schedule, not ours.</p>
+          </div>
+          <div class="col-md-4" data-fade>
+            <span class="eyebrow eyebrow-moss mb-3 d-block">Terlacak</span>
+            <p class="text-muted-leaf">Eighty-seven percent of our ingredients are wild-crafted or grown within a 40-kilometre radius of our atelier in Munduk, Bali.</p>
+          </div>
+          <div class="col-md-4" data-fade>
+            <span class="eyebrow eyebrow-moss mb-3 d-block">Berdaya</span>
+            <p class="text-muted-leaf">Eighteen Balinese women co-own the cooperative that hand-harvests our calendula, frangipani and verbena fields.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-thin">
+
+<!-- Featured Remedies -->
+<section class="section-pad">
+  <div class="container">
+    <div class="row align-items-end mb-5">
+      <div class="col-lg-8">
+        <span class="eyebrow" data-fade>§ 02 — Featured Remedies</span>
+        <h2 style="font-size:clamp(2rem,4vw,3.5rem); margin-top:1rem;" data-fade>Twelve formulas, hand-blended in small batches.</h2>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-3 mt-lg-0" data-fade>
+        <a href="shop.html" class="btn-link-arrow">Lihat semuanya <i class="bi bi-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Card 1 -->
+      <div class="col-6 col-md-3" data-fade>
+        <a href="product.html" class="product-card d-block no-deco">
+          <div class="product-img">
+            <span class="product-num">No. 02</span>
+            <span class="product-origin">Bali Highlands</span>
+            <svg class="svg-bottle" viewBox="0 0 100 130">
+              <rect x="32" y="25" width="36" height="85" fill="#c4956c" stroke="#2d3b2c" stroke-width="0.6"/>
+              <rect x="32" y="55" width="36" height="22" fill="#f5f1ea" stroke="#2d3b2c" stroke-width="0.4"/>
+              <rect x="40" y="15" width="20" height="14" fill="#2d3b2c"/>
+              <line x1="50" y1="15" x2="50" y2="6" stroke="#2d3b2c" stroke-width="0.5"/>
+              <text x="50" y="68" text-anchor="middle" font-family="DM Serif Display" font-size="4.5" fill="#2d3b2c">N°02</text>
+              <text x="50" y="74" text-anchor="middle" font-family="DM Sans" font-size="2.4" fill="#6b7a4f" letter-spacing="0.4">ROSEHIP</text>
+            </svg>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Treat</span>
+            <h3 class="product-title">No.02 Rosehip Glow Serum</h3>
+            <span class="product-volume">30 ml · Rosa canina</span>
+            <span class="product-price">Rp 485.000</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-6 col-md-3" data-fade>
+        <a href="product.html" class="product-card d-block no-deco">
+          <div class="product-img">
+            <span class="product-num">No. 06</span>
+            <span class="product-origin">Wild-crafted Java</span>
+            <svg class="svg-bottle" viewBox="0 0 100 130">
+              <circle cx="50" cy="70" r="34" fill="#2d3b2c" stroke="#2d3b2c" stroke-width="0.6"/>
+              <ellipse cx="50" cy="50" rx="18" ry="6" fill="#1a2118" stroke="#2d3b2c" stroke-width="0.4"/>
+              <rect x="32" y="75" width="36" height="14" fill="#f5f1ea"/>
+              <text x="50" y="84" text-anchor="middle" font-family="DM Serif Display" font-size="4" fill="#2d3b2c">N°06</text>
+            </svg>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Treat</span>
+            <h3 class="product-title">No.06 Volcanic Clay Mask</h3>
+            <span class="product-volume">60 g · Bentonite + Lava</span>
+            <span class="product-price">Rp 395.000</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-6 col-md-3" data-fade>
+        <a href="product.html" class="product-card d-block no-deco">
+          <div class="product-img">
+            <span class="product-num">No. 08</span>
+            <span class="product-origin">Sumba Coast</span>
+            <svg class="svg-bottle" viewBox="0 0 100 130">
+              <rect x="28" y="20" width="44" height="90" rx="2" fill="#6b7a4f" stroke="#2d3b2c" stroke-width="0.6"/>
+              <rect x="28" y="55" width="44" height="22" fill="#f5f1ea"/>
+              <rect x="38" y="10" width="24" height="12" fill="#2d3b2c"/>
+              <text x="50" y="68" text-anchor="middle" font-family="DM Serif Display" font-size="4.5" fill="#2d3b2c">N°08</text>
+              <text x="50" y="74" text-anchor="middle" font-family="DM Sans" font-size="2.2" fill="#6b7a4f" letter-spacing="0.4">EUCALYPT</text>
+            </svg>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Body</span>
+            <h3 class="product-title">No.08 Eucalyptus Body Oil</h3>
+            <span class="product-volume">100 ml · E. globulus</span>
+            <span class="product-price">Rp 425.000</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="col-6 col-md-3" data-fade>
+        <a href="product.html" class="product-card d-block no-deco">
+          <div class="product-img">
+            <span class="product-num">No. 11</span>
+            <span class="product-origin">Sumbawa Resin</span>
+            <svg class="svg-bottle" viewBox="0 0 100 130">
+              <rect x="36" y="30" width="28" height="80" fill="#87794e" stroke="#2d3b2c" stroke-width="0.6"/>
+              <rect x="36" y="58" width="28" height="18" fill="#f5f1ea"/>
+              <ellipse cx="50" cy="20" rx="14" ry="6" fill="#2d3b2c"/>
+              <circle cx="50" cy="12" r="2.5" fill="#c4956c"/>
+              <text x="50" y="69" text-anchor="middle" font-family="DM Serif Display" font-size="4" fill="#2d3b2c">N°11</text>
+            </svg>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Treat</span>
+            <h3 class="product-title">No.11 Frankincense Eye Serum</h3>
+            <span class="product-volume">15 ml · Boswellia sacra</span>
+            <span class="product-price">Rp 745.000</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-thin">
+
+<!-- Our Garden / Origin story -->
+<section class="section-pad-lg">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="photo-block deep" data-fade>
+          <svg class="svg-draw" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; width:100%; height:100%;">
+            <!-- Mountain silhouette -->
+            <path d="M0 320 L 80 220 L 160 280 L 240 180 L 320 260 L 400 200 L 400 500 L 0 500 Z"
+                  fill="#1a2118" opacity="0.3"/>
+            <!-- Tree silhouettes hand-drawn -->
+            <path d="M100 400 L 100 320 M 100 360 L 80 340 M 100 360 L 120 340 M 100 380 L 85 365 M 100 380 L 115 365"
+                  stroke="#f5f1ea" stroke-width="1.2" fill="none"/>
+            <path d="M180 410 L 180 340 M 180 370 L 165 355 M 180 370 L 195 355"
+                  stroke="#f5f1ea" stroke-width="1" fill="none"/>
+            <path d="M260 405 L 260 330 M 260 365 L 245 350 M 260 365 L 275 350 M 260 385 L 248 372 M 260 385 L 272 372"
+                  stroke="#f5f1ea" stroke-width="1.2" fill="none"/>
+            <path d="M320 415 L 320 360 M 320 385 L 308 372 M 320 385 L 332 372"
+                  stroke="#f5f1ea" stroke-width="1" fill="none"/>
+            <!-- Sun -->
+            <circle cx="320" cy="130" r="28" fill="#c4956c" opacity="0.8"/>
+          </svg>
+          <span class="photo-label" style="position:relative; z-index:1;">Munduk Atelier · 1,200m elevation</span>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <span class="eyebrow" data-fade>§ 03 — Kebun Kami</span>
+        <h2 style="font-size:clamp(2rem,4vw,3.5rem); margin: 1rem 0 1.5rem; max-width:18ch;" data-fade>
+          A small garden at <em style="color:var(--moss); font-style:italic;">1,200 metres,</em> in the clouds above Bali.
+        </h2>
+        <p class="lede mb-4" data-fade>
+          Our atelier sits on the northern ridge of Munduk &mdash; volcanic soil, cool mountain air,
+          and ninety different cultivars in raised beds tended by the Kebun Sederhana cooperative.
+        </p>
+        <p class="text-muted-leaf mb-4" data-fade>
+          The calendula petals dried in our serums were picked the same morning at 06:30,
+          carried down by motorbike to our distillation room, and pressed before noon.
+          Nothing in this house has travelled more than 40&thinsp;km from where it grew.
+        </p>
+        <div class="d-flex flex-wrap gap-3 mt-4" data-fade>
+          <a href="about.html" class="btn-terra-outline">Visit the Farm</a>
+          <a href="about.html" class="btn-link-arrow ms-2">Read the harvest journal <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-thin">
+
+<!-- Sustainability metrics -->
+<section class="section-pad bg-cream-deep" style="background: linear-gradient(180deg, transparent, rgba(232,224,208,0.6));">
+  <div class="container">
+    <div class="text-center mb-5" data-fade>
+      <span class="eyebrow eyebrow-moss">§ 04 — Impact Sederhana</span>
+      <h2 style="font-size:clamp(2rem,4vw,3.5rem); margin-top:1rem;">Quiet numbers, kept honestly since 2018.</h2>
+    </div>
+    <div class="row g-0">
+      <div class="col-md-3 col-6" data-fade>
+        <div class="metric-block">
+          <span class="metric-val"><span data-counter="100">0</span><span class="metric-unit">%</span></span>
+          <span class="metric-label">Recyclable Packaging</span>
+        </div>
+      </div>
+      <div class="col-md-3 col-6" data-fade>
+        <div class="metric-block">
+          <span class="metric-val"><span data-counter="87">0</span><span class="metric-unit">%</span></span>
+          <span class="metric-label">Locally Sourced</span>
+        </div>
+      </div>
+      <div class="col-md-3 col-6" data-fade>
+        <div class="metric-block">
+          <span class="metric-val"><span data-counter="38420">0</span></span>
+          <span class="metric-label">Trees Planted · 2018-2026</span>
+        </div>
+      </div>
+      <div class="col-md-3 col-6" data-fade>
+        <div class="metric-block">
+          <span class="metric-val"><span data-counter="18">0</span></span>
+          <span class="metric-label">Women Co-Op Members</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-thin">
+
+<!-- Ingredient spotlight carousel -->
+<section class="section-pad">
+  <div class="container">
+    <div class="row align-items-end mb-5">
+      <div class="col-lg-7">
+        <span class="eyebrow" data-fade>§ 05 — Bahan Pilihan</span>
+        <h2 style="font-size:clamp(2rem,4vw,3.5rem); margin-top:1rem;" data-fade>The botanicals at the heart of every formula.</h2>
+      </div>
+      <div class="col-lg-5 text-lg-end" data-fade>
+        <p class="text-muted-leaf mb-0" style="font-size:0.92rem;">Swipe horizontally &nbsp; <i class="bi bi-arrow-right text-moss"></i></p>
+      </div>
+    </div>
+
+    <div class="ingredient-scroll" data-fade>
+      <div class="scroll-card">
+        <span class="scroll-num">Bahan · 01</span>
+        <h4>Calendula</h4>
+        <p style="font-family:var(--serif); font-style:italic; color:var(--moss); margin:0.2rem 0 1rem;">Calendula officinalis</p>
+        <p class="text-muted-leaf" style="font-size:0.88rem;">Sun-dried orange petals from our Munduk plots. Anti-inflammatory, calms reactive skin and accelerates barrier repair.</p>
+        <div class="ingredient-badge mt-3">
+          <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="25" cy="25" r="6" fill="#c4956c"/>
+            <ellipse cx="25" cy="13" rx="3" ry="7" fill="#c4956c"/>
+            <ellipse cx="25" cy="37" rx="3" ry="7" fill="#c4956c"/>
+            <ellipse cx="13" cy="25" rx="7" ry="3" fill="#c4956c"/>
+            <ellipse cx="37" cy="25" rx="7" ry="3" fill="#c4956c"/>
+            <ellipse cx="16" cy="16" rx="3" ry="6" fill="#c4956c" transform="rotate(-45 16 16)"/>
+            <ellipse cx="34" cy="16" rx="3" ry="6" fill="#c4956c" transform="rotate(45 34 16)"/>
+            <ellipse cx="16" cy="34" rx="3" ry="6" fill="#c4956c" transform="rotate(45 16 34)"/>
+            <ellipse cx="34" cy="34" rx="3" ry="6" fill="#c4956c" transform="rotate(-45 34 34)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="scroll-card">
+        <span class="scroll-num">Bahan · 02</span>
+        <h4>Frangipani</h4>
+        <p style="font-family:var(--serif); font-style:italic; color:var(--moss); margin:0.2rem 0 1rem;">Plumeria alba</p>
+        <p class="text-muted-leaf" style="font-size:0.88rem;">White temple flowers from Ubud&rsquo;s ceremonial trees, cold-enfleuraged into a creamy floral oil with a hint of vanilla.</p>
+        <div class="ingredient-badge mt-3">
+          <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="25" cy="25" r="4" fill="#c4956c"/>
+            <ellipse cx="25" cy="14" rx="5" ry="9" fill="#f5f1ea" stroke="#87794e" stroke-width="0.6"/>
+            <ellipse cx="35" cy="22" rx="5" ry="9" fill="#f5f1ea" stroke="#87794e" stroke-width="0.6" transform="rotate(60 35 22)"/>
+            <ellipse cx="33" cy="33" rx="5" ry="9" fill="#f5f1ea" stroke="#87794e" stroke-width="0.6" transform="rotate(120 33 33)"/>
+            <ellipse cx="17" cy="33" rx="5" ry="9" fill="#f5f1ea" stroke="#87794e" stroke-width="0.6" transform="rotate(-120 17 33)"/>
+            <ellipse cx="15" cy="22" rx="5" ry="9" fill="#f5f1ea" stroke="#87794e" stroke-width="0.6" transform="rotate(-60 15 22)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="scroll-card">
+        <span class="scroll-num">Bahan · 03</span>
+        <h4>Vetiver Root</h4>
+        <p style="font-family:var(--serif); font-style:italic; color:var(--moss); margin:0.2rem 0 1rem;">Chrysopogon zizanioides</p>
+        <p class="text-muted-leaf" style="font-size:0.88rem;">Earthy roots from a Garut farm, distilled for 36 hours to capture the smoky depth that anchors our perfume base.</p>
+        <div class="ingredient-badge mt-3">
+          <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <path d="M25 8 L 25 35 M 18 18 L 25 23 M 32 18 L 25 23 M 16 28 L 25 32 M 34 28 L 25 32" stroke="#87794e" stroke-width="1.4" fill="none"/>
+            <path d="M25 35 C 20 38, 18 42, 16 46 M 25 35 C 28 38, 30 42, 32 46 M 25 35 L 25 46 M 25 35 C 22 38, 21 42, 21 46 M 25 35 C 28 38, 29 42, 29 46"
+                  stroke="#87794e" stroke-width="1" fill="none"/>
+          </svg>
+        </div>
+      </div>
+      <div class="scroll-card">
+        <span class="scroll-num">Bahan · 04</span>
+        <h4>Sandalwood</h4>
+        <p style="font-family:var(--serif); font-style:italic; color:var(--moss); margin:0.2rem 0 1rem;">Santalum album</p>
+        <p class="text-muted-leaf" style="font-size:0.88rem;">From the protected Sumba grove. We use only fallen heartwood &mdash; never felled trees &mdash; certified by Yayasan Cendana.</p>
+        <div class="ingredient-badge mt-3">
+          <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="25" cy="25" rx="14" ry="10" fill="#87794e" stroke="#2d3b2c" stroke-width="0.6"/>
+            <ellipse cx="25" cy="25" rx="10" ry="7" fill="none" stroke="#2d3b2c" stroke-width="0.4"/>
+            <ellipse cx="25" cy="25" rx="6" ry="4" fill="none" stroke="#2d3b2c" stroke-width="0.4"/>
+            <circle cx="25" cy="25" r="2" fill="#2d3b2c"/>
+          </svg>
+        </div>
+      </div>
+      <div class="scroll-card">
+        <span class="scroll-num">Bahan · 05</span>
+        <h4>Volcanic Clay</h4>
+        <p style="font-family:var(--serif); font-style:italic; color:var(--moss); margin:0.2rem 0 1rem;">Bentonite · Mt. Batur</p>
+        <p class="text-muted-leaf" style="font-size:0.88rem;">Mineral-rich grey clay collected at the foot of Mt. Batur. Draws out impurities without stripping the acid mantle.</p>
+        <div class="ingredient-badge mt-3">
+          <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 35 L 18 22 L 25 28 L 32 18 L 40 35 Z" fill="#87794e" stroke="#2d3b2c" stroke-width="0.6"/>
+            <circle cx="20" cy="28" r="1" fill="#2d3b2c"/>
+            <circle cx="30" cy="26" r="1" fill="#2d3b2c"/>
+            <circle cx="25" cy="32" r="1" fill="#2d3b2c"/>
+          </svg>
+        </div>
+      </div>
+      <div class="scroll-card">
+        <span class="scroll-num">Bahan · 06</span>
+        <h4>Rosehip</h4>
+        <p style="font-family:var(--serif); font-style:italic; color:var(--moss); margin:0.2rem 0 1rem;">Rosa canina</p>
+        <p class="text-muted-leaf" style="font-size:0.88rem;">Cold-pressed seed oil from organic rosehips. Rich in trans-retinoic acid &mdash; nature&rsquo;s answer to retinol.</p>
+        <div class="ingredient-badge mt-3">
+          <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="25" cy="28" rx="11" ry="14" fill="#c4956c" stroke="#2d3b2c" stroke-width="0.6"/>
+            <ellipse cx="20" cy="20" rx="4" ry="6" fill="#6b7a4f" transform="rotate(-30 20 20)"/>
+            <ellipse cx="30" cy="20" rx="4" ry="6" fill="#6b7a4f" transform="rotate(30 30 20)"/>
+            <circle cx="22" cy="26" r="1" fill="#2d3b2c"/>
+            <circle cx="28" cy="30" r="1" fill="#2d3b2c"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-thin">
+
+<!-- Journal teasers -->
+<section class="section-pad">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-7">
+        <span class="eyebrow" data-fade>§ 06 — Catatan Lapangan</span>
+        <h2 style="font-size:clamp(2rem,4vw,3.5rem); margin-top:1rem;" data-fade>Field notes from the apothecary.</h2>
+      </div>
+    </div>
+    <div class="row g-5">
+      <div class="col-md-6" data-fade>
+        <a href="#" class="no-deco">
+          <article class="journal-card">
+            <div class="j-meta">
+              <span>Ritual</span><span>·</span><span>12 min read</span><span>·</span><span>18 Feb 2026</span>
+            </div>
+            <h3>The slow morning ritual we&rsquo;ve practiced for eight years</h3>
+            <p class="text-muted-leaf">Three botanicals, four minutes, and a small ceremony of attention &mdash; how we begin every day in Munduk before sunrise.</p>
+            <span class="btn-link-arrow mt-3">Read journal <i class="bi bi-arrow-right"></i></span>
+          </article>
+        </a>
+      </div>
+      <div class="col-md-6" data-fade>
+        <a href="#" class="no-deco">
+          <article class="journal-card">
+            <div class="j-meta">
+              <span>Harvest</span><span>·</span><span>8 min read</span><span>·</span><span>04 Feb 2026</span>
+            </div>
+            <h3>Why we waited 21 days for this batch of calendula</h3>
+            <p class="text-muted-leaf">A short essay on the patience of cold infusion &mdash; and what happens when you let the petals tell you when they&rsquo;re ready.</p>
+            <span class="btn-link-arrow mt-3">Read journal <i class="bi bi-arrow-right"></i></span>
+          </article>
+        </a>
+      </div>
+      <div class="col-md-6" data-fade>
+        <a href="#" class="no-deco">
+          <article class="journal-card">
+            <div class="j-meta">
+              <span>Botani</span><span>·</span><span>6 min read</span><span>·</span><span>22 Jan 2026</span>
+            </div>
+            <h3>Ibu Made and the eighteen women who grow our garden</h3>
+            <p class="text-muted-leaf">A profile of the Kebun Sederhana cooperative &mdash; the cooperative that owns our farm and shares in every bottle sold.</p>
+            <span class="btn-link-arrow mt-3">Read journal <i class="bi bi-arrow-right"></i></span>
+          </article>
+        </a>
+      </div>
+      <div class="col-md-6" data-fade>
+        <a href="#" class="no-deco">
+          <article class="journal-card">
+            <div class="j-meta">
+              <span>Formulasi</span><span>·</span><span>9 min read</span><span>·</span><span>11 Jan 2026</span>
+            </div>
+            <h3>Frankincense, three sources, and the eye serum that took two years</h3>
+            <p class="text-muted-leaf">Tracing Boswellia sacra from Oman to Sumbawa, and why provenance matters even more than concentration.</p>
+            <span class="btn-link-arrow mt-3">Read journal <i class="bi bi-arrow-right"></i></span>
+          </article>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-thin">
+
+<!-- Newsletter -->
+<section class="section-pad-lg">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-7">
+        <span class="eyebrow" data-fade>§ 07 — Surat dari Munduk</span>
+        <h2 style="font-size:clamp(2rem,4vw,3.5rem); margin: 1.5rem 0;" data-fade>
+          A quiet letter, sent once a month &mdash; <em style="font-style:italic; color:var(--moss);">never more.</em>
+        </h2>
+        <p class="lede mx-auto mb-5" data-fade>
+          Seasonal harvest reports, new formulas as they leave the steeping room,
+          and small writings on slow ritual. No marketing, no rush.
+        </p>
+        <form class="newsletter-form mx-auto" style="max-width: 480px;" data-fade onsubmit="event.preventDefault(); this.querySelector('button').textContent='Terima kasih ·'">
+          <input type="email" placeholder="alamat surel" required>
+          <button type="submit">Berlangganan <i class="bi bi-arrow-right"></i></button>
+        </form>
+        <small class="d-block mt-3 text-muted-leaf" data-fade>Privasi dijaga. Berhenti kapan saja.</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="tb-footer">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <div class="footer-brand">
+          Terra<br>
+          <span style="color:var(--terracotta); font-style:italic;">Botanica</span>
+          <small>Apotek Botani · Bali</small>
+        </div>
+        <p class="mt-4" style="color: rgba(245,241,234,0.7); font-size:0.92rem; max-width: 32ch;">
+          Diramu dengan tangan sejak 2018. A small botanical apothecary in the highlands of Munduk,
+          tended by eighteen women of the Kebun Sederhana cooperative.
+        </p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Apotek</h5>
+        <a href="shop.html" class="d-block">All Remedies</a>
+        <a href="shop.html" class="d-block">Cleanse</a>
+        <a href="shop.html" class="d-block">Treat</a>
+        <a href="shop.html" class="d-block">Nourish</a>
+        <a href="shop.html" class="d-block">Atmosphere</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Cara Pesan</h5>
+        <a href="contact.html" class="d-block">Shipping &amp; Returns</a>
+        <a href="contact.html" class="d-block">FAQ</a>
+        <a href="contact.html" class="d-block">Wholesale</a>
+        <a href="about.html" class="d-block">Our Boutiques</a>
+        <a href="about.html" class="d-block">The Farm</a>
+      </div>
+      <div class="col-lg-4">
+        <h5>Surat Bulanan</h5>
+        <p style="color: rgba(245,241,234,0.7); font-size:0.92rem;">Catatan dari kebun, sebulan sekali.</p>
+        <form class="newsletter-form" style="border-bottom-color:var(--terracotta);" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Tersimpan ·'">
+          <input type="email" placeholder="alamat surel" style="color:var(--cream);">
+          <button type="submit" style="color:var(--terracotta);">Kirim <i class="bi bi-arrow-right"></i></button>
+        </form>
+        <div class="d-flex gap-3 mt-4">
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-pinterest"></i></a>
+          <a href="#"><i class="bi bi-substack"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom d-flex flex-wrap justify-content-between gap-3">
+      <span>&copy; 2026 PT Terra Botanica Nusantara · Made slowly in Munduk, Bali.</span>
+      <span>Privacy · Terms · Cookies · IDR · ID</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart Drawer -->
+<div class="cart-drawer-overlay" id="cart-overlay"></div>
+<aside class="cart-drawer" id="cart-drawer">
+  <div class="head">
+    <h4>Keranjang &mdash; 3 item</h4>
+    <button class="close-btn" id="cart-close">&times;</button>
+  </div>
+  <div class="body">
+    <div class="drawer-item">
+      <div class="thumb">
+        <svg viewBox="0 0 100 130"><rect x="32" y="25" width="36" height="85" fill="#c4956c" stroke="#2d3b2c" stroke-width="0.6"/><rect x="32" y="55" width="36" height="22" fill="#f5f1ea"/><rect x="40" y="15" width="20" height="14" fill="#2d3b2c"/></svg>
+      </div>
+      <div>
+        <div class="product-cat mb-1">No.02 · Treat</div>
+        <div style="font-family:var(--serif); color:var(--forest); font-size:1rem; line-height:1.2;">Rosehip Glow Serum</div>
+        <div class="d-flex justify-content-between mt-2">
+          <small class="text-muted-leaf">Qty 1 · 30 ml</small>
+          <small style="font-family:var(--serif); color:var(--forest);">Rp 485.000</small>
+        </div>
+      </div>
+    </div>
+    <div class="drawer-item">
+      <div class="thumb">
+        <svg viewBox="0 0 100 130"><circle cx="50" cy="70" r="34" fill="#2d3b2c"/><rect x="32" y="75" width="36" height="14" fill="#f5f1ea"/></svg>
+      </div>
+      <div>
+        <div class="product-cat mb-1">No.06 · Treat</div>
+        <div style="font-family:var(--serif); color:var(--forest); font-size:1rem; line-height:1.2;">Volcanic Clay Mask</div>
+        <div class="d-flex justify-content-between mt-2">
+          <small class="text-muted-leaf">Qty 1 · 60 g</small>
+          <small style="font-family:var(--serif); color:var(--forest);">Rp 395.000</small>
+        </div>
+      </div>
+    </div>
+    <div class="drawer-item">
+      <div class="thumb">
+        <svg viewBox="0 0 100 130"><rect x="28" y="20" width="44" height="90" fill="#6b7a4f"/><rect x="28" y="55" width="44" height="22" fill="#f5f1ea"/></svg>
+      </div>
+      <div>
+        <div class="product-cat mb-1">No.08 · Body</div>
+        <div style="font-family:var(--serif); color:var(--forest); font-size:1rem; line-height:1.2;">Eucalyptus Body Oil</div>
+        <div class="d-flex justify-content-between mt-2">
+          <small class="text-muted-leaf">Qty 1 · 100 ml</small>
+          <small style="font-family:var(--serif); color:var(--forest);">Rp 425.000</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="d-flex justify-content-between mb-3">
+      <span style="font-family:var(--serif); color:var(--forest); font-size:1.1rem;">Subtotal</span>
+      <span style="font-family:var(--serif); color:var(--forest); font-size:1.1rem;">Rp 1.305.000</span>
+    </div>
+    <a href="cart.html" class="btn-terra w-100 text-center">Checkout</a>
+    <a href="shop.html" class="d-block text-center mt-3" style="color:var(--moss); font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase;">Continue Browsing</a>
+  </div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

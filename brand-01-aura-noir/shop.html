@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shop · AURA NOIR — Koleksi Eksklusif</title>
+<meta name="description" content="Browse the AURA NOIR atelier — serums, lipsticks, eye cremes, and parfums pressed in small editions." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="announce-bar">
+  Free shipping for orders above Rp 500.000 <span class="dot"></span> Complimentary samples with every order <span class="dot"></span> Atelier Jakarta · Bali · Singapore
+</div>
+
+<nav class="navbar-aura">
+  <div class="container-xl d-flex align-items-center justify-content-between">
+    <a href="index.html" class="brand-mark"><span class="glyph">A</span> AURA&nbsp;NOIR</a>
+    <div class="nav-links">
+      <a href="shop.html" class="active">Shop</a>
+      <a href="index.html#rituals">Rituals</a>
+      <a href="index.html#journal">Journal</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="icon-btn"><i class="bi bi-search"></i></a>
+      <a href="#" class="icon-btn"><i class="bi bi-person"></i></a>
+      <a href="#" class="icon-btn" data-open-cart>
+        <i class="bi bi-bag"></i>
+        <span class="badge-count">2</span>
+      </a>
+      <button class="mobile-nav-toggle"><i class="bi bi-list"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="shop.html">Shop</a>
+  <a href="index.html#rituals">Rituals</a>
+  <a href="index.html#journal">Journal</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="cart.html">Cart</a>
+</div>
+
+<!-- SHOP HERO -->
+<section class="shop-hero">
+  <div class="container-xl">
+    <div class="eyebrow eyebrow-line mb-3 d-inline-flex">Atelier · Koleksi Lengkap</div>
+    <h1 class="display-1">The <span class="italic-accent">complete</span> atelier.</h1>
+    <p class="mt-4 mx-auto text-muted-soft" style="max-width: 560px;">Twelve editions, pressed slowly. Each formula has rested for at least forty-two days before reaching its bottle.</p>
+    <div class="breadcrumb-aura mt-4">
+      <a href="index.html">Maison</a> <span>/</span> <span>Shop</span>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container-xl">
+    <div class="shop-toolbar">
+      <div class="result-count">Showing <strong>12</strong> of <strong>12</strong> editions</div>
+      <div class="d-flex align-items-center gap-3 flex-wrap">
+        <span class="result-count">Sort by</span>
+        <select class="sort-select">
+          <option>Featured</option>
+          <option>Newest editions</option>
+          <option>Price · Low to high</option>
+          <option>Price · High to low</option>
+          <option>Most reviewed</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row g-5">
+      <!-- SIDEBAR -->
+      <aside class="col-lg-3">
+        <div class="filter-sidebar">
+          <div class="filter-group">
+            <h6>Category <i class="bi bi-dash text-muted-soft"></i></h6>
+            <label class="check-row"><input type="checkbox" checked><span class="box"></span> Skincare <span class="count">04</span></label>
+            <label class="check-row"><input type="checkbox" checked><span class="box"></span> Lips <span class="count">03</span></label>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Eyes <span class="count">02</span></label>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Fragrance <span class="count">02</span></label>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Body <span class="count">01</span></label>
+          </div>
+
+          <div class="filter-group">
+            <h6>Price · IDR <i class="bi bi-dash text-muted-soft"></i></h6>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Under Rp 500K <span class="count">02</span></label>
+            <label class="check-row"><input type="checkbox" checked><span class="box"></span> Rp 500K &mdash; 1M <span class="count">04</span></label>
+            <label class="check-row"><input type="checkbox" checked><span class="box"></span> Rp 1M &mdash; 1.5M <span class="count">04</span></label>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Above Rp 1.5M <span class="count">02</span></label>
+
+            <div class="price-range">
+              <input type="number" class="price-input" placeholder="Rp 280K">
+              <input type="number" class="price-input" placeholder="Rp 2,4M">
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h6>Skin type <i class="bi bi-dash text-muted-soft"></i></h6>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Dry / dehydrated</label>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Combination</label>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Oily / blemish-prone</label>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Sensitive</label>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Mature</label>
+          </div>
+
+          <div class="filter-group">
+            <h6>Concern <i class="bi bi-dash text-muted-soft"></i></h6>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Glow &amp; luminosity</label>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Firmness</label>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Hydration</label>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Texture refine</label>
+          </div>
+
+          <div class="filter-group" style="border-bottom: none;">
+            <h6>Edition <i class="bi bi-dash text-muted-soft"></i></h6>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Limited / Nouveau</label>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Refillable architecture</label>
+            <label class="check-row"><input type="checkbox"><span class="box"></span> Travel format</label>
+          </div>
+
+          <button class="btn-aura btn-ghost w-100 mt-4" style="padding: 14px 20px; justify-content: center;">Reset filters</button>
+        </div>
+      </aside>
+
+      <!-- GRID -->
+      <div class="col-lg-9">
+        <div class="row g-4">
+          <!-- 12 products -->
+
+          <!-- 1 -->
+          <div class="col-md-6 col-xl-4">
+            <div class="product-card">
+              <div class="position-relative">
+                <span class="product-tag">Nouveau</span>
+                <div class="product-img-placeholder">
+                  <svg viewBox="0 0 100 140"><rect x="32" y="32" width="36" height="80" rx="2" fill="none" stroke="#d4af7a" stroke-width="0.5"/><rect x="42" y="18" width="16" height="14" fill="none" stroke="#d4af7a" stroke-width="0.5"/><text x="50" y="74" font-size="4" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond">NOIR</text></svg>
+                </div>
+                <div class="product-overlay">
+                  <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+                  <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+                </div>
+              </div>
+              <div class="product-body">
+                <div class="product-cat">Skincare · Serum</div>
+                <h5 class="product-title"><a href="product.html" class="text-cream">Noir Élixir Serum</a></h5>
+                <div class="product-price"><span class="price">Rp 1.450.000</span><span class="rating">★★★★★ 142</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2 -->
+          <div class="col-md-6 col-xl-4">
+            <div class="product-card">
+              <div class="position-relative">
+                <span class="product-tag dark">Edition</span>
+                <div class="product-img-placeholder">
+                  <svg viewBox="0 0 100 140"><ellipse cx="50" cy="60" rx="14" ry="34" fill="none" stroke="#d4af7a" stroke-width="0.5"/><rect x="46" y="22" width="8" height="12" fill="none" stroke="#d4af7a" stroke-width="0.5"/><text x="50" y="64" font-size="4" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic">rouge</text></svg>
+                </div>
+                <div class="product-overlay">
+                  <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+                  <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+                </div>
+              </div>
+              <div class="product-body">
+                <div class="product-cat">Lips · Velvet matte</div>
+                <h5 class="product-title"><a href="product.html" class="text-cream">Velvet Rouge N°12</a></h5>
+                <div class="product-price"><span class="price">Rp 580.000</span><span class="rating">★★★★★ 88</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3 -->
+          <div class="col-md-6 col-xl-4">
+            <div class="product-card">
+              <div class="position-relative">
+                <div class="product-img-placeholder">
+                  <svg viewBox="0 0 100 140"><rect x="28" y="44" width="44" height="64" rx="2" fill="none" stroke="#d4af7a" stroke-width="0.5"/><circle cx="50" cy="30" r="10" fill="none" stroke="#d4af7a" stroke-width="0.5"/><text x="50" y="80" font-size="4" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond">eye crème</text></svg>
+                </div>
+                <div class="product-overlay">
+                  <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+                  <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+                </div>
+              </div>
+              <div class="product-body">
+                <div class="product-cat">Eyes · Treatment</div>
+                <h5 class="product-title"><a href="product.html" class="text-cream">Gold Leaf Eye Crème</a></h5>
+                <div class="product-price"><span class="price">Rp 980.000</span><span class="rating">★★★★☆ 64</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 -->
+          <div class="col-md-6 col-xl-4">
+            <div class="product-card">
+              <div class="position-relative">
+                <span class="product-tag">Bestseller</span>
+                <div class="product-img-placeholder">
+                  <svg viewBox="0 0 100 140"><path d="M30 30 Q50 18 70 30 L70 110 Q50 120 30 110 Z" fill="none" stroke="#d4af7a" stroke-width="0.5"/><rect x="44" y="14" width="12" height="14" fill="none" stroke="#d4af7a" stroke-width="0.5"/><text x="50" y="74" font-size="3.5" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic">parfum N°07</text></svg>
+                </div>
+                <div class="product-overlay">
+                  <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+                  <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+                </div>
+              </div>
+              <div class="product-body">
+                <div class="product-cat">Fragrance · Eau de Parfum</div>
+                <h5 class="product-title"><a href="product.html" class="text-cream">Atelier Parfum No.7</a></h5>
+                <div class="product-price"><span class="price">Rp 2.400.000</span><span class="rating">★★★★★ 211</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5 -->
+          <div class="col-md-6 col-xl-4">
+            <div class="product-card">
+              <div class="position-relative">
+                <div class="product-img-placeholder">
+                  <svg viewBox="0 0 100 140"><path d="M28 26 L72 26 L70 116 Q50 124 30 116 Z" fill="none" stroke="#d4af7a" stroke-width="0.5"/><rect x="40" y="14" width="20" height="14" fill="none" stroke="#d4af7a" stroke-width="0.5"/><text x="50" y="72" font-size="3.5" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic">cleansing oil</text></svg>
+                </div>
+                <div class="product-overlay">
+                  <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+                  <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+                </div>
+              </div>
+              <div class="product-body">
+                <div class="product-cat">Skincare · Cleanse</div>
+                <h5 class="product-title"><a href="product.html" class="text-cream">Midnight Cleansing Oil</a></h5>
+                <div class="product-price"><span class="price">Rp 720.000</span><span class="rating">★★★★★ 96</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6 -->
+          <div class="col-md-6 col-xl-4">
+            <div class="product-card">
+              <div class="position-relative">
+                <span class="product-tag">Limited</span>
+                <div class="product-img-placeholder">
+                  <svg viewBox="0 0 100 140"><circle cx="50" cy="60" r="34" fill="none" stroke="#d4af7a" stroke-width="0.5"/><circle cx="50" cy="60" r="26" fill="none" stroke="#d4af7a" stroke-width="0.3"/><text x="50" y="62" font-size="4" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic">aura glow</text></svg>
+                </div>
+                <div class="product-overlay">
+                  <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+                  <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+                </div>
+              </div>
+              <div class="product-body">
+                <div class="product-cat">Skincare · Mask</div>
+                <h5 class="product-title"><a href="product.html" class="text-cream">Aura Glow Mask</a></h5>
+                <div class="product-price"><span class="price">Rp 890.000</span><span class="rating">★★★★★ 132</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7 -->
+          <div class="col-md-6 col-xl-4">
+            <div class="product-card">
+              <div class="position-relative">
+                <div class="product-img-placeholder">
+                  <svg viewBox="0 0 100 140"><rect x="34" y="40" width="32" height="74" rx="16" fill="none" stroke="#d4af7a" stroke-width="0.5"/><rect x="42" y="22" width="16" height="18" fill="none" stroke="#d4af7a" stroke-width="0.5"/><text x="50" y="80" font-size="3.5" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic">toning mist</text></svg>
+                </div>
+                <div class="product-overlay">
+                  <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+                  <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+                </div>
+              </div>
+              <div class="product-body">
+                <div class="product-cat">Skincare · Tone</div>
+                <h5 class="product-title"><a href="product.html" class="text-cream">Onyx Toning Mist</a></h5>
+                <div class="product-price"><span class="price">Rp 480.000</span><span class="rating">★★★★☆ 58</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8 -->
+          <div class="col-md-6 col-xl-4">
+            <div class="product-card">
+              <div class="position-relative">
+                <div class="product-img-placeholder">
+                  <svg viewBox="0 0 100 140"><ellipse cx="50" cy="60" rx="12" ry="36" fill="none" stroke="#d4af7a" stroke-width="0.5"/><rect x="47" y="20" width="6" height="10" fill="none" stroke="#d4af7a" stroke-width="0.5"/><text x="50" y="66" font-size="3.5" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic">satin lip</text></svg>
+                </div>
+                <div class="product-overlay">
+                  <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+                  <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+                </div>
+              </div>
+              <div class="product-body">
+                <div class="product-cat">Lips · Satin balm</div>
+                <h5 class="product-title"><a href="product.html" class="text-cream">Satin Lip Balm N°04</a></h5>
+                <div class="product-price"><span class="price">Rp 380.000</span><span class="rating">★★★★★ 71</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9 -->
+          <div class="col-md-6 col-xl-4">
+            <div class="product-card">
+              <div class="position-relative">
+                <span class="product-tag dark">New</span>
+                <div class="product-img-placeholder">
+                  <svg viewBox="0 0 100 140"><rect x="30" y="36" width="40" height="80" rx="3" fill="none" stroke="#d4af7a" stroke-width="0.5"/><rect x="44" y="18" width="12" height="14" fill="none" stroke="#d4af7a" stroke-width="0.5"/><text x="50" y="74" font-size="3.5" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic">body élixir</text></svg>
+                </div>
+                <div class="product-overlay">
+                  <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+                  <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+                </div>
+              </div>
+              <div class="product-body">
+                <div class="product-cat">Body · Oil</div>
+                <h5 class="product-title"><a href="product.html" class="text-cream">Body Élixir Noir</a></h5>
+                <div class="product-price"><span class="price">Rp 1.180.000</span><span class="rating">★★★★★ 47</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 10 -->
+          <div class="col-md-6 col-xl-4">
+            <div class="product-card">
+              <div class="position-relative">
+                <div class="product-img-placeholder">
+                  <svg viewBox="0 0 100 140"><ellipse cx="50" cy="64" rx="18" ry="30" fill="none" stroke="#d4af7a" stroke-width="0.5"/><rect x="44" y="20" width="12" height="16" fill="none" stroke="#d4af7a" stroke-width="0.5"/><text x="50" y="68" font-size="3.5" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic">N°03</text></svg>
+                </div>
+                <div class="product-overlay">
+                  <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+                  <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+                </div>
+              </div>
+              <div class="product-body">
+                <div class="product-cat">Fragrance · Eau de Toilette</div>
+                <h5 class="product-title"><a href="product.html" class="text-cream">Atelier No.3 Bakhoor</a></h5>
+                <div class="product-price"><span class="price">Rp 1.850.000</span><span class="rating">★★★★★ 94</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 11 -->
+          <div class="col-md-6 col-xl-4">
+            <div class="product-card">
+              <div class="position-relative">
+                <div class="product-img-placeholder">
+                  <svg viewBox="0 0 100 140"><ellipse cx="50" cy="62" rx="14" ry="32" fill="none" stroke="#d4af7a" stroke-width="0.5"/><rect x="46" y="22" width="8" height="12" fill="none" stroke="#d4af7a" stroke-width="0.5"/><text x="50" y="64" font-size="4" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic">rouge</text><text x="50" y="70" font-size="2.6" fill="#d4af7a" text-anchor="middle" font-family="Inter" letter-spacing="0.5">N°06</text></svg>
+                </div>
+                <div class="product-overlay">
+                  <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+                  <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+                </div>
+              </div>
+              <div class="product-body">
+                <div class="product-cat">Lips · Liquid lacquer</div>
+                <h5 class="product-title"><a href="product.html" class="text-cream">Liquid Rouge N°06</a></h5>
+                <div class="product-price"><span class="price">Rp 620.000</span><span class="rating">★★★★★ 53</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 12 -->
+          <div class="col-md-6 col-xl-4">
+            <div class="product-card">
+              <div class="position-relative">
+                <span class="product-tag">Edition</span>
+                <div class="product-img-placeholder">
+                  <svg viewBox="0 0 100 140"><rect x="26" y="44" width="48" height="60" rx="2" fill="none" stroke="#d4af7a" stroke-width="0.5"/><circle cx="50" cy="28" r="8" fill="none" stroke="#d4af7a" stroke-width="0.5"/><text x="50" y="78" font-size="3.5" fill="#d4af7a" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic">brow oil</text></svg>
+                </div>
+                <div class="product-overlay">
+                  <button class="btn-sm" data-add-to-bag>Tambahkan ke Tas</button>
+                  <button class="btn-ghost-sm"><i class="bi bi-heart"></i></button>
+                </div>
+              </div>
+              <div class="product-body">
+                <div class="product-cat">Eyes · Brow oil</div>
+                <h5 class="product-title"><a href="product.html" class="text-cream">Sombre Brow Oil</a></h5>
+                <div class="product-price"><span class="price">Rp 280.000</span><span class="rating">★★★★☆ 39</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="text-center mt-5 pt-5">
+          <div class="eyebrow text-muted-soft mb-3">Page 01 / 01</div>
+          <p class="text-muted-soft" style="font-family: var(--serif); font-style: italic; font-size: 20px;">You have reached the end of the atelier. <a href="#" class="text-gold">Sign up for waitlist editions</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (shared) -->
+<footer class="site-footer">
+  <div class="container-xl">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <a href="index.html" class="brand-mark"><span class="glyph">A</span> AURA&nbsp;NOIR</a>
+        <p class="mt-4 text-muted-soft" style="font-size: 14px; max-width: 360px;">A Jakarta-born atelier of nocturnal beauty. Serums, lipsticks, and parfums pressed slowly, by hand, in editions that do not return.</p>
+        <div class="footer-social mt-4">
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-tiktok"></i></a>
+          <a href="#"><i class="bi bi-pinterest"></i></a>
+          <a href="#"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Atelier</h6>
+        <ul class="footer-links">
+          <li><a href="shop.html">All Products</a></li>
+          <li><a href="shop.html">Skincare</a></li>
+          <li><a href="shop.html">Lips</a></li>
+          <li><a href="shop.html">Fragrance</a></li>
+          <li><a href="shop.html">Limited Editions</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Maison</h6>
+        <ul class="footer-links">
+          <li><a href="about.html">Our story</a></li>
+          <li><a href="about.html">Sustainability</a></li>
+          <li><a href="contact.html">Atelier locations</a></li>
+          <li><a href="contact.html">Press</a></li>
+          <li><a href="contact.html">Careers</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6>Letters from the midnight desk</h6>
+        <p class="text-muted-soft" style="font-size:13px;">Receive private editions, slow rituals, and quiet field notes.</p>
+        <form class="mt-3">
+          <input type="email" class="newsletter-input" placeholder="vous@maison-noir.id" />
+          <button type="submit" class="btn-aura btn-ghost mt-4" style="padding: 14px 28px; font-size: 10px;">Subscribe <i class="bi bi-arrow-right"></i></button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 AURA NOIR · Maison de Beauté · Atelier Jakarta</div>
+      <div class="d-flex gap-4">
+        <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a><a href="#">Imprint</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<aside class="cart-drawer" id="cart-drawer">
+  <div class="drawer-head"><h5>Votre Sac (2)</h5><button class="drawer-close" data-close-cart><i class="bi bi-x-lg"></i></button></div>
+  <div class="drawer-items">
+    <div class="drawer-item">
+      <div class="drawer-thumb"><svg viewBox="0 0 100 140"><rect x="32" y="32" width="36" height="80" rx="2" fill="none" stroke="#d4af7a" stroke-width="0.6"/><rect x="42" y="18" width="16" height="14" fill="none" stroke="#d4af7a" stroke-width="0.6"/></svg></div>
+      <div class="drawer-item-info"><h6>Noir Élixir Serum</h6><div class="meta">30 ml · Skincare</div><div class="qty-line"><small class="text-muted-soft">Qty 1</small><span class="price">Rp 1.450.000</span></div></div>
+    </div>
+    <div class="drawer-item">
+      <div class="drawer-thumb"><svg viewBox="0 0 100 140"><ellipse cx="50" cy="60" rx="14" ry="34" fill="none" stroke="#d4af7a" stroke-width="0.6"/><rect x="46" y="22" width="8" height="12" fill="none" stroke="#d4af7a" stroke-width="0.6"/></svg></div>
+      <div class="drawer-item-info"><h6>Velvet Rouge N°12</h6><div class="meta">3.8 g · Lips</div><div class="qty-line"><small class="text-muted-soft">Qty 1</small><span class="price">Rp 580.000</span></div></div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <div class="subtotal"><span class="lbl">Subtotal</span><span class="val">Rp 2.030.000</span></div>
+    <a href="cart.html" class="btn-aura btn-solid">Proceed to Checkout <i class="bi bi-arrow-right"></i></a>
+    <div class="small-note">Free shipping unlocked</div>
+  </div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

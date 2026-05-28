@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact · PRISM Beauty</title>
+<meta name="description" content="Talk to the PRISM team. Press kits, partnerships, support, and the FAQ.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='url(%23g)'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23d8b4ff'/%3E%3Cstop offset='1' stop-color='%2394c2ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="bg-noise"></div>
+<div class="cursor-ring"></div>
+<div class="cursor-dot"></div>
+
+<div class="announce">
+  <div class="announce-track">
+    <span>VOL.04 DROPS FRIDAY</span><span>FREE SHIPPING OVER RP 500K</span><span>NEW PRISM CHROME LINE</span><span>BUY 2 GET 1 — HOLO BUNDLE</span>
+    <span>VOL.04 DROPS FRIDAY</span><span>FREE SHIPPING OVER RP 500K</span><span>NEW PRISM CHROME LINE</span><span>BUY 2 GET 1 — HOLO BUNDLE</span>
+  </div>
+</div>
+
+<nav class="navbar-prism">
+  <div class="container-fluid">
+    <div class="nav-row">
+      <a href="index.html" class="brand-logo"><span class="brand-dot"></span><span>PRISM</span></a>
+      <div class="nav-links">
+        <a href="shop.html" class="glitch">Shop</a>
+        <a href="index.html#drops" class="glitch">Drops</a>
+        <a href="about.html#lookbook" class="glitch">Lookbook</a>
+        <a href="about.html" class="glitch">About</a>
+        <a href="contact.html" class="glitch active">Contact</a>
+      </div>
+      <div class="nav-tools">
+        <button class="menu-toggle"><i class="bi bi-list"></i> Menu</button>
+        <a href="cart.html" class="cart-btn"><i class="bi bi-bag"></i><span class="cart-badge">3</span></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Contact -->
+<section class="contact-page">
+  <div>
+    <div class="eyebrow mb-16">SAY HI · 001</div>
+    <h1>Talk to the <span class="iri-fill">spectrum.</span></h1>
+    <p class="text-dim mb-32">Pertanyaan, kolab, press, atau cuma mau cerita shade favoritmu — kirim sini. Tim kami balas dalam 24 jam (jam kerja, Jakarta time).</p>
+
+    <form class="contact-form" onsubmit="event.preventDefault(); alert('Pesan terkirim! Tim kami akan balas dalam 24 jam.');">
+      <div class="form-field">
+        <label>Nama</label>
+        <input type="text" placeholder="Marshella" required>
+      </div>
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" placeholder="you@spectrum.id" required>
+      </div>
+      <div class="form-field">
+        <label>Topik</label>
+        <select>
+          <option>Pertanyaan Order</option>
+          <option>Press / Media</option>
+          <option>Partnership / Kolab</option>
+          <option>Wholesale</option>
+          <option>Support / Return</option>
+          <option>Lainnya</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Pesan</label>
+        <textarea placeholder="Cerita di sini..." required></textarea>
+      </div>
+      <button type="submit" class="btn-prism iri">Send Message <i class="bi bi-send"></i></button>
+    </form>
+  </div>
+
+  <div class="contact-side">
+    <div>
+      <div class="eyebrow mb-16">REAL-TIME · 002</div>
+      <h2 style="font-size:clamp(1.8rem,3.5vw,2.4rem); font-weight:500; letter-spacing:-0.03em; margin-bottom:24px;">Or chat live.</h2>
+
+      <div class="chat-card mb-16">
+        <div class="chat-icon"><i class="bi bi-whatsapp"></i></div>
+        <div>
+          <h4>WhatsApp Support</h4>
+          <p>Mon-Fri · 9AM-6PM WIB</p>
+        </div>
+        <a href="#" class="btn-prism ghost" style="padding:8px 14px; font-size:11px;">Open</a>
+      </div>
+
+      <div class="chat-card mb-16">
+        <div class="chat-icon"><i class="bi bi-instagram"></i></div>
+        <div>
+          <h4>@prism.beauty</h4>
+          <p>DM kami untuk shade match</p>
+        </div>
+        <a href="#" class="btn-prism ghost" style="padding:8px 14px; font-size:11px;">DM</a>
+      </div>
+
+      <div class="chat-card mb-16">
+        <div class="chat-icon"><i class="bi bi-envelope"></i></div>
+        <div>
+          <h4>hello@prism.id</h4>
+          <p>Press · partnerships · general</p>
+        </div>
+        <a href="mailto:hello@prism.id" class="btn-prism ghost" style="padding:8px 14px; font-size:11px;">Mail</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="eyebrow mb-16">PRESS · 003</div>
+      <h2 style="font-size:clamp(1.8rem,3.5vw,2.4rem); font-weight:500; letter-spacing:-0.03em; margin-bottom:16px;">Press kit.</h2>
+      <p class="text-dim mb-16">High-res produk shots, logo files, brand story, founder bio. Untuk media & creator only.</p>
+      <a href="#" class="btn-prism">Download Press Kit (8.4MB) <i class="bi bi-download"></i></a>
+    </div>
+  </div>
+</section>
+
+<div class="divider-iri"></div>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow mb-16">FAQ · 004</div>
+      <h2 class="section-title">Most asked.</h2>
+    </div>
+    <div class="section-meta">Klik untuk expand. Kalau pertanyaanmu nggak ada di sini, hit us up via form di atas.</div>
+  </div>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">Berapa lama wear time untuk Chrome Lip Lacquer? <span class="ico"><i class="bi bi-plus"></i></span></div>
+      <div class="faq-a">6-8 jam wear sesuai tes klinis kami. Tetap stay setelah makan ringan & minum. Untuk meal berminyak, mungkin perlu touch-up.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Apakah produk PRISM sudah BPOM? <span class="ico"><i class="bi bi-plus"></i></span></div>
+      <div class="faq-a">Yes. Semua produk PRISM sudah terdaftar di BPOM RI. Nomor registrasi tersedia di kemasan dan halaman produk.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Apakah produk PRISM vegan & cruelty-free? <span class="ico"><i class="bi bi-plus"></i></span></div>
+      <div class="faq-a">Iya, 100%. Kami sertifikasi PETA cruelty-free dan semua formula vegan — no animal-derived ingredients, no animal testing.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Berapa lama shipping ke seluruh Indonesia? <span class="ico"><i class="bi bi-plus"></i></span></div>
+      <div class="faq-a">Jabodetabek 1-2 hari, kota besar 2-4 hari, luar Jawa 3-7 hari. Free shipping untuk order di atas Rp 500.000.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Policy return / exchange-nya gimana? <span class="ico"><i class="bi bi-plus"></i></span></div>
+      <div class="faq-a">14 hari dari tanggal terima. Produk harus dalam kondisi unopened dan packaging utuh. Untuk produk defective, kami cover full return.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Bisa shipping internasional? <span class="ico"><i class="bi bi-plus"></i></span></div>
+      <div class="faq-a">Yes, kami ship ke Singapore, Malaysia, Thailand, Filipina, Australia, dan Jepang. Ongkir & ETA muncul di checkout.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Kalau shade-nya nggak cocok di kulit aku, bisa exchange? <span class="ico"><i class="bi bi-plus"></i></span></div>
+      <div class="faq-a">Kami punya shade-match guarantee. Cobain quiz "Find Your Prism" dulu, atau DM tim kami foto kulit kamu di natural light — kami bantu match.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter">
+  <div class="eyebrow mb-16">JOIN THE SPECTRUM</div>
+  <h2 class="iri-fill">Stay in the loop.</h2>
+  <p class="blurb">Drop announcements, exclusive shade previews, dan one love letter per minggu.</p>
+  <form class="news-form" onsubmit="event.preventDefault();">
+    <input type="email" placeholder="your.email@spectrum.id" required>
+    <button class="btn-prism iri" type="submit">Subscribe</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <a href="index.html" class="brand-logo mb-16"><span class="brand-dot"></span><span>PRISM</span></a>
+      <p class="text-dim" style="font-size:14px; max-width:280px;">Holographic beauty out of Jakarta. Diformulasi untuk shift, shine, dan stay. Color you can wear.</p>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><a href="shop.html">All Products</a><a href="shop.html">Lips</a><a href="shop.html">Face</a><a href="shop.html">Eyes</a><a href="shop.html">Body</a></div>
+    <div class="footer-col"><h4>Help</h4><a href="contact.html">Contact</a><a href="contact.html">Shipping</a><a href="contact.html">Returns</a><a href="contact.html">FAQ</a><a href="contact.html">Press Kit</a></div>
+    <div class="footer-col"><h4>Join The Spectrum</h4><p class="text-dim" style="font-size:13px;">Early access · drop reminders · exclusive shades.</p><form class="news-form mt-16" style="margin:0;" onsubmit="event.preventDefault();"><input type="email" placeholder="email"><button class="btn-prism" type="submit">Go</button></form></div>
+  </div>
+  <div class="footer-brand iri-text">PRISM</div>
+  <div class="footer-bottom"><div>© 2026 PRISM Beauty Lab</div><div>JAKARTA · GLOBAL</div><div>Vol.04 · 28.05.2026</div></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

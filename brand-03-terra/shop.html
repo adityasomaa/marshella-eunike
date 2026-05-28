@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apotek — Terra Botanica</title>
+<meta name="description" content="Twelve hand-blended botanical remedies. Cleanse, treat, nourish, body, atmosphere.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="grain-overlay"></div>
+
+<div class="announcement">
+  <i class="bi bi-flower2"></i>
+  &nbsp;Gratis ongkir untuk Bali &amp; Jakarta
+  <span class="pulse-dot"></span>
+  Pre-order panen Maret 2026 — Verbena &amp; Calendula
+</div>
+
+<nav class="tb-navbar">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="tb-brand">TERRA <span class="dot">·</span> BOTANICA<small>Apotek Botani · Est. 2018</small></a>
+      <div class="d-none d-lg-flex align-items-center">
+        <a href="shop.html" class="tb-nav-link active">Apotek</a>
+        <a href="about.html" class="tb-nav-link">Ingredients</a>
+        <a href="index.html" class="tb-nav-link">Journal</a>
+        <a href="about.html" class="tb-nav-link">About</a>
+        <a href="contact.html" class="tb-nav-link">Contact</a>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <a href="contact.html" class="tb-icon-btn d-none d-md-inline-flex"><i class="bi bi-search"></i></a>
+        <a href="#" data-open-cart class="tb-icon-btn"><i class="bi bi-basket2"></i><span class="tb-cart-count">3</span></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Shop Hero -->
+<section class="shop-hero">
+  <div class="container">
+    <div class="row align-items-end">
+      <div class="col-lg-7">
+        <span class="eyebrow" data-fade>§ Apotek · 12 Remedies</span>
+        <h1 style="font-family:var(--serif); font-size:clamp(2.5rem,5vw,4.5rem); margin-top:1rem; color:var(--forest); line-height:1.05;" data-fade>
+          The complete<br><em style="color:var(--moss); font-style:italic;">apothecary collection.</em>
+        </h1>
+      </div>
+      <div class="col-lg-5">
+        <p class="lede mb-0" data-fade>
+          Twelve botanical formulas, organised by ritual. Hand-blended in batches of forty
+          at our Munduk atelier &mdash; each numbered, signed, and shipped within seven days
+          of leaving the steeping room.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Shop Grid + Sidebar -->
+<section class="section-pad-sm">
+  <div class="container">
+    <div class="row g-5">
+
+      <!-- Sidebar -->
+      <aside class="col-lg-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 style="font-family:var(--serif); color:var(--forest); margin:0; font-size:1.2rem;">Filter</h5>
+          <button style="background:transparent; border:none; color:var(--sage); font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase;">Clear</button>
+        </div>
+
+        <div class="filter-block">
+          <h5>Botanical</h5>
+          <label class="filter-option"><input type="checkbox"> Calendula <span class="count">3</span></label>
+          <label class="filter-option"><input type="checkbox"> Rosehip <span class="count">2</span></label>
+          <label class="filter-option"><input type="checkbox"> Frangipani <span class="count">2</span></label>
+          <label class="filter-option"><input type="checkbox"> Vetiver <span class="count">1</span></label>
+          <label class="filter-option"><input type="checkbox"> Sandalwood <span class="count">2</span></label>
+          <label class="filter-option"><input type="checkbox"> Frankincense <span class="count">1</span></label>
+          <label class="filter-option"><input type="checkbox"> Volcanic Clay <span class="count">1</span></label>
+        </div>
+
+        <div class="filter-block">
+          <h5>Ailment</h5>
+          <label class="filter-option"><input type="checkbox"> Dehydration <span class="count">4</span></label>
+          <label class="filter-option"><input type="checkbox"> Sensitive Skin <span class="count">3</span></label>
+          <label class="filter-option"><input type="checkbox"> Fine Lines <span class="count">2</span></label>
+          <label class="filter-option"><input type="checkbox"> Restful Sleep <span class="count">2</span></label>
+          <label class="filter-option"><input type="checkbox"> Body Tension <span class="count">2</span></label>
+        </div>
+
+        <div class="filter-block">
+          <h5>Skin Type</h5>
+          <label class="filter-option"><input type="checkbox"> Dry <span class="count">5</span></label>
+          <label class="filter-option"><input type="checkbox"> Oily <span class="count">3</span></label>
+          <label class="filter-option"><input type="checkbox"> Combination <span class="count">4</span></label>
+          <label class="filter-option"><input type="checkbox"> Reactive <span class="count">4</span></label>
+          <label class="filter-option"><input type="checkbox"> Mature <span class="count">3</span></label>
+        </div>
+
+        <div class="filter-block">
+          <h5>Ritual</h5>
+          <label class="filter-option"><input type="checkbox"> Morning <span class="count">7</span></label>
+          <label class="filter-option"><input type="checkbox"> Evening <span class="count">5</span></label>
+          <label class="filter-option"><input type="checkbox"> Weekly <span class="count">3</span></label>
+          <label class="filter-option"><input type="checkbox"> Bath <span class="count">2</span></label>
+          <label class="filter-option"><input type="checkbox"> Atmosphere <span class="count">2</span></label>
+        </div>
+
+        <div class="filter-block">
+          <h5>Origin</h5>
+          <label class="filter-option"><input type="checkbox"> Bali Highlands <span class="count">5</span></label>
+          <label class="filter-option"><input type="checkbox"> Wild-crafted Java <span class="count">3</span></label>
+          <label class="filter-option"><input type="checkbox"> Sumba Coast <span class="count">2</span></label>
+          <label class="filter-option"><input type="checkbox"> Sumbawa <span class="count">2</span></label>
+        </div>
+      </aside>
+
+      <!-- Grid -->
+      <div class="col-lg-9">
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-3">
+          <span class="text-muted-leaf" style="font-size:0.88rem;">Showing 12 of 12 remedies</span>
+          <div class="d-flex gap-3 align-items-center">
+            <span class="eyebrow eyebrow-dark">Sort</span>
+            <select class="sort-select">
+              <option>Apothecary Order</option>
+              <option>Price · Low to High</option>
+              <option>Price · High to Low</option>
+              <option>Newest Harvest</option>
+              <option>Best Loved</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row g-4">
+
+          <!-- 01 -->
+          <div class="col-md-6 col-xl-4" data-fade>
+            <a href="product.html" class="product-card d-block no-deco">
+              <div class="product-img">
+                <span class="product-num">No. 01</span>
+                <span class="product-origin">Bali Highlands</span>
+                <svg class="svg-bottle" viewBox="0 0 100 130"><circle cx="50" cy="68" r="32" fill="#87794e" stroke="#2d3b2c" stroke-width="0.6"/><rect x="34" y="60" width="32" height="18" fill="#f5f1ea"/><rect x="40" y="20" width="20" height="14" fill="#2d3b2c"/><line x1="50" y1="20" x2="50" y2="8" stroke="#2d3b2c" stroke-width="0.5"/><text x="50" y="70" text-anchor="middle" font-family="DM Serif Display" font-size="4" fill="#2d3b2c">N°01</text></svg>
+              </div>
+              <div class="product-info"><span class="product-cat">Cleanse</span><h3 class="product-title">Verbena Cleansing Balm</h3><span class="product-volume">100 ml · Aloysia citrodora</span><span class="product-price">Rp 425.000</span></div>
+            </a>
+          </div>
+
+          <!-- 02 -->
+          <div class="col-md-6 col-xl-4" data-fade>
+            <a href="product.html" class="product-card d-block no-deco">
+              <div class="product-img">
+                <span class="product-num">No. 02</span>
+                <span class="product-origin">Bali Highlands</span>
+                <svg class="svg-bottle" viewBox="0 0 100 130"><rect x="32" y="25" width="36" height="85" fill="#c4956c" stroke="#2d3b2c" stroke-width="0.6"/><rect x="32" y="55" width="36" height="22" fill="#f5f1ea" stroke="#2d3b2c" stroke-width="0.4"/><rect x="40" y="15" width="20" height="14" fill="#2d3b2c"/><line x1="50" y1="15" x2="50" y2="6" stroke="#2d3b2c" stroke-width="0.5"/><text x="50" y="68" text-anchor="middle" font-family="DM Serif Display" font-size="4.5" fill="#2d3b2c">N°02</text></svg>
+              </div>
+              <div class="product-info"><span class="product-cat">Treat</span><h3 class="product-title">Rosehip Glow Serum</h3><span class="product-volume">30 ml · Rosa canina</span><span class="product-price">Rp 485.000</span></div>
+            </a>
+          </div>
+
+          <!-- 03 -->
+          <div class="col-md-6 col-xl-4" data-fade>
+            <a href="product.html" class="product-card d-block no-deco">
+              <div class="product-img">
+                <span class="product-num">No. 03</span>
+                <span class="product-origin">Sumba Grove</span>
+                <svg class="svg-bottle" viewBox="0 0 100 130"><rect x="34" y="30" width="32" height="80" fill="#1a2118" stroke="#2d3b2c" stroke-width="0.6"/><rect x="34" y="60" width="32" height="20" fill="#f5f1ea"/><circle cx="50" cy="18" r="6" fill="#c4956c"/><line x1="50" y1="24" x2="50" y2="30" stroke="#2d3b2c" stroke-width="1"/><text x="50" y="72" text-anchor="middle" font-family="DM Serif Display" font-size="4" fill="#2d3b2c">N°03</text></svg>
+              </div>
+              <div class="product-info"><span class="product-cat">Nourish</span><h3 class="product-title">Sandalwood Beard Oil</h3><span class="product-volume">30 ml · Santalum album</span><span class="product-price">Rp 685.000</span></div>
+            </a>
+          </div>
+
+          <!-- 04 -->
+          <div class="col-md-6 col-xl-4" data-fade>
+            <a href="product.html" class="product-card d-block no-deco">
+              <div class="product-img">
+                <span class="product-num">No. 04</span>
+                <span class="product-origin">Bali Highlands</span>
+                <svg class="svg-bottle" viewBox="0 0 100 130"><rect x="30" y="28" width="40" height="80" fill="#6b7a4f" stroke="#2d3b2c" stroke-width="0.6"/><rect x="30" y="60" width="40" height="20" fill="#f5f1ea"/><rect x="38" y="16" width="24" height="14" fill="#2d3b2c"/><rect x="44" y="6" width="12" height="12" fill="#87794e"/><text x="50" y="72" text-anchor="middle" font-family="DM Serif Display" font-size="4" fill="#2d3b2c">N°04</text></svg>
+              </div>
+              <div class="product-info"><span class="product-cat">Atmosphere</span><h3 class="product-title">Lavender Sleep Mist</h3><span class="product-volume">80 ml · Lavandula angustifolia</span><span class="product-price">Rp 365.000</span></div>
+            </a>
+          </div>
+
+          <!-- 05 -->
+          <div class="col-md-6 col-xl-4" data-fade>
+            <a href="product.html" class="product-card d-block no-deco">
+              <div class="product-img">
+                <span class="product-num">No. 05</span>
+                <span class="product-origin">Bali Highlands</span>
+                <svg class="svg-bottle" viewBox="0 0 100 130"><ellipse cx="50" cy="75" rx="32" ry="28" fill="#f5f1ea" stroke="#2d3b2c" stroke-width="0.6"/><ellipse cx="50" cy="48" rx="22" ry="6" fill="#1a2118"/><rect x="32" y="78" width="36" height="14" fill="#c4956c"/><text x="50" y="88" text-anchor="middle" font-family="DM Serif Display" font-size="3.5" fill="#f5f1ea">N°05</text></svg>
+              </div>
+              <div class="product-info"><span class="product-cat">Nourish</span><h3 class="product-title">Calendula Soothing Cream</h3><span class="product-volume">50 ml · Calendula officinalis</span><span class="product-price">Rp 525.000</span></div>
+            </a>
+          </div>
+
+          <!-- 06 -->
+          <div class="col-md-6 col-xl-4" data-fade>
+            <a href="product.html" class="product-card d-block no-deco">
+              <div class="product-img">
+                <span class="product-num">No. 06</span>
+                <span class="product-origin">Mt. Batur</span>
+                <svg class="svg-bottle" viewBox="0 0 100 130"><circle cx="50" cy="70" r="34" fill="#2d3b2c" stroke="#2d3b2c" stroke-width="0.6"/><ellipse cx="50" cy="50" rx="18" ry="6" fill="#1a2118"/><rect x="32" y="75" width="36" height="14" fill="#f5f1ea"/><text x="50" y="84" text-anchor="middle" font-family="DM Serif Display" font-size="4" fill="#2d3b2c">N°06</text></svg>
+              </div>
+              <div class="product-info"><span class="product-cat">Treat</span><h3 class="product-title">Volcanic Clay Mask</h3><span class="product-volume">60 g · Bentonite + Lava</span><span class="product-price">Rp 395.000</span></div>
+            </a>
+          </div>
+
+          <!-- 07 -->
+          <div class="col-md-6 col-xl-4" data-fade>
+            <a href="product.html" class="product-card d-block no-deco">
+              <div class="product-img">
+                <span class="product-num">No. 07</span>
+                <span class="product-origin">Wild-crafted Java</span>
+                <svg class="svg-bottle" viewBox="0 0 100 130"><rect x="34" y="22" width="32" height="88" fill="#c4956c" stroke="#2d3b2c" stroke-width="0.6"/><rect x="34" y="58" width="32" height="22" fill="#f5f1ea"/><rect x="40" y="10" width="20" height="14" fill="#1a2118"/><circle cx="50" cy="10" r="3" fill="#c4956c"/><text x="50" y="70" text-anchor="middle" font-family="DM Serif Display" font-size="4" fill="#2d3b2c">N°07</text></svg>
+              </div>
+              <div class="product-info"><span class="product-cat">Cleanse</span><h3 class="product-title">Geranium Hand Wash</h3><span class="product-volume">250 ml · Pelargonium graveolens</span><span class="product-price">Rp 245.000</span></div>
+            </a>
+          </div>
+
+          <!-- 08 -->
+          <div class="col-md-6 col-xl-4" data-fade>
+            <a href="product.html" class="product-card d-block no-deco">
+              <div class="product-img">
+                <span class="product-num">No. 08</span>
+                <span class="product-origin">Sumba Coast</span>
+                <svg class="svg-bottle" viewBox="0 0 100 130"><rect x="28" y="20" width="44" height="90" rx="2" fill="#6b7a4f" stroke="#2d3b2c" stroke-width="0.6"/><rect x="28" y="55" width="44" height="22" fill="#f5f1ea"/><rect x="38" y="10" width="24" height="12" fill="#2d3b2c"/><text x="50" y="68" text-anchor="middle" font-family="DM Serif Display" font-size="4.5" fill="#2d3b2c">N°08</text></svg>
+              </div>
+              <div class="product-info"><span class="product-cat">Body</span><h3 class="product-title">Eucalyptus Body Oil</h3><span class="product-volume">100 ml · E. globulus</span><span class="product-price">Rp 425.000</span></div>
+            </a>
+          </div>
+
+          <!-- 09 -->
+          <div class="col-md-6 col-xl-4" data-fade>
+            <a href="product.html" class="product-card d-block no-deco">
+              <div class="product-img">
+                <span class="product-num">No. 09</span>
+                <span class="product-origin">Garut, West Java</span>
+                <svg class="svg-bottle" viewBox="0 0 100 130"><circle cx="50" cy="70" r="26" fill="#87794e" stroke="#2d3b2c" stroke-width="0.6"/><circle cx="50" cy="70" r="20" fill="none" stroke="#2d3b2c" stroke-width="0.4"/><circle cx="50" cy="70" r="14" fill="#1a2118"/><rect x="32" y="92" width="36" height="14" fill="#f5f1ea"/><text x="50" y="102" text-anchor="middle" font-family="DM Serif Display" font-size="4" fill="#2d3b2c">N°09</text></svg>
+              </div>
+              <div class="product-info"><span class="product-cat">Atmosphere</span><h3 class="product-title">Vetiver Solid Perfume</h3><span class="product-volume">15 g · Chrysopogon zizanioides</span><span class="product-price">Rp 545.000</span></div>
+            </a>
+          </div>
+
+          <!-- 10 -->
+          <div class="col-md-6 col-xl-4" data-fade>
+            <a href="product.html" class="product-card d-block no-deco">
+              <div class="product-img">
+                <span class="product-num">No. 10</span>
+                <span class="product-origin">Tabanan Apiaries</span>
+                <svg class="svg-bottle" viewBox="0 0 100 130"><rect x="40" y="40" width="20" height="60" fill="#c4956c" stroke="#2d3b2c" stroke-width="0.5"/><rect x="40" y="60" width="20" height="14" fill="#f5f1ea"/><circle cx="50" cy="36" r="6" fill="#2d3b2c"/><text x="50" y="70" text-anchor="middle" font-family="DM Serif Display" font-size="3.5" fill="#2d3b2c">N°10</text></svg>
+              </div>
+              <div class="product-info"><span class="product-cat">Nourish</span><h3 class="product-title">Honey Lip Balm</h3><span class="product-volume">10 g · Apis cerana</span><span class="product-price">Rp 165.000</span></div>
+            </a>
+          </div>
+
+          <!-- 11 -->
+          <div class="col-md-6 col-xl-4" data-fade>
+            <a href="product.html" class="product-card d-block no-deco">
+              <div class="product-img">
+                <span class="product-num">No. 11</span>
+                <span class="product-origin">Sumbawa Resin</span>
+                <svg class="svg-bottle" viewBox="0 0 100 130"><rect x="36" y="30" width="28" height="80" fill="#87794e" stroke="#2d3b2c" stroke-width="0.6"/><rect x="36" y="58" width="28" height="18" fill="#f5f1ea"/><ellipse cx="50" cy="20" rx="14" ry="6" fill="#2d3b2c"/><circle cx="50" cy="12" r="2.5" fill="#c4956c"/><text x="50" y="69" text-anchor="middle" font-family="DM Serif Display" font-size="4" fill="#2d3b2c">N°11</text></svg>
+              </div>
+              <div class="product-info"><span class="product-cat">Treat</span><h3 class="product-title">Frankincense Eye Serum</h3><span class="product-volume">15 ml · Boswellia sacra</span><span class="product-price">Rp 745.000</span></div>
+            </a>
+          </div>
+
+          <!-- 12 -->
+          <div class="col-md-6 col-xl-4" data-fade>
+            <a href="product.html" class="product-card d-block no-deco">
+              <div class="product-img">
+                <span class="product-num">No. 12</span>
+                <span class="product-origin">Munduk Forest</span>
+                <svg class="svg-bottle" viewBox="0 0 100 130"><rect x="26" y="32" width="48" height="80" fill="#2d3b2c" stroke="#2d3b2c" stroke-width="0.6"/><rect x="26" y="62" width="48" height="22" fill="#f5f1ea"/><rect x="36" y="20" width="28" height="14" fill="#1a2118"/><text x="50" y="74" text-anchor="middle" font-family="DM Serif Display" font-size="4.5" fill="#2d3b2c">N°12</text><text x="50" y="80" text-anchor="middle" font-family="DM Sans" font-size="2.2" fill="#6b7a4f">FOREST BATH</text></svg>
+              </div>
+              <div class="product-info"><span class="product-cat">Body</span><h3 class="product-title">Forest Bath Salts</h3><span class="product-volume">400 g · Sea salt + Pine</span><span class="product-price">Rp 980.000</span></div>
+            </a>
+          </div>
+
+        </div>
+
+        <div class="text-center mt-5 pt-4" data-fade>
+          <p class="text-muted-leaf" style="font-size:0.88rem;">You have reached the end of our apothecary &mdash; only twelve formulas, by design.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-thin">
+
+<!-- Cross-section / wholesale CTA -->
+<section class="section-pad bg-cream-deep" style="background: linear-gradient(180deg, transparent, rgba(232,224,208,0.5));">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <span class="eyebrow" data-fade>§ For the Trade</span>
+        <h2 style="font-size:clamp(1.8rem,3.5vw,3rem); margin: 1rem 0 1.5rem;" data-fade>Stocking Terra Botanica<br>in your boutique or spa.</h2>
+        <p class="text-muted-leaf mb-4" data-fade>We work with twenty-six retailers across Indonesia, Singapore and Japan. Wholesale enquiries open quarterly.</p>
+        <a href="contact.html" class="btn-terra-outline">Wholesale Enquiry</a>
+      </div>
+      <div class="col-lg-6" data-fade>
+        <div class="photo-block wide">
+          <span class="photo-label">Wholesale Lookbook · SS 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="tb-footer">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <div class="footer-brand">Terra<br><span style="color:var(--terracotta); font-style:italic;">Botanica</span><small>Apotek Botani · Bali</small></div>
+        <p class="mt-4" style="color: rgba(245,241,234,0.7); font-size:0.92rem; max-width: 32ch;">Diramu dengan tangan sejak 2018. Tended by eighteen women of Kebun Sederhana cooperative.</p>
+      </div>
+      <div class="col-6 col-lg-2"><h5>Apotek</h5><a href="shop.html" class="d-block">All Remedies</a><a href="shop.html" class="d-block">Cleanse</a><a href="shop.html" class="d-block">Treat</a><a href="shop.html" class="d-block">Nourish</a><a href="shop.html" class="d-block">Atmosphere</a></div>
+      <div class="col-6 col-lg-2"><h5>Cara Pesan</h5><a href="contact.html" class="d-block">Shipping</a><a href="contact.html" class="d-block">FAQ</a><a href="contact.html" class="d-block">Wholesale</a><a href="about.html" class="d-block">Boutiques</a><a href="about.html" class="d-block">The Farm</a></div>
+      <div class="col-lg-4">
+        <h5>Surat Bulanan</h5>
+        <p style="color: rgba(245,241,234,0.7); font-size:0.92rem;">Catatan dari kebun, sebulan sekali.</p>
+        <form class="newsletter-form" style="border-bottom-color:var(--terracotta);" onsubmit="event.preventDefault();"><input type="email" placeholder="alamat surel" style="color:var(--cream);"><button type="submit" style="color:var(--terracotta);">Kirim <i class="bi bi-arrow-right"></i></button></form>
+        <div class="d-flex gap-3 mt-4"><a href="#"><i class="bi bi-instagram"></i></a><a href="#"><i class="bi bi-pinterest"></i></a><a href="#"><i class="bi bi-substack"></i></a></div>
+      </div>
+    </div>
+    <div class="footer-bottom d-flex flex-wrap justify-content-between gap-3"><span>&copy; 2026 PT Terra Botanica Nusantara · Made slowly in Munduk, Bali.</span><span>Privacy · Terms · Cookies · IDR · ID</span></div>
+  </div>
+</footer>
+
+<div class="cart-drawer-overlay" id="cart-overlay"></div>
+<aside class="cart-drawer" id="cart-drawer">
+  <div class="head"><h4>Keranjang &mdash; 3 item</h4><button class="close-btn" id="cart-close">&times;</button></div>
+  <div class="body">
+    <div class="drawer-item"><div class="thumb"><svg viewBox="0 0 100 130"><rect x="32" y="25" width="36" height="85" fill="#c4956c" stroke="#2d3b2c" stroke-width="0.6"/><rect x="32" y="55" width="36" height="22" fill="#f5f1ea"/><rect x="40" y="15" width="20" height="14" fill="#2d3b2c"/></svg></div><div><div class="product-cat mb-1">No.02 · Treat</div><div style="font-family:var(--serif); color:var(--forest); font-size:1rem;">Rosehip Glow Serum</div><div class="d-flex justify-content-between mt-2"><small class="text-muted-leaf">Qty 1 · 30 ml</small><small style="font-family:var(--serif); color:var(--forest);">Rp 485.000</small></div></div></div>
+    <div class="drawer-item"><div class="thumb"><svg viewBox="0 0 100 130"><circle cx="50" cy="70" r="34" fill="#2d3b2c"/><rect x="32" y="75" width="36" height="14" fill="#f5f1ea"/></svg></div><div><div class="product-cat mb-1">No.06 · Treat</div><div style="font-family:var(--serif); color:var(--forest); font-size:1rem;">Volcanic Clay Mask</div><div class="d-flex justify-content-between mt-2"><small class="text-muted-leaf">Qty 1 · 60 g</small><small style="font-family:var(--serif); color:var(--forest);">Rp 395.000</small></div></div></div>
+    <div class="drawer-item"><div class="thumb"><svg viewBox="0 0 100 130"><rect x="28" y="20" width="44" height="90" fill="#6b7a4f"/><rect x="28" y="55" width="44" height="22" fill="#f5f1ea"/></svg></div><div><div class="product-cat mb-1">No.08 · Body</div><div style="font-family:var(--serif); color:var(--forest); font-size:1rem;">Eucalyptus Body Oil</div><div class="d-flex justify-content-between mt-2"><small class="text-muted-leaf">Qty 1 · 100 ml</small><small style="font-family:var(--serif); color:var(--forest);">Rp 425.000</small></div></div></div>
+  </div>
+  <div class="foot"><div class="d-flex justify-content-between mb-3"><span style="font-family:var(--serif); color:var(--forest); font-size:1.1rem;">Subtotal</span><span style="font-family:var(--serif); color:var(--forest); font-size:1.1rem;">Rp 1.305.000</span></div><a href="cart.html" class="btn-terra w-100 text-center">Checkout</a></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

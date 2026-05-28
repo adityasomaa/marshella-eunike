@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout · AURA NOIR — Pembayaran Aman</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="announce-bar">
+  Pembayaran Aman · SSL Encrypted <span class="dot"></span> Complimentary samples with every order <span class="dot"></span> Free shipping above Rp 500.000
+</div>
+
+<nav class="navbar-aura">
+  <div class="container-xl d-flex align-items-center justify-content-between">
+    <a href="index.html" class="brand-mark"><span class="glyph">A</span> AURA&nbsp;NOIR</a>
+    <div class="nav-links">
+      <a href="shop.html">Shop</a>
+      <a href="index.html#rituals">Rituals</a>
+      <a href="index.html#journal">Journal</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <span class="text-muted-soft d-none d-md-inline" style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;"><i class="bi bi-shield-lock text-gold"></i> Secure</span>
+      <a href="cart.html" class="icon-btn"><i class="bi bi-bag"></i><span class="badge-count">3</span></a>
+      <button class="mobile-nav-toggle"><i class="bi bi-list"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="shop.html">Shop</a><a href="index.html#rituals">Rituals</a><a href="index.html#journal">Journal</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="cart.html">Cart</a>
+</div>
+
+<!-- HERO -->
+<section class="shop-hero" style="padding-bottom: 0;">
+  <div class="container-xl">
+    <div class="eyebrow eyebrow-line mb-3 d-inline-flex">Pembayaran &middot; Checkout</div>
+    <h1 class="display-1">Almost ready to be <span class="italic-accent">pressed.</span></h1>
+    <div class="checkout-steps">
+      <div class="checkout-step active" data-step="shipping">
+        <span class="step-num">1</span>
+        <span>Shipping</span>
+      </div>
+      <span class="arrow">&mdash;</span>
+      <div class="checkout-step" data-step="payment">
+        <span class="step-num">2</span>
+        <span>Payment</span>
+      </div>
+      <span class="arrow">&mdash;</span>
+      <div class="checkout-step" data-step="review">
+        <span class="step-num">3</span>
+        <span>Review</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container-xl">
+    <div class="row g-5">
+      <div class="col-lg-7">
+
+        <!-- STEP 1 SHIPPING -->
+        <div class="checkout-block" data-step="shipping">
+          <h4><span class="num">1</span> Pengiriman</h4>
+
+          <div class="contact-form">
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="form-floating-aura"><input type="text" id="ship-first" placeholder=" " value="Marshella"><label for="ship-first">First name</label></div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating-aura"><input type="text" id="ship-last" placeholder=" " value="Eunike"><label for="ship-last">Last name</label></div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating-aura"><input type="email" id="ship-email" placeholder=" " value="marshella@gmail.com"><label for="ship-email">Email</label></div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating-aura"><input type="tel" id="ship-phone" placeholder=" " value="+62 812 7700 1414"><label for="ship-phone">Phone (WhatsApp)</label></div>
+              </div>
+              <div class="col-12">
+                <div class="form-floating-aura"><input type="text" id="ship-addr" placeholder=" " value="Jalan Cemara No. 17"><label for="ship-addr">Street address</label></div>
+              </div>
+              <div class="col-12">
+                <div class="form-floating-aura"><input type="text" id="ship-addr2" placeholder=" "><label for="ship-addr2">Apartment, suite (optional)</label></div>
+              </div>
+              <div class="col-md-5">
+                <div class="form-floating-aura"><input type="text" id="ship-city" placeholder=" " value="Jakarta Pusat"><label for="ship-city">City</label></div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-floating-aura"><input type="text" id="ship-prov" placeholder=" " value="DKI Jakarta"><label for="ship-prov">Province</label></div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-floating-aura"><input type="text" id="ship-zip" placeholder=" " value="10350"><label for="ship-zip">Postal code</label></div>
+              </div>
+
+              <div class="col-12 mt-4">
+                <label class="form-label-aura" style="position: static; font-size: 11px; color: var(--muted); display: block; margin-bottom: 14px;">Shipping method</label>
+                <label class="radio-card checked">
+                  <input type="radio" name="ship-method" checked>
+                  <span class="dot"></span>
+                  <div class="label">
+                    <div class="text-cream">Atelier Express</div>
+                    <div class="text-muted-soft" style="font-size: 12px; letter-spacing: 0.05em;">Same-day Jakarta &middot; 1&mdash;2 days other Java</div>
+                  </div>
+                  <span class="price">Complimentary</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="ship-method">
+                  <span class="dot"></span>
+                  <div class="label">
+                    <div class="text-cream">JNE Reguler (Bali / Sumatra / etc.)</div>
+                    <div class="text-muted-soft" style="font-size: 12px; letter-spacing: 0.05em;">3&mdash;5 business days</div>
+                  </div>
+                  <span class="price">Rp 35.000</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="ship-method">
+                  <span class="dot"></span>
+                  <div class="label">
+                    <div class="text-cream">International EMS</div>
+                    <div class="text-muted-soft" style="font-size: 12px; letter-spacing: 0.05em;">7&mdash;14 business days &middot; tracked &amp; insured</div>
+                  </div>
+                  <span class="price">Rp 480.000</span>
+                </label>
+              </div>
+
+              <div class="col-12 mt-3">
+                <label class="check-row"><input type="checkbox" checked><span class="box"></span> Save this address for the next ritual</label>
+                <label class="check-row"><input type="checkbox"><span class="box"></span> Billing address is the same as shipping</label>
+              </div>
+
+              <div class="col-12 mt-4 text-end">
+                <span class="magnetic"><button class="btn-aura btn-solid" data-step-next="payment">Continue to Payment <i class="bi bi-arrow-right"></i></button></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 PAYMENT -->
+        <div class="checkout-block" data-step="payment" style="display: none;">
+          <h4><span class="num">2</span> Pembayaran</h4>
+
+          <label class="form-label-aura" style="position: static; font-size: 11px; color: var(--muted); display: block; margin-bottom: 14px;">Choose your method</label>
+
+          <label class="radio-card checked">
+            <input type="radio" name="pay-method" checked>
+            <span class="dot"></span>
+            <div class="label">
+              <div class="text-cream">Credit / Debit Card</div>
+              <div class="text-muted-soft" style="font-size: 12px; letter-spacing: 0.05em;">VISA · Mastercard · JCB · AMEX</div>
+            </div>
+            <span class="price"><i class="bi bi-credit-card-2-front"></i></span>
+          </label>
+
+          <div class="contact-form mt-4 mb-4 ps-md-4">
+            <div class="row g-4">
+              <div class="col-12">
+                <div class="form-floating-aura"><input type="text" id="cc-num" placeholder=" " value="4532 ···· ···· 8126"><label for="cc-num">Card number</label></div>
+              </div>
+              <div class="col-12">
+                <div class="form-floating-aura"><input type="text" id="cc-name" placeholder=" " value="MARSHELLA EUNIKE"><label for="cc-name">Name on card</label></div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating-aura"><input type="text" id="cc-exp" placeholder=" " value="08 / 28"><label for="cc-exp">Expiry MM / YY</label></div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating-aura"><input type="text" id="cc-cvc" placeholder=" " value="•••"><label for="cc-cvc">CVC</label></div>
+              </div>
+            </div>
+          </div>
+
+          <label class="radio-card">
+            <input type="radio" name="pay-method">
+            <span class="dot"></span>
+            <div class="label">
+              <div class="text-cream">E-Wallet</div>
+              <div class="text-muted-soft" style="font-size: 12px; letter-spacing: 0.05em;">GoPay · OVO · DANA · ShopeePay</div>
+            </div>
+            <span class="price"><i class="bi bi-wallet2"></i></span>
+          </label>
+
+          <label class="radio-card">
+            <input type="radio" name="pay-method">
+            <span class="dot"></span>
+            <div class="label">
+              <div class="text-cream">Bank Transfer (BCA / Mandiri / BNI)</div>
+              <div class="text-muted-soft" style="font-size: 12px; letter-spacing: 0.05em;">Virtual account &middot; instant confirmation</div>
+            </div>
+            <span class="price"><i class="bi bi-bank"></i></span>
+          </label>
+
+          <label class="radio-card">
+            <input type="radio" name="pay-method">
+            <span class="dot"></span>
+            <div class="label">
+              <div class="text-cream">Cicilan 0% &middot; Installments</div>
+              <div class="text-muted-soft" style="font-size: 12px; letter-spacing: 0.05em;">3, 6, 12 months &middot; selected banks</div>
+            </div>
+            <span class="price"><i class="bi bi-calendar3"></i></span>
+          </label>
+
+          <div class="mt-5 d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <a href="#" class="btn-link-arrow" data-step-next="shipping"><i class="bi bi-arrow-left"></i> Back to shipping</a>
+            <span class="magnetic"><button class="btn-aura btn-solid" data-step-next="review">Review Order <i class="bi bi-arrow-right"></i></button></span>
+          </div>
+        </div>
+
+        <!-- STEP 3 REVIEW -->
+        <div class="checkout-block" data-step="review" style="display: none;">
+          <h4><span class="num">3</span> Tinjau Pesanan</h4>
+
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="eyebrow text-gold mb-3">Shipping to</div>
+              <p style="font-size: 14px; line-height: 1.8;">
+                <strong class="text-cream">Marshella Eunike</strong><br>
+                Jalan Cemara No. 17<br>
+                Menteng, Jakarta Pusat 10350<br>
+                +62 812 7700 1414
+              </p>
+              <a href="#" class="btn-link-arrow" data-step-next="shipping" style="font-size: 10px;">Edit <i class="bi bi-pencil"></i></a>
+            </div>
+            <div class="col-md-6">
+              <div class="eyebrow text-gold mb-3">Payment</div>
+              <p style="font-size: 14px; line-height: 1.8;">
+                <strong class="text-cream">VISA &middot;&middot;&middot;&middot; 8126</strong><br>
+                Marshella Eunike<br>
+                Expires 08 / 28<br>
+                Atelier Express &mdash; Same day
+              </p>
+              <a href="#" class="btn-link-arrow" data-step-next="payment" style="font-size: 10px;">Edit <i class="bi bi-pencil"></i></a>
+            </div>
+          </div>
+
+          <div class="divider-horiz" style="margin: 40px 0;"></div>
+
+          <div class="eyebrow text-gold mb-3">Three editions in your sac</div>
+
+          <div class="drawer-item">
+            <div class="drawer-thumb"><svg viewBox="0 0 100 140"><rect x="32" y="32" width="36" height="80" rx="2" fill="none" stroke="#d4af7a" stroke-width="0.6"/><rect x="42" y="18" width="16" height="14" fill="none" stroke="#d4af7a" stroke-width="0.6"/></svg></div>
+            <div class="drawer-item-info"><h6>Noir Élixir Serum</h6><div class="meta">30 ml · Edition 042/500</div><div class="qty-line"><small class="text-muted-soft">Qty 1</small><span class="price">Rp 1.450.000</span></div></div>
+          </div>
+          <div class="drawer-item">
+            <div class="drawer-thumb"><svg viewBox="0 0 100 140"><ellipse cx="50" cy="60" rx="14" ry="34" fill="none" stroke="#d4af7a" stroke-width="0.6"/><rect x="46" y="22" width="8" height="12" fill="none" stroke="#d4af7a" stroke-width="0.6"/></svg></div>
+            <div class="drawer-item-info"><h6>Velvet Rouge N°12</h6><div class="meta">3.8 g · Bordeaux Nuit</div><div class="qty-line"><small class="text-muted-soft">Qty 2</small><span class="price">Rp 1.160.000</span></div></div>
+          </div>
+          <div class="drawer-item">
+            <div class="drawer-thumb"><svg viewBox="0 0 100 140"><path d="M30 30 Q50 18 70 30 L70 110 Q50 120 30 110 Z" fill="none" stroke="#d4af7a" stroke-width="0.6"/><rect x="44" y="14" width="12" height="14" fill="none" stroke="#d4af7a" stroke-width="0.6"/></svg></div>
+            <div class="drawer-item-info"><h6>Atelier Parfum No.7</h6><div class="meta">50 ml · Eau de Parfum</div><div class="qty-line"><small class="text-muted-soft">Qty 1</small><span class="price">Rp 2.400.000</span></div></div>
+          </div>
+
+          <label class="check-row mt-4"><input type="checkbox" checked><span class="box"></span> Saya setuju with the maison's <a href="#" class="text-gold">terms &amp; conditions</a> and <a href="#" class="text-gold">privacy ritual</a>.</label>
+
+          <div class="mt-5 d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <a href="#" class="btn-link-arrow" data-step-next="payment"><i class="bi bi-arrow-left"></i> Back to payment</a>
+            <span class="magnetic"><a href="#" class="btn-aura btn-solid">Place Order &middot; Rp 5.561.100 <i class="bi bi-check2-circle"></i></a></span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SUMMARY SIDEBAR -->
+      <div class="col-lg-5">
+        <div class="summary-box">
+          <h5>Ringkasan Pesanan</h5>
+
+          <div class="drawer-items" style="border: none;">
+            <div class="drawer-item">
+              <div class="drawer-thumb"><svg viewBox="0 0 100 140"><rect x="32" y="32" width="36" height="80" rx="2" fill="none" stroke="#d4af7a" stroke-width="0.6"/><rect x="42" y="18" width="16" height="14" fill="none" stroke="#d4af7a" stroke-width="0.6"/></svg></div>
+              <div class="drawer-item-info"><h6>Noir Élixir Serum</h6><div class="meta">30 ml · Edition 042</div><div class="qty-line"><small class="text-muted-soft">Qty 1</small><span class="price">Rp 1.450.000</span></div></div>
+            </div>
+            <div class="drawer-item">
+              <div class="drawer-thumb"><svg viewBox="0 0 100 140"><ellipse cx="50" cy="60" rx="14" ry="34" fill="none" stroke="#d4af7a" stroke-width="0.6"/><rect x="46" y="22" width="8" height="12" fill="none" stroke="#d4af7a" stroke-width="0.6"/></svg></div>
+              <div class="drawer-item-info"><h6>Velvet Rouge N°12</h6><div class="meta">3.8 g · Bordeaux Nuit</div><div class="qty-line"><small class="text-muted-soft">Qty 2</small><span class="price">Rp 1.160.000</span></div></div>
+            </div>
+            <div class="drawer-item">
+              <div class="drawer-thumb"><svg viewBox="0 0 100 140"><path d="M30 30 Q50 18 70 30 L70 110 Q50 120 30 110 Z" fill="none" stroke="#d4af7a" stroke-width="0.6"/><rect x="44" y="14" width="12" height="14" fill="none" stroke="#d4af7a" stroke-width="0.6"/></svg></div>
+              <div class="drawer-item-info"><h6>Atelier Parfum No.7</h6><div class="meta">50 ml · EDP</div><div class="qty-line"><small class="text-muted-soft">Qty 1</small><span class="price">Rp 2.400.000</span></div></div>
+            </div>
+          </div>
+
+          <div class="promo-input-group">
+            <input type="text" placeholder="Kode promo" value="NOIRWELCOME">
+            <button>Applied</button>
+          </div>
+
+          <div class="summary-row"><span>Subtotal</span><span class="text-cream">Rp 5.010.000</span></div>
+          <div class="summary-row"><span>Discount (NOIRWELCOME -10%)</span><span class="text-gold">&minus; Rp 501.000</span></div>
+          <div class="summary-row"><span>Shipping (Atelier Express)</span><span class="text-gold">Complimentary</span></div>
+          <div class="summary-row"><span>Pajak PPN 11%</span><span class="text-cream">Rp 551.100</span></div>
+
+          <div class="summary-row total">
+            <span>Total Pembayaran</span>
+            <span class="val">Rp 5.060.100</span>
+          </div>
+
+          <div class="text-center mt-4 text-muted-soft" style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;">
+            <i class="bi bi-shield-lock text-gold"></i> Pembayaran Aman &middot; 256-bit SSL
+          </div>
+
+          <div class="mt-4 pt-4" style="border-top: 1px solid rgba(212,175,122,0.1); font-size: 12px;">
+            <div class="d-flex gap-3 align-items-start mb-3">
+              <i class="bi bi-truck text-gold" style="font-size: 18px;"></i>
+              <div>
+                <div class="text-cream">Estimated arrival</div>
+                <div class="text-muted-soft">Today &middot; before 22:00 WIB</div>
+              </div>
+            </div>
+            <div class="d-flex gap-3 align-items-start mb-3">
+              <i class="bi bi-gift text-gold" style="font-size: 18px;"></i>
+              <div>
+                <div class="text-cream">Complimentary</div>
+                <div class="text-muted-soft">2 samples + hand-tied carton</div>
+              </div>
+            </div>
+            <div class="d-flex gap-3 align-items-start">
+              <i class="bi bi-arrow-counterclockwise text-gold" style="font-size: 18px;"></i>
+              <div>
+                <div class="text-cream">30-day returns</div>
+                <div class="text-muted-soft">No questions, gently asked</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (minimal) -->
+<footer class="site-footer">
+  <div class="container-xl">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <a href="index.html" class="brand-mark"><span class="glyph">A</span> AURA&nbsp;NOIR</a>
+        <p class="mt-4 text-muted-soft" style="font-size: 14px; max-width: 360px;">A Jakarta-born atelier of nocturnal beauty.</p>
+      </div>
+      <div class="col-6 col-lg-2"><h6>Atelier</h6><ul class="footer-links"><li><a href="shop.html">All Products</a></li><li><a href="shop.html">Limited Editions</a></li></ul></div>
+      <div class="col-6 col-lg-2"><h6>Maison</h6><ul class="footer-links"><li><a href="about.html">Our story</a></li><li><a href="contact.html">Atelier locations</a></li></ul></div>
+      <div class="col-lg-4">
+        <h6>Need help during checkout?</h6>
+        <p class="text-muted-soft" style="font-size:13px;">Our concierge is here, by WhatsApp, until midnight.</p>
+        <a href="#" class="btn-aura btn-ghost mt-3" style="padding: 14px 28px; font-size: 10px;"><i class="bi bi-whatsapp me-2"></i> +62 812 7700 1414</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 AURA NOIR · Maison de Beauté · Atelier Jakarta</div>
+      <div class="d-flex gap-4"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

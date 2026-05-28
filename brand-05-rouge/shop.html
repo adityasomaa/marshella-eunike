@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Maison — Boutique · ROUGE N°07</title>
+<meta name="description" content="La boutique ROUGE. Lèvres, yeux, teint, parfum, soin. Douze pièces de la collection Mai 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,700;1,6..96,900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
+<link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="marquee-bg top"><div class="marquee-inner"><span>LA BOUTIQUE</span><span>·</span><span>MAI 2026</span><span>·</span><span>N°07</span><span>·</span><span>ROUGE COUTURE</span><span>·</span><span>LES LÈVRES</span><span>·</span></div></div>
+<div class="marquee-bg mid"><div class="marquee-inner"><span>ÉDITION LIMITÉE</span><span>·</span><span>JAKARTA</span><span>·</span><span>PARIS</span><span>·</span><span>LA MAISON</span><span>·</span><span>HAUTE BEAUTÉ</span><span>·</span></div></div>
+<div class="marquee-bg bot"><div class="marquee-inner"><span>ROUGE</span><span>·</span><span>L'ATELIER</span><span>·</span><span>N°07</span><span>·</span><span>DOUZE TEINTES</span><span>·</span><span>UNE MAISON</span><span>·</span></div></div>
+
+<div class="page-number"><span class="num">02</span> · BOUTIQUE</div>
+
+<div class="announcement-bar">
+  Livraison gratuite <span class="dot"></span> Indonesia · Singapour · Australia <span class="dot"></span> Free shipping over Rp 600.000 <span class="dot"></span> Édition limitée N°07
+</div>
+
+<nav class="navbar-rouge">
+  <div class="container-fluid px-4 px-lg-5">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="wordmark">ROUGE<sup>N°07</sup></a>
+      <div class="d-none d-lg-flex align-items-center">
+        <a href="shop.html" class="nav-link-rouge">La Maison</a>
+        <a href="shop.html" class="nav-link-rouge">Les Lèvres</a>
+        <a href="about.html" class="nav-link-rouge">L'Atelier</a>
+        <a href="about.html" class="nav-link-rouge">Le Journal</a>
+        <a href="contact.html" class="nav-link-rouge">Contact</a>
+      </div>
+      <div class="d-flex align-items-center">
+        <button class="nav-icon-btn d-none d-md-inline-block" aria-label="Search"><i class="bi bi-search"></i></button>
+        <a href="contact.html" class="nav-icon-btn d-none d-md-inline-block" aria-label="Account"><i class="bi bi-person"></i></a>
+        <button class="nav-icon-btn" data-open-cart aria-label="Open cart">
+          <i class="bi bi-bag"></i>
+          <span class="cart-count">2</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============== BOUTIQUE HEADER ============== -->
+<section class="section-pad-sm pt-5" data-page="02">
+  <div class="container-fluid px-4 px-lg-5">
+    <div class="edito-grid">
+      <div class="col-span-8">
+        <div class="label-caps-rouge mb-3">La Boutique · Édition Mai 2026 · 12 pièces</div>
+        <h1 class="display-xl mb-3">La Maison, <span class="italic">au complet.</span></h1>
+        <p class="body-lg" style="max-width: 640px;">
+          Douze pièces composées dans nos ateliers — lèvres, yeux, teint, parfum, soin. Chaque produit
+          est numéroté, signé, et livré dans son écrin signature.
+        </p>
+      </div>
+      <div class="col-span-4 d-flex align-items-end justify-content-end">
+        <div class="text-end">
+          <div class="label-caps mb-2">Filtre rapide</div>
+          <div class="d-flex flex-wrap justify-content-end gap-2">
+            <span class="tag-pill" style="background:var(--ink); color:var(--cream);">Tout</span>
+            <span class="tag-pill">Lèvres</span>
+            <span class="tag-pill">Yeux</span>
+            <span class="tag-pill">Parfum</span>
+            <span class="tag-pill">Soin</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SHOP LAYOUT ============== -->
+<section class="section-pad-sm pb-5">
+  <div class="container-fluid px-4 px-lg-5">
+    <div class="shop-layout">
+
+      <!-- Sidebar filters -->
+      <aside class="filter-sidebar">
+
+        <div class="filter-group">
+          <h6>Catégorie</h6>
+          <label><input type="checkbox" checked> Tout <span class="count">(12)</span></label>
+          <label><input type="checkbox"> Lèvres <span class="count">(04)</span></label>
+          <label><input type="checkbox"> Yeux <span class="count">(02)</span></label>
+          <label><input type="checkbox"> Teint <span class="count">(02)</span></label>
+          <label><input type="checkbox"> Parfum <span class="count">(01)</span></label>
+          <label><input type="checkbox"> Soin <span class="count">(03)</span></label>
+        </div>
+
+        <div class="filter-group">
+          <h6>Finish</h6>
+          <label><input type="checkbox"> Velours mat</label>
+          <label><input type="checkbox"> Satiné</label>
+          <label><input type="checkbox"> Brillant</label>
+          <label><input type="checkbox"> Crème</label>
+          <label><input type="checkbox"> Poudre lumière</label>
+        </div>
+
+        <div class="filter-group">
+          <h6>Intensité</h6>
+          <label><input type="radio" name="int"> Délicate</label>
+          <label><input type="radio" name="int" checked> Signature</label>
+          <label><input type="radio" name="int"> Couture · pleine</label>
+        </div>
+
+        <div class="filter-group">
+          <h6>Teint / Famille</h6>
+          <label><input type="checkbox"> Rouge profond</label>
+          <label><input type="checkbox"> Rose bois</label>
+          <label><input type="checkbox"> Brun café</label>
+          <label><input type="checkbox"> Nude or</label>
+          <label><input type="checkbox"> Bois précieux</label>
+          <label><input type="checkbox"> Or vintage</label>
+        </div>
+
+        <div class="filter-group">
+          <h6>Prix</h6>
+          <label><input type="checkbox"> Rp 200K — 500K</label>
+          <label><input type="checkbox"> Rp 500K — 900K</label>
+          <label><input type="checkbox"> Rp 900K et plus</label>
+        </div>
+
+        <button class="btn-rouge-outline w-100 mt-2">Tout effacer</button>
+
+      </aside>
+
+      <!-- Product grid -->
+      <div>
+        <div class="shop-toolbar">
+          <div class="label-caps">12 pièces · Édition Mai 2026</div>
+          <div>
+            <span class="label-caps me-2">Trier</span>
+            <select class="sort-select">
+              <option>Édition courante</option>
+              <option>Prix ↑</option>
+              <option>Prix ↓</option>
+              <option>Nouveautés</option>
+              <option>Best-sellers</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="shop-grid">
+
+          <!-- Product 01 -->
+          <a href="product.html" class="product-card">
+            <div class="product-img-wrap">
+              <svg viewBox="0 0 100 130" class="icon-prod" xmlns="http://www.w3.org/2000/svg">
+                <rect x="38" y="55" width="24" height="55" fill="#1a1a1a"/>
+                <rect x="40" y="20" width="20" height="35" fill="#c41e3a"/>
+                <rect x="36" y="50" width="28" height="6" fill="#d4c5a9"/>
+              </svg>
+              <div class="number">N°07</div>
+              <div class="cat">Lèvres</div>
+            </div>
+            <div class="product-meta">
+              <div>
+                <h3 class="product-name">Rouge Couture Lipstick N°07</h3>
+                <div class="product-name-sub">Teinte Rouge Vie · Velours</div>
+              </div>
+              <div class="product-price">Rp 485.000</div>
+            </div>
+          </a>
+
+          <!-- Product 02 -->
+          <a href="product.html" class="product-card">
+            <div class="product-img-wrap">
+              <svg viewBox="0 0 100 130" class="icon-prod" xmlns="http://www.w3.org/2000/svg">
+                <rect x="42" y="40" width="16" height="70" fill="#8b1226"/>
+                <circle cx="50" cy="30" r="10" fill="#c41e3a"/>
+              </svg>
+              <div class="number">N°03</div>
+              <div class="cat">Lèvres</div>
+            </div>
+            <div class="product-meta">
+              <div>
+                <h3 class="product-name">Velours Matte Lip Crayon</h3>
+                <div class="product-name-sub">Teinte Brun Café · Mat</div>
+              </div>
+              <div class="product-price">Rp 385.000</div>
+            </div>
+          </a>
+
+          <!-- Product 03 -->
+          <a href="product.html" class="product-card">
+            <div class="product-img-wrap">
+              <svg viewBox="0 0 100 130" class="icon-prod" xmlns="http://www.w3.org/2000/svg">
+                <rect x="20" y="40" width="60" height="40" rx="2" fill="#1a1a1a"/>
+                <circle cx="35" cy="55" r="6" fill="#c41e3a"/>
+                <circle cx="50" cy="55" r="6" fill="#8b1226"/>
+                <circle cx="65" cy="55" r="6" fill="#d4c5a9"/>
+                <circle cx="35" cy="70" r="6" fill="#1a1a1a"/>
+                <circle cx="50" cy="70" r="6" fill="#ede4d3"/>
+                <circle cx="65" cy="70" r="6" fill="#c41e3a"/>
+              </svg>
+              <div class="number">N°12</div>
+              <div class="cat">Yeux</div>
+            </div>
+            <div class="product-meta">
+              <div>
+                <h3 class="product-name">L'Atelier Eye Palette</h3>
+                <div class="product-name-sub">Six teintes signature</div>
+              </div>
+              <div class="product-price">Rp 875.000</div>
+            </div>
+          </a>
+
+          <!-- Product 04 -->
+          <a href="product.html" class="product-card">
+            <div class="product-img-wrap">
+              <svg viewBox="0 0 100 130" class="icon-prod" xmlns="http://www.w3.org/2000/svg">
+                <rect x="46" y="35" width="8" height="80" fill="#1a1a1a"/>
+                <circle cx="50" cy="30" r="6" fill="#c41e3a"/>
+              </svg>
+              <div class="number">N°05</div>
+              <div class="cat">Yeux</div>
+            </div>
+            <div class="product-meta">
+              <div>
+                <h3 class="product-name">Liner Noir Profond</h3>
+                <div class="product-name-sub">Trait fin · 24h tenue</div>
+              </div>
+              <div class="product-price">Rp 295.000</div>
+            </div>
+          </a>
+
+          <!-- Product 05 -->
+          <a href="product.html" class="product-card">
+            <div class="product-img-wrap">
+              <svg viewBox="0 0 100 130" class="icon-prod" xmlns="http://www.w3.org/2000/svg">
+                <rect x="32" y="35" width="36" height="70" rx="3" fill="#d4c5a9"/>
+                <rect x="36" y="40" width="28" height="6" fill="#c41e3a"/>
+                <text x="50" y="78" font-family="Bodoni Moda" font-size="9" fill="#1a1a1a" text-anchor="middle" font-style="italic">Crème</text>
+              </svg>
+              <div class="number">N°09</div>
+              <div class="cat">Teint</div>
+            </div>
+            <div class="product-meta">
+              <div>
+                <h3 class="product-name">Crème Soyeuse Foundation</h3>
+                <div class="product-name-sub">Teint naturel · 16 nuances</div>
+              </div>
+              <div class="product-price">Rp 765.000</div>
+            </div>
+          </a>
+
+          <!-- Product 06 -->
+          <a href="product.html" class="product-card">
+            <div class="product-img-wrap">
+              <svg viewBox="0 0 100 130" class="icon-prod" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="65" r="28" fill="#1a1a1a"/>
+                <circle cx="50" cy="65" r="22" fill="#ede4d3"/>
+                <text x="50" y="68" font-family="Bodoni Moda" font-size="8" fill="#1a1a1a" text-anchor="middle">N°11</text>
+              </svg>
+              <div class="number">N°11</div>
+              <div class="cat">Teint</div>
+            </div>
+            <div class="product-meta">
+              <div>
+                <h3 class="product-name">Poudre Lumière Compact</h3>
+                <div class="product-name-sub">Finition voile</div>
+              </div>
+              <div class="product-price">Rp 575.000</div>
+            </div>
+          </a>
+
+          <!-- Product 07 -->
+          <a href="product.html" class="product-card">
+            <div class="product-img-wrap">
+              <svg viewBox="0 0 100 130" class="icon-prod" xmlns="http://www.w3.org/2000/svg">
+                <rect x="44" y="35" width="12" height="75" fill="#1a1a1a"/>
+                <rect x="38" y="30" width="24" height="8" fill="#c41e3a"/>
+              </svg>
+              <div class="number">N°02</div>
+              <div class="cat">Yeux</div>
+            </div>
+            <div class="product-meta">
+              <div>
+                <h3 class="product-name">Mascara Volume Couture</h3>
+                <div class="product-name-sub">Cils volume · Tenue 12h</div>
+              </div>
+              <div class="product-price">Rp 425.000</div>
+            </div>
+          </a>
+
+          <!-- Product 08 -->
+          <a href="product.html" class="product-card">
+            <div class="product-img-wrap">
+              <svg viewBox="0 0 100 130" class="icon-prod" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="65" r="28" fill="#d4c5a9"/>
+                <circle cx="50" cy="65" r="20" fill="#c41e3a"/>
+                <circle cx="50" cy="65" r="10" fill="#8b1226"/>
+              </svg>
+              <div class="number">N°08</div>
+              <div class="cat">Teint</div>
+            </div>
+            <div class="product-meta">
+              <div>
+                <h3 class="product-name">Blush Vintage Rose</h3>
+                <div class="product-name-sub">Joues · poudre satinée</div>
+              </div>
+              <div class="product-price">Rp 425.000</div>
+            </div>
+          </a>
+
+          <!-- Product 09 -->
+          <a href="product.html" class="product-card">
+            <div class="product-img-wrap">
+              <svg viewBox="0 0 100 130" class="icon-prod" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="50" cy="55" rx="22" ry="14" fill="#c41e3a"/>
+                <rect x="30" y="55" width="40" height="35" rx="3" fill="#1a1a1a"/>
+                <circle cx="50" cy="55" r="8" fill="#d4c5a9"/>
+              </svg>
+              <div class="number">N°23</div>
+              <div class="cat">Parfum</div>
+            </div>
+            <div class="product-meta">
+              <div>
+                <h3 class="product-name">Parfum N°23 Bois Rouge</h3>
+                <div class="product-name-sub">EDP 50ml · bois &amp; cèdre</div>
+              </div>
+              <div class="product-price">Rp 1.450.000</div>
+            </div>
+          </a>
+
+          <!-- Product 10 -->
+          <a href="product.html" class="product-card">
+            <div class="product-img-wrap">
+              <svg viewBox="0 0 100 130" class="icon-prod" xmlns="http://www.w3.org/2000/svg">
+                <rect x="32" y="40" width="36" height="65" rx="18" fill="#ede4d3"/>
+                <rect x="36" y="44" width="28" height="6" fill="#c41e3a"/>
+                <text x="50" y="78" font-family="Bodoni Moda" font-size="8" fill="#1a1a1a" text-anchor="middle" font-style="italic">Soin</text>
+              </svg>
+              <div class="number">N°15</div>
+              <div class="cat">Soin</div>
+            </div>
+            <div class="product-meta">
+              <div>
+                <h3 class="product-name">Crème de Soin Visage</h3>
+                <div class="product-name-sub">Nuit · réparatrice</div>
+              </div>
+              <div class="product-price">Rp 1.250.000</div>
+            </div>
+          </a>
+
+          <!-- Product 11 -->
+          <a href="product.html" class="product-card">
+            <div class="product-img-wrap">
+              <svg viewBox="0 0 100 130" class="icon-prod" xmlns="http://www.w3.org/2000/svg">
+                <rect x="40" y="30" width="20" height="80" fill="#c41e3a" rx="2"/>
+                <rect x="42" y="25" width="16" height="8" fill="#1a1a1a"/>
+                <text x="50" y="75" font-family="Bodoni Moda" font-size="8" fill="#faf6f1" text-anchor="middle" font-style="italic">Huile</text>
+              </svg>
+              <div class="number">N°17</div>
+              <div class="cat">Soin</div>
+            </div>
+            <div class="product-meta">
+              <div>
+                <h3 class="product-name">Huile Précieuse</h3>
+                <div class="product-name-sub">Visage &amp; cheveux · 30ml</div>
+              </div>
+              <div class="product-price">Rp 985.000</div>
+            </div>
+          </a>
+
+          <!-- Product 12 -->
+          <a href="product.html" class="product-card">
+            <div class="product-img-wrap">
+              <svg viewBox="0 0 100 130" class="icon-prod" xmlns="http://www.w3.org/2000/svg">
+                <rect x="34" y="35" width="32" height="72" rx="3" fill="#ede4d3"/>
+                <rect x="38" y="40" width="24" height="6" fill="#c41e3a"/>
+                <text x="50" y="78" font-family="Bodoni Moda" font-size="7" fill="#1a1a1a" text-anchor="middle" font-style="italic">Cleanse</text>
+              </svg>
+              <div class="number">N°04</div>
+              <div class="cat">Soin</div>
+            </div>
+            <div class="product-meta">
+              <div>
+                <h3 class="product-name">Cleansing Crème Atelier</h3>
+                <div class="product-name-sub">Démaquillant · 150ml</div>
+              </div>
+              <div class="product-price">Rp 285.000</div>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- Editorial banner inside grid -->
+        <div class="mt-5 pt-3">
+          <div class="newsletter-block" style="background: var(--cream-warm); color: var(--ink);">
+            <div class="edito-grid">
+              <div class="col-span-7">
+                <div class="label-caps-rouge mb-3">Le Cadeau de la Maison</div>
+                <h3 class="display-md mb-3">Pour toute commande au-delà de <span class="italic" style="color:var(--rouge);">Rp 1.500.000</span> — un coffret signature offert.</h3>
+                <p class="body-sm" style="color:rgba(26,26,26,0.6);">Coffret cuir grenat, pochette de soin format voyage, mini-vaporisateur Parfum N°23.</p>
+              </div>
+              <div class="col-span-5 d-flex align-items-end justify-content-end">
+                <a href="cart.html" class="btn-rouge">Découvrir le coffret →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer-rouge">
+  <div class="container-fluid px-4 px-lg-5">
+    <div class="row g-5">
+      <div class="col-lg-4 col-md-6">
+        <div class="footer-wordmark mb-3">ROUGE<sup style="font-size:0.6rem; color:var(--rouge); margin-left:0.4rem;">N°07</sup></div>
+        <p class="manifesto-quote mb-4">« La beauté n'a pas besoin d'être bruyante pour être entendue. »</p>
+        <p class="body-sm" style="color: rgba(250,246,241,0.55);">— Sophie Delacroix, fondatrice<br>Paris · Jakarta · Depuis 1987</p>
+      </div>
+      <div class="col-lg-2 col-md-6">
+        <h5>La Maison</h5>
+        <a href="about.html">Notre histoire</a>
+        <a href="about.html">Le manifeste</a>
+        <a href="about.html">L'atelier</a>
+        <a href="about.html">Le journal</a>
+        <a href="contact.html">Presse</a>
+      </div>
+      <div class="col-lg-2 col-md-6">
+        <h5>Service</h5>
+        <a href="contact.html">Contact</a>
+        <a href="shop.html">Livraison</a>
+        <a href="shop.html">Retours</a>
+        <a href="contact.html">FAQ</a>
+        <a href="contact.html">Conseils beauté</a>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <h5>S'abonner — Le Journal Mensuel</h5>
+        <p class="body-sm mb-3" style="color: rgba(250,246,241,0.55);">Recevez notre édition éditoriale, nouveautés et invitations privées.</p>
+        <form onsubmit="event.preventDefault(); this.querySelector('input').value=''; alert('Bienvenue dans la maison.');">
+          <input type="email" placeholder="adresse email" class="footer-input mb-3" required>
+          <button type="submit" class="btn-rouge-red w-100">S'abonner</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 ROUGE Maison · Tous droits réservés</div>
+      <div>Jakarta · Paris · CGV · Confidentialité · Cookies</div>
+      <div>Instagram · Pinterest · Spotify</div>
+    </div>
+  </div>
+</footer>
+
+<div class="cart-drawer-backdrop" data-close-cart></div>
+<aside class="cart-drawer">
+  <div class="drawer-head">
+    <h4>Votre Tas <span class="rouge serif-italic">· 2</span></h4>
+    <button class="drawer-close" data-close-cart aria-label="Close"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-item">
+      <div class="drawer-thumb"></div>
+      <div>
+        <div class="label-caps-rouge" style="font-size:0.6rem;">N°07 · Lèvres</div>
+        <h5 class="font-display mt-1 mb-1" style="font-size:1rem; font-weight:700;">Rouge Couture Lipstick</h5>
+        <div class="body-sm muted" style="font-style:italic;">Teinte Rouge Vie · Qty 1</div>
+        <div class="font-display mt-2" style="font-weight:700;">Rp 485.000</div>
+      </div>
+    </div>
+    <div class="drawer-item">
+      <div class="drawer-thumb"></div>
+      <div>
+        <div class="label-caps-rouge" style="font-size:0.6rem;">N°23 · Parfum</div>
+        <h5 class="font-display mt-1 mb-1" style="font-size:1rem; font-weight:700;">Parfum Bois Rouge</h5>
+        <div class="body-sm muted" style="font-style:italic;">EDP 50ml · Qty 1</div>
+        <div class="font-display mt-2" style="font-weight:700;">Rp 1.450.000</div>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <div class="d-flex justify-content-between mb-3">
+      <span class="label-caps">Sous-total</span>
+      <span class="font-display" style="font-weight:900; font-size:1.3rem;">Rp 1.935.000</span>
+    </div>
+    <a href="cart.html" class="btn-rouge-outline w-100 mb-2">Voir le Tas</a>
+    <a href="checkout.html" class="btn-rouge-red w-100">Passer Commande →</a>
+  </div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

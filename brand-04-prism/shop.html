@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop · PRISM Vol.04</title>
+<meta name="description" content="Shop the full PRISM Volume 04 Chrome Series — 12 holographic beauty products.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='url(%23g)'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23d8b4ff'/%3E%3Cstop offset='1' stop-color='%2394c2ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="bg-noise"></div>
+<div class="cursor-ring"></div>
+<div class="cursor-dot"></div>
+
+<div class="announce">
+  <div class="announce-track">
+    <span>VOL.04 DROPS FRIDAY</span><span>FREE SHIPPING OVER RP 500K</span><span>NEW PRISM CHROME LINE</span><span>BUY 2 GET 1 — HOLO BUNDLE</span>
+    <span>VOL.04 DROPS FRIDAY</span><span>FREE SHIPPING OVER RP 500K</span><span>NEW PRISM CHROME LINE</span><span>BUY 2 GET 1 — HOLO BUNDLE</span>
+  </div>
+</div>
+
+<nav class="navbar-prism">
+  <div class="container-fluid">
+    <div class="nav-row">
+      <a href="index.html" class="brand-logo"><span class="brand-dot"></span><span>PRISM</span></a>
+      <div class="nav-links">
+        <a href="shop.html" class="glitch active">Shop</a>
+        <a href="index.html#drops" class="glitch">Drops</a>
+        <a href="about.html#lookbook" class="glitch">Lookbook</a>
+        <a href="about.html" class="glitch">About</a>
+        <a href="contact.html" class="glitch">Contact</a>
+      </div>
+      <div class="nav-tools">
+        <button class="menu-toggle"><i class="bi bi-list"></i> Menu</button>
+        <a href="cart.html" class="cart-btn"><i class="bi bi-bag"></i><span class="cart-badge">3</span></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Shop Head -->
+<section class="shop-head">
+  <div class="eyebrow mb-16">SHOP · 12 PRODUCTS · VOL.04</div>
+  <h1>The Chrome <span class="iri-fill">Series.</span></h1>
+  <p class="text-dim" style="max-width:560px;">Setiap shade dirancang untuk shift saat kena cahaya. Limited untuk Volume 04 — restock tergantung popularity.</p>
+
+  <div class="chip-row">
+    <button class="chip active">All</button>
+    <button class="chip">Lips</button>
+    <button class="chip">Face</button>
+    <button class="chip">Eyes</button>
+    <button class="chip">Body</button>
+    <button class="chip">Tools</button>
+    <button class="chip"><span class="live-dot" style="background:var(--rose);"></span> Live Now</button>
+    <button class="chip">Best Seller</button>
+  </div>
+</section>
+
+<div class="divider-iri"></div>
+
+<!-- Shop Layout -->
+<div class="shop-layout">
+  <!-- Sidebar -->
+  <aside class="shop-sidebar">
+    <div class="filter-group">
+      <h5>Category</h5>
+      <div class="filter-list">
+        <label><input type="checkbox" checked> Lips (3)</label>
+        <label><input type="checkbox" checked> Face (4)</label>
+        <label><input type="checkbox" checked> Eyes (2)</label>
+        <label><input type="checkbox"> Body (1)</label>
+        <label><input type="checkbox"> Tools (2)</label>
+      </div>
+    </div>
+    <div class="filter-group">
+      <h5>Finish</h5>
+      <div class="filter-list">
+        <label><input type="checkbox" checked> Chrome</label>
+        <label><input type="checkbox" checked> Holographic</label>
+        <label><input type="checkbox"> Pearl</label>
+        <label><input type="checkbox"> Glass</label>
+        <label><input type="checkbox"> Satin</label>
+      </div>
+    </div>
+    <div class="filter-group">
+      <h5>Intensity</h5>
+      <div class="filter-list">
+        <label><input type="radio" name="int"> Sheer</label>
+        <label><input type="radio" name="int" checked> Medium</label>
+        <label><input type="radio" name="int"> Full</label>
+      </div>
+    </div>
+    <div class="filter-group">
+      <h5>Price · Rp 245K – 875K</h5>
+      <input type="range" class="range-slider" min="245" max="875" value="600">
+    </div>
+    <button class="btn-prism iri" style="width:100%;">Apply Filters</button>
+  </aside>
+
+  <!-- Products -->
+  <div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+      <div class="mono text-dim">SHOWING 12 OF 12</div>
+      <div class="mono" style="display:flex; align-items:center; gap:8px;">
+        SORT: <select style="background:transparent; border:1px solid var(--line-2); color:var(--pearl); padding:6px 10px; border-radius:999px; font-family:var(--font-mono); font-size:11px; letter-spacing:0.12em;">
+          <option>Featured</option><option>New</option><option>Price ↑</option><option>Price ↓</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="product-grid">
+
+      <a href="product.html" class="product-card" data-reveal>
+        <div class="product-img holo-1">
+          <span class="product-badge live"><span class="live-dot"></span>LIVE NOW</span>
+          <svg class="product-svg" viewBox="0 0 100 100"><defs><linearGradient id="s1" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f0f0f5"/><stop offset="1" stop-color="#94c2ff"/></linearGradient></defs><rect x="35" y="15" width="30" height="70" rx="4" fill="url(#s1)"/><rect x="38" y="18" width="24" height="20" rx="2" fill="#fff" opacity=".35"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">LIPS · CHROME</div>
+          <div class="product-name">Prism Chrome Lip Lacquer</div>
+          <div class="product-meta"><div class="product-price">Rp 385.000</div><div class="product-swatches"><span class="swatch-dot" style="background:linear-gradient(135deg,#d8b4ff,#94c2ff)"></span><span class="swatch-dot" style="background:linear-gradient(135deg,#ffb4d6,#d8b4ff)"></span><span class="swatch-dot" style="background:linear-gradient(135deg,#b4ffe8,#94c2ff)"></span></div></div>
+        </div>
+      </a>
+
+      <a href="product.html" class="product-card" data-reveal>
+        <div class="product-img holo-2">
+          <span class="product-badge new">NEW</span>
+          <svg class="product-svg" viewBox="0 0 100 100"><defs><linearGradient id="s2" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f0f0f5"/><stop offset="1" stop-color="#ffb4d6"/></linearGradient></defs><rect x="30" y="20" width="40" height="60" rx="20" fill="url(#s2)"/><circle cx="50" cy="35" r="6" fill="#fff" opacity=".5"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">FACE · HIGHLIGHT</div>
+          <div class="product-name">Holo Highlighter Stick</div>
+          <div class="product-meta"><div class="product-price">Rp 425.000</div><div class="product-swatches"><span class="swatch-dot" style="background:linear-gradient(135deg,#ffb4d6,#d8b4ff)"></span><span class="swatch-dot" style="background:linear-gradient(135deg,#b4ffe8,#ffb4d6)"></span></div></div>
+        </div>
+      </a>
+
+      <a href="product.html" class="product-card" data-reveal>
+        <div class="product-img holo-3">
+          <svg class="product-svg" viewBox="0 0 100 100"><defs><linearGradient id="s3" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f0f0f5"/><stop offset="1" stop-color="#b4ffe8"/></linearGradient></defs><rect x="20" y="30" width="60" height="40" rx="6" fill="url(#s3)"/><line x1="35" y1="40" x2="35" y2="60" stroke="#0d0d12" stroke-width="1" opacity=".2"/><line x1="50" y1="40" x2="50" y2="60" stroke="#0d0d12" stroke-width="1" opacity=".2"/><line x1="65" y1="40" x2="65" y2="60" stroke="#0d0d12" stroke-width="1" opacity=".2"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">EYES · QUAD</div>
+          <div class="product-name">Aura Eyeshadow Quad</div>
+          <div class="product-meta"><div class="product-price">Rp 675.000</div><div class="product-swatches"><span class="swatch-dot" style="background:linear-gradient(135deg,#b4ffe8,#94c2ff)"></span><span class="swatch-dot" style="background:linear-gradient(135deg,#d8b4ff,#ffb4d6)"></span></div></div>
+        </div>
+      </a>
+
+      <a href="product.html" class="product-card" data-reveal>
+        <div class="product-img holo-4">
+          <span class="product-badge live"><span class="live-dot"></span>LIVE NOW</span>
+          <svg class="product-svg" viewBox="0 0 100 100"><defs><linearGradient id="s4" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f0f0f5"/><stop offset="1" stop-color="#d8b4ff"/></linearGradient></defs><rect x="42" y="10" width="16" height="80" rx="4" fill="url(#s4)"/><rect x="44" y="15" width="12" height="10" rx="2" fill="#fff" opacity=".4"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">EYES · LINER</div>
+          <div class="product-name">Liquid Foil Liner</div>
+          <div class="product-meta"><div class="product-price">Rp 295.000</div><div class="product-swatches"><span class="swatch-dot" style="background:linear-gradient(135deg,#94c2ff,#d8b4ff)"></span><span class="swatch-dot" style="background:linear-gradient(135deg,#ffb4d6,#b4ffe8)"></span><span class="swatch-dot" style="background:linear-gradient(135deg,#b4ffe8,#94c2ff)"></span></div></div>
+        </div>
+      </a>
+
+      <a href="product.html" class="product-card" data-reveal>
+        <div class="product-img holo-5">
+          <svg class="product-svg" viewBox="0 0 100 100"><defs><linearGradient id="s5" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f0f0f5"/><stop offset="1" stop-color="#94c2ff"/></linearGradient></defs><path d="M50 10 L65 30 L60 80 Q50 90 40 80 L35 30 Z" fill="url(#s5)"/><circle cx="50" cy="25" r="4" fill="#fff" opacity=".5"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">BODY · MIST</div>
+          <div class="product-name">Iridescent Body Mist</div>
+          <div class="product-meta"><div class="product-price">Rp 545.000</div><div class="product-swatches"><span class="swatch-dot" style="background:linear-gradient(135deg,#d8b4ff,#94c2ff)"></span></div></div>
+        </div>
+      </a>
+
+      <a href="product.html" class="product-card" data-reveal>
+        <div class="product-img holo-6">
+          <svg class="product-svg" viewBox="0 0 100 100"><defs><linearGradient id="s6" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f0f0f5"/><stop offset="1" stop-color="#ffb4d6"/></linearGradient></defs><circle cx="50" cy="55" r="22" fill="url(#s6)"/><rect x="46" y="15" width="8" height="35" rx="2" fill="url(#s6)"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">NAILS</div>
+          <div class="product-name">Color Shift Nail Polish</div>
+          <div class="product-meta"><div class="product-price">Rp 245.000</div><div class="product-swatches"><span class="swatch-dot" style="background:linear-gradient(135deg,#ffb4d6,#d8b4ff)"></span><span class="swatch-dot" style="background:linear-gradient(135deg,#b4ffe8,#94c2ff)"></span><span class="swatch-dot" style="background:linear-gradient(135deg,#d8b4ff,#b4ffe8)"></span></div></div>
+        </div>
+      </a>
+
+      <a href="product.html" class="product-card" data-reveal>
+        <div class="product-img holo-1">
+          <span class="product-badge new">NEW</span>
+          <svg class="product-svg" viewBox="0 0 100 100"><defs><linearGradient id="s7" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f0f0f5"/><stop offset="1" stop-color="#b4ffe8"/></linearGradient></defs><path d="M35 15 Q50 5 65 15 L62 80 Q50 90 38 80 Z" fill="url(#s7)"/><ellipse cx="50" cy="22" rx="10" ry="3" fill="#fff" opacity=".5"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">FACE · SERUM</div>
+          <div class="product-name">Glass Skin Drops</div>
+          <div class="product-meta"><div class="product-price">Rp 725.000</div><div class="product-swatches"><span class="swatch-dot" style="background:linear-gradient(135deg,#b4ffe8,#f0f0f5)"></span></div></div>
+        </div>
+      </a>
+
+      <a href="product.html" class="product-card" data-reveal>
+        <div class="product-img holo-2">
+          <svg class="product-svg" viewBox="0 0 100 100"><defs><linearGradient id="s8" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f0f0f5"/><stop offset="1" stop-color="#ffb4d6"/></linearGradient></defs><rect x="25" y="20" width="50" height="60" rx="8" fill="url(#s8)"/><rect x="30" y="28" width="40" height="6" rx="2" fill="#fff" opacity=".4"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">FACE · PRIMER</div>
+          <div class="product-name">Pearl Glow Primer</div>
+          <div class="product-meta"><div class="product-price">Rp 485.000</div><div class="product-swatches"><span class="swatch-dot" style="background:linear-gradient(135deg,#f0f0f5,#ffb4d6)"></span><span class="swatch-dot" style="background:linear-gradient(135deg,#f0f0f5,#d8b4ff)"></span></div></div>
+        </div>
+      </a>
+
+      <a href="product.html" class="product-card" data-reveal>
+        <div class="product-img holo-3">
+          <svg class="product-svg" viewBox="0 0 100 100"><defs><linearGradient id="s9" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f0f0f5"/><stop offset="1" stop-color="#94c2ff"/></linearGradient></defs><rect x="38" y="20" width="24" height="60" rx="3" fill="url(#s9)"/><rect x="42" y="50" width="16" height="2" fill="#0d0d12" opacity=".2"/><circle cx="50" cy="68" r="3" fill="#fff" opacity=".5"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">BROWS</div>
+          <div class="product-name">Chrome Brow Gel</div>
+          <div class="product-meta"><div class="product-price">Rp 265.000</div><div class="product-swatches"><span class="swatch-dot" style="background:linear-gradient(135deg,#d8b4ff,#94c2ff)"></span><span class="swatch-dot" style="background:linear-gradient(135deg,#ffb4d6,#b4ffe8)"></span></div></div>
+        </div>
+      </a>
+
+      <a href="product.html" class="product-card" data-reveal>
+        <div class="product-img holo-4">
+          <span class="product-badge live"><span class="live-dot"></span>LIVE NOW</span>
+          <svg class="product-svg" viewBox="0 0 100 100"><defs><linearGradient id="s10" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f0f0f5"/><stop offset="1" stop-color="#ffb4d6"/></linearGradient></defs><circle cx="50" cy="50" r="30" fill="url(#s10)"/><circle cx="50" cy="50" r="20" fill="#fff" opacity=".3"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">CHEEKS</div>
+          <div class="product-name">Spectrum Cheek Tint</div>
+          <div class="product-meta"><div class="product-price">Rp 345.000</div><div class="product-swatches"><span class="swatch-dot" style="background:linear-gradient(135deg,#ffb4d6,#d8b4ff)"></span><span class="swatch-dot" style="background:linear-gradient(135deg,#ffb4d6,#b4ffe8)"></span><span class="swatch-dot" style="background:linear-gradient(135deg,#d8b4ff,#94c2ff)"></span></div></div>
+        </div>
+      </a>
+
+      <a href="product.html" class="product-card" data-reveal>
+        <div class="product-img holo-5">
+          <svg class="product-svg" viewBox="0 0 100 100"><defs><linearGradient id="s11" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f0f0f5"/><stop offset="1" stop-color="#b4ffe8"/></linearGradient></defs><rect x="40" y="15" width="20" height="70" rx="3" fill="url(#s11)"/><circle cx="50" cy="25" r="5" fill="#fff" opacity=".5"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">FACE · SETTING</div>
+          <div class="product-name">Hologram Setting Spray</div>
+          <div class="product-meta"><div class="product-price">Rp 395.000</div><div class="product-swatches"><span class="swatch-dot" style="background:linear-gradient(135deg,#b4ffe8,#94c2ff)"></span></div></div>
+        </div>
+      </a>
+
+      <a href="product.html" class="product-card" data-reveal>
+        <div class="product-img holo-6">
+          <svg class="product-svg" viewBox="0 0 100 100"><defs><linearGradient id="s12" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f0f0f5"/><stop offset="1" stop-color="#d8b4ff"/></linearGradient></defs><rect x="25" y="35" width="50" height="35" rx="6" fill="url(#s12)"/><rect x="30" y="42" width="40" height="20" rx="3" fill="#fff" opacity=".25"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">FACE · POWDER</div>
+          <div class="product-name">Light Bender Powder</div>
+          <div class="product-meta"><div class="product-price">Rp 875.000</div><div class="product-swatches"><span class="swatch-dot" style="background:linear-gradient(135deg,#d8b4ff,#ffb4d6)"></span><span class="swatch-dot" style="background:linear-gradient(135deg,#94c2ff,#b4ffe8)"></span></div></div>
+        </div>
+      </a>
+
+    </div>
+
+    <div style="text-align:center; margin-top:48px;">
+      <div class="mono text-dim mb-16">YOU'VE REACHED THE END · 12 / 12</div>
+      <a href="index.html" class="btn-prism ghost">Back to Home <i class="bi bi-arrow-left"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <a href="index.html" class="brand-logo mb-16"><span class="brand-dot"></span><span>PRISM</span></a>
+      <p class="text-dim" style="font-size:14px; max-width:280px;">Holographic beauty out of Jakarta. Diformulasi untuk shift, shine, dan stay. Color you can wear.</p>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><a href="shop.html">All Products</a><a href="shop.html">Lips</a><a href="shop.html">Face</a><a href="shop.html">Eyes</a><a href="shop.html">Body</a></div>
+    <div class="footer-col"><h4>Help</h4><a href="contact.html">Contact</a><a href="contact.html">Shipping</a><a href="contact.html">Returns</a><a href="contact.html">FAQ</a><a href="contact.html">Press Kit</a></div>
+    <div class="footer-col"><h4>Join The Spectrum</h4><p class="text-dim" style="font-size:13px;">Early access · drop reminders · exclusive shades.</p><form class="news-form mt-16" style="margin:0;" onsubmit="event.preventDefault();"><input type="email" placeholder="email"><button class="btn-prism" type="submit">Go</button></form></div>
+  </div>
+  <div class="footer-brand iri-text">PRISM</div>
+  <div class="footer-bottom"><div>© 2026 PRISM Beauty Lab</div><div>JAKARTA · GLOBAL</div><div>Vol.04 · 28.05.2026</div></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
