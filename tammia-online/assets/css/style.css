@@ -1,5 +1,5 @@
 /* ============================================================
-   TAMMIA ONLINE — Premium Beauty Tools Retailer
+   TAMMIA ONLINE - Premium Beauty Tools Retailer
    Stylesheet v1.0
    ============================================================ */
 
@@ -1611,3 +1611,125 @@ section { padding: 100px 0; }
 .gap-3 { gap: 1rem; }
 .gap-4 { gap: 1.5rem; }
 .gap-5 { gap: 3rem; }
+
+/* ---------- Live search dropdown ---------- */
+.search-results-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  max-height: 480px;
+  overflow-y: auto;
+  z-index: 1100;
+  padding: 6px;
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+}
+.search-results-dropdown.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.search-result-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background .15s ease;
+}
+.search-result-row:hover { background: var(--peach-tint); color: var(--ink); }
+.sr-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: linear-gradient(160deg, var(--peach-tint), var(--pink-tint));
+  flex-shrink: 0;
+  position: relative;
+  display: inline-block;
+}
+.sr-thumb svg { position: absolute; inset: 0; margin: auto; width: 70%; height: 70%; }
+.sr-meta { display: flex; flex-direction: column; flex: 1; min-width: 0; gap: 2px; }
+.sr-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.sr-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sr-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.sr-price {
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.sr-price.sale { color: var(--rouge); }
+.sr-was {
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.search-empty {
+  padding: 18px 14px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+.search-see-all {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  margin-top: 4px;
+  border-top: 1px solid var(--line);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  text-decoration: none;
+  transition: background .15s ease;
+  border-radius: 0 0 10px 10px;
+}
+.search-see-all:hover { background: var(--peach-tint); color: var(--rouge); }
+
+@media (max-width: 991px) {
+  .nav-search { position: static; }
+  .search-results-dropdown {
+    position: fixed;
+    top: auto;
+    left: 12px;
+    right: 12px;
+    max-height: 60vh;
+  }
+}
+
+/* ---------- Shop empty state ---------- */
+.shop-empty {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--cream-1);
+  border-radius: var(--r-lg);
+  margin-top: 24px;
+}
+#productGrid { transition: opacity .2s ease; }
