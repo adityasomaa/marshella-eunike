@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belanja — Tammia Online · Beauty Tools Premium</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- Free shipping bar -->
+<div class="shipping-bar">
+  <div class="ticker">
+    <span><i class="bi bi-truck"></i>&nbsp;&nbsp;Gratis Ongkir untuk pesanan diatas Rp 150.000</span>
+    <span><i class="bi bi-shield-check"></i>&nbsp;&nbsp;100% Original — Garansi Authentic</span>
+    <span><i class="bi bi-fire"></i>&nbsp;&nbsp;Friday Flash Sale — Diskon hingga 70%</span>
+    <span><i class="bi bi-credit-card"></i>&nbsp;&nbsp;Cicilan 0% via BCA &amp; Mandiri</span>
+    <span><i class="bi bi-truck"></i>&nbsp;&nbsp;Gratis Ongkir untuk pesanan diatas Rp 150.000</span>
+    <span><i class="bi bi-shield-check"></i>&nbsp;&nbsp;100% Original — Garansi Authentic</span>
+    <span><i class="bi bi-fire"></i>&nbsp;&nbsp;Friday Flash Sale — Diskon hingga 70%</span>
+  </div>
+</div>
+
+<!-- Navbar -->
+<div class="nav-wrap">
+  <div class="container">
+    <div class="navbar-tammia">
+      <a href="index.html" class="brand-logo">tammia<span class="dot-online">.online</span></a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="shop.html" class="active">Belanja</a></li>
+          <li><a href="about.html#brands">Brand</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-search">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Cari produk, brand...">
+      </div>
+      <div class="nav-icons ms-auto">
+        <button class="nav-icon-btn d-lg-none nav-mobile-toggle"><i class="bi bi-list"></i></button>
+        <a href="contact.html" class="nav-icon-btn"><i class="bi bi-person"></i></a>
+        <a href="#" class="nav-icon-btn"><i class="bi bi-heart"></i></a>
+        <button class="nav-icon-btn" data-open-cart>
+          <i class="bi bi-bag"></i>
+          <span class="cart-badge">3</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page header -->
+<section style="padding: 60px 0 40px;">
+  <div class="container">
+    <div class="mono-label" style="color:var(--muted);">
+      <a href="index.html" style="color:inherit;">Home</a> &nbsp;/&nbsp; <span style="color:var(--rouge);">Belanja</span>
+    </div>
+    <h1 style="font-family:'Fraunces',serif; font-size:clamp(2.4rem,5vw,3.6rem); font-weight:300; margin-top:14px; letter-spacing:-0.02em;">Semua Produk <em style="font-style:italic; color:var(--rouge);">Tammia</em></h1>
+    <p style="color:var(--muted); max-width:560px; margin-top:8px;">800+ produk dari 16 brand internasional dan lokal. Filter berdasarkan kategori, brand, harga, atau rating untuk nemu yang pas.</p>
+  </div>
+</section>
+
+<!-- Shop layout -->
+<section style="padding: 0 0 100px;">
+  <div class="container">
+    <div class="shop-layout">
+
+      <!-- Sidebar -->
+      <aside class="filter-sidebar">
+
+        <div class="filter-group">
+          <h6>Kategori</h6>
+          <label class="filter-check"><input type="checkbox" checked> Makeup Brushes <span class="count">128</span></label>
+          <label class="filter-check"><input type="checkbox"> Makeup Sponges <span class="count">42</span></label>
+          <label class="filter-check"><input type="checkbox"> Eyelash <span class="count">96</span></label>
+          <label class="filter-check"><input type="checkbox"> Eyelash Glue <span class="count">28</span></label>
+          <label class="filter-check"><input type="checkbox"> Beauty Cases <span class="count">31</span></label>
+          <label class="filter-check"><input type="checkbox"> Tweezers <span class="count">54</span></label>
+          <label class="filter-check"><input type="checkbox"> Nail Care <span class="count">68</span></label>
+          <label class="filter-check"><input type="checkbox"> Hair Tools <span class="count">38</span></label>
+          <label class="filter-check"><input type="checkbox"> Bath Accessories <span class="count">22</span></label>
+        </div>
+
+        <div class="filter-group">
+          <h6>Brand</h6>
+          <label class="filter-check"><input type="checkbox" checked> Tammia <span class="count">86</span></label>
+          <label class="filter-check"><input type="checkbox"> Real Techniques <span class="count">42</span></label>
+          <label class="filter-check"><input type="checkbox"> Tweezerman <span class="count">36</span></label>
+          <label class="filter-check"><input type="checkbox"> Ecotools <span class="count">28</span></label>
+          <label class="filter-check"><input type="checkbox"> Ardell <span class="count">31</span></label>
+          <label class="filter-check"><input type="checkbox"> D-UP <span class="count">24</span></label>
+          <label class="filter-check"><input type="checkbox"> DUO <span class="count">18</span></label>
+          <label class="filter-check"><input type="checkbox"> Sonia Miller <span class="count">14</span></label>
+          <label class="filter-check"><input type="checkbox"> Tangle Teezer <span class="count">9</span></label>
+          <label class="filter-check"><input type="checkbox"> Andrea <span class="count">22</span></label>
+          <label class="filter-check"><input type="checkbox"> Goody <span class="count">17</span></label>
+          <label class="filter-check"><input type="checkbox"> China Glaze <span class="count">26</span></label>
+          <label class="filter-check"><input type="checkbox"> Hollywood Secrets <span class="count">12</span></label>
+          <label class="filter-check"><input type="checkbox"> Mapepe <span class="count">15</span></label>
+          <label class="filter-check"><input type="checkbox"> Meiko <span class="count">8</span></label>
+          <label class="filter-check"><input type="checkbox"> Naturactor <span class="count">11</span></label>
+        </div>
+
+        <div class="filter-group">
+          <h6>Harga</h6>
+          <input type="range" class="range-slider" min="0" max="1000000" value="500000">
+          <div class="range-vals">
+            <span>Rp 0</span>
+            <span>Rp 1.000.000</span>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h6>Rating</h6>
+          <label class="filter-check"><input type="checkbox"> <span class="stars" style="color:#e8b04a;">★★★★★</span> &amp; up <span class="count">312</span></label>
+          <label class="filter-check"><input type="checkbox" checked> <span class="stars" style="color:#e8b04a;">★★★★</span><span style="color:var(--line);">★</span> &amp; up <span class="count">528</span></label>
+          <label class="filter-check"><input type="checkbox"> <span class="stars" style="color:#e8b04a;">★★★</span><span style="color:var(--line);">★★</span> &amp; up <span class="count">714</span></label>
+        </div>
+
+        <div class="filter-group">
+          <div class="toggle-row">
+            <span style="font-weight:500;">Tampilkan Sale Only</span>
+            <span class="toggle-switch on"></span>
+          </div>
+          <div class="toggle-row" style="margin-top:14px;">
+            <span style="font-weight:500;">Stok Tersedia</span>
+            <span class="toggle-switch on"></span>
+          </div>
+        </div>
+
+        <button class="btn btn-ghost" style="width:100%; justify-content:center; margin-top:20px;"><i class="bi bi-arrow-clockwise"></i> Reset Filter</button>
+      </aside>
+
+      <!-- Main grid -->
+      <div>
+        <div class="shop-toolbar">
+          <div class="shop-count">Menampilkan 1–20 dari 847 produk</div>
+          <div class="d-flex gap-2 align-items-center">
+            <span class="mono-label">Urutkan:</span>
+            <select class="sort-select">
+              <option>Terbaru</option>
+              <option>Harga Terendah</option>
+              <option>Harga Tertinggi</option>
+              <option>Rating Tertinggi</option>
+              <option>Best Seller</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row g-4">
+
+          <!-- 1 Sonia Miller real -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <span class="product-badge badge-sale">40% OFF</span>
+                <svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="4" fill="#1a1a1a"/><rect x="24" y="34" width="52" height="42" rx="3" fill="#fdeef0"/><rect x="38" y="22" width="24" height="12" rx="3" fill="#1a1a1a"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Sonia Miller</span>
+              <div class="product-name">Sonia Miller Transparent Travel Case Pouch</div>
+              <div class="product-price-row"><span class="product-price sale">Rp 599.940</span><span class="product-price-was">Rp 999.900</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.9 <span class="dot-sep"></span> 87</div>
+            </a>
+          </div>
+
+          <!-- 2 Tammia 1310 -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <span class="product-badge badge-sale">10% OFF</span>
+                <svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><rect x="52" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#e8a0a8"/><ellipse cx="55" cy="76" rx="9" ry="18" fill="#e8a0a8"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Tammia</span>
+              <div class="product-name">Tammia Professional 1310 Deluxe Duo Brow Brush</div>
+              <div class="product-price-row"><span class="product-price sale">Rp 95.310</span><span class="product-price-was">Rp 105.900</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.8 <span class="dot-sep"></span> 124</div>
+            </a>
+          </div>
+
+          <!-- 3 Tammia Sponge -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <span class="product-badge badge-new">NEW</span>
+                <svg viewBox="0 0 100 100"><path d="M30,40 C20,40 12,52 14,66 C16,80 26,86 38,86 C46,86 50,80 50,72 C50,64 46,58 38,54 C32,52 30,46 30,40 Z" fill="#f4d4c4"/><path d="M62,30 C52,30 44,42 46,56 C48,70 58,76 70,76 C78,76 82,70 82,62 C82,54 78,48 70,44 C64,42 62,36 62,30 Z" fill="#f4d4c4"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Tammia</span>
+              <div class="product-name">Tammia Professional PCUS52 Cushion Sponge (2pc)</div>
+              <div class="product-price-row"><span class="product-price">Rp 46.900</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.9 <span class="dot-sep"></span> 215</div>
+            </a>
+          </div>
+
+          <!-- 4 D-UP Lash -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <span class="product-badge badge-bestseller">BEST SELLER</span>
+                <svg viewBox="0 0 140 60"><path d="M10,40 Q70,52 130,40" stroke="#1a1a1a" stroke-width="2.5" fill="none"/><line x1="20" y1="40" x2="18" y2="14" stroke="#1a1a1a" stroke-width="2"/><line x1="40" y1="44" x2="38" y2="6" stroke="#1a1a1a" stroke-width="2.5"/><line x1="60" y1="46" x2="58" y2="2" stroke="#1a1a1a" stroke-width="2.7"/><line x1="80" y1="46" x2="82" y2="2" stroke="#1a1a1a" stroke-width="2.7"/><line x1="100" y1="44" x2="102" y2="6" stroke="#1a1a1a" stroke-width="2.5"/><line x1="120" y1="40" x2="122" y2="14" stroke="#1a1a1a" stroke-width="2"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">D-UP</span>
+              <div class="product-name">D-UP Lash Focus Eyelash K-POP Idol Edition</div>
+              <div class="product-price-row"><span class="product-price">Rp 249.900</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 5.0 <span class="dot-sep"></span> 318</div>
+            </a>
+          </div>
+
+          <!-- 5 Real Techniques Brush Set -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <svg viewBox="0 0 100 100"><rect x="30" y="14" width="5" height="44" rx="2" fill="#c8553d"/><rect x="42" y="10" width="5" height="50" rx="2" fill="#c8553d"/><rect x="54" y="14" width="5" height="44" rx="2" fill="#c8553d"/><rect x="66" y="18" width="5" height="40" rx="2" fill="#c8553d"/><ellipse cx="32.5" cy="68" rx="6" ry="14" fill="#1a1a1a"/><ellipse cx="44.5" cy="72" rx="7" ry="16" fill="#1a1a1a"/><ellipse cx="56.5" cy="68" rx="6" ry="14" fill="#1a1a1a"/><ellipse cx="68.5" cy="66" rx="5" ry="12" fill="#1a1a1a"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Real Techniques</span>
+              <div class="product-name">Real Techniques Everyday Essentials Brush Set</div>
+              <div class="product-price-row"><span class="product-price">Rp 425.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.8 <span class="dot-sep"></span> 264</div>
+            </a>
+          </div>
+
+          <!-- 6 Tweezerman Slant -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <svg viewBox="0 0 100 100"><path d="M40,12 L48,80 L52,80 L60,12 L56,10 L50,72 L44,10 Z" fill="#1a1a1a"/><circle cx="50" cy="86" r="6" fill="#e8a0a8"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Tweezerman</span>
+              <div class="product-name">Tweezerman Slant Tweezer Stainless Steel</div>
+              <div class="product-price-row"><span class="product-price">Rp 285.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.9 <span class="dot-sep"></span> 412</div>
+            </a>
+          </div>
+
+          <!-- 7 Ardell Wispies -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <span class="product-badge badge-sale">15% OFF</span>
+                <svg viewBox="0 0 140 60"><path d="M10,40 Q70,55 130,40" stroke="#1a1a1a" stroke-width="2" fill="none"/><line x1="25" y1="42" x2="20" y2="10" stroke="#1a1a1a" stroke-width="2"/><line x1="50" y1="46" x2="45" y2="2" stroke="#1a1a1a" stroke-width="2.4"/><line x1="70" y1="48" x2="70" y2="0" stroke="#1a1a1a" stroke-width="2.6"/><line x1="90" y1="46" x2="95" y2="2" stroke="#1a1a1a" stroke-width="2.4"/><line x1="115" y1="42" x2="120" y2="10" stroke="#1a1a1a" stroke-width="2"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Ardell</span>
+              <div class="product-name">Ardell Wispies Natural False Lashes</div>
+              <div class="product-price-row"><span class="product-price sale">Rp 75.650</span><span class="product-price-was">Rp 89.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.7 <span class="dot-sep"></span> 198</div>
+            </a>
+          </div>
+
+          <!-- 8 Ecotools Bamboo -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <svg viewBox="0 0 100 100"><rect x="20" y="36" width="60" height="28" rx="4" fill="#c8553d"/><rect x="20" y="36" width="60" height="28" rx="4" fill="url(#stripes)"/><defs><pattern id="stripes" patternUnits="userSpaceOnUse" width="6" height="6"><path d="M0,6 L6,0" stroke="#1a1a1a" stroke-width="0.5" opacity="0.2"/></pattern></defs></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Ecotools</span>
+              <div class="product-name">Ecotools Bamboo Buffer Block 4-Way</div>
+              <div class="product-price-row"><span class="product-price">Rp 65.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★</span><span style="color:var(--line);">★</span> 4.5 <span class="dot-sep"></span> 92</div>
+            </a>
+          </div>
+
+          <!-- 9 Tangle Teezer -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <svg viewBox="0 0 100 100"><ellipse cx="50" cy="48" rx="34" ry="22" fill="#e8a0a8"/><g fill="#1a1a1a"><circle cx="32" cy="42" r="2"/><circle cx="42" cy="40" r="2"/><circle cx="52" cy="40" r="2"/><circle cx="62" cy="40" r="2"/><circle cx="32" cy="50" r="2"/><circle cx="42" cy="50" r="2"/><circle cx="52" cy="50" r="2"/><circle cx="62" cy="50" r="2"/><circle cx="38" cy="58" r="2"/><circle cx="48" cy="58" r="2"/><circle cx="58" cy="58" r="2"/></g></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Tangle Teezer</span>
+              <div class="product-name">Tangle Teezer Original Detangler Pink</div>
+              <div class="product-price-row"><span class="product-price">Rp 175.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.8 <span class="dot-sep"></span> 156</div>
+            </a>
+          </div>
+
+          <!-- 10 Tammia 5-piece Rose Gold -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <span class="product-badge badge-new">NEW</span>
+                <svg viewBox="0 0 100 100"><g><rect x="20" y="20" width="4" height="48" rx="2" fill="#c8553d"/><rect x="32" y="14" width="4" height="54" rx="2" fill="#c8553d"/><rect x="44" y="10" width="4" height="58" rx="2" fill="#c8553d"/><rect x="56" y="14" width="4" height="54" rx="2" fill="#c8553d"/><rect x="68" y="20" width="4" height="48" rx="2" fill="#c8553d"/><ellipse cx="22" cy="76" rx="5" ry="10" fill="#1a1a1a"/><ellipse cx="34" cy="78" rx="6" ry="12" fill="#1a1a1a"/><ellipse cx="46" cy="80" rx="7" ry="14" fill="#1a1a1a"/><ellipse cx="58" cy="78" rx="6" ry="12" fill="#1a1a1a"/><ellipse cx="70" cy="76" rx="5" ry="10" fill="#1a1a1a"/></g></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Tammia</span>
+              <div class="product-name">Tammia Professional 5-Piece Brush Set Rose Gold</div>
+              <div class="product-price-row"><span class="product-price">Rp 385.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.9 <span class="dot-sep"></span> 78</div>
+            </a>
+          </div>
+
+          <!-- 11 Real Techniques Miracle Sponge -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <svg viewBox="0 0 100 100"><path d="M35,18 C20,18 8,35 12,55 C16,75 30,88 42,88 C50,88 50,80 50,70 C50,60 44,52 36,46 C32,42 32,30 35,18 Z" fill="#c8553d"/><path d="M68,18 C53,18 41,35 45,55 C49,75 63,88 75,88 C83,88 83,80 83,70 C83,60 77,52 69,46 C65,42 65,30 68,18 Z" fill="#c8553d"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Real Techniques</span>
+              <div class="product-name">Real Techniques Miracle Complexion Sponge (2pk)</div>
+              <div class="product-price-row"><span class="product-price">Rp 145.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.9 <span class="dot-sep"></span> 524</div>
+            </a>
+          </div>
+
+          <!-- 12 China Glaze -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <span class="product-badge badge-sale">20% OFF</span>
+                <svg viewBox="0 0 100 100"><rect x="36" y="24" width="28" height="56" rx="6" fill="#c8553d"/><rect x="42" y="18" width="16" height="10" rx="3" fill="#1a1a1a"/><rect x="40" y="42" width="20" height="32" rx="2" fill="#e36b52"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">China Glaze</span>
+              <div class="product-name">China Glaze Nail Lacquer — Limited Color Sunset</div>
+              <div class="product-price-row"><span class="product-price sale">Rp 62.400</span><span class="product-price-was">Rp 78.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★</span><span style="color:var(--line);">★</span> 4.6 <span class="dot-sep"></span> 88</div>
+            </a>
+          </div>
+
+          <!-- 13 Goody -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <svg viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="32" ry="20" fill="#1a1a1a"/><g fill="#f4d4c4"><circle cx="34" cy="46" r="1.6"/><circle cx="44" cy="44" r="1.6"/><circle cx="54" cy="44" r="1.6"/><circle cx="64" cy="46" r="1.6"/><circle cx="34" cy="54" r="1.6"/><circle cx="44" cy="56" r="1.6"/><circle cx="54" cy="56" r="1.6"/><circle cx="64" cy="54" r="1.6"/></g><rect x="44" y="68" width="12" height="22" rx="2" fill="#1a1a1a"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Goody</span>
+              <div class="product-name">Goody Quick Style Boar Bristle Brush</div>
+              <div class="product-price-row"><span class="product-price">Rp 195.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.7 <span class="dot-sep"></span> 132</div>
+            </a>
+          </div>
+
+          <!-- 14 DUO Glue -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <svg viewBox="0 0 100 100"><rect x="38" y="24" width="24" height="58" rx="3" fill="#1a1a1a"/><rect x="42" y="14" width="16" height="14" rx="2" fill="#e8a0a8"/><rect x="42" y="40" width="16" height="36" rx="1" fill="#fdeef0" opacity="0.5"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">DUO</span>
+              <div class="product-name">DUO Brush-On Lash Adhesive (Clear)</div>
+              <div class="product-price-row"><span class="product-price">Rp 115.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.8 <span class="dot-sep"></span> 287</div>
+            </a>
+          </div>
+
+          <!-- 15 Andrea ModLash -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <span class="product-badge badge-bestseller">3-PACK</span>
+                <svg viewBox="0 0 140 60"><path d="M10,40 Q70,52 130,40" stroke="#1a1a1a" stroke-width="2.5" fill="none"/><line x1="22" y1="40" x2="20" y2="14" stroke="#1a1a1a" stroke-width="2"/><line x1="42" y1="44" x2="40" y2="6" stroke="#1a1a1a" stroke-width="2.4"/><line x1="62" y1="46" x2="60" y2="4" stroke="#1a1a1a" stroke-width="2.6"/><line x1="82" y1="46" x2="84" y2="4" stroke="#1a1a1a" stroke-width="2.6"/><line x1="102" y1="44" x2="104" y2="6" stroke="#1a1a1a" stroke-width="2.4"/><line x1="118" y1="40" x2="120" y2="14" stroke="#1a1a1a" stroke-width="2"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Andrea</span>
+              <div class="product-name">Andrea ModLash #21 Triple Pack</div>
+              <div class="product-price-row"><span class="product-price">Rp 95.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★</span><span style="color:var(--line);">★</span> 4.6 <span class="dot-sep"></span> 165</div>
+            </a>
+          </div>
+
+          <!-- 16 Hollywood Fashion Tape -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="32" fill="#fdeef0"/><circle cx="50" cy="50" r="32" fill="none" stroke="#1a1a1a" stroke-width="2"/><circle cx="50" cy="50" r="12" fill="#1a1a1a"/><text x="50" y="54" text-anchor="middle" font-family="Fraunces" font-size="10" font-style="italic" fill="#fff">HFS</text></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Hollywood Secrets</span>
+              <div class="product-name">Hollywood Fashion Secrets Fashion Tape</div>
+              <div class="product-price-row"><span class="product-price">Rp 125.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.7 <span class="dot-sep"></span> 94</div>
+            </a>
+          </div>
+
+          <!-- 17 Mapepe Sponge Set -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <svg viewBox="0 0 100 100"><circle cx="32" cy="40" r="14" fill="#f4d4c4"/><circle cx="64" cy="40" r="14" fill="#f4d4c4"/><circle cx="32" cy="68" r="14" fill="#f4d4c4"/><circle cx="64" cy="68" r="14" fill="#f4d4c4"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Mapepe</span>
+              <div class="product-name">Mapepe Foundation Sponge Set (4 pcs)</div>
+              <div class="product-price-row"><span class="product-price">Rp 55.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★</span><span style="color:var(--line);">★</span> 4.5 <span class="dot-sep"></span> 73</div>
+            </a>
+          </div>
+
+          <!-- 18 Tammia Pro Contour 1245 -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <svg viewBox="0 0 100 100"><rect x="47" y="10" width="6" height="56" rx="2" fill="#1a1a1a"/><path d="M30,68 Q50,82 70,68 L66,90 Q50,98 34,90 Z" fill="#e8a0a8"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Tammia</span>
+              <div class="product-name">Tammia Pro Contour Brush 1245 Angled</div>
+              <div class="product-price-row"><span class="product-price">Rp 125.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.8 <span class="dot-sep"></span> 142</div>
+            </a>
+          </div>
+
+          <!-- 19 Tweezerman Mini Pink -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <span class="product-badge badge-sale">12% OFF</span>
+                <svg viewBox="0 0 100 100"><path d="M42,18 L48,72 L52,72 L58,18 L54,16 L50,68 L46,16 Z" fill="#e8a0a8"/><circle cx="50" cy="78" r="6" fill="#c8553d"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Tweezerman</span>
+              <div class="product-name">Tweezerman Mini Slant Tweezer Pink</div>
+              <div class="product-price-row"><span class="product-price sale">Rp 189.200</span><span class="product-price-was">Rp 215.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.9 <span class="dot-sep"></span> 218</div>
+            </a>
+          </div>
+
+          <!-- 20 Naturactor Sponge -->
+          <div class="col-6 col-lg-3">
+            <a href="product.html" class="product-card d-block text-decoration-none">
+              <div class="product-img">
+                <svg viewBox="0 0 100 100"><path d="M50,8 L72,30 L72,76 C72,86 62,92 50,92 C38,92 28,86 28,76 L28,30 Z" fill="#f4d4c4"/><path d="M50,8 L72,30 L28,30 Z" fill="#fbe7da"/></svg>
+                <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
+              </div>
+              <span class="product-brand">Naturactor</span>
+              <div class="product-name">Naturactor Cover Face Foundation Sponge</div>
+              <div class="product-price-row"><span class="product-price">Rp 68.000</span></div>
+              <div class="product-rating"><span class="stars">★★★★★</span> 4.7 <span class="dot-sep"></span> 116</div>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-wrap">
+          <a href="#"><i class="bi bi-chevron-left"></i></a>
+          <a href="#" class="active">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">...</a>
+          <a href="#">42</a>
+          <a href="#"><i class="bi bi-chevron-right"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <a href="index.html" class="brand-logo">tammia<span class="dot-online">.online</span></a>
+        <p style="color:#999; font-size:14px; max-width:320px; margin-top:12px;">Premium beauty tools retailer Indonesia. Membawa brand internasional terpercaya untuk MUA profesional dan beauty enthusiast.</p>
+        <div class="footer-social">
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-tiktok"></i></a>
+          <a href="#"><i class="bi bi-whatsapp"></i></a>
+          <a href="#"><i class="bi bi-bag-heart"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Belanja</h6>
+        <ul>
+          <li><a href="shop.html">Semua Produk</a></li>
+          <li><a href="shop.html">Makeup Brushes</a></li>
+          <li><a href="shop.html">Sponges</a></li>
+          <li><a href="shop.html">Eyelash</a></li>
+          <li><a href="shop.html">Beauty Cases</a></li>
+          <li><a href="shop.html">Flash Sale</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Customer</h6>
+        <ul>
+          <li><a href="contact.html">Hubungi Kami</a></li>
+          <li><a href="contact.html#faq">FAQ</a></li>
+          <li><a href="#">Pengiriman</a></li>
+          <li><a href="#">Pembayaran</a></li>
+          <li><a href="#">Retur &amp; Refund</a></li>
+          <li><a href="#">Cek Resi</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6>Newsletter</h6>
+        <p style="color:#999; font-size:14px;">Subscribe untuk dapat 10% diskon dan info Friday Flash Sale.</p>
+        <form class="footer-newsletter" style="display:flex; gap:8px; margin-top:14px;">
+          <input type="email" placeholder="email@kamu.com" style="flex:1; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:12px 16px; color:#fff; font-family:inherit; font-size:14px;">
+          <button type="submit" class="btn btn-peach btn-sm">Join</button>
+        </form>
+        <div style="margin-top:24px;">
+          <div class="mono-label" style="color:#888;">Pembayaran</div>
+          <div style="display:flex; gap:12px; margin-top:10px; flex-wrap:wrap; font-family:'Fraunces',serif; font-style:italic; color:#aaa; font-size:14px;">
+            <span>BCA</span><span>·</span><span>Mandiri</span><span>·</span><span>QRIS</span><span>·</span><span>GoPay</span><span>·</span><span>OVO</span><span>·</span><span>Dana</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tammia Online · PT Tammia Beauty Indonesia</span>
+      <span>Made with care in Jakarta &amp; Bali</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart drawer -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h5>Keranjang <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);">(3)</span></h5>
+    <button class="drawer-close" data-close-cart><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-item">
+      <div class="drawer-item-img"><svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="4" fill="#1a1a1a"/><rect x="38" y="22" width="24" height="12" rx="3" fill="#1a1a1a"/></svg></div>
+      <div>
+        <div class="drawer-item-name">Sonia Miller Transparent Travel Case</div>
+        <div class="drawer-item-brand">Sonia Miller</div>
+        <div class="drawer-item-price">Rp 599.940</div>
+      </div>
+      <div class="qty-stepper"><button class="qty-minus">−</button><input type="text" value="1" readonly><button class="qty-plus">+</button></div>
+    </div>
+    <div class="drawer-item">
+      <div class="drawer-item-img"><svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><rect x="52" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#e8a0a8"/><ellipse cx="55" cy="76" rx="9" ry="18" fill="#e8a0a8"/></svg></div>
+      <div>
+        <div class="drawer-item-name">Tammia 1310 Deluxe Duo Brow Brush</div>
+        <div class="drawer-item-brand">Tammia</div>
+        <div class="drawer-item-price">Rp 95.310</div>
+      </div>
+      <div class="qty-stepper"><button class="qty-minus">−</button><input type="text" value="1" readonly><button class="qty-plus">+</button></div>
+    </div>
+    <div class="drawer-item">
+      <div class="drawer-item-img"><svg viewBox="0 0 140 60"><path d="M10,40 Q70,52 130,40" stroke="#1a1a1a" stroke-width="2.5" fill="none"/><line x1="60" y1="46" x2="58" y2="2" stroke="#1a1a1a" stroke-width="2.7"/><line x1="80" y1="46" x2="82" y2="2" stroke="#1a1a1a" stroke-width="2.7"/></svg></div>
+      <div>
+        <div class="drawer-item-name">D-UP Lash Focus Eyelash K-POP</div>
+        <div class="drawer-item-brand">D-UP</div>
+        <div class="drawer-item-price">Rp 249.900</div>
+      </div>
+      <div class="qty-stepper"><button class="qty-minus">−</button><input type="text" value="1" readonly><button class="qty-plus">+</button></div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <div class="drawer-total"><span class="lbl">Subtotal</span><span class="val">Rp 945.150</span></div>
+    <div class="drawer-actions">
+      <a href="cart.html" class="btn btn-ghost">Lihat Keranjang</a>
+      <a href="checkout.html" class="btn btn-peach">Checkout</a>
+    </div>
+  </div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

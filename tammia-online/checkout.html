@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — Tammia Online</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- Free shipping bar -->
+<div class="shipping-bar">
+  <div class="ticker">
+    <span><i class="bi bi-shield-check"></i>&nbsp;&nbsp;Pembayaran Aman · SSL Encrypted</span>
+    <span><i class="bi bi-truck"></i>&nbsp;&nbsp;Pesanan Anda sudah memenuhi gratis ongkir</span>
+    <span><i class="bi bi-credit-card"></i>&nbsp;&nbsp;Cicilan 0% via BCA &amp; Mandiri tersedia</span>
+    <span><i class="bi bi-shield-check"></i>&nbsp;&nbsp;Pembayaran Aman · SSL Encrypted</span>
+    <span><i class="bi bi-truck"></i>&nbsp;&nbsp;Pesanan Anda sudah memenuhi gratis ongkir</span>
+  </div>
+</div>
+
+<!-- Navbar -->
+<div class="nav-wrap">
+  <div class="container">
+    <div class="navbar-tammia">
+      <a href="index.html" class="brand-logo">tammia<span class="dot-online">.online</span></a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="shop.html">Belanja</a></li>
+          <li><a href="about.html#brands">Brand</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-search">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Cari produk, brand...">
+      </div>
+      <div class="nav-icons ms-auto">
+        <button class="nav-icon-btn d-lg-none nav-mobile-toggle"><i class="bi bi-list"></i></button>
+        <a href="contact.html" class="nav-icon-btn"><i class="bi bi-person"></i></a>
+        <a href="#" class="nav-icon-btn"><i class="bi bi-heart"></i></a>
+        <button class="nav-icon-btn" data-open-cart>
+          <i class="bi bi-bag"></i>
+          <span class="cart-badge">3</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page header -->
+<section style="padding: 60px 0 32px;">
+  <div class="container">
+    <div class="mono-label" style="color:var(--muted);">
+      <a href="index.html" style="color:inherit;">Home</a> &nbsp;/&nbsp; <a href="cart.html" style="color:inherit;">Keranjang</a> &nbsp;/&nbsp; <span style="color:var(--rouge);">Checkout</span>
+    </div>
+    <h1 style="font-family:'Fraunces',serif; font-size:clamp(2.2rem,4vw,3.2rem); font-weight:300; margin-top:14px; letter-spacing:-0.02em;">Selesaikan pembelian <em style="color:var(--rouge); font-style:italic;">kamu.</em></h1>
+  </div>
+</section>
+
+<!-- Checkout layout -->
+<section style="padding: 20px 0 100px;">
+  <div class="container">
+
+    <!-- Step progress -->
+    <div class="step-progress mb-5">
+      <div class="step-item active" data-step-index="1">
+        <div class="circle">1</div>
+        <div class="step-label">Informasi</div>
+      </div>
+      <div class="step-item" data-step-index="2">
+        <div class="circle">2</div>
+        <div class="step-label">Pengiriman</div>
+      </div>
+      <div class="step-item" data-step-index="3">
+        <div class="circle">3</div>
+        <div class="step-label">Pembayaran</div>
+      </div>
+      <div class="step-item" data-step-index="4">
+        <div class="circle">4</div>
+        <div class="step-label">Review</div>
+      </div>
+    </div>
+
+    <div class="row g-5">
+      <div class="col-lg-8">
+
+        <!-- STEP 1: Informasi -->
+        <div class="checkout-step" data-step="1">
+          <div class="card-soft" style="padding: 40px;">
+            <span class="section-eyebrow">Langkah 1 dari 4</span>
+            <h2 style="font-family:'Fraunces',serif; font-weight:400; font-size:28px; margin: 10px 0 8px;">Informasi Pengiriman</h2>
+            <p style="color:var(--muted); font-size:14px; margin-bottom: 32px;">Pastikan alamat yang kamu isi sesuai KTP/identitas penerima.</p>
+
+            <form class="checkout-form">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <label>Nama Lengkap</label>
+                  <input type="text" placeholder="Marshella Eunike" required>
+                </div>
+                <div class="col-md-6">
+                  <label>Nomor WhatsApp</label>
+                  <input type="tel" placeholder="+62 812 xxxx xxxx" required>
+                </div>
+                <div class="col-12">
+                  <label>Email</label>
+                  <input type="email" placeholder="email@kamu.com" required>
+                </div>
+                <div class="col-md-4">
+                  <label>Provinsi</label>
+                  <select>
+                    <option>DKI Jakarta</option>
+                    <option>Jawa Barat</option>
+                    <option>Jawa Tengah</option>
+                    <option>Jawa Timur</option>
+                    <option>Bali</option>
+                    <option>Sumatera Utara</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label>Kota / Kabupaten</label>
+                  <select>
+                    <option>Jakarta Selatan</option>
+                    <option>Jakarta Pusat</option>
+                    <option>Jakarta Barat</option>
+                    <option>Jakarta Timur</option>
+                    <option>Jakarta Utara</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label>Kecamatan</label>
+                  <select>
+                    <option>Kemang</option>
+                    <option>Cilandak</option>
+                    <option>Kebayoran Baru</option>
+                    <option>Mampang Prapatan</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label>Kode Pos</label>
+                  <input type="text" placeholder="12730" required>
+                </div>
+                <div class="col-md-8">
+                  <label>Alamat Lengkap</label>
+                  <input type="text" placeholder="Jl. Kemang Selatan Raya No. 24, RT 005/RW 03" required>
+                </div>
+                <div class="col-12">
+                  <label>Catatan untuk Kurir <span style="text-transform:none; letter-spacing:0; font-family:'Plus Jakarta Sans',sans-serif; font-weight:400;">(opsional)</span></label>
+                  <textarea rows="3" placeholder="Misal: titip ke security, rumah cat hijau, dll."></textarea>
+                </div>
+                <div class="col-12">
+                  <label style="display:flex; align-items:center; gap:10px; text-transform:none; font-family:inherit; letter-spacing:normal; font-size:13px; color:var(--ink-soft);">
+                    <input type="checkbox"> Simpan alamat ini untuk pembelian selanjutnya
+                  </label>
+                </div>
+              </div>
+            </form>
+
+            <div class="d-flex justify-content-between gap-3 mt-4 flex-wrap">
+              <a href="cart.html" class="btn btn-ghost"><i class="bi bi-arrow-left"></i> Kembali ke Keranjang</a>
+              <button class="btn btn-peach" data-step-next="2">Lanjut ke Pengiriman <i class="bi bi-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Pengiriman -->
+        <div class="checkout-step" data-step="2" style="display:none;">
+          <div class="card-soft" style="padding: 40px;">
+            <span class="section-eyebrow">Langkah 2 dari 4</span>
+            <h2 style="font-family:'Fraunces',serif; font-weight:400; font-size:28px; margin: 10px 0 8px;">Pilih Kurir</h2>
+            <p style="color:var(--muted); font-size:14px; margin-bottom: 32px;">Estimasi sampai ke alamat: <strong>Jakarta Selatan 12730</strong></p>
+
+            <div data-option-group="shipping">
+              <div class="shipping-option selected" data-option-of="shipping">
+                <div>
+                  <div class="courier">JNE REG</div>
+                  <div class="eta">Estimasi 2-3 hari kerja · 12-14 Juni 2026</div>
+                </div>
+                <div class="price">Rp 18.000 <span style="color:#2d7548; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; margin-left:8px;">GRATIS</span></div>
+              </div>
+              <div class="shipping-option" data-option-of="shipping">
+                <div>
+                  <div class="courier">JNE YES</div>
+                  <div class="eta">Estimasi 1 hari kerja · 11 Juni 2026</div>
+                </div>
+                <div class="price">Rp 25.000</div>
+              </div>
+              <div class="shipping-option" data-option-of="shipping">
+                <div>
+                  <div class="courier">J&amp;T EXPRESS</div>
+                  <div class="eta">Estimasi 2-3 hari kerja · 12-14 Juni 2026</div>
+                </div>
+                <div class="price">Rp 17.000</div>
+              </div>
+              <div class="shipping-option" data-option-of="shipping">
+                <div>
+                  <div class="courier">SICEPAT REG</div>
+                  <div class="eta">Estimasi 2-3 hari kerja · 12-14 Juni 2026</div>
+                </div>
+                <div class="price">Rp 16.000</div>
+              </div>
+              <div class="shipping-option" data-option-of="shipping">
+                <div>
+                  <div class="courier">ANTERAJA</div>
+                  <div class="eta">Estimasi 1-2 hari kerja · 11-12 Juni 2026</div>
+                </div>
+                <div class="price">Rp 15.000</div>
+              </div>
+            </div>
+
+            <div style="background:var(--peach-tint); border-radius:12px; padding:18px; margin-top:24px; display:flex; gap:14px; align-items:center;">
+              <i class="bi bi-info-circle" style="font-size:24px; color:var(--rouge);"></i>
+              <div style="font-size:13px; color:var(--ink-soft);">
+                Pesanan kamu sudah memenuhi syarat <strong>gratis ongkir</strong> via JNE REG. Kurir lain akan dikenakan tarif sesuai tabel di atas.
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between gap-3 mt-4 flex-wrap">
+              <button class="btn btn-ghost" data-step-back="1"><i class="bi bi-arrow-left"></i> Kembali</button>
+              <button class="btn btn-peach" data-step-next="3">Lanjut ke Pembayaran <i class="bi bi-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: Pembayaran -->
+        <div class="checkout-step" data-step="3" style="display:none;">
+          <div class="card-soft" style="padding: 40px;">
+            <span class="section-eyebrow">Langkah 3 dari 4</span>
+            <h2 style="font-family:'Fraunces',serif; font-weight:400; font-size:28px; margin: 10px 0 8px;">Pilih Pembayaran</h2>
+            <p style="color:var(--muted); font-size:14px; margin-bottom: 32px;">Semua pembayaran diproses lewat gateway terverifikasi BI.</p>
+
+            <div data-option-group="payment">
+              <div class="payment-group">
+                <h6>Transfer Bank <span style="color:var(--muted); text-transform:none; font-family:'Plus Jakarta Sans',sans-serif; letter-spacing:0; font-weight:400; font-size:13px; margin-left:8px;">(virtual account)</span></h6>
+                <div class="payment-option selected" data-option-of="payment">
+                  <div>
+                    <span class="payment-wordmark"><em>BCA</em></span>
+                    <div style="font-size:12px; color:var(--muted); margin-top:4px;">Bank Central Asia Virtual Account</div>
+                  </div>
+                  <i class="bi bi-check-circle-fill" style="color:var(--rouge); font-size:20px;"></i>
+                </div>
+                <div class="payment-option" data-option-of="payment">
+                  <div>
+                    <span class="payment-wordmark"><em>BNI</em></span>
+                    <div style="font-size:12px; color:var(--muted); margin-top:4px;">Bank Negara Indonesia VA</div>
+                  </div>
+                </div>
+                <div class="payment-option" data-option-of="payment">
+                  <div>
+                    <span class="payment-wordmark"><em>Mandiri</em></span>
+                    <div style="font-size:12px; color:var(--muted); margin-top:4px;">Bank Mandiri Virtual Account</div>
+                  </div>
+                </div>
+                <div class="payment-option" data-option-of="payment">
+                  <div>
+                    <span class="payment-wordmark"><em>BRI</em></span>
+                    <div style="font-size:12px; color:var(--muted); margin-top:4px;">Bank Rakyat Indonesia VA</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="payment-group">
+                <h6>E-Wallet &amp; QRIS</h6>
+                <div class="payment-option" data-option-of="payment">
+                  <div>
+                    <span class="payment-wordmark"><em>QRIS</em></span>
+                    <div style="font-size:12px; color:var(--muted); margin-top:4px;">Scan QR semua aplikasi e-wallet</div>
+                  </div>
+                </div>
+                <div class="payment-option" data-option-of="payment">
+                  <div>
+                    <span class="payment-wordmark"><em>GoPay</em></span>
+                    <div style="font-size:12px; color:var(--muted); margin-top:4px;">Bayar via aplikasi Gojek</div>
+                  </div>
+                </div>
+                <div class="payment-option" data-option-of="payment">
+                  <div>
+                    <span class="payment-wordmark"><em>OVO</em></span>
+                    <div style="font-size:12px; color:var(--muted); margin-top:4px;">Bayar via aplikasi OVO</div>
+                  </div>
+                </div>
+                <div class="payment-option" data-option-of="payment">
+                  <div>
+                    <span class="payment-wordmark"><em>Dana</em></span>
+                    <div style="font-size:12px; color:var(--muted); margin-top:4px;">Bayar via aplikasi Dana</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="payment-group">
+                <h6>Kartu Kredit · Cicilan 0%</h6>
+                <div class="payment-option" data-option-of="payment">
+                  <div>
+                    <span class="payment-wordmark"><em>BCA Card</em> · <em>Mandiri Card</em></span>
+                    <div style="font-size:12px; color:var(--muted); margin-top:4px;">Cicilan 0% tenor 3-6 bulan</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between gap-3 mt-4 flex-wrap">
+              <button class="btn btn-ghost" data-step-back="2"><i class="bi bi-arrow-left"></i> Kembali</button>
+              <button class="btn btn-peach" data-step-next="4">Review Pesanan <i class="bi bi-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4: Review -->
+        <div class="checkout-step" data-step="4" style="display:none;">
+          <div class="card-soft" style="padding: 40px;">
+            <span class="section-eyebrow">Langkah 4 dari 4</span>
+            <h2 style="font-family:'Fraunces',serif; font-weight:400; font-size:28px; margin: 10px 0 8px;">Review Pesanan</h2>
+            <p style="color:var(--muted); font-size:14px; margin-bottom: 32px;">Cek detail pesanan sebelum konfirmasi.</p>
+
+            <div style="border:1px solid var(--line); border-radius:14px; padding:24px; margin-bottom:20px;">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="mono-label">Alamat Pengiriman</div>
+                <button class="btn btn-sm btn-ghost" data-step-back="1">Ubah</button>
+              </div>
+              <div style="margin-top:10px; font-weight:500;">Marshella Eunike</div>
+              <div style="color:var(--muted); font-size:14px; line-height:1.6;">+62 812 xxxx xxxx<br>Jl. Kemang Selatan Raya No. 24, RT 005/RW 03<br>Kemang, Mampang Prapatan, Jakarta Selatan 12730</div>
+            </div>
+
+            <div style="border:1px solid var(--line); border-radius:14px; padding:24px; margin-bottom:20px;">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="mono-label">Kurir</div>
+                <button class="btn btn-sm btn-ghost" data-step-back="2">Ubah</button>
+              </div>
+              <div style="margin-top:10px;"><strong>JNE REG</strong> · Estimasi 12-14 Juni 2026 · <span style="color:#2d7548; font-weight:600;">GRATIS</span></div>
+            </div>
+
+            <div style="border:1px solid var(--line); border-radius:14px; padding:24px; margin-bottom:24px;">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="mono-label">Metode Pembayaran</div>
+                <button class="btn btn-sm btn-ghost" data-step-back="3">Ubah</button>
+              </div>
+              <div style="margin-top:10px;"><strong style="font-family:'Fraunces',serif; font-style:italic; font-size:18px;">BCA</strong> Virtual Account</div>
+            </div>
+
+            <label style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--ink-soft); line-height:1.6;">
+              <input type="checkbox" style="margin-top:4px;" checked>
+              <span>Saya menyetujui <a href="#" style="color:var(--rouge); text-decoration:underline;">Syarat &amp; Ketentuan</a> dan <a href="#" style="color:var(--rouge); text-decoration:underline;">Kebijakan Privasi</a> Tammia Online. Saya mengonfirmasi data yang saya isi benar.</span>
+            </label>
+
+            <div class="d-flex justify-content-between gap-3 mt-4 flex-wrap">
+              <button class="btn btn-ghost" data-step-back="3"><i class="bi bi-arrow-left"></i> Kembali</button>
+              <button class="btn btn-peach btn-lg" onclick="alert('Demo: Order berhasil!'); return false;">Bayar Sekarang <i class="bi bi-shield-check"></i></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Order summary sticky -->
+      <div class="col-lg-4">
+        <div class="order-summary">
+          <h5>Ringkasan Pesanan</h5>
+
+          <!-- Mini items -->
+          <div style="margin-bottom:20px;">
+            <div class="drawer-item" style="grid-template-columns: 56px 1fr auto; padding: 12px 0;">
+              <div class="drawer-item-img" style="width:56px; height:56px;">
+                <svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="4" fill="#1a1a1a"/></svg>
+              </div>
+              <div>
+                <div style="font-size:13px; font-weight:500; line-height:1.3;">Sonia Miller Travel Case</div>
+                <div class="mono-label" style="font-size:9px; margin-top:2px;">Qty 1 · Medium</div>
+              </div>
+              <div style="font-family:'Fraunces',serif; font-size:13px; font-weight:500;">Rp 599.940</div>
+            </div>
+            <div class="drawer-item" style="grid-template-columns: 56px 1fr auto; padding: 12px 0;">
+              <div class="drawer-item-img" style="width:56px; height:56px;">
+                <svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#e8a0a8"/></svg>
+              </div>
+              <div>
+                <div style="font-size:13px; font-weight:500; line-height:1.3;">Tammia 1310 Duo Brow Brush</div>
+                <div class="mono-label" style="font-size:9px; margin-top:2px;">Qty 1 · Original</div>
+              </div>
+              <div style="font-family:'Fraunces',serif; font-size:13px; font-weight:500;">Rp 95.310</div>
+            </div>
+            <div class="drawer-item" style="grid-template-columns: 56px 1fr auto; padding: 12px 0; border-bottom:none;">
+              <div class="drawer-item-img" style="width:56px; height:56px;">
+                <svg viewBox="0 0 140 60"><path d="M10,40 Q70,52 130,40" stroke="#1a1a1a" stroke-width="2.5" fill="none"/></svg>
+              </div>
+              <div>
+                <div style="font-size:13px; font-weight:500; line-height:1.3;">D-UP Lash Focus K-POP</div>
+                <div class="mono-label" style="font-size:9px; margin-top:2px;">Qty 1 · Single</div>
+              </div>
+              <div style="font-family:'Fraunces',serif; font-size:13px; font-weight:500;">Rp 249.900</div>
+            </div>
+          </div>
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>Rp 1.355.050</span>
+          </div>
+          <div class="summary-row">
+            <span>Diskon Produk</span>
+            <span style="color:var(--rouge);">−Rp 410.560</span>
+          </div>
+          <div class="summary-row">
+            <span>Promo (TAMMIAOFF)</span>
+            <span style="color:var(--rouge);">−Rp 50.000</span>
+          </div>
+          <div class="summary-row">
+            <span>Ongkir (JNE REG)</span>
+            <span><i class="bi bi-check-circle-fill" style="color:#2d9b5e;"></i> Gratis</span>
+          </div>
+
+          <div class="summary-row total">
+            <span>Total Bayar</span>
+            <span>Rp 894.490</span>
+          </div>
+
+          <div style="background:#dcf5e3; color:#2d7548; padding:14px; border-radius:10px; margin-top:18px; font-size:13px; display:flex; gap:10px; align-items:center;">
+            <i class="bi bi-shield-check" style="font-size:18px;"></i>
+            <span>Transaksi dilindungi <strong>SSL 256-bit</strong> &amp; <strong>BI Payment Gateway</strong></span>
+          </div>
+
+          <div style="text-align:center; margin-top: 18px;">
+            <div class="mono-label">Pembayaran Aman</div>
+            <div style="font-family:'Fraunces',serif; font-style:italic; font-size:14px; color:var(--muted); display:flex; gap:10px; justify-content:center; margin-top:8px; flex-wrap:wrap;">
+              <span>BCA</span><span>·</span><span>Mandiri</span><span>·</span><span>QRIS</span><span>·</span><span>GoPay</span><span>·</span><span>OVO</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <a href="index.html" class="brand-logo">tammia<span class="dot-online">.online</span></a>
+        <p style="color:#999; font-size:14px; max-width:320px; margin-top:12px;">Premium beauty tools retailer Indonesia. Membawa brand internasional terpercaya untuk MUA profesional dan beauty enthusiast.</p>
+        <div class="footer-social">
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-tiktok"></i></a>
+          <a href="#"><i class="bi bi-whatsapp"></i></a>
+          <a href="#"><i class="bi bi-bag-heart"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Belanja</h6>
+        <ul>
+          <li><a href="shop.html">Semua Produk</a></li>
+          <li><a href="shop.html">Makeup Brushes</a></li>
+          <li><a href="shop.html">Sponges</a></li>
+          <li><a href="shop.html">Eyelash</a></li>
+          <li><a href="shop.html">Beauty Cases</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Customer</h6>
+        <ul>
+          <li><a href="contact.html">Hubungi Kami</a></li>
+          <li><a href="contact.html#faq">FAQ</a></li>
+          <li><a href="#">Pengiriman</a></li>
+          <li><a href="#">Retur</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6>Newsletter</h6>
+        <p style="color:#999; font-size:14px;">Subscribe untuk dapat 10% diskon dan info Friday Flash Sale.</p>
+        <form class="footer-newsletter" style="display:flex; gap:8px; margin-top:14px;">
+          <input type="email" placeholder="email@kamu.com" style="flex:1; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:12px 16px; color:#fff; font-family:inherit; font-size:14px;">
+          <button type="submit" class="btn btn-peach btn-sm">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tammia Online · PT Tammia Beauty Indonesia</span>
+      <span>Made with care in Jakarta &amp; Bali</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart drawer -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h5>Keranjang <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);">(3)</span></h5>
+    <button class="drawer-close" data-close-cart><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-item">
+      <div class="drawer-item-img"><svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="4" fill="#1a1a1a"/></svg></div>
+      <div>
+        <div class="drawer-item-name">Sonia Miller Travel Case</div>
+        <div class="drawer-item-brand">Sonia Miller</div>
+        <div class="drawer-item-price">Rp 599.940</div>
+      </div>
+      <div class="qty-stepper"><button class="qty-minus">−</button><input type="text" value="1" readonly><button class="qty-plus">+</button></div>
+    </div>
+    <div class="drawer-item">
+      <div class="drawer-item-img"><svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#e8a0a8"/></svg></div>
+      <div>
+        <div class="drawer-item-name">Tammia 1310 Duo Brow Brush</div>
+        <div class="drawer-item-brand">Tammia</div>
+        <div class="drawer-item-price">Rp 95.310</div>
+      </div>
+      <div class="qty-stepper"><button class="qty-minus">−</button><input type="text" value="1" readonly><button class="qty-plus">+</button></div>
+    </div>
+    <div class="drawer-item">
+      <div class="drawer-item-img"><svg viewBox="0 0 140 60"><path d="M10,40 Q70,52 130,40" stroke="#1a1a1a" stroke-width="2.5" fill="none"/></svg></div>
+      <div>
+        <div class="drawer-item-name">D-UP Lash Focus K-POP</div>
+        <div class="drawer-item-brand">D-UP</div>
+        <div class="drawer-item-price">Rp 249.900</div>
+      </div>
+      <div class="qty-stepper"><button class="qty-minus">−</button><input type="text" value="1" readonly><button class="qty-plus">+</button></div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <div class="drawer-total"><span class="lbl">Subtotal</span><span class="val">Rp 945.150</span></div>
+    <div class="drawer-actions">
+      <a href="cart.html" class="btn btn-ghost">Lihat Keranjang</a>
+      <a href="checkout.html" class="btn btn-peach">Checkout</a>
+    </div>
+  </div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
