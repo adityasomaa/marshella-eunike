@@ -1301,26 +1301,62 @@ section { padding: 100px 0; }
 }
 
 /* ---------- Contact ---------- */
+.contact-form-wrap {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 36px;
+  box-shadow: 0 8px 32px rgba(232,160,168,0.08);
+}
+@media (max-width: 768px) {
+  .contact-form-wrap { padding: 24px 20px; }
+}
 .contact-form input,
 .contact-form textarea,
+.contact-form select,
 .checkout-form input,
 .checkout-form textarea,
 .checkout-form select {
   width: 100%;
-  background: #fff;
+  background: var(--cream-1);
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 14px 16px;
   font-family: inherit;
   font-size: 14px;
+  color: var(--ink);
   transition: all .2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.contact-form select,
+.checkout-form select {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  padding-right: 42px;
+  cursor: pointer;
+}
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.55;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder,
+.checkout-form input::placeholder,
+.checkout-form textarea::placeholder {
+  color: #9a9a9a;
 }
 .contact-form input:focus,
 .contact-form textarea:focus,
+.contact-form select:focus,
 .checkout-form input:focus,
 .checkout-form textarea:focus,
 .checkout-form select:focus {
   outline: none;
+  background: #fff;
   border-color: var(--pink);
   box-shadow: 0 0 0 4px rgba(232,160,168,0.15);
 }

@@ -234,6 +234,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ---------- Contact form submit ---------- */
+  document.querySelectorAll('.contact-form').forEach(form => {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn) {
+        const orig = btn.innerHTML;
+        btn.innerHTML = 'Pesan Terkirim ✓';
+        btn.disabled = true;
+        btn.style.background = 'var(--rouge)';
+        btn.style.color = '#fff';
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          btn.disabled = false;
+          btn.style.background = '';
+          btn.style.color = '';
+          form.reset();
+        }, 2500);
+      }
+    });
+  });
+
   /* ---------- Live search dropdown (navbar) ---------- */
   document.querySelectorAll('.nav-search').forEach(wrap => {
     const input = wrap.querySelector('input[type="text"]');
