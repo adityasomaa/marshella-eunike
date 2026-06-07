@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pesanan Saya - Tammia Online</title>
+<meta name="description" content="Lihat riwayat dan status pesanan kamu di Tammia Online: diproses, dikirim, dan selesai.">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- Free shipping bar -->
+<div class="shipping-bar">
+  <div class="ticker">
+    <span><i class="bi bi-truck"></i>&nbsp;&nbsp;Gratis Ongkir untuk pesanan diatas Rp 150.000</span>
+    <span><i class="bi bi-shield-check"></i>&nbsp;&nbsp;100% Original, Garansi Authentic</span>
+    <span><i class="bi bi-fire"></i>&nbsp;&nbsp;Friday Flash Sale, Diskon hingga 70%</span>
+    <span><i class="bi bi-truck"></i>&nbsp;&nbsp;Gratis Ongkir untuk pesanan diatas Rp 150.000</span>
+    <span><i class="bi bi-shield-check"></i>&nbsp;&nbsp;100% Original, Garansi Authentic</span>
+  </div>
+</div>
+
+<!-- Navbar -->
+<div class="nav-wrap">
+  <div class="container">
+    <div class="navbar-tammia">
+      <a href="index.html" class="brand-logo">tammia<span class="dot-online">.online</span></a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-search">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Cari produk, brand...">
+      </div>
+      <div class="nav-icons ms-auto">
+        <button class="nav-icon-btn d-lg-none nav-mobile-toggle"><i class="bi bi-list"></i></button>
+        <a href="contact.html" class="nav-icon-btn"><i class="bi bi-person"></i></a>
+        <a href="#" class="nav-icon-btn"><i class="bi bi-heart"></i></a>
+        <button class="nav-icon-btn" data-open-cart>
+          <i class="bi bi-bag"></i>
+          <span class="cart-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page header -->
+<section style="padding: 60px 0 20px;">
+  <div class="container">
+    <div class="mono-label">
+      <a href="index.html" style="color:inherit;">Home</a> &nbsp;/&nbsp; <a href="#" style="color:inherit;">Akun</a> &nbsp;/&nbsp; <span style="color:var(--rouge);">Pesanan Saya</span>
+    </div>
+    <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mt-3">
+      <div>
+        <span class="hero-eyebrow">Riwayat &amp; Status</span>
+        <h1 style="font-family:'Fraunces',serif; font-size:clamp(2.2rem,4vw,3.2rem); font-weight:300; margin-top:14px; letter-spacing:-0.02em;">Pesanan <em style="color:var(--rouge); font-style:italic;">Saya</em></h1>
+        <p style="color:var(--muted); font-size:15px; margin-top:8px; max-width:560px;">Lihat semua pesanan kamu, lacak pengiriman, dan beli ulang produk favorit dengan satu klik.</p>
+      </div>
+      <a href="shop.html" class="btn btn-ghost">Lanjut Belanja <i class="bi bi-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- Filter tabs + orders list -->
+<section style="padding: 30px 0 100px;">
+  <div class="container">
+
+    <!-- Filter tabs -->
+    <div class="orders-filter-row" id="ordersFilterRow">
+      <button class="orders-filter-btn active" data-order-filter="all">Semua</button>
+      <button class="orders-filter-btn" data-order-filter="diproses">Diproses</button>
+      <button class="orders-filter-btn" data-order-filter="dikirim">Dikirim</button>
+      <button class="orders-filter-btn" data-order-filter="selesai">Selesai</button>
+      <button class="orders-filter-btn" data-order-filter="dibatalkan">Dibatalkan</button>
+    </div>
+
+    <!-- Orders list -->
+    <div class="orders-list" id="ordersList">
+
+      <!-- ORDER 4 -->
+      <article class="order-card" data-order-status="diproses">
+        <header class="order-card-head">
+          <div>
+            <div class="mono-label">Nomor Pesanan</div>
+            <div class="order-number">TAMM-2026-004 <span class="order-dot">·</span> <span class="order-date">2 Juni 2026</span></div>
+          </div>
+          <span class="order-status status-diproses"><i class="bi bi-clock-history"></i> Pesanan Diterima</span>
+        </header>
+
+        <div class="order-items">
+          <div class="order-item">
+            <div class="order-item-thumb"><svg viewBox="0 0 100 100"><rect x="46" y="14" width="8" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="50" cy="74" rx="14" ry="18" fill="#e8a0a8"/></svg></div>
+            <div class="order-item-meta">
+              <div class="brand-mini">Real Techniques</div>
+              <div class="name-mini">Real Techniques Everyday Essentials Brush Set</div>
+              <div class="meta-mini">Qty: 1 <span class="dot">·</span> Rp 425.000</div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="order-card-foot">
+          <div class="order-total">
+            <span class="mono-label">Total</span>
+            <span class="order-total-val">Rp 425.000</span>
+          </div>
+          <div class="order-actions">
+            <button class="btn btn-ghost btn-sm">Lihat Detail</button>
+            <button class="btn btn-outline-ink btn-sm">Hubungi CS</button>
+          </div>
+        </footer>
+      </article>
+
+      <!-- ORDER 3 -->
+      <article class="order-card" data-order-status="dikirim">
+        <header class="order-card-head">
+          <div>
+            <div class="mono-label">Nomor Pesanan</div>
+            <div class="order-number">TAMM-2026-003 <span class="order-dot">·</span> <span class="order-date">28 Mei 2026</span></div>
+          </div>
+          <span class="order-status status-dikirim"><i class="bi bi-truck"></i> Sedang Dikirim</span>
+        </header>
+
+        <div class="order-items">
+          <div class="order-item">
+            <div class="order-item-thumb"><svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="4" fill="#1a1a1a"/><rect x="24" y="34" width="52" height="42" rx="3" fill="#fdeef0"/><rect x="38" y="22" width="24" height="12" rx="3" fill="#1a1a1a"/></svg></div>
+            <div class="order-item-meta">
+              <div class="brand-mini">Sonia Miller</div>
+              <div class="name-mini">Sonia Miller Transparent Travel Case Pouch</div>
+              <div class="meta-mini">Qty: 1 <span class="dot">·</span> Rp 599.940</div>
+            </div>
+          </div>
+          <div class="order-item">
+            <div class="order-item-thumb"><svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><rect x="52" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#e8a0a8"/><ellipse cx="55" cy="76" rx="9" ry="18" fill="#e8a0a8"/></svg></div>
+            <div class="order-item-meta">
+              <div class="brand-mini">Tammia</div>
+              <div class="name-mini">Tammia 1310 Deluxe Duo Brow Brush</div>
+              <div class="meta-mini">Qty: 1 <span class="dot">·</span> Rp 95.310</div>
+            </div>
+          </div>
+          <div class="order-item">
+            <div class="order-item-thumb"><svg viewBox="0 0 140 60"><path d="M10,40 Q70,52 130,40" stroke="#1a1a1a" stroke-width="2.5" fill="none"/><line x1="40" y1="44" x2="38" y2="6" stroke="#1a1a1a" stroke-width="2.5"/><line x1="70" y1="46" x2="70" y2="2" stroke="#1a1a1a" stroke-width="2.7"/><line x1="100" y1="44" x2="102" y2="6" stroke="#1a1a1a" stroke-width="2.5"/></svg></div>
+            <div class="order-item-meta">
+              <div class="brand-mini">D-UP</div>
+              <div class="name-mini">D-UP Lash Focus Eyelash K-POP Idol</div>
+              <div class="meta-mini">Qty: 1 <span class="dot">·</span> Rp 249.900</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tracking timeline (expandable) -->
+        <button class="order-tracking-toggle" type="button" data-tracking-toggle>
+          <i class="bi bi-geo-alt"></i> Lacak Pengiriman
+          <i class="bi bi-chevron-down chevron"></i>
+        </button>
+        <div class="order-tracking" data-tracking>
+          <div class="track-step done">
+            <div class="track-dot"></div>
+            <div class="track-meta">
+              <div class="track-label">Pesanan Diterima</div>
+              <div class="track-time">28 Mei 2026, 10:24 WIB</div>
+            </div>
+          </div>
+          <div class="track-step done">
+            <div class="track-dot"></div>
+            <div class="track-meta">
+              <div class="track-label">Sedang Dikemas</div>
+              <div class="track-time">28 Mei 2026, 14:11 WIB</div>
+            </div>
+          </div>
+          <div class="track-step active">
+            <div class="track-dot"></div>
+            <div class="track-meta">
+              <div class="track-label">Dikirim via JNE REG</div>
+              <div class="track-time">29 Mei 2026, 09:48 WIB · Resi JNE 0123456789</div>
+            </div>
+          </div>
+          <div class="track-step">
+            <div class="track-dot"></div>
+            <div class="track-meta">
+              <div class="track-label">Sampai di Tujuan</div>
+              <div class="track-time">Estimasi 30 Mei - 1 Juni 2026</div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="order-card-foot">
+          <div class="order-total">
+            <span class="mono-label">Total</span>
+            <span class="order-total-val">Rp 945.150</span>
+          </div>
+          <div class="order-actions">
+            <button class="btn btn-ghost btn-sm">Lihat Detail</button>
+            <button class="btn btn-outline-ink btn-sm" data-tracking-toggle>Lacak Pengiriman</button>
+          </div>
+        </footer>
+      </article>
+
+      <!-- ORDER 2 -->
+      <article class="order-card" data-order-status="selesai">
+        <header class="order-card-head">
+          <div>
+            <div class="mono-label">Nomor Pesanan</div>
+            <div class="order-number">TAMM-2026-002 <span class="order-dot">·</span> <span class="order-date">15 Mei 2026</span></div>
+          </div>
+          <span class="order-status status-selesai"><i class="bi bi-check-circle-fill"></i> Selesai</span>
+        </header>
+
+        <div class="order-items">
+          <div class="order-item">
+            <div class="order-item-thumb"><svg viewBox="0 0 100 100"><path d="M40,12 L48,80 L52,80 L60,12 L56,10 L50,72 L44,10 Z" fill="#1a1a1a"/><circle cx="50" cy="86" r="6" fill="#e8a0a8"/></svg></div>
+            <div class="order-item-meta">
+              <div class="brand-mini">Tweezerman</div>
+              <div class="name-mini">Tweezerman Slant Tweezer Stainless Steel</div>
+              <div class="meta-mini">Qty: 1 <span class="dot">·</span> Rp 285.000</div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="order-card-foot">
+          <div class="order-total">
+            <span class="mono-label">Total</span>
+            <span class="order-total-val">Rp 285.000</span>
+          </div>
+          <div class="order-actions">
+            <button class="btn btn-ghost btn-sm">Lihat Detail</button>
+            <button class="btn btn-peach btn-sm" data-buy-again="Tweezerman Slant Tweezer Stainless Steel"><i class="bi bi-arrow-clockwise"></i> Beli Ulang</button>
+          </div>
+        </footer>
+      </article>
+
+      <!-- ORDER 1 -->
+      <article class="order-card" data-order-status="selesai">
+        <header class="order-card-head">
+          <div>
+            <div class="mono-label">Nomor Pesanan</div>
+            <div class="order-number">TAMM-2026-001 <span class="order-dot">·</span> <span class="order-date">3 Mei 2026</span></div>
+          </div>
+          <span class="order-status status-selesai"><i class="bi bi-check-circle-fill"></i> Selesai</span>
+        </header>
+
+        <div class="order-items">
+          <div class="order-item">
+            <div class="order-item-thumb"><svg viewBox="0 0 140 60"><path d="M10,40 Q70,52 130,40" stroke="#1a1a1a" stroke-width="2.5" fill="none"/><line x1="40" y1="44" x2="38" y2="6" stroke="#1a1a1a" stroke-width="2.5"/><line x1="70" y1="46" x2="70" y2="2" stroke="#1a1a1a" stroke-width="2.7"/><line x1="100" y1="44" x2="102" y2="6" stroke="#1a1a1a" stroke-width="2.5"/></svg></div>
+            <div class="order-item-meta">
+              <div class="brand-mini">Ardell</div>
+              <div class="name-mini">Ardell Wispies Natural False Lashes</div>
+              <div class="meta-mini">Qty: 1 <span class="dot">·</span> Rp 75.650</div>
+            </div>
+          </div>
+          <div class="order-item">
+            <div class="order-item-thumb"><svg viewBox="0 0 100 100"><rect x="46" y="14" width="8" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="50" cy="74" rx="14" ry="18" fill="#e8a0a8"/></svg></div>
+            <div class="order-item-meta">
+              <div class="brand-mini">DUO</div>
+              <div class="name-mini">DUO Brush-On Lash Adhesive (Clear)</div>
+              <div class="meta-mini">Qty: 1 <span class="dot">·</span> Rp 115.000</div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="order-card-foot">
+          <div class="order-total">
+            <span class="mono-label">Total</span>
+            <span class="order-total-val">Rp 173.700</span>
+          </div>
+          <div class="order-actions">
+            <button class="btn btn-ghost btn-sm">Lihat Detail</button>
+            <button class="btn btn-peach btn-sm" data-buy-again="Ardell Wispies Natural False Lashes"><i class="bi bi-arrow-clockwise"></i> Beli Ulang</button>
+          </div>
+        </footer>
+      </article>
+
+    </div>
+
+    <!-- Empty state (hidden by default — shown when no orders match filter, or none at all) -->
+    <div class="orders-empty" id="ordersEmpty" style="display:none;">
+      <div class="icon-big"><i class="bi bi-bag-x"></i></div>
+      <h3>Belum ada pesanan</h3>
+      <p>Mulai belanja yuk! Beauty tools favoritmu nunggu di-checkout.</p>
+      <a href="shop.html" class="btn btn-peach"><i class="bi bi-arrow-right"></i> Mulai Belanja</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <a href="index.html" class="brand-logo">tammia<span class="dot-online">.online</span></a>
+        <p style="color:#999; font-size:14px; max-width:320px; margin-top:12px;">Premium beauty tools retailer Indonesia. Membawa brand internasional terpercaya untuk MUA profesional dan beauty enthusiast.</p>
+        <div class="footer-social">
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-tiktok"></i></a>
+          <a href="#"><i class="bi bi-whatsapp"></i></a>
+          <a href="#"><i class="bi bi-bag-heart"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Belanja</h6>
+        <ul>
+          <li><a href="shop.html">Semua Produk</a></li>
+          <li><a href="shop.html?cat=brush">Makeup Brushes</a></li>
+          <li><a href="shop.html?cat=sponge">Sponges</a></li>
+          <li><a href="shop.html?cat=lash">Eyelash</a></li>
+          <li><a href="shop.html?cat=case">Beauty Cases</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Customer</h6>
+        <ul>
+          <li><a href="contact.html">Hubungi Kami</a></li>
+          <li><a href="contact.html#faq">FAQ</a></li>
+          <li><a href="orders.html">Pesanan Saya</a></li>
+          <li><a href="cart.html">Keranjang</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6>Newsletter</h6>
+        <p style="color:#999; font-size:14px;">Subscribe untuk dapat 10% diskon dan info Friday Flash Sale.</p>
+        <form class="footer-newsletter" style="display:flex; gap:8px; margin-top:14px;">
+          <input type="email" placeholder="email@kamu.com" style="flex:1; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:12px 16px; color:#fff; font-family:inherit; font-size:14px;">
+          <button type="submit" class="btn btn-peach btn-sm">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tammia Online · PT Tammia Beauty Indonesia</span>
+      <span>Made with care in Jakarta &amp; Bali</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart drawer (rendered from localStorage by main.js) -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h5>Keranjang <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);">(0)</span></h5>
+    <button class="drawer-close" data-close-cart><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="drawer-body"></div>
+  <div class="drawer-foot">
+    <div class="drawer-total"><span class="lbl">Subtotal</span><span class="val">Rp 0</span></div>
+    <div class="drawer-actions">
+      <a href="cart.html" class="btn btn-ghost">Lihat Keranjang</a>
+      <a href="checkout.html" class="btn btn-peach">Checkout</a>
+    </div>
+  </div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

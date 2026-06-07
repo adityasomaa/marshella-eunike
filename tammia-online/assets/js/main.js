@@ -159,6 +159,160 @@ function tammiaSaveUser(user) {
   else localStorage.removeItem('tammia_user');
 }
 
+/* ---------- Cart storage + helpers (localStorage-backed) ---------- */
+function getCart() {
+  try { return JSON.parse(localStorage.getItem('tammia_cart') || '[]'); }
+  catch (e) { return []; }
+}
+function setCart(arr) {
+  localStorage.setItem('tammia_cart', JSON.stringify(arr || []));
+  renderCartDrawer();
+  tammiaUpdateCartBadge();
+  document.dispatchEvent(new CustomEvent('tammia:cart-changed'));
+}
+function tammiaUpdateCartBadge() {
+  const cart = getCart();
+  const count = cart.reduce((s, it) => s + (parseInt(it.qty, 10) || 0), 0);
+  document.querySelectorAll('.cart-badge').forEach(b => {
+    if (b.classList.contains('wishlist-badge')) return;
+    b.textContent = count;
+    b.style.display = count > 0 ? '' : 'none';
+  });
+}
+function tammiaSvgForProductName(name) {
+  const p = TAMMIA_PRODUCTS.find(p => p.name === name);
+  return p ? p.svg : 'brush';
+}
+function addToCart(product) {
+  if (!product || !product.name) return;
+  const cart = getCart();
+  const existing = cart.find(i => i.name === product.name);
+  const addedQty = parseInt(product.qty, 10) || 1;
+  if (existing) {
+    existing.qty = (parseInt(existing.qty, 10) || 0) + addedQty;
+  } else {
+    cart.push({
+      name: product.name,
+      brand: product.brand || '',
+      price: parseInt(product.price, 10) || 0,
+      was: product.was ? parseInt(product.was, 10) : null,
+      qty: addedQty,
+      svg: product.svg || tammiaSvgForProductName(product.name),
+    });
+  }
+  setCart(cart);
+}
+function removeFromCart(name) {
+  const cart = getCart().filter(i => i.name !== name);
+  setCart(cart);
+}
+function updateCartQty(name, qty) {
+  const cart = getCart();
+  const item = cart.find(i => i.name === name);
+  if (!item) return;
+  const q = parseInt(qty, 10);
+  if (!q || q <= 0) {
+    setCart(cart.filter(i => i.name !== name));
+  } else {
+    item.qty = q;
+    setCart(cart);
+  }
+}
+
+/* Render the cart drawer body from current localStorage cart. */
+function renderCartDrawer() {
+  const drawer = document.getElementById('cartDrawer');
+  if (!drawer) return;
+  const body = drawer.querySelector('.drawer-body');
+  const foot = drawer.querySelector('.drawer-foot');
+  const headCount = drawer.querySelector('.drawer-head h5 span');
+  if (!body) return;
+
+  const cart = getCart();
+  const totalQty = cart.reduce((s, it) => s + (parseInt(it.qty, 10) || 0), 0);
+  const subtotal = cart.reduce((s, it) => s + (parseInt(it.price, 10) || 0) * (parseInt(it.qty, 10) || 0), 0);
+
+  if (headCount) headCount.textContent = `(${totalQty})`;
+
+  if (cart.length === 0) {
+    body.innerHTML = `
+      <div class="drawer-empty" style="text-align:center; padding:48px 16px;">
+        <div style="font-size:48px; margin-bottom:12px; opacity:0.4;"><i class="bi bi-bag"></i></div>
+        <div style="font-family:'Fraunces',serif; font-size:20px; margin-bottom:6px;">Keranjang masih kosong</div>
+        <div style="color:var(--muted); font-size:14px; margin-bottom:20px;">Yuk pilih beauty tools favoritmu.</div>
+        <a href="shop.html" class="btn btn-peach btn-sm">Mulai Belanja</a>
+      </div>`;
+    if (foot) foot.style.display = 'none';
+    return;
+  }
+
+  if (foot) foot.style.display = '';
+  body.innerHTML = cart.map(it => `
+    <div class="drawer-item" data-name="${it.name.replace(/"/g, '&quot;')}" style="position:relative;">
+      <div class="drawer-item-img">${tammiaSearchSvg(it.svg || 'brush')}</div>
+      <div>
+        <div class="drawer-item-name">${it.name}</div>
+        <div class="drawer-item-brand">${it.brand || ''}</div>
+        <div class="drawer-item-price">${tammiaFormatPrice(it.price)}</div>
+      </div>
+      <div class="qty-stepper">
+        <button class="qty-minus" type="button">−</button>
+        <input type="text" value="${it.qty}" readonly>
+        <button class="qty-plus" type="button">+</button>
+      </div>
+      <button class="drawer-item-remove" type="button" aria-label="Hapus produk"
+        style="background:transparent; border:none; padding:6px; color:var(--muted); cursor:pointer; transition:color .15s ease; position:absolute; top:8px; right:8px; border-radius:6px; line-height:1;">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+  `).join('');
+
+  // Update subtotal in footer
+  const totalVal = drawer.querySelector('.drawer-total .val');
+  if (totalVal) totalVal.textContent = tammiaFormatPrice(subtotal);
+
+  // Wire item interactions
+  body.querySelectorAll('.drawer-item').forEach(item => {
+    const name = item.dataset.name;
+    const minus = item.querySelector('.qty-minus');
+    const plus = item.querySelector('.qty-plus');
+    const rm = item.querySelector('.drawer-item-remove');
+    if (minus) minus.addEventListener('click', () => {
+      const current = (getCart().find(i => i.name === name) || {}).qty || 1;
+      if (current > 1) {
+        updateCartQty(name, current - 1);
+      } else {
+        tammiaConfirm({
+          title: 'Hapus dari Keranjang?',
+          message: `<strong>${name}</strong> akan dihapus dari keranjang kamu.`,
+          confirmText: 'Hapus',
+          cancelText: 'Batal',
+          danger: true,
+          onConfirm: () => removeFromCart(name),
+        });
+      }
+    });
+    if (plus) plus.addEventListener('click', () => {
+      const current = (getCart().find(i => i.name === name) || {}).qty || 1;
+      updateCartQty(name, current + 1);
+    });
+    if (rm) {
+      rm.addEventListener('mouseenter', () => { rm.style.color = 'var(--rouge)'; });
+      rm.addEventListener('mouseleave', () => { rm.style.color = 'var(--muted)'; });
+      rm.addEventListener('click', () => {
+        tammiaConfirm({
+          title: 'Hapus dari Keranjang?',
+          message: `<strong>${name}</strong> akan dihapus dari keranjang kamu.`,
+          confirmText: 'Hapus',
+          cancelText: 'Batal',
+          danger: true,
+          onConfirm: () => removeFromCart(name),
+        });
+      });
+    }
+  });
+}
+
 /* ---------- Custom select component ---------- */
 function initCustomSelect(selectEl) {
   if (!selectEl || selectEl.dataset.cinit === '1') return;
@@ -253,11 +407,17 @@ function tammiaBuildAuthModal() {
   const modal = document.createElement('div');
   modal.className = 'auth-modal';
   modal.id = 'tammiaAuthModal';
+  const realAuth = !!window.TAMMIA_USE_REAL_AUTH;
   modal.innerHTML = `
     <div class="auth-modal-head">
       <h5>Masuk / <em style="font-style:italic; color:var(--rouge);">Daftar</em></h5>
       <button class="auth-modal-close" data-close-auth aria-label="Tutup"><i class="bi bi-x-lg"></i></button>
     </div>
+    ${realAuth ? '' : `
+    <div class="auth-demo-banner">
+      <i class="bi bi-info-circle"></i>
+      <span><strong>Demo Mode</strong> — Real OAuth requires Supabase setup. See <code>SUPABASE-SETUP.md</code></span>
+    </div>`}
     <div class="auth-tabs">
       <button class="auth-tab active" data-auth-tab="login">Masuk</button>
       <button class="auth-tab" data-auth-tab="register">Daftar</button>
@@ -273,7 +433,7 @@ function tammiaBuildAuthModal() {
       </div>
       <div class="auth-row-between">
         <span></span>
-        <a href="#">Lupa password?</a>
+        <a href="#" data-auth-forgot>Lupa password?</a>
       </div>
       <button class="btn btn-peach auth-submit" data-auth-action="login">Masuk <i class="bi bi-arrow-right"></i></button>
 
@@ -328,6 +488,30 @@ function tammiaBuildAuthModal() {
         </button>
       </div>
       <div class="auth-bottom-link">Sudah punya akun? <a data-auth-switch="login">Masuk di sini</a></div>
+    </div>
+    <div class="auth-pane" data-auth-pane="forgot">
+      <div class="auth-forgot-head">
+        <h6 style="font-family:'Fraunces',serif; font-weight:400; font-size:22px; margin:0 0 6px;">Reset Password</h6>
+        <p style="color:var(--muted); font-size:13px; margin:0 0 18px;">Masukkan email kamu, link reset akan dikirim.</p>
+      </div>
+      <div class="auth-field">
+        <label>Email</label>
+        <input type="email" placeholder="email@kamu.com" id="authForgotEmail" required>
+      </div>
+      <button class="btn btn-peach auth-submit" data-auth-action="forgot">Kirim Link Reset <i class="bi bi-send"></i></button>
+      <div class="auth-bottom-link" style="margin-top:18px;"><a data-auth-switch="login"><i class="bi bi-arrow-left"></i> Kembali ke Masuk</a></div>
+      <div class="auth-forgot-success" data-forgot-success style="display:none; text-align:center; padding:18px 0 4px;">
+        <div style="
+          width:56px; height:56px; border-radius:50%;
+          background:var(--pink-tint); color:var(--rouge);
+          display:flex; align-items:center; justify-content:center;
+          font-size:28px; margin:0 auto 14px;">
+          <i class="bi bi-check-lg"></i>
+        </div>
+        <div style="font-family:'Fraunces',serif; font-size:20px; margin-bottom:6px;">Link reset telah dikirim</div>
+        <div style="color:var(--muted); font-size:13px;" data-forgot-success-body>Periksa inbox dan folder spam.</div>
+        <div class="auth-bottom-link" style="margin-top:18px;"><a data-auth-switch="login"><i class="bi bi-arrow-left"></i> Kembali ke Masuk</a></div>
+      </div>
     </div>`;
 
   document.body.appendChild(backdrop);
@@ -355,37 +539,177 @@ function tammiaBuildAuthModal() {
   });
   modal.querySelectorAll('[data-auth-switch]').forEach(a => {
     a.addEventListener('click', () => {
-      const tab = modal.querySelector(`.auth-tab[data-auth-tab="${a.dataset.authSwitch}"]`);
-      if (tab) tab.click();
+      const target = a.dataset.authSwitch;
+      switchPane(target);
     });
   });
 
-  function fakeLogin(name, email) {
+  // Helper to switch to a pane that has no tab (forgot)
+  function switchPane(target) {
+    modal.querySelectorAll('.auth-tab').forEach(x => x.classList.toggle('active', x.dataset.authTab === target));
+    modal.querySelectorAll('.auth-pane').forEach(p => p.classList.toggle('active', p.dataset.authPane === target));
+    // Reset forgot pane success view when switching away from it
+    if (target !== 'forgot') {
+      const succ = modal.querySelector('[data-forgot-success]');
+      const formBits = modal.querySelectorAll('[data-auth-pane="forgot"] .auth-field, [data-auth-pane="forgot"] .auth-forgot-head, [data-auth-pane="forgot"] [data-auth-action="forgot"]');
+      if (succ) succ.style.display = 'none';
+      formBits.forEach(b => b.style.display = '');
+      const bottom = modal.querySelector('[data-auth-pane="forgot"] > .auth-bottom-link');
+      if (bottom) bottom.style.display = '';
+    }
+  }
+
+  // Forgot link triggers switch to forgot pane
+  modal.querySelectorAll('[data-auth-forgot]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      switchPane('forgot');
+    });
+  });
+
+  function authComplete(name, email) {
     tammiaSaveUser({ name: name || 'Tammia Lover', email: email || 'tammia@example.com', loggedIn: true });
     closeAuth();
     tammiaRefreshAuthUi();
     tammiaToast(`Halo, ${name || 'kamu'}! Selamat berbelanja.`, 'bi-check-circle-fill');
   }
 
-  modal.querySelector('[data-auth-action="login"]').addEventListener('click', e => {
+  function setBtnBusy(btn, busy, label) {
+    if (!btn) return;
+    if (busy) {
+      btn.dataset.origHtml = btn.dataset.origHtml || btn.innerHTML;
+      btn.innerHTML = `<span class="auth-spinner"></span> ${label || 'Memproses...'}`;
+      btn.disabled = true;
+    } else {
+      btn.innerHTML = btn.dataset.origHtml || btn.innerHTML;
+      btn.disabled = false;
+    }
+  }
+  function showAuthError(btn, msg) {
+    // Toast for now (keeps modal tidy)
+    tammiaToast(msg, 'bi-exclamation-triangle-fill');
+  }
+
+  modal.querySelector('[data-auth-action="login"]').addEventListener('click', async e => {
     e.preventDefault();
-    const email = modal.querySelector('#authLoginEmail').value.trim() || 'tammia@example.com';
-    const name = email.split('@')[0] || 'Sayang';
-    fakeLogin(name.charAt(0).toUpperCase() + name.slice(1), email);
+    const btn = e.currentTarget;
+    const email = modal.querySelector('#authLoginEmail').value.trim();
+    const pass = modal.querySelector('#authLoginPass').value;
+    if (tammiaUseRealAuth()) {
+      if (!email || !pass) { showAuthError(btn, 'Email dan password wajib diisi.'); return; }
+      setBtnBusy(btn, true);
+      try {
+        const { data, error } = await window.tammiaSupabase.auth.signInWithPassword({ email, password: pass });
+        if (error) throw error;
+        // onAuthStateChange will sync localStorage + UI
+        const name = (data.user && data.user.user_metadata && data.user.user_metadata.full_name) || email.split('@')[0];
+        closeAuth();
+        tammiaToast(`Halo, ${name}! Selamat berbelanja.`, 'bi-check-circle-fill');
+      } catch (err) {
+        showAuthError(btn, err.message || 'Login gagal. Cek email/password.');
+      } finally {
+        setBtnBusy(btn, false);
+      }
+      return;
+    }
+    // Demo mode
+    const demoEmail = email || 'tammia@example.com';
+    const name = (demoEmail.split('@')[0] || 'Sayang');
+    authComplete(name.charAt(0).toUpperCase() + name.slice(1), demoEmail);
   });
-  modal.querySelector('[data-auth-action="register"]').addEventListener('click', e => {
+
+  modal.querySelector('[data-auth-action="register"]').addEventListener('click', async e => {
     e.preventDefault();
+    const btn = e.currentTarget;
     const name = modal.querySelector('#authRegName').value.trim() || 'Tammia Lover';
-    const email = modal.querySelector('#authRegEmail').value.trim() || 'tammia@example.com';
-    fakeLogin(name, email);
+    const email = modal.querySelector('#authRegEmail').value.trim();
+    const phone = modal.querySelector('#authRegPhone').value.trim();
+    const pass = modal.querySelector('#authRegPass').value;
+    const confirm = modal.querySelector('#authRegConfirm').value;
+    if (tammiaUseRealAuth()) {
+      if (!email || !pass) { showAuthError(btn, 'Email dan password wajib diisi.'); return; }
+      if (pass !== confirm) { showAuthError(btn, 'Password dan konfirmasi tidak cocok.'); return; }
+      setBtnBusy(btn, true);
+      try {
+        const { error } = await window.tammiaSupabase.auth.signUp({
+          email,
+          password: pass,
+          options: { data: { full_name: name, phone } }
+        });
+        if (error) throw error;
+        closeAuth();
+        tammiaToast(`Akun dibuat. Cek email untuk konfirmasi, ${name}!`, 'bi-check-circle-fill');
+      } catch (err) {
+        showAuthError(btn, err.message || 'Pendaftaran gagal.');
+      } finally {
+        setBtnBusy(btn, false);
+      }
+      return;
+    }
+    // Demo mode
+    authComplete(name, email || 'tammia@example.com');
   });
+
   modal.querySelectorAll('[data-auth-social]').forEach(b => {
-    b.addEventListener('click', e => {
+    b.addEventListener('click', async e => {
       e.preventDefault();
-      const provider = b.dataset.authSocial;
+      const provider = b.dataset.authSocial; // 'google' or 'facebook'
+      if (tammiaUseRealAuth()) {
+        setBtnBusy(b, true, 'Mengarahkan...');
+        try {
+          const { error } = await window.tammiaSupabase.auth.signInWithOAuth({
+            provider,
+            options: { redirectTo: window.location.href }
+          });
+          if (error) throw error;
+          // Redirect happens automatically
+        } catch (err) {
+          showAuthError(b, err.message || 'OAuth gagal.');
+          setBtnBusy(b, false);
+        }
+        return;
+      }
+      // Demo
       const name = provider === 'google' ? 'Marshella' : 'Eunike';
-      fakeLogin(name, `${name.toLowerCase()}@${provider}.com`);
+      authComplete(name, `${name.toLowerCase()}@${provider}.com`);
     });
+  });
+
+  // Forgot password
+  modal.querySelector('[data-auth-action="forgot"]').addEventListener('click', async e => {
+    e.preventDefault();
+    const btn = e.currentTarget;
+    const email = modal.querySelector('#authForgotEmail').value.trim();
+    if (!tammiaIsValidEmail(email)) {
+      showAuthError(btn, 'Email tidak valid.');
+      return;
+    }
+    if (tammiaUseRealAuth()) {
+      setBtnBusy(btn, true);
+      try {
+        const { error } = await window.tammiaSupabase.auth.resetPasswordForEmail(email, {
+          redirectTo: window.location.origin + window.location.pathname,
+        });
+        if (error) throw error;
+      } catch (err) {
+        showAuthError(btn, err.message || 'Tidak bisa kirim email reset.');
+        setBtnBusy(btn, false);
+        return;
+      } finally {
+        setBtnBusy(btn, false);
+      }
+    } else {
+      tammiaToast('Link reset terkirim. Cek email kamu.', 'bi-envelope-check-fill');
+    }
+    // Show success view in pane
+    const succ = modal.querySelector('[data-forgot-success]');
+    const formBits = modal.querySelectorAll('[data-auth-pane="forgot"] .auth-field, [data-auth-pane="forgot"] .auth-forgot-head, [data-auth-pane="forgot"] [data-auth-action="forgot"]');
+    const bottom = modal.querySelector('[data-auth-pane="forgot"] > .auth-bottom-link');
+    const body = modal.querySelector('[data-forgot-success-body]');
+    if (body) body.textContent = `Link reset telah dikirim ke ${email}. Periksa inbox dan folder spam.`;
+    if (succ) succ.style.display = 'block';
+    formBits.forEach(b => b.style.display = 'none');
+    if (bottom) bottom.style.display = 'none';
   });
 
   document.addEventListener('keydown', e => {
@@ -424,10 +748,10 @@ function tammiaRefreshAuthUi() {
             <div class="name">Halo, ${user.name || 'Tammia'}</div>
             <div class="email">${user.email || ''}</div>
           </div>
-          <a href="#"><i class="bi bi-person"></i> Akun Saya</a>
-          <a href="#"><i class="bi bi-bag-check"></i> Pesanan Saya</a>
+          <a href="account.html"><i class="bi bi-person"></i> Akun Saya</a>
+          <a href="orders.html"><i class="bi bi-bag-check"></i> Pesanan Saya</a>
           <a href="#" data-open-wishlist><i class="bi bi-heart"></i> Wishlist <span class="badge-mini" data-wishlist-count>0</span></a>
-          <a href="contact.html#faq"><i class="bi bi-question-circle"></i> Bantuan</a>
+          <a href="contact.html"><i class="bi bi-question-circle"></i> Bantuan</a>
           <div class="divider"></div>
           <button type="button" data-logout><i class="bi bi-box-arrow-right"></i> Keluar</button>
         </div>`;
@@ -441,7 +765,10 @@ function tammiaRefreshAuthUi() {
       document.addEventListener('click', e => {
         if (!newSlot.contains(e.target)) menu.classList.remove('open');
       });
-      newSlot.querySelector('[data-logout]').addEventListener('click', () => {
+      newSlot.querySelector('[data-logout]').addEventListener('click', async () => {
+        if (tammiaUseRealAuth()) {
+          try { await window.tammiaSupabase.auth.signOut(); } catch (e) {}
+        }
         tammiaSaveUser(null);
         tammiaToast('Berhasil keluar dari akun.', 'bi-box-arrow-right');
         tammiaRefreshAuthUi();
@@ -790,6 +1117,35 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', e => {
       e.preventDefault();
       e.stopPropagation();
+      // Read product data from the nearest cell or card
+      const cell = btn.closest('.product-cell, .product-card');
+      let name = '', brand = '', price = 0, was = null, svg = 'brush';
+      if (cell) {
+        // Prefer dataset (shop.html), else fallback to inner text (index.html etc.)
+        if (cell.dataset.name) {
+          name = cell.dataset.name;
+          brand = cell.dataset.brand || '';
+          price = parseInt(cell.dataset.price, 10) || 0;
+          was = cell.dataset.was ? parseInt(cell.dataset.was, 10) : null;
+        } else {
+          const nameEl = cell.querySelector('.product-name');
+          const brandEl = cell.querySelector('.product-brand');
+          const priceEl = cell.querySelector('.product-price.sale, .product-price');
+          const wasEl = cell.querySelector('.product-price-was');
+          if (nameEl) name = nameEl.textContent.trim();
+          if (brandEl) brand = brandEl.textContent.trim();
+          if (priceEl) price = parseInt(priceEl.textContent.replace(/[^\d]/g, ''), 10) || 0;
+          if (wasEl) was = parseInt(wasEl.textContent.replace(/[^\d]/g, ''), 10) || null;
+        }
+        svg = tammiaSvgForProductName(name);
+      }
+      if (!name) {
+        // Nothing identifiable -> just open the drawer
+        openCart();
+        return;
+      }
+      addToCart({ name, brand, price, was, svg });
+      tammiaToast('Ditambahkan ke keranjang', 'bi-bag-check-fill');
       openCart();
     });
   });
@@ -813,124 +1169,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ---------- Cart drawer: removable items + live total ---------- */
-  function parseRupiah(str) {
-    return parseInt((str || '').replace(/[^\d]/g, ''), 10) || 0;
-  }
-  function formatRupiah(n) {
-    return 'Rp ' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  }
-  function updateDrawerTotals() {
-    const drawer = document.getElementById('cartDrawer');
-    if (!drawer) return;
-    const body = drawer.querySelector('.drawer-body');
-    const items = body ? body.querySelectorAll('.drawer-item') : [];
-    let subtotal = 0;
-    let count = 0;
-    items.forEach(it => {
-      const priceEl = it.querySelector('.drawer-item-price');
-      const qtyInput = it.querySelector('.qty-stepper input');
-      const price = parseRupiah(priceEl ? priceEl.textContent : '0');
+  /* ---------- Product detail page: Tambah ke Keranjang ---------- */
+  document.querySelectorAll('[data-pd-add-to-cart]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const info = btn.closest('.pd-info') || document.querySelector('.pd-info[data-product-name]');
+      if (!info) { openCart(); return; }
+      const qtyInput = document.querySelector('.pd-variant-block .qty-stepper input');
       const qty = parseInt(qtyInput ? qtyInput.value : '1', 10) || 1;
-      subtotal += price * qty;
-      count += qty;
-    });
-    // Update drawer subtotal value
-    const totalVal = drawer.querySelector('.drawer-total .val');
-    if (totalVal) totalVal.textContent = formatRupiah(subtotal);
-    // Update drawer header count "(N)"
-    const head = drawer.querySelector('.drawer-head h5 span');
-    if (head) head.textContent = `(${count})`;
-    // Update navbar cart badge across all nav-icons
-    document.querySelectorAll('.cart-badge').forEach(b => {
-      b.textContent = count;
-      b.style.display = count > 0 ? '' : 'none';
-    });
-    // Empty state
-    if (items.length === 0 && body && !body.querySelector('.drawer-empty')) {
-      body.innerHTML = `
-        <div class="drawer-empty" style="text-align:center; padding:48px 16px;">
-          <div style="font-size:48px; margin-bottom:12px; opacity:0.4;"><i class="bi bi-bag"></i></div>
-          <div style="font-family:'Fraunces',serif; font-size:20px; margin-bottom:6px;">Keranjang masih kosong</div>
-          <div style="color:var(--muted); font-size:14px; margin-bottom:20px;">Yuk pilih beauty tools favoritmu.</div>
-          <a href="shop.html" class="btn btn-peach btn-sm">Mulai Belanja</a>
-        </div>`;
-      // Hide subtotal/actions footer too
-      const foot = drawer.querySelector('.drawer-foot');
-      if (foot) foot.style.display = 'none';
-    }
-  }
-
-  function removeDrawerItem(item) {
-    item.style.transition = 'opacity .25s ease, transform .25s ease, max-height .3s ease, margin .3s ease, padding .3s ease';
-    item.style.maxHeight = item.offsetHeight + 'px';
-    requestAnimationFrame(() => {
-      item.style.opacity = '0';
-      item.style.transform = 'translateX(-20px)';
-      item.style.maxHeight = '0';
-      item.style.marginTop = '0';
-      item.style.marginBottom = '0';
-      item.style.paddingTop = '0';
-      item.style.paddingBottom = '0';
-      item.style.overflow = 'hidden';
-    });
-    setTimeout(() => {
-      item.remove();
-      updateDrawerTotals();
-    }, 300);
-  }
-
-  // Wire each drawer item
-  document.querySelectorAll('#cartDrawer .drawer-item').forEach(item => {
-    const stepper = item.querySelector('.qty-stepper');
-    if (!stepper) return;
-    const minus = stepper.querySelector('.qty-minus');
-    const plus = stepper.querySelector('.qty-plus');
-    const input = stepper.querySelector('input');
-    if (!input) return;
-
-    // Inject a remove × button if not present
-    if (!item.querySelector('.drawer-item-remove')) {
-      const rm = document.createElement('button');
-      rm.className = 'drawer-item-remove';
-      rm.setAttribute('aria-label', 'Hapus produk');
-      rm.innerHTML = '<i class="bi bi-x-lg"></i>';
-      rm.style.cssText = 'background:transparent; border:none; padding:6px; color:var(--muted); cursor:pointer; transition:color .15s ease; position:absolute; top:8px; right:8px; border-radius:6px; line-height:1;';
-      rm.addEventListener('mouseenter', () => { rm.style.color = 'var(--rouge)'; });
-      rm.addEventListener('mouseleave', () => { rm.style.color = 'var(--muted)'; });
-      rm.addEventListener('click', () => removeDrawerItem(item));
-      item.style.position = 'relative';
-      item.appendChild(rm);
-    }
-
-    if (minus) minus.addEventListener('click', () => {
-      let v = parseInt(input.value || '1', 10);
-      if (v > 1) {
-        input.value = v - 1;
-        updateDrawerTotals();
-      } else {
-        // qty is 1 -> custom confirm and remove
-        const nameEl = item.querySelector('.drawer-item-name');
-        const productName = nameEl ? nameEl.textContent.trim() : 'produk ini';
-        tammiaConfirm({
-          title: 'Hapus dari Keranjang?',
-          message: `<strong>${productName}</strong> akan dihapus dari keranjang kamu.`,
-          confirmText: 'Hapus',
-          cancelText: 'Batal',
-          danger: true,
-          onConfirm: () => removeDrawerItem(item),
-        });
-      }
-    });
-    if (plus) plus.addEventListener('click', () => {
-      let v = parseInt(input.value || '1', 10);
-      input.value = v + 1;
-      updateDrawerTotals();
+      const name = info.dataset.productName || '';
+      const brand = info.dataset.productBrand || '';
+      const price = parseInt(info.dataset.productPrice, 10) || 0;
+      const was = info.dataset.productWas ? parseInt(info.dataset.productWas, 10) : null;
+      const svg = info.dataset.productSvg || tammiaSvgForProductName(name);
+      if (!name) { openCart(); return; }
+      addToCart({ name, brand, price, was, svg, qty });
+      tammiaToast(`${qty}× ditambahkan ke keranjang`, 'bi-bag-check-fill');
+      openCart();
     });
   });
 
-  // Initial totals sync on load (in case HTML is out of sync with computed)
-  updateDrawerTotals();
+  /* ---------- Cart drawer: render from localStorage (empty by default) ---------- */
+  // This wipes any hardcoded HTML items and re-renders from tammia_cart.
+  renderCartDrawer();
+  tammiaUpdateCartBadge();
 
   /* ---------- FAQ accordion ---------- */
   document.querySelectorAll('.faq-item').forEach(item => {
@@ -1044,18 +1306,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ---------- Newsletter pretend submit ---------- */
+  /* ---------- Newsletter submit with validation + storage ---------- */
   document.querySelectorAll('.newsletter-form, .footer-newsletter').forEach(form => {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const btn = form.querySelector('button');
-      if (btn) {
-        const orig = btn.innerHTML;
-        btn.innerHTML = 'Tersimpan ✓';
-        btn.disabled = true;
-        setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; form.reset(); }, 2200);
-      }
-    });
+    tammiaInitNewsletterForm(form);
   });
 
   /* ---------- Contact form submit ---------- */
@@ -1309,6 +1562,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- TASK 5: Auth modal + nav UI ---------- */
   tammiaBuildAuthModal();
   tammiaRefreshAuthUi();
+  tammiaInitSupabaseAuthSync();
 
   /* ---------- TASK 6: Wishlist drawer + nav button + product hearts ---------- */
   tammiaBuildWishlistDrawer();
@@ -1333,6 +1587,9 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- TASK 4: Cart page interactions ---------- */
   tammiaInitCartPage();
 
+  /* ---------- TASK 5: Orders page (orders.html) ---------- */
+  tammiaInitOrdersPage();
+
   /* ---------- TASK 7: Reviews on product page ---------- */
   tammiaInitReviewSection();
 
@@ -1342,7 +1599,7 @@ document.addEventListener('DOMContentLoaded', () => {
 }); // End DOMContentLoaded
 
 /* ============================================================
-   TASK 4 — Cart page logic
+   TASK 4 — Cart page logic (localStorage-driven)
    ============================================================ */
 function tammiaInitCartPage() {
   const table = document.querySelector('.cart-table');
@@ -1350,86 +1607,124 @@ function tammiaInitCartPage() {
 
   const SHIPPING_FREE_THRESHOLD = 150000;
   const SHIPPING_COST = 18000;
+  const tbody = table.querySelector('tbody');
+  const tableWrapper = table.parentElement; // overflow-x wrapper
 
-  // Wire each cart row
-  const rows = Array.from(table.querySelectorAll('tbody tr'));
-  rows.forEach((row, idx) => {
-    if (!row.hasAttribute('data-cart-row')) row.setAttribute('data-cart-row', '');
+  function renderRows() {
+    const cart = getCart();
+    if (!tbody) return;
 
-    const stepper = row.querySelector('.qty-stepper');
-    const input = stepper ? stepper.querySelector('input') : null;
-    const minus = stepper ? stepper.querySelector('.qty-minus') : null;
-    const plus = stepper ? stepper.querySelector('.qty-plus') : null;
-
-    // Derive price from existing markup (find first Fraunces price string)
-    // Use second td (Harga) for unit price
-    let unitPrice = parseInt(row.dataset.price || '0', 10);
-    if (!unitPrice) {
-      const priceCell = row.children[1];
-      if (priceCell) {
-        const m = priceCell.textContent.match(/Rp\s*([\d.]+)/);
-        if (m) unitPrice = parseInt(m[1].replace(/\./g, ''), 10);
-      }
-      row.dataset.price = unitPrice;
-    }
-    if (!row.dataset.qty) row.dataset.qty = input ? input.value : '1';
-
-    function setQty(newQty) {
-      newQty = Math.max(0, parseInt(newQty, 10) || 0);
-      row.dataset.qty = newQty;
-      if (input) input.value = newQty;
-      // Update subtotal cell (4th td originally)
-      const subtotalCell = row.children[3];
-      if (subtotalCell) {
-        subtotalCell.innerHTML = `<div style="font-family:'Fraunces',serif; font-size:18px; font-weight:500;">${tammiaFormatPrice(unitPrice * newQty)}</div>`;
-        // Re-add prefix label support for mobile (it's handled by ::before CSS)
+    // Empty state
+    const existingEmpty = tableWrapper.querySelector('.cart-empty-state');
+    if (cart.length === 0) {
+      table.style.display = 'none';
+      if (!existingEmpty) {
+        const empty = document.createElement('div');
+        empty.className = 'cart-empty-state';
+        empty.innerHTML = `
+          <div class="icon-big"><i class="bi bi-bag-x"></i></div>
+          <h3>Keranjang kamu masih kosong</h3>
+          <p>Yuk, isi keranjang dengan beauty tools pilihan kamu.</p>
+          <a href="shop.html" class="btn btn-peach">Lihat Produk <i class="bi bi-arrow-right"></i></a>`;
+        tableWrapper.appendChild(empty);
       }
       recalc();
-      if (newQty === 0) {
-        if (confirm('Hapus produk ini dari keranjang?')) {
-          removeRow();
-        } else {
-          row.dataset.qty = '1';
-          if (input) input.value = '1';
-          subtotalCell.innerHTML = `<div style="font-family:'Fraunces',serif; font-size:18px; font-weight:500;">${tammiaFormatPrice(unitPrice)}</div>`;
-          recalc();
-        }
+      return;
+    }
+    if (existingEmpty) existingEmpty.remove();
+    table.style.display = '';
+
+    tbody.innerHTML = cart.map(it => {
+      const safeName = (it.name || '').replace(/"/g, '&quot;');
+      const wasHtml = it.was
+        ? `<div style="font-size:12px; color:var(--muted); text-decoration:line-through;">${tammiaFormatPrice(it.was)}</div>`
+        : '';
+      const priceColor = it.was ? 'color:var(--rouge);' : '';
+      return `
+        <tr data-cart-row data-name="${safeName}" data-price="${it.price}" data-qty="${it.qty}">
+          <td>
+            <div class="cart-item-cell">
+              <div class="cart-item-img">${tammiaSearchSvg(it.svg || 'brush')}</div>
+              <div>
+                <div class="mono-label">${it.brand || ''}</div>
+                <div style="font-weight:500; font-size:15px; margin: 6px 0;">
+                  <a href="product.html" style="color:var(--ink);">${it.name}</a>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div style="font-family:'Fraunces',serif; font-weight:500; font-size:16px; ${priceColor}">${tammiaFormatPrice(it.price)}</div>
+            ${wasHtml}
+          </td>
+          <td>
+            <div class="qty-stepper">
+              <button class="qty-minus" type="button">−</button>
+              <input type="text" value="${it.qty}" readonly>
+              <button class="qty-plus" type="button">+</button>
+            </div>
+          </td>
+          <td>
+            <div style="font-family:'Fraunces',serif; font-size:18px; font-weight:500;">${tammiaFormatPrice(it.price * it.qty)}</div>
+          </td>
+          <td>
+            <button class="cart-remove" type="button" aria-label="Hapus"><i class="bi bi-x-lg"></i></button>
+          </td>
+        </tr>`;
+    }).join('');
+
+    // Wire row controls
+    tbody.querySelectorAll('tr[data-cart-row]').forEach(row => {
+      const name = row.dataset.name;
+      const minus = row.querySelector('.qty-minus');
+      const plus = row.querySelector('.qty-plus');
+      const removeBtn = row.querySelector('.cart-remove');
+
+      function askRemove() {
+        tammiaConfirm({
+          title: 'Hapus dari Keranjang?',
+          message: `<strong>${name}</strong> akan dihapus dari keranjang kamu.`,
+          confirmText: 'Hapus',
+          cancelText: 'Batal',
+          danger: true,
+          onConfirm: () => {
+            row.classList.add('removing');
+            setTimeout(() => {
+              removeFromCart(name); // triggers re-render via setCart
+            }, 260);
+          },
+        });
       }
-    }
 
-    if (minus) minus.addEventListener('click', () => {
-      const cur = parseInt(row.dataset.qty || '1', 10);
-      setQty(cur - 1);
-    });
-    if (plus) plus.addEventListener('click', () => {
-      const cur = parseInt(row.dataset.qty || '1', 10);
-      setQty(cur + 1);
+      if (minus) minus.addEventListener('click', () => {
+        const cart = getCart();
+        const item = cart.find(i => i.name === name);
+        if (!item) return;
+        if (item.qty > 1) {
+          updateCartQty(name, item.qty - 1);
+        } else {
+          askRemove();
+        }
+      });
+      if (plus) plus.addEventListener('click', () => {
+        const cart = getCart();
+        const item = cart.find(i => i.name === name);
+        if (!item) return;
+        updateCartQty(name, item.qty + 1);
+      });
+      if (removeBtn) removeBtn.addEventListener('click', askRemove);
     });
 
-    // Ensure last cell has remove button (existing markup already has one)
-    const removeBtn = row.querySelector('.cart-remove');
-    if (removeBtn) removeBtn.addEventListener('click', () => {
-      removeRow();
-    });
-
-    function removeRow() {
-      row.classList.add('removing');
-      setTimeout(() => {
-        row.remove();
-        recalc();
-      }, 260);
-    }
-  });
+    recalc();
+  }
 
   function recalc() {
-    const allRows = Array.from(table.querySelectorAll('tbody tr')).filter(r => !r.classList.contains('removing'));
+    const cart = getCart();
     let subtotal = 0;
     let totalQty = 0;
-    allRows.forEach(r => {
-      const p = parseInt(r.dataset.price || '0', 10);
-      const q = parseInt(r.dataset.qty || '0', 10);
-      subtotal += p * q;
-      totalQty += q;
+    cart.forEach(it => {
+      subtotal += (parseInt(it.price, 10) || 0) * (parseInt(it.qty, 10) || 0);
+      totalQty += parseInt(it.qty, 10) || 0;
     });
     const shipping = subtotal === 0 ? 0 : (subtotal >= SHIPPING_FREE_THRESHOLD ? 0 : SHIPPING_COST);
 
@@ -1438,13 +1733,11 @@ function tammiaInitCartPage() {
     let extraDeductions = 0;
     if (summary) {
       const rows = summary.querySelectorAll('.summary-row');
-      // First row: subtotal
       if (rows[0]) {
         rows[0].innerHTML = `<span>Subtotal (${totalQty} item)</span><span>${tammiaFormatPrice(subtotal)}</span>`;
       }
-      // Parse other negative deductions (Diskon, Promo) from existing rows
       summary.querySelectorAll('.summary-row:not(.total)').forEach((srow, idx) => {
-        if (idx === 0) return; // skip subtotal
+        if (idx === 0) return;
         const lbl = srow.querySelector('span:first-child');
         if (!lbl) return;
         if (/Pengiriman/i.test(lbl.textContent)) {
@@ -1452,7 +1745,6 @@ function tammiaInitCartPage() {
             ? `<span>Pengiriman</span><span><i class="bi bi-check-circle-fill" style="color:#2d9b5e;"></i> Gratis</span>`
             : `<span>Pengiriman</span><span>${tammiaFormatPrice(shipping)}</span>`;
         } else {
-          // Try to parse value (e.g. "−Rp 410.560")
           const val = srow.querySelector('span:last-child');
           if (val) {
             const m = val.textContent.match(/(\d[\d.]*)/);
@@ -1464,7 +1756,6 @@ function tammiaInitCartPage() {
           }
         }
       });
-      // Total row
       const totalRow = summary.querySelector('.summary-row.total');
       if (totalRow) {
         const total = Math.max(0, subtotal + shipping + extraDeductions);
@@ -1472,7 +1763,7 @@ function tammiaInitCartPage() {
       }
     }
 
-    // Update shipping progress bar
+    // Shipping progress bar
     const progress = document.querySelector('.shipping-progress');
     if (progress) {
       const remaining = Math.max(0, SHIPPING_FREE_THRESHOLD - subtotal);
@@ -1491,30 +1782,15 @@ function tammiaInitCartPage() {
       }
     }
 
-    // Update cart count badge & headers
-    document.querySelectorAll('.cart-badge').forEach(b => { b.textContent = totalQty; });
+    // Update cart count badge in header
     const headerCount = document.querySelector('h1 [style*="0.6em"]');
     if (headerCount) headerCount.textContent = `(${totalQty} item)`;
-
-    // Empty state
-    if (allRows.length === 0) {
-      const wrapper = table.parentElement; // overflow-x wrapper
-      if (wrapper && !document.querySelector('.cart-empty-state')) {
-        table.style.display = 'none';
-        const empty = document.createElement('div');
-        empty.className = 'cart-empty-state';
-        empty.innerHTML = `
-          <div class="icon-big"><i class="bi bi-bag-x"></i></div>
-          <h3>Keranjang kamu masih kosong</h3>
-          <p>Yuk, isi keranjang dengan beauty tools pilihan kamu.</p>
-          <a href="shop.html" class="btn btn-peach">Lihat Produk <i class="bi bi-arrow-right"></i></a>`;
-        wrapper.appendChild(empty);
-      }
-    }
   }
 
-  // Initial recalc
-  recalc();
+  // Re-render whenever the global cart changes (from drawer, etc.)
+  document.addEventListener('tammia:cart-changed', renderRows);
+
+  renderRows();
 }
 
 /* ============================================================
@@ -1727,4 +2003,242 @@ function tammiaInitOrderSummaryCollapsible() {
   toggleBtn.addEventListener('click', () => {
     summary.classList.toggle('open');
   });
+}
+
+/* ============================================================
+   TASK 4 — Newsletter form (validation + storage + success card)
+   ============================================================ */
+function tammiaIsValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((email || '').trim());
+}
+function tammiaGetNewsletter() {
+  try { return JSON.parse(localStorage.getItem('tammia_newsletter') || '[]'); }
+  catch (e) { return []; }
+}
+function tammiaSaveNewsletter(list) {
+  localStorage.setItem('tammia_newsletter', JSON.stringify(list || []));
+}
+function tammiaInitNewsletterForm(form) {
+  if (!form || form.dataset.nlInit === '1') return;
+  form.dataset.nlInit = '1';
+
+  const isFooter = form.classList.contains('footer-newsletter');
+  const input = form.querySelector('input[type="email"], input[type="text"], input');
+  const btn = form.querySelector('button');
+  if (!input || !btn) return;
+
+  // Inline error helper
+  let errorEl = form.querySelector('.newsletter-error');
+  if (!errorEl) {
+    errorEl = document.createElement('div');
+    errorEl.className = 'newsletter-error';
+    errorEl.style.cssText = `
+      display: none;
+      width: 100%;
+      margin-top: 8px;
+      font-size: 12px;
+      color: ${isFooter ? '#ff9a9a' : 'var(--rouge)'};
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.04em;
+    `;
+    form.appendChild(errorEl);
+  }
+  function showError(msg) {
+    errorEl.textContent = msg;
+    errorEl.style.display = 'block';
+    input.style.borderColor = isFooter ? '#ff9a9a' : 'var(--rouge)';
+  }
+  function clearError() {
+    errorEl.style.display = 'none';
+    errorEl.textContent = '';
+    input.style.borderColor = '';
+  }
+  input.addEventListener('input', clearError);
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = (input.value || '').trim();
+    if (!tammiaIsValidEmail(email)) {
+      showError('Email tidak valid. Coba lagi.');
+      return;
+    }
+    const list = tammiaGetNewsletter();
+    if (list.includes(email.toLowerCase())) {
+      showSuccess(form, isFooter, 'Email kamu sudah terdaftar', 'Kami sudah punya emailmu — kamu akan terus dapat info Friday Flash Sale tiap minggu.');
+      return;
+    }
+    list.push(email.toLowerCase());
+    tammiaSaveNewsletter(list);
+
+    // Optional: send to Supabase
+    if (window.TAMMIA_USE_REAL_AUTH && window.tammiaSupabase) {
+      window.tammiaSupabase
+        .from('newsletter_subscribers')
+        .insert({ email })
+        .then(() => {}, err => console.warn('Newsletter insert failed:', err));
+    }
+    showSuccess(form, isFooter);
+  });
+
+  function showSuccess(form, isFooter, title = 'Terima kasih sudah subscribe!', body = 'Kamu akan dapat info flash sale, produk baru, dan promo eksklusif setiap minggu.') {
+    if (form.dataset.original) return; // already showing
+    form.dataset.original = form.innerHTML;
+    const tintBg = isFooter ? 'rgba(255,255,255,0.08)' : 'var(--cream-1)';
+    const ringColor = isFooter ? '#fff' : 'var(--pink)';
+    const titleColor = isFooter ? '#fff' : 'var(--ink)';
+    const bodyColor = isFooter ? '#bbb' : 'var(--ink-soft)';
+    form.style.display = 'block';
+    form.innerHTML = `
+      <div class="newsletter-success" style="
+        display:flex; align-items:center; gap:14px;
+        background:${tintBg};
+        border:1px solid ${ringColor === '#fff' ? 'rgba(255,255,255,0.18)' : 'var(--pink)'};
+        border-radius:14px; padding:18px 20px;">
+        <div style="
+          width:44px; height:44px; flex:0 0 44px; border-radius:50%;
+          background:${isFooter ? 'rgba(232,160,168,0.25)' : 'var(--pink-tint)'};
+          color:${isFooter ? '#f4c7cd' : 'var(--rouge)'};
+          display:flex; align-items:center; justify-content:center;
+          font-size:20px;
+        "><i class="bi bi-check-lg"></i></div>
+        <div style="flex:1; min-width:0;">
+          <div style="font-family:'Fraunces',serif; font-size:18px; line-height:1.2; color:${titleColor};">${title}</div>
+          <div style="font-size:13px; color:${bodyColor}; margin-top:4px;">${body}</div>
+        </div>
+        <button type="button" class="newsletter-close" style="
+          background:transparent; border:1px solid ${ringColor === '#fff' ? 'rgba(255,255,255,0.25)' : 'var(--line)'};
+          color:${titleColor}; border-radius:10px; padding:8px 14px;
+          font-family:'JetBrains Mono',monospace; font-size:11px;
+          letter-spacing:0.16em; text-transform:uppercase; cursor:pointer;
+          flex-shrink:0;
+        ">Tutup</button>
+      </div>`;
+    const closeBtn = form.querySelector('.newsletter-close');
+    function revert() {
+      if (!form.dataset.original) return;
+      form.innerHTML = form.dataset.original;
+      delete form.dataset.original;
+      form.style.display = '';
+      // Re-init in case event listeners need re-binding
+      delete form.dataset.nlInit;
+      tammiaInitNewsletterForm(form);
+    }
+    if (closeBtn) closeBtn.addEventListener('click', revert);
+    setTimeout(revert, 4000);
+  }
+}
+
+/* ============================================================
+   TASK 1 — Supabase auth helpers
+   ============================================================ */
+function tammiaUseRealAuth() {
+  return !!(window.TAMMIA_USE_REAL_AUTH && window.tammiaSupabase);
+}
+
+/* Sync the Supabase session to localStorage so existing UI works. */
+function tammiaSyncSupabaseSessionToLocal(session) {
+  if (!session || !session.user) {
+    tammiaSaveUser(null);
+    return;
+  }
+  const u = session.user;
+  const meta = u.user_metadata || {};
+  const name = meta.full_name || meta.name || (u.email ? u.email.split('@')[0] : 'Tammia');
+  tammiaSaveUser({
+    name: (name + '').charAt(0).toUpperCase() + (name + '').slice(1),
+    email: u.email || '',
+    loggedIn: true,
+    supabaseId: u.id,
+  });
+}
+
+function tammiaInitSupabaseAuthSync() {
+  if (!tammiaUseRealAuth()) return;
+  const sb = window.tammiaSupabase;
+  // Hydrate from existing session (returns a Promise)
+  sb.auth.getSession().then(({ data }) => {
+    tammiaSyncSupabaseSessionToLocal(data && data.session);
+    tammiaRefreshAuthUi();
+  }, () => {});
+  sb.auth.onAuthStateChange((event, session) => {
+    tammiaSyncSupabaseSessionToLocal(session);
+    tammiaRefreshAuthUi();
+  });
+}
+
+/* ============================================================
+   TASK 5 — Orders page (status filters + tracking + buy again)
+   ============================================================ */
+function tammiaInitOrdersPage() {
+  const list = document.getElementById('ordersList');
+  if (!list) return;
+
+  const filterRow = document.getElementById('ordersFilterRow');
+  const emptyEl = document.getElementById('ordersEmpty');
+  const cards = Array.from(list.querySelectorAll('.order-card'));
+
+  function applyFilter(filter) {
+    let visible = 0;
+    cards.forEach(c => {
+      const show = filter === 'all' || c.dataset.orderStatus === filter;
+      c.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (emptyEl) {
+      if (visible === 0) {
+        emptyEl.style.display = '';
+        list.style.display = 'none';
+      } else {
+        emptyEl.style.display = 'none';
+        list.style.display = '';
+      }
+    }
+  }
+
+  if (filterRow) {
+    filterRow.querySelectorAll('[data-order-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterRow.querySelectorAll('[data-order-filter]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilter(btn.dataset.orderFilter);
+      });
+    });
+  }
+
+  // Tracking timeline toggle
+  list.querySelectorAll('[data-tracking-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.order-card');
+      if (!card) return;
+      card.classList.toggle('tracking-open');
+    });
+  });
+
+  // Buy again — add product to cart by product name lookup
+  list.querySelectorAll('[data-buy-again]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = btn.dataset.buyAgain;
+      const product = TAMMIA_PRODUCTS.find(p => p.name === name);
+      if (!product) {
+        tammiaToast('Produk tidak ditemukan di katalog.', 'bi-exclamation-triangle-fill');
+        return;
+      }
+      addToCart({
+        name: product.name,
+        brand: product.brand,
+        price: product.price,
+        was: product.was || null,
+        svg: product.svg,
+      });
+      tammiaToast('Ditambahkan ke keranjang', 'bi-bag-check-fill');
+      const drawer = document.getElementById('cartDrawer');
+      const bd = document.getElementById('drawerBackdrop');
+      if (drawer) drawer.classList.add('open');
+      if (bd) bd.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  // Initial: show all
+  applyFilter('all');
 }

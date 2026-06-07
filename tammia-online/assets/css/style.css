@@ -2876,3 +2876,373 @@ section { padding: 100px 0; }
   .tammia-confirm-title { font-size: 19px; }
   .tammia-confirm-message { font-size: 13.5px; }
 }
+
+/* ============================================================
+   TASK 1 — Auth demo-mode banner + forgot pane + spinner
+   ============================================================ */
+.auth-demo-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 28px 8px;
+  padding: 10px 14px;
+  background: var(--peach-tint);
+  border: 1px solid var(--pink-soft);
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+.auth-demo-banner i {
+  color: var(--rouge);
+  font-size: 16px;
+  flex: 0 0 16px;
+  margin-top: 1px;
+}
+.auth-demo-banner strong { color: var(--ink); }
+.auth-demo-banner code {
+  background: rgba(200, 85, 61, 0.08);
+  color: var(--rouge);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+@media (max-width: 480px) {
+  .auth-demo-banner { margin: 0 18px 6px; padding: 9px 12px; font-size: 11.5px; }
+}
+.auth-forgot-head h6 { color: var(--ink); }
+.auth-forgot-success .auth-bottom-link { font-size: 12px; }
+@keyframes tammiaSpin { to { transform: rotate(360deg); } }
+.auth-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  vertical-align: -2px;
+  margin-right: 6px;
+  animation: tammiaSpin .65s linear infinite;
+}
+
+/* ============================================================
+   TASK 4 — Newsletter error + success card
+   ============================================================ */
+.newsletter-error {
+  width: 100%;
+  margin-top: 8px;
+}
+.newsletter-success {
+  animation: tammiaFadeUp .35s ease both;
+}
+@keyframes tammiaFadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.footer-newsletter input:focus {
+  outline: none;
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.4);
+}
+
+/* ============================================================
+   TASK 5 — Orders page
+   ============================================================ */
+.orders-filter-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.orders-filter-btn {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all .18s ease;
+}
+.orders-filter-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.orders-filter-btn.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.order-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 26px 28px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.order-card:hover {
+  border-color: var(--pink);
+  box-shadow: 0 8px 32px rgba(232,160,168,0.10);
+}
+@media (max-width: 600px) {
+  .order-card { padding: 20px 18px; }
+}
+
+.order-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 18px;
+  border-bottom: 1px dashed var(--line);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.order-number {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  margin-top: 4px;
+}
+.order-number .order-dot { color: var(--muted); margin: 0 4px; font-weight: 400; }
+.order-number .order-date { color: var(--muted); font-weight: 400; font-style: italic; }
+
+.order-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.order-status i { font-size: 13px; }
+.status-diproses { background: #fff5ea; color: #b86b16; border: 1px solid #f3d9b4; }
+.status-dikirim { background: #e9f1ff; color: #1e5ac1; border: 1px solid #c9defc; }
+.status-selesai { background: #e6f4ec; color: #2d7548; border: 1px solid #c2e2cf; }
+.status-dibatalkan { background: #fcebe6; color: #a8442f; border: 1px solid #f3c9be; }
+
+.order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.order-item-thumb {
+  width: 62px;
+  height: 62px;
+  flex: 0 0 62px;
+  background: var(--cream-1);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+.order-item-thumb svg { width: 100%; height: 100%; }
+.order-item-meta { min-width: 0; flex: 1; }
+.order-item-meta .brand-mini {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.order-item-meta .name-mini {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-top: 4px;
+  line-height: 1.35;
+}
+.order-item-meta .meta-mini {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.order-item-meta .meta-mini .dot { margin: 0 4px; }
+
+.order-tracking-toggle {
+  display: none; /* The toggle button inside card is hidden; foot button drives it */
+}
+.order-tracking {
+  display: none;
+  background: var(--cream-1);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+}
+.order-card.tracking-open .order-tracking { display: block; }
+
+.track-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 8px 0;
+  position: relative;
+}
+.track-step + .track-step::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: -10px;
+  width: 2px;
+  height: 18px;
+  background: var(--line);
+}
+.track-step.done + .track-step::before,
+.track-step.active + .track-step::before { background: var(--pink); }
+.track-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--line);
+  flex: 0 0 12px;
+  margin-top: 5px;
+  position: relative;
+}
+.track-step.done .track-dot { background: var(--rouge); }
+.track-step.active .track-dot {
+  background: var(--pink);
+  box-shadow: 0 0 0 4px rgba(232, 160, 168, 0.25);
+}
+.track-meta { min-width: 0; flex: 1; }
+.track-label {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.track-step.active .track-label { color: var(--rouge); }
+.track-time {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.order-card-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.order-total {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.order-total-val {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.order-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+@media (max-width: 600px) {
+  .order-card-foot { align-items: flex-start; }
+  .order-total-val { font-size: 19px; }
+  .order-actions .btn { font-size: 12px; padding: 8px 14px; }
+}
+
+.orders-empty {
+  text-align: center;
+  padding: 80px 24px;
+  background: var(--cream-1);
+  border: 1px dashed var(--line);
+  border-radius: var(--r-lg);
+}
+.orders-empty .icon-big {
+  font-size: 56px;
+  color: var(--pink-soft);
+  margin-bottom: 18px;
+}
+.orders-empty h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+.orders-empty p {
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+
+/* ============================================================
+   TASK 6 — Form audit: checkout address grid + promo input polish
+   ============================================================ */
+/* Make sure checkout custom-select-wrap renders width:100% inside grid cols */
+.checkout-form .custom-select-wrap.full,
+.checkout-form .custom-select-wrap { width: 100%; display: block; }
+.checkout-form .custom-select-wrap.full .custom-select { width: 100%; }
+.contact-form .custom-select-wrap.full,
+.contact-form .custom-select-wrap { width: 100%; display: block; }
+
+/* Promo code input (cart page) — match contact-form aesthetics */
+.promo-input-group input {
+  background: var(--cream-1);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  transition: all .2s ease;
+}
+.promo-input-group input:focus {
+  outline: none;
+  background: #fff;
+  border-color: var(--pink);
+  box-shadow: 0 0 0 4px rgba(232,160,168,0.15);
+}
+
+/* Error state for any contact/checkout/auth input */
+.contact-form input.has-error,
+.contact-form textarea.has-error,
+.contact-form select.has-error,
+.checkout-form input.has-error,
+.checkout-form textarea.has-error,
+.checkout-form select.has-error,
+.auth-field input.has-error {
+  border-color: var(--rouge);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(200, 85, 61, 0.12);
+}
+.field-error-text {
+  display: block;
+  color: var(--rouge);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  margin-top: 6px;
+}
+
