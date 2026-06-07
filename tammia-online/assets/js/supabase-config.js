@@ -1,18 +1,27 @@
 /* ============================================================
    TAMMIA ONLINE - Supabase Configuration
    ============================================================
-   Replace these with your actual project credentials before going
-   to production. Get them from:
-   https://app.supabase.com -> Your Project -> Settings -> API
+   Project: ddfgarqzpanskgaojmkg
+   Dashboard: https://app.supabase.com/project/ddfgarqzpanskgaojmkg
    ============================================================ */
 
-window.TAMMIA_SUPABASE_URL = 'https://YOUR-PROJECT-REF.supabase.co';
-window.TAMMIA_SUPABASE_ANON_KEY = 'YOUR-ANON-PUBLIC-KEY';
+window.TAMMIA_SUPABASE_URL = 'https://ddfgarqzpanskgaojmkg.supabase.co';
+window.TAMMIA_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRkZmdhcnF6cGFuc2tnYW9qbWtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3NzQyMzIsImV4cCI6MjA5NjM1MDIzMn0.XB8hz3bvUXSuF27gk9iqxgTbm_PYHUpWKqNfXO3gLV4';
 
-/* Set this to true once you have real Supabase credentials
-   configured. Until then, login falls back to localStorage demo
-   mode (no real OAuth, no real password verification). */
-window.TAMMIA_USE_REAL_AUTH = false;
+/* Real auth is ON. Make sure Google OAuth provider is enabled in
+   Supabase dashboard: Authentication -> Providers -> Google.
+   See SUPABASE-SETUP.md for step-by-step setup. */
+window.TAMMIA_USE_REAL_AUTH = true;
+
+/* ============================================================
+   SECURITY NOTE
+   ============================================================
+   - anon_public key above is PUBLIC and safe to expose in client
+     code. Supabase Row Level Security (RLS) policies protect data.
+   - NEVER paste the service_role key anywhere client-side. It
+     bypasses RLS and gives full DB access. Use it only on server
+     (Edge Functions, backend API, scripts).
+   ============================================================ */
 
 /* ---------- Auto-init Supabase client when real auth is on ---------- */
 (function initSupabase() {
