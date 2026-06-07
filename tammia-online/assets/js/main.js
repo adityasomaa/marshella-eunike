@@ -729,10 +729,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ---------- Generic qty steppers (non-cart) ---------- */
+  /* ---------- Generic qty steppers (non-cart, non-drawer) ---------- */
   document.querySelectorAll('.qty-stepper').forEach(stepper => {
-    // Skip if it's a cart row stepper (handled separately)
+    // Skip if it's a cart row stepper or a cart-drawer item stepper
     if (stepper.closest('[data-cart-row]')) return;
+    if (stepper.closest('.drawer-item')) return;
     const minus = stepper.querySelector('.qty-minus');
     const plus = stepper.querySelector('.qty-plus');
     const input = stepper.querySelector('input');
@@ -746,6 +747,118 @@ document.addEventListener('DOMContentLoaded', () => {
       input.value = v + 1;
     });
   });
+
+  /* ---------- Cart drawer: removable items + live total ---------- */
+  function parseRupiah(str) {
+    return parseInt((str || '').replace(/[^\d]/g, ''), 10) || 0;
+  }
+  function formatRupiah(n) {
+    return 'Rp ' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+  function updateDrawerTotals() {
+    const drawer = document.getElementById('cartDrawer');
+    if (!drawer) return;
+    const body = drawer.querySelector('.drawer-body');
+    const items = body ? body.querySelectorAll('.drawer-item') : [];
+    let subtotal = 0;
+    let count = 0;
+    items.forEach(it => {
+      const priceEl = it.querySelector('.drawer-item-price');
+      const qtyInput = it.querySelector('.qty-stepper input');
+      const price = parseRupiah(priceEl ? priceEl.textContent : '0');
+      const qty = parseInt(qtyInput ? qtyInput.value : '1', 10) || 1;
+      subtotal += price * qty;
+      count += qty;
+    });
+    // Update drawer subtotal value
+    const totalVal = drawer.querySelector('.drawer-total .val');
+    if (totalVal) totalVal.textContent = formatRupiah(subtotal);
+    // Update drawer header count "(N)"
+    const head = drawer.querySelector('.drawer-head h5 span');
+    if (head) head.textContent = `(${count})`;
+    // Update navbar cart badge across all nav-icons
+    document.querySelectorAll('.cart-badge').forEach(b => {
+      b.textContent = count;
+      b.style.display = count > 0 ? '' : 'none';
+    });
+    // Empty state
+    if (items.length === 0 && body && !body.querySelector('.drawer-empty')) {
+      body.innerHTML = `
+        <div class="drawer-empty" style="text-align:center; padding:48px 16px;">
+          <div style="font-size:48px; margin-bottom:12px; opacity:0.4;"><i class="bi bi-bag"></i></div>
+          <div style="font-family:'Fraunces',serif; font-size:20px; margin-bottom:6px;">Keranjang masih kosong</div>
+          <div style="color:var(--muted); font-size:14px; margin-bottom:20px;">Yuk pilih beauty tools favoritmu.</div>
+          <a href="shop.html" class="btn btn-peach btn-sm">Mulai Belanja</a>
+        </div>`;
+      // Hide subtotal/actions footer too
+      const foot = drawer.querySelector('.drawer-foot');
+      if (foot) foot.style.display = 'none';
+    }
+  }
+
+  function removeDrawerItem(item) {
+    item.style.transition = 'opacity .25s ease, transform .25s ease, max-height .3s ease, margin .3s ease, padding .3s ease';
+    item.style.maxHeight = item.offsetHeight + 'px';
+    requestAnimationFrame(() => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateX(-20px)';
+      item.style.maxHeight = '0';
+      item.style.marginTop = '0';
+      item.style.marginBottom = '0';
+      item.style.paddingTop = '0';
+      item.style.paddingBottom = '0';
+      item.style.overflow = 'hidden';
+    });
+    setTimeout(() => {
+      item.remove();
+      updateDrawerTotals();
+    }, 300);
+  }
+
+  // Wire each drawer item
+  document.querySelectorAll('#cartDrawer .drawer-item').forEach(item => {
+    const stepper = item.querySelector('.qty-stepper');
+    if (!stepper) return;
+    const minus = stepper.querySelector('.qty-minus');
+    const plus = stepper.querySelector('.qty-plus');
+    const input = stepper.querySelector('input');
+    if (!input) return;
+
+    // Inject a remove × button if not present
+    if (!item.querySelector('.drawer-item-remove')) {
+      const rm = document.createElement('button');
+      rm.className = 'drawer-item-remove';
+      rm.setAttribute('aria-label', 'Hapus produk');
+      rm.innerHTML = '<i class="bi bi-x-lg"></i>';
+      rm.style.cssText = 'background:transparent; border:none; padding:6px; color:var(--muted); cursor:pointer; transition:color .15s ease; position:absolute; top:8px; right:8px; border-radius:6px; line-height:1;';
+      rm.addEventListener('mouseenter', () => { rm.style.color = 'var(--rouge)'; });
+      rm.addEventListener('mouseleave', () => { rm.style.color = 'var(--muted)'; });
+      rm.addEventListener('click', () => removeDrawerItem(item));
+      item.style.position = 'relative';
+      item.appendChild(rm);
+    }
+
+    if (minus) minus.addEventListener('click', () => {
+      let v = parseInt(input.value || '1', 10);
+      if (v > 1) {
+        input.value = v - 1;
+        updateDrawerTotals();
+      } else {
+        // qty is 1 -> confirm and remove
+        if (confirm('Hapus produk ini dari keranjang?')) {
+          removeDrawerItem(item);
+        }
+      }
+    });
+    if (plus) plus.addEventListener('click', () => {
+      let v = parseInt(input.value || '1', 10);
+      input.value = v + 1;
+      updateDrawerTotals();
+    });
+  });
+
+  // Initial totals sync on load (in case HTML is out of sync with computed)
+  updateDrawerTotals();
 
   /* ---------- FAQ accordion ---------- */
   document.querySelectorAll('.faq-item').forEach(item => {
