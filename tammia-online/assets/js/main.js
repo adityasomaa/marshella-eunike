@@ -424,8 +424,8 @@ function tammiaBuildAuthModal() {
     </div>
     <div class="auth-pane active" data-auth-pane="login">
       <div class="auth-field">
-        <label>Email</label>
-        <input type="email" placeholder="email@kamu.com" id="authLoginEmail" required>
+        <label>Username atau Email</label>
+        <input type="text" placeholder="username atau email@kamu.com" id="authLoginEmail" autocomplete="username" required>
       </div>
       <div class="auth-field">
         <label>Password</label>
@@ -452,8 +452,13 @@ function tammiaBuildAuthModal() {
         <input type="text" placeholder="Marshella Eunike" id="authRegName" required>
       </div>
       <div class="auth-field">
-        <label>Email</label>
-        <input type="email" placeholder="email@kamu.com" id="authRegEmail" required>
+        <label>Username</label>
+        <input type="text" placeholder="marshella" id="authRegUsername" autocomplete="username" required pattern="[a-zA-Z0-9_]{3,20}" title="3-20 karakter, hanya huruf, angka, dan underscore">
+        <small style="display:block; margin-top:6px; color:var(--muted); font-size:12px;">3-20 karakter. Hanya huruf, angka, dan underscore.</small>
+      </div>
+      <div class="auth-field">
+        <label>Email <span style="color:var(--muted); font-weight:400;">(opsional)</span></label>
+        <input type="email" placeholder="email@kamu.com (opsional)" id="authRegEmail">
       </div>
       <div class="auth-field">
         <label>No. WhatsApp</label>
@@ -582,19 +587,40 @@ function tammiaBuildAuthModal() {
     tammiaToast(msg, 'bi-exclamation-triangle-fill');
   }
 
+  /* Map username -> email for accounts created via Admin API.
+     Username metadata is on auth.users but anon can't query it directly.
+     For these seeded accounts we keep a small lookup map; new sign-ups
+     auto-generate "{username}@tammia.users.id" so they self-map below. */
+  const TAMMIA_USERNAME_MAP = {
+    'aditya': 'adityasomagc@gmail.com',
+    'marshella': 'marshella@tammia.users.id'
+  };
+
+  function tammiaResolveEmail(identifier) {
+    const id = (identifier || '').trim();
+    if (!id) return null;
+    if (id.includes('@')) return id; // already an email
+    const lower = id.toLowerCase();
+    // Check explicit map first
+    if (TAMMIA_USERNAME_MAP[lower]) return TAMMIA_USERNAME_MAP[lower];
+    // Fallback: convention "{username}@tammia.users.id"
+    return `${lower}@tammia.users.id`;
+  }
+
   modal.querySelector('[data-auth-action="login"]').addEventListener('click', async e => {
     e.preventDefault();
     const btn = e.currentTarget;
-    const email = modal.querySelector('#authLoginEmail').value.trim();
+    const identifier = modal.querySelector('#authLoginEmail').value.trim();
     const pass = modal.querySelector('#authLoginPass').value;
+    const email = tammiaResolveEmail(identifier);
     if (tammiaUseRealAuth()) {
-      if (!email || !pass) { showAuthError(btn, 'Email dan password wajib diisi.'); return; }
+      if (!identifier || !pass) { showAuthError(btn, 'Username/email dan password wajib diisi.'); return; }
       setBtnBusy(btn, true);
       try {
         const { data, error } = await window.tammiaSupabase.auth.signInWithPassword({ email, password: pass });
         if (error) throw error;
         // onAuthStateChange will sync localStorage + UI
-        const name = (data.user && data.user.user_metadata && data.user.user_metadata.full_name) || email.split('@')[0];
+        const name = (data.user && data.user.user_metadata && data.user.user_metadata.full_name) || identifier;
         closeAuth();
         tammiaToast(`Halo, ${name}! Selamat berbelanja.`, 'bi-check-circle-fill');
       } catch (err) {
@@ -614,23 +640,38 @@ function tammiaBuildAuthModal() {
     e.preventDefault();
     const btn = e.currentTarget;
     const name = modal.querySelector('#authRegName').value.trim() || 'Tammia Lover';
-    const email = modal.querySelector('#authRegEmail').value.trim();
+    const usernameRaw = (modal.querySelector('#authRegUsername') || {}).value || '';
+    const username = usernameRaw.trim().toLowerCase();
+    const emailInput = modal.querySelector('#authRegEmail').value.trim();
     const phone = modal.querySelector('#authRegPhone').value.trim();
     const pass = modal.querySelector('#authRegPass').value;
     const confirm = modal.querySelector('#authRegConfirm').value;
+
+    // Username required + validation
+    if (!username) { showAuthError(btn, 'Username wajib diisi.'); return; }
+    if (!/^[a-zA-Z0-9_]{3,20}$/.test(username)) {
+      showAuthError(btn, 'Username 3-20 karakter (huruf, angka, underscore).');
+      return;
+    }
+    // Auto-generate email if not provided
+    const email = emailInput || `${username}@tammia.users.id`;
+
     if (tammiaUseRealAuth()) {
-      if (!email || !pass) { showAuthError(btn, 'Email dan password wajib diisi.'); return; }
+      if (!pass) { showAuthError(btn, 'Password wajib diisi.'); return; }
       if (pass !== confirm) { showAuthError(btn, 'Password dan konfirmasi tidak cocok.'); return; }
       setBtnBusy(btn, true);
       try {
         const { error } = await window.tammiaSupabase.auth.signUp({
           email,
           password: pass,
-          options: { data: { full_name: name, phone } }
+          options: { data: { full_name: name, username, phone } }
         });
         if (error) throw error;
         closeAuth();
-        tammiaToast(`Akun dibuat. Cek email untuk konfirmasi, ${name}!`, 'bi-check-circle-fill');
+        const msg = emailInput
+          ? `Akun dibuat. Cek email untuk konfirmasi, ${name}!`
+          : `Akun dibuat. Selamat datang, ${name}!`;
+        tammiaToast(msg, 'bi-check-circle-fill');
       } catch (err) {
         showAuthError(btn, err.message || 'Pendaftaran gagal.');
       } finally {
@@ -639,7 +680,7 @@ function tammiaBuildAuthModal() {
       return;
     }
     // Demo mode
-    authComplete(name, email || 'tammia@example.com');
+    authComplete(name, email);
   });
 
   modal.querySelectorAll('[data-auth-social]').forEach(b => {
@@ -2135,10 +2176,14 @@ function tammiaSyncSupabaseSessionToLocal(session) {
   }
   const u = session.user;
   const meta = u.user_metadata || {};
-  const name = meta.full_name || meta.name || (u.email ? u.email.split('@')[0] : 'Tammia');
+  const username = meta.username || (u.email ? u.email.split('@')[0] : '');
+  const name = meta.full_name || meta.name || username || 'Tammia';
+  // Hide placeholder internal email from UI display
+  const displayEmail = (u.email && u.email.endsWith('@tammia.users.id')) ? '' : (u.email || '');
   tammiaSaveUser({
     name: (name + '').charAt(0).toUpperCase() + (name + '').slice(1),
-    email: u.email || '',
+    username: username,
+    email: displayEmail,
     loggedIn: true,
     supabaseId: u.id,
   });
