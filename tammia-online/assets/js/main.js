@@ -31,6 +31,71 @@ function tammiaFormatPrice(n) {
   return 'Rp ' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
+/* ---------- Custom confirm modal (replaces window.confirm) ---------- */
+function tammiaConfirm({ title = 'Konfirmasi', message = '', confirmText = 'OK', cancelText = 'Batal', danger = false, onConfirm = null, onCancel = null } = {}) {
+  // Remove any stray prior instance
+  const prior = document.getElementById('tammiaConfirmModal');
+  if (prior) prior.remove();
+
+  const wrap = document.createElement('div');
+  wrap.id = 'tammiaConfirmModal';
+  wrap.className = 'tammia-confirm-wrap';
+  wrap.innerHTML = `
+    <div class="tammia-confirm-backdrop"></div>
+    <div class="tammia-confirm-box" role="dialog" aria-modal="true" aria-labelledby="tammiaConfirmTitle">
+      <div class="tammia-confirm-icon ${danger ? 'danger' : ''}">
+        <i class="bi ${danger ? 'bi-trash3' : 'bi-question-circle'}"></i>
+      </div>
+      <h4 class="tammia-confirm-title" id="tammiaConfirmTitle">${title}</h4>
+      <p class="tammia-confirm-message">${message}</p>
+      <div class="tammia-confirm-actions">
+        <button type="button" class="btn-ghost-confirm" data-confirm-cancel>${cancelText}</button>
+        <button type="button" class="btn-action-confirm ${danger ? 'danger' : ''}" data-confirm-ok>${confirmText}</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(wrap);
+
+  // Lock scroll
+  const prevOverflow = document.body.style.overflow;
+  document.body.style.overflow = 'hidden';
+
+  function close() {
+    wrap.classList.remove('open');
+    setTimeout(() => {
+      wrap.remove();
+      document.body.style.overflow = prevOverflow;
+    }, 220);
+    document.removeEventListener('keydown', onKey);
+  }
+  function confirm() {
+    close();
+    if (typeof onConfirm === 'function') onConfirm();
+  }
+  function cancel() {
+    close();
+    if (typeof onCancel === 'function') onCancel();
+  }
+  function onKey(e) {
+    if (e.key === 'Escape') cancel();
+    else if (e.key === 'Enter') confirm();
+  }
+
+  wrap.querySelector('[data-confirm-ok]').addEventListener('click', confirm);
+  wrap.querySelector('[data-confirm-cancel]').addEventListener('click', cancel);
+  wrap.querySelector('.tammia-confirm-backdrop').addEventListener('click', cancel);
+  document.addEventListener('keydown', onKey);
+
+  // Animate in
+  requestAnimationFrame(() => wrap.classList.add('open'));
+
+  // Auto-focus confirm button for keyboard users
+  setTimeout(() => {
+    const btn = wrap.querySelector('[data-confirm-ok]');
+    if (btn) btn.focus();
+  }, 220);
+}
+
 function tammiaSearchSvg(type) {
   switch (type) {
     case 'brush':
@@ -844,10 +909,17 @@ document.addEventListener('DOMContentLoaded', () => {
         input.value = v - 1;
         updateDrawerTotals();
       } else {
-        // qty is 1 -> confirm and remove
-        if (confirm('Hapus produk ini dari keranjang?')) {
-          removeDrawerItem(item);
-        }
+        // qty is 1 -> custom confirm and remove
+        const nameEl = item.querySelector('.drawer-item-name');
+        const productName = nameEl ? nameEl.textContent.trim() : 'produk ini';
+        tammiaConfirm({
+          title: 'Hapus dari Keranjang?',
+          message: `<strong>${productName}</strong> akan dihapus dari keranjang kamu.`,
+          confirmText: 'Hapus',
+          cancelText: 'Batal',
+          danger: true,
+          onConfirm: () => removeDrawerItem(item),
+        });
       }
     });
     if (plus) plus.addEventListener('click', () => {

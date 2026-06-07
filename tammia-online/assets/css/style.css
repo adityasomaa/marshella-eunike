@@ -2748,3 +2748,131 @@ section { padding: 100px 0; }
   padding: 0 4px;
 }
 .wishlist-badge[data-count="0"] { display: none; }
+
+/* ---------- Custom confirm modal ---------- */
+.tammia-confirm-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s ease;
+}
+.tammia-confirm-wrap.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.tammia-confirm-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(26,26,26,0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.tammia-confirm-box {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  width: min(420px, calc(100vw - 32px));
+  padding: 36px 32px 28px;
+  text-align: center;
+  box-shadow: 0 32px 80px rgba(26,26,26,0.18);
+  transform: translateY(12px) scale(0.96);
+  opacity: 0;
+  transition: transform .28s cubic-bezier(.2,.8,.2,1), opacity .22s ease;
+}
+.tammia-confirm-wrap.open .tammia-confirm-box {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+.tammia-confirm-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--peach-tint);
+  color: var(--rouge);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 18px;
+}
+.tammia-confirm-icon.danger {
+  background: #fdeef0;
+  color: var(--rouge);
+}
+.tammia-confirm-title {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+.tammia-confirm-message {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0 0 26px;
+}
+.tammia-confirm-message strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+.tammia-confirm-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: stretch;
+}
+.btn-ghost-confirm,
+.btn-action-confirm {
+  flex: 1;
+  border: none;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all .18s ease;
+}
+.btn-ghost-confirm {
+  background: var(--cream-1);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.btn-ghost-confirm:hover {
+  background: var(--cream-2);
+  border-color: var(--ink);
+}
+.btn-action-confirm {
+  background: var(--ink);
+  color: #fff;
+}
+.btn-action-confirm:hover {
+  background: #000;
+  transform: translateY(-1px);
+}
+.btn-action-confirm.danger {
+  background: var(--rouge);
+  color: #fff;
+}
+.btn-action-confirm.danger:hover {
+  background: #a8442f;
+  transform: translateY(-1px);
+}
+.btn-action-confirm:focus,
+.btn-ghost-confirm:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(232,160,168,0.25);
+}
+@media (max-width: 480px) {
+  .tammia-confirm-box {
+    padding: 28px 22px 22px;
+  }
+  .tammia-confirm-title { font-size: 19px; }
+  .tammia-confirm-message { font-size: 13.5px; }
+}
