@@ -1752,13 +1752,16 @@ section { padding: 100px 0; }
 .search-see-all:hover { background: var(--peach-tint); color: var(--rouge); }
 
 @media (max-width: 991px) {
-  .nav-search { position: static; }
-  .search-results-dropdown {
-    position: fixed;
-    top: auto;
-    left: 12px;
-    right: 12px;
+  /* Desktop .nav-search is hidden below 991px (handled elsewhere).
+     Only the .mobile-nav-search dropdown is shown. Keep absolute
+     positioning so it stays inside the mobile nav drawer. */
+  .mobile-nav-search .search-results-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
     max-height: 60vh;
+    z-index: 50;
   }
 }
 
@@ -2633,35 +2636,65 @@ section { padding: 100px 0; }
 }
 
 /* ---------- Cart responsive (mobile cards) ---------- */
-@media (max-width: 768px) {
+/* Cart: stack to cards from tablet portrait down to phone */
+@media (max-width: 991px) {
   .cart-table thead { display: none; }
   .cart-table, .cart-table tbody, .cart-table tr, .cart-table td {
     display: block;
     width: 100%;
     border: none;
     padding: 0;
+    box-sizing: border-box;
   }
   .cart-table tr {
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: var(--r-md);
-    padding: 18px;
+    padding: 18px 16px 18px 18px;
     margin-bottom: 14px;
     position: relative;
+    overflow: hidden;
   }
   .cart-table td {
     padding: 6px 0;
     border: none;
+    max-width: 100%;
+    overflow-wrap: anywhere;
   }
-  .cart-table td:first-child { padding-top: 0; }
+  .cart-table td:first-child { padding-top: 0; padding-right: 40px; }
   .cart-table td:last-child {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 10px;
+    right: 10px;
     width: auto;
+    padding: 0;
   }
   .cart-table tr td:nth-child(2)::before { content: 'Harga: '; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: inline-block; margin-right: 8px; }
   .cart-table tr td:nth-child(4)::before { content: 'Subtotal: '; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: inline-block; margin-right: 8px; }
+  .cart-item-cell { gap: 12px; align-items: flex-start; }
+  .cart-item-img { width: 64px; height: 64px; }
+  .cart-item-cell > div:last-child { flex: 1 1 0; min-width: 0; }
+  .cart-item-cell > div:last-child * { overflow-wrap: anywhere; word-break: break-word; }
+}
+
+/* Cart page overall: prevent horizontal scroll */
+.cart-page-wrap { overflow-x: hidden; }
+@media (max-width: 991px) {
+  .qty-stepper { display: inline-flex; max-width: 140px; }
+}
+
+/* Product detail wishlist button polish */
+.pd-wish-btn {
+  background: transparent;
+}
+.pd-wish-btn.liked {
+  border-color: var(--rouge) !important;
+  color: var(--rouge) !important;
+}
+.pd-wish-btn.liked i { color: var(--rouge); }
+@media (max-width: 575px) {
+  .pd-cta-row { flex-wrap: wrap; }
+  .pd-cta-row > * { flex: 1 1 100%; }
 }
 
 /* ---------- Checkout summary collapsible (mobile) ---------- */

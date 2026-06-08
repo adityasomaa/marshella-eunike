@@ -148,6 +148,28 @@ function tammiaUpdateWishlistBadge() {
     b.setAttribute('data-count', String(list.length));
   });
 }
+/* Sync all heart UI for a given product name (card buttons + product detail).
+   Updates both the .liked class AND the inner icon class. */
+function tammiaSyncWishlistHearts(name, liked) {
+  const safe = (window.CSS && CSS.escape) ? CSS.escape(name) : name.replace(/"/g, '\\"');
+  // Product card hearts
+  document.querySelectorAll(`.product-wish[data-name="${safe}"]`).forEach(h => {
+    h.classList.toggle('liked', liked);
+    h.innerHTML = liked
+      ? '<i class="bi bi-heart-fill"></i>'
+      : '<i class="bi bi-heart"></i>';
+    h.setAttribute('aria-pressed', String(!!liked));
+  });
+  // Product detail heart (in pd-info CTA row)
+  document.querySelectorAll(`[data-pd-wish][data-name="${safe}"]`).forEach(btn => {
+    btn.classList.toggle('liked', liked);
+    const i = btn.querySelector('i');
+    if (i) i.className = liked ? 'bi bi-heart-fill' : 'bi bi-heart';
+    const label = btn.querySelector('.pd-wish-label');
+    if (label) label.textContent = liked ? 'Tersimpan' : 'Wishlist';
+    btn.setAttribute('aria-pressed', String(!!liked));
+  });
+}
 
 /* ---------- User storage ---------- */
 function tammiaGetUser() {
@@ -907,8 +929,8 @@ function tammiaBuildWishlistDrawer() {
         const name = item.dataset.name;
         const list = tammiaGetWishlist().filter(n => n !== name);
         tammiaSaveWishlist(list);
-        // Sync hearts on page
-        document.querySelectorAll(`.product-wish[data-name="${CSS.escape(name)}"]`).forEach(h => h.classList.remove('liked'));
+        // Sync hearts on page — class AND inner icon
+        tammiaSyncWishlistHearts(name, false);
         render();
         tammiaToast('Dihapus dari wishlist.', 'bi-heart');
       });
@@ -945,9 +967,9 @@ function tammiaBuildMobileNav() {
       <button class="drawer-close" data-close-mobile-nav><i class="bi bi-x-lg"></i></button>
     </div>
     <div class="mobile-nav-body">
-      <div class="mobile-nav-search">
+      <div class="mobile-nav-search nav-search">
         <i class="bi bi-search"></i>
-        <input type="text" placeholder="Cari produk, brand..." id="mobileSearchInput">
+        <input type="text" placeholder="Cari produk, brand..." id="mobileSearchInput" autocomplete="off">
       </div>
       <ul class="mobile-nav-links">
         <li><a href="shop.html"${currentPage === 'shop.html' ? ' class="active"' : ''}>Shop</a></li>
@@ -958,14 +980,62 @@ function tammiaBuildMobileNav() {
   document.body.appendChild(drawer);
   drawer.querySelector('[data-close-mobile-nav]').addEventListener('click', () => closeMobileNav());
 
-  // Mobile search wire to same shop search flow
-  const inp = drawer.querySelector('#mobileSearchInput');
+  // Wire mobile search with live dropdown (same behavior as desktop)
+  const wrap = drawer.querySelector('.mobile-nav-search');
+  const inp = wrap.querySelector('input');
+  const dropdown = document.createElement('div');
+  dropdown.className = 'search-results-dropdown';
+  wrap.appendChild(dropdown);
+
+  let debounceTimer = null;
+
+  function renderResults(query) {
+    const q = (query || '').trim().toLowerCase();
+    if (!q) { dropdown.classList.remove('open'); dropdown.innerHTML = ''; return; }
+    const matches = (window.TAMMIA_PRODUCTS || []).filter(p =>
+      p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q)
+    ).slice(0, 6);
+    let html = '';
+    if (matches.length === 0) {
+      html = '<div class="search-empty">Tidak ada produk yang cocok</div>';
+    } else {
+      matches.forEach(m => {
+        const priceHtml = m.was
+          ? `<span class="sr-price sale">${tammiaFormatPrice(m.price)}</span> <span class="sr-was">${tammiaFormatPrice(m.was)}</span>`
+          : `<span class="sr-price">${tammiaFormatPrice(m.price)}</span>`;
+        html += `<a class="search-result-row" href="product.html">
+          <span class="sr-thumb">${tammiaSearchSvg(m.svg)}</span>
+          <span class="sr-meta">
+            <span class="sr-brand">${m.brand}</span>
+            <span class="sr-name">${m.name}</span>
+            <span class="sr-price-row">${priceHtml}</span>
+          </span></a>`;
+      });
+      html += `<a class="search-see-all" href="shop.html?q=${encodeURIComponent(q)}">Lihat semua hasil <i class="bi bi-arrow-right"></i></a>`;
+    }
+    dropdown.innerHTML = html;
+    dropdown.classList.add('open');
+  }
+
+  inp.addEventListener('input', e => {
+    clearTimeout(debounceTimer);
+    const val = e.target.value;
+    debounceTimer = setTimeout(() => renderResults(val), 150);
+  });
+  inp.addEventListener('focus', () => {
+    if (inp.value.trim()) renderResults(inp.value);
+  });
   inp.addEventListener('keydown', e => {
     if (e.key === 'Enter') {
       const q = inp.value.trim();
-      if (q) location.href = 'shop.html?q=' + encodeURIComponent(q);
+      if (q) { e.preventDefault(); location.href = 'shop.html?q=' + encodeURIComponent(q); }
+    } else if (e.key === 'Escape') {
+      dropdown.classList.remove('open');
     }
   });
+  // Prevent dropdown clicks from blurring input prematurely
+  dropdown.addEventListener('mousedown', e => e.preventDefault());
+  dropdown.addEventListener('touchstart', e => { /* allow natural touch */ }, { passive: true });
 }
 
 function openMobileNav() {
@@ -1079,28 +1149,61 @@ function tammiaInjectProductHearts() {
       e.stopPropagation();
       const list = tammiaGetWishlist();
       const idx = list.indexOf(name);
-      if (idx >= 0) {
-        list.splice(idx, 1);
-        btn.classList.remove('liked');
-        btn.innerHTML = '<i class="bi bi-heart"></i>';
-        tammiaToast('Dihapus dari wishlist.', 'bi-heart');
-      } else {
-        list.push(name);
-        btn.classList.add('liked');
-        btn.innerHTML = '<i class="bi bi-heart-fill"></i>';
-        tammiaToast('Ditambahkan ke wishlist.', 'bi-heart-fill');
-      }
+      const willLike = idx < 0;
+      if (idx >= 0) list.splice(idx, 1);
+      else list.push(name);
       tammiaSaveWishlist(list);
-      // Sync other instances
-      document.querySelectorAll(`.product-wish[data-name="${CSS.escape(name)}"]`).forEach(other => {
-        if (other === btn) return;
-        const isLiked = tammiaGetWishlist().includes(name);
-        other.classList.toggle('liked', isLiked);
-        other.innerHTML = isLiked ? '<i class="bi bi-heart-fill"></i>' : '<i class="bi bi-heart"></i>';
-      });
+      tammiaSyncWishlistHearts(name, willLike);
+      tammiaToast(
+        willLike ? 'Ditambahkan ke wishlist.' : 'Dihapus dari wishlist.',
+        willLike ? 'bi-heart-fill' : 'bi-heart'
+      );
       const wd = document.getElementById('wishlistDrawer');
       if (wd && wd._render) wd._render();
     });
+  });
+}
+
+/* ---------- Product detail wishlist button ---------- */
+function tammiaInitProductDetailWish() {
+  const info = document.querySelector('.pd-info');
+  if (!info) return;
+  const name = info.dataset.productName;
+  if (!name) return;
+  // If button already injected via HTML, just wire it.
+  let btn = document.querySelector('[data-pd-wish]');
+  if (!btn) {
+    btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-outline-ink btn-lg pd-wish-btn';
+    btn.setAttribute('data-pd-wish', '');
+    btn.setAttribute('data-name', name);
+    btn.innerHTML = '<i class="bi bi-heart"></i> <span class="pd-wish-label">Wishlist</span>';
+    // Insert in pd-cta-row (right of buy buttons)
+    const ctaRow = info.querySelector('.pd-cta-row');
+    if (ctaRow) ctaRow.appendChild(btn);
+  } else {
+    btn.setAttribute('data-name', name);
+  }
+  // Initial state
+  const wished = tammiaGetWishlist().includes(name);
+  tammiaSyncWishlistHearts(name, wished);
+
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    const list = tammiaGetWishlist();
+    const idx = list.indexOf(name);
+    const willLike = idx < 0;
+    if (idx >= 0) list.splice(idx, 1);
+    else list.push(name);
+    tammiaSaveWishlist(list);
+    tammiaSyncWishlistHearts(name, willLike);
+    tammiaToast(
+      willLike ? 'Ditambahkan ke wishlist.' : 'Dihapus dari wishlist.',
+      willLike ? 'bi-heart-fill' : 'bi-heart'
+    );
+    const wd = document.getElementById('wishlistDrawer');
+    if (wd && wd._render) wd._render();
   });
 }
 
@@ -1601,6 +1704,7 @@ document.addEventListener('DOMContentLoaded', () => {
   tammiaBuildWishlistDrawer();
   tammiaInjectWishlistNavButton();
   tammiaInjectProductHearts();
+  tammiaInitProductDetailWish();
   tammiaUpdateWishlistBadge();
 
   /* ---------- TASK 8: Mobile nav drawer ---------- */
