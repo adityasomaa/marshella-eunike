@@ -1,6 +1,6 @@
 # Tammia Online — Supabase Setup Guide
 
-Real authentication is **ENABLED**. Project ref: `ddfgarqzpanskgaojmkg`.
+Real authentication is **ENABLED**. Project ref: `oootnvqwtndgesohhpzh`.
 
 This guide walks through the remaining one-time setup so Google OAuth
 and password-reset emails actually work end-to-end.
@@ -9,7 +9,7 @@ and password-reset emails actually work end-to-end.
 
 ## 1. Enable Google OAuth provider
 
-1. Go to <https://app.supabase.com/project/ddfgarqzpanskgaojmkg>.
+1. Go to <https://app.supabase.com/project/oootnvqwtndgesohhpzh>.
 2. **Authentication → Providers → Google** → toggle **on**.
 3. In a new tab, go to <https://console.cloud.google.com>.
    - Create (or pick) a project.
@@ -23,7 +23,7 @@ and password-reset emails actually work end-to-end.
      - `https://marshella-eunike.vercel.app`
      - `http://localhost:5500` *(optional, for local testing)*
    - **Authorized redirect URIs**:
-     - `https://ddfgarqzpanskgaojmkg.supabase.co/auth/v1/callback`
+     - `https://oootnvqwtndgesohhpzh.supabase.co/auth/v1/callback`
    - Click **Create**. Copy the **Client ID** and **Client Secret**.
 4. Back in Supabase, paste them into the Google provider screen →
    **Save**.
