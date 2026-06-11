@@ -1,0 +1,27 @@
+name: Tammia
+type: theme
+description: 'Tammia Online custom theme. DEWY design language with official Tammia brand guideline (palette, Comfortaa/Poppins, logo). Frontend by Aditya Soma.'
+package: Custom
+core_version_requirement: ^11
+base theme: false
+logo: logo.png
+screenshot: screenshot.png
+
+libraries:
+  - tammia/global
+
+regions:
+  shipping_bar: 'Shipping bar'
+  header: Header
+  primary_menu: 'Primary menu'
+  highlighted: Highlighted
+  breadcrumb: Breadcrumb
+  content: Content
+  sidebar_first: 'Sidebar first'
+  footer_first: 'Footer first'
+  footer_second: 'Footer second'
+  footer_third: 'Footer third'
+  footer_bottom: 'Footer bottom'
+
+ckeditor5-stylesheets:
+  - css/style.css

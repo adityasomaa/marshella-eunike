@@ -1,0 +1,87 @@
+{#
+/**
+ * @file
+ * Tammia theme: Commerce product page.
+ *
+ * Field blueprint (sesuai tampilan site existing — konfirmasi Bion 11 Jun 2026):
+ * - product brand        : field brand/taxonomy, uppercase merah di atas judul
+ * - product title        : judul produk
+ * - price                : harga jual (merah, besar) — IDR
+ * - normal price + disc  : list_price dicoret + badge persen diskon
+ * - product variation    : "Pilih Variasi" — tombol pill (mis. Warna - Taupe)
+ * - quantity + add to cart: form add-to-cart Commerce (variations widget)
+ * - teaser/summary       : ringkasan 1 baris dengan garis kiri
+ * - image + thumbnails   : galeri gambar produk
+ * - product description  : section "Deskripsi Produk" di bawah
+ *
+ * CATATAN INTEGRASI: sesuaikan nama field di bawah dengan field aktual
+ * (mis. field_brand, field_images, field_teaser). Render array tersedia di
+ * variabel `product`; entity di `product_entity`.
+ */
+#}
+<article{{ attributes.addClass('pd-wrap', 'py-5') }}>
+  <div class="container">
+    <div class="row g-5">
+
+      {# ---------- Gallery ---------- #}
+      <div class="col-lg-7">
+        <div class="pd-gallery">
+          {% if product.field_images %}
+            {{ product.field_images }}
+          {% elseif product.field_image %}
+            {{ product.field_image }}
+          {% endif %}
+        </div>
+      </div>
+
+      {# ---------- Info column ---------- #}
+      <div class="col-lg-5">
+        <div class="pd-info">
+
+          {% if product.field_brand %}
+            <div class="brand-tag">{{ product.field_brand }}</div>
+          {% endif %}
+
+          <h1>{{ product.title }}</h1>
+
+          {# Harga: sale price merah + list price coret + badge diskon.
+             Commerce Price field "resolved" sudah menampilkan formatted price;
+             badge persen dihitung di preprocess (lihat tammia.theme). #}
+          <div class="pd-price-row">
+            {{ product.variation_price }}
+            {% if discount_percent %}
+              <span class="pd-discount-badge">-{{ discount_percent }}%</span>
+            {% endif %}
+          </div>
+
+          {% if product.field_teaser %}
+            <div class="pd-teaser">{{ product.field_teaser }}</div>
+          {% endif %}
+
+          {# Variations widget = "Pilih Variasi" + qty + Add to Cart button #}
+          <div class="pd-variant-block">
+            {{ product.variations }}
+          </div>
+
+          <div class="pd-perks">
+            <div class="pd-perk"><i class="bi bi-truck"></i> <span>Gratis Ongkir<br><small>Pesanan 150K+</small></span></div>
+            <div class="pd-perk"><i class="bi bi-shield-check"></i> <span>100% Original<br><small>Garansi authentic</small></span></div>
+            <div class="pd-perk"><i class="bi bi-arrow-counterclockwise"></i> <span>Tukar 7 Hari<br><small>Syarat berlaku</small></span></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    {# ---------- Deskripsi Produk ---------- #}
+    {% if product.body %}
+      <section class="pd-desc-section mt-5">
+        <h2 class="section-title"><i class="bi bi-info-circle"></i> Deskripsi Produk</h2>
+        <div class="pd-desc-body">{{ product.body }}</div>
+      </section>
+    {% endif %}
+
+    {# Field lain yang belum dipetakan tetap dirender agar tidak hilang #}
+    {{ product|without('field_brand', 'title', 'variation_price', 'field_teaser', 'variations', 'body', 'field_images', 'field_image', 'uid', 'created') }}
+  </div>
+</article>

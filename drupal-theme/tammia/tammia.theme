@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Tammia theme: preprocess hooks.
+ */
+
+use Drupal\commerce_product\Entity\ProductInterface;
+
+/**
+ * Implements hook_preprocess_HOOK() for commerce_product.
+ *
+ * Hitung persen diskon dari list_price vs price pada variation default,
+ * untuk badge "-40%" di samping harga (sesuai tampilan site existing).
+ */
+function tammia_preprocess_commerce_product(array &$variables): void {
+  $product = $variables['product_entity'] ?? NULL;
+  if (!$product instanceof ProductInterface) {
+    return;
+  }
+  $variation = $product->getDefaultVariation();
+  if (!$variation || !$variation->hasField('list_price') || $variation->get('list_price')->isEmpty()) {
+    return;
+  }
+  $list = (float) $variation->get('list_price')->first()->toPrice()->getNumber();
+  $price = (float) $variation->getPrice()->getNumber();
+  if ($list > 0 && $price < $list) {
+    $variables['discount_percent'] = (int) round((1 - $price / $list) * 100);
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ *
+ * Body class per tipe halaman untuk styling kontekstual.
+ */
+function tammia_preprocess_html(array &$variables): void {
+  $route = \Drupal::routeMatch()->getRouteName() ?? '';
+  if (str_starts_with($route, 'entity.commerce_product.')) {
+    $variables['attributes']['class'][] = 'page-product';
+  }
+  if ($route === 'commerce_cart.page') {
+    $variables['attributes']['class'][] = 'page-cart';
+  }
+}
