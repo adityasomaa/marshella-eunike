@@ -10,10 +10,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<canvas id="bg-canvas"></canvas>
 
 <!-- Free shipping ticker -->
 <div class="shipping-bar">
@@ -33,7 +34,7 @@
 <div class="nav-wrap">
   <div class="container">
     <div class="navbar-tammia">
-      <a href="index.html" class="brand-logo">tammia<span class="dot-online">.online</span></a>
+      <a href="index.html" class="brand-logo"><img src="assets/img/logos/tammia-red.png" alt="Tammia" class="brand-logo-img"><span class="dot-online">online</span></a>
       <nav>
         <ul class="nav-menu">
           <li><a href="shop.html">Shop</a></li>
@@ -93,14 +94,14 @@
           <!-- Floating brush -->
           <svg class="hero-svg-float" style="top:18%; left:20%; width:140px;" viewBox="0 0 100 200">
             <ellipse cx="50" cy="42" rx="22" ry="32" fill="#1a1a1a"/>
-            <ellipse cx="50" cy="38" rx="18" ry="26" fill="#e8a0a8"/>
-            <rect x="46" y="70" width="8" height="100" rx="2" fill="#c8553d"/>
+            <ellipse cx="50" cy="38" rx="18" ry="26" fill="#d3ac50"/>
+            <rect x="46" y="70" width="8" height="100" rx="2" fill="#e11d25"/>
             <rect x="44" y="160" width="12" height="20" rx="3" fill="#1a1a1a"/>
           </svg>
 
           <!-- Floating sponge -->
           <svg class="hero-svg-float" style="top:42%; right:14%; width:120px;" viewBox="0 0 100 120">
-            <path d="M50,10 C25,10 10,40 12,70 C14,100 35,115 50,115 C65,115 86,100 88,70 C90,40 75,10 50,10 Z" fill="#f4d4c4"/>
+            <path d="M50,10 C25,10 10,40 12,70 C14,100 35,115 50,115 C65,115 86,100 88,70 C90,40 75,10 50,10 Z" fill="#f0c2c4"/>
             <path d="M50,10 C25,10 10,40 12,70 C14,100 35,115 50,115" fill="none" stroke="#1a1a1a" stroke-width="2" opacity="0.15"/>
           </svg>
 
@@ -119,12 +120,12 @@
             <div class="swatch">
               <svg viewBox="0 0 100 100" style="position:absolute; inset:0; margin:auto; width:60%; height:60%;">
                 <rect x="46" y="14" width="8" height="50" rx="2" fill="#1a1a1a"/>
-                <ellipse cx="50" cy="74" rx="18" ry="22" fill="#e8a0a8"/>
+                <ellipse cx="50" cy="74" rx="18" ry="22" fill="#d3ac50"/>
               </svg>
             </div>
             <div>
               <div class="mono-label">Featured · 40% OFF</div>
-              <div style="font-family:'Fraunces',serif; font-size:16px; font-weight:500; margin-top:4px;">Sonia Miller Travel Case</div>
+              <div style="font-family:'Comfortaa',sans-serif; font-size:16px; font-weight:500; margin-top:4px;">Sonia Miller Travel Case</div>
               <div style="font-size:13px; color:var(--rouge); font-weight:600; margin-top:2px;">Rp 599.940 <span style="color:var(--muted); text-decoration:line-through; font-weight:400;">Rp 999.900</span></div>
             </div>
           </div>
@@ -137,31 +138,31 @@
 <!-- Brand marquee -->
 <div class="brand-marquee">
   <div class="brand-track">
-    <span class="brand-track-item">Real Techniques<span class="dot">·</span></span>
-    <span class="brand-track-item">Tweezerman<span class="dot">·</span></span>
-    <span class="brand-track-item">Ardell<span class="dot">·</span></span>
-    <span class="brand-track-item">Ecotools<span class="dot">·</span></span>
-    <span class="brand-track-item">Tammia<span class="dot">·</span></span>
-    <span class="brand-track-item">D-UP<span class="dot">·</span></span>
-    <span class="brand-track-item">Sonia Miller<span class="dot">·</span></span>
-    <span class="brand-track-item">Tangle Teezer<span class="dot">·</span></span>
-    <span class="brand-track-item">Andrea<span class="dot">·</span></span>
-    <span class="brand-track-item">Goody<span class="dot">·</span></span>
-    <span class="brand-track-item">DUO<span class="dot">·</span></span>
-    <span class="brand-track-item">China Glaze<span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/real-techniques.png" alt="Real Techniques" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/tweezerman.png" alt="Tweezerman" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/ardell.png" alt="Ardell" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/ecotools.png" alt="Ecotools" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/tammia-red.png" alt="Tammia" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/dup.png" alt="D-UP" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/sonia-miller.png" alt="Sonia Miller" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/tangle-teezer.png" alt="Tangle Teezer" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/andrea.png" alt="Andrea" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/goody.png" alt="Goody" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/duo.png" alt="DUO" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/china-glaze.png" alt="China Glaze" loading="lazy"><span class="dot">·</span></span>
     <!-- duplicate for seamless loop -->
-    <span class="brand-track-item">Real Techniques<span class="dot">·</span></span>
-    <span class="brand-track-item">Tweezerman<span class="dot">·</span></span>
-    <span class="brand-track-item">Ardell<span class="dot">·</span></span>
-    <span class="brand-track-item">Ecotools<span class="dot">·</span></span>
-    <span class="brand-track-item">Tammia<span class="dot">·</span></span>
-    <span class="brand-track-item">D-UP<span class="dot">·</span></span>
-    <span class="brand-track-item">Sonia Miller<span class="dot">·</span></span>
-    <span class="brand-track-item">Tangle Teezer<span class="dot">·</span></span>
-    <span class="brand-track-item">Andrea<span class="dot">·</span></span>
-    <span class="brand-track-item">Goody<span class="dot">·</span></span>
-    <span class="brand-track-item">DUO<span class="dot">·</span></span>
-    <span class="brand-track-item">China Glaze<span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/real-techniques.png" alt="Real Techniques" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/tweezerman.png" alt="Tweezerman" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/ardell.png" alt="Ardell" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/ecotools.png" alt="Ecotools" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/tammia-red.png" alt="Tammia" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/dup.png" alt="D-UP" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/sonia-miller.png" alt="Sonia Miller" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/tangle-teezer.png" alt="Tangle Teezer" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/andrea.png" alt="Andrea" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/goody.png" alt="Goody" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/duo.png" alt="DUO" loading="lazy"><span class="dot">·</span></span>
+    <span class="brand-track-item"><img src="assets/img/logos/china-glaze.png" alt="China Glaze" loading="lazy"><span class="dot">·</span></span>
   </div>
 </div>
 
@@ -187,8 +188,8 @@
           </div>
           <svg class="cat-icon" viewBox="0 0 100 100">
             <rect x="46" y="14" width="8" height="50" rx="2" fill="#1a1a1a"/>
-            <ellipse cx="50" cy="74" rx="20" ry="24" fill="#e8a0a8"/>
-            <ellipse cx="50" cy="70" rx="14" ry="18" fill="#fff5ee"/>
+            <ellipse cx="50" cy="74" rx="20" ry="24" fill="#d3ac50"/>
+            <ellipse cx="50" cy="70" rx="14" ry="18" fill="#fcf0f0"/>
           </svg>
         </a>
       </div>
@@ -200,7 +201,7 @@
             <div class="cat-label mt-1">Makeup<br>Sponges</div>
           </div>
           <svg class="cat-icon" viewBox="0 0 100 100">
-            <path d="M50,10 C28,10 12,32 14,58 C16,84 36,92 50,92 C64,92 84,84 86,58 C88,32 72,10 50,10 Z" fill="#f4d4c4"/>
+            <path d="M50,10 C28,10 12,32 14,58 C16,84 36,92 50,92 C64,92 84,84 86,58 C88,32 72,10 50,10 Z" fill="#f0c2c4"/>
           </svg>
         </a>
       </div>
@@ -229,9 +230,9 @@
             <div class="cat-label mt-1">Beauty<br>Cases</div>
           </div>
           <svg class="cat-icon" viewBox="0 0 100 100">
-            <rect x="14" y="32" width="72" height="50" rx="6" fill="#e8a0a8"/>
-            <rect x="20" y="38" width="60" height="38" rx="4" fill="#fdeef0"/>
-            <rect x="40" y="22" width="20" height="14" rx="3" fill="#e8a0a8"/>
+            <rect x="14" y="32" width="72" height="50" rx="6" fill="#d3ac50"/>
+            <rect x="20" y="38" width="60" height="38" rx="4" fill="#f8f1e2"/>
+            <rect x="40" y="22" width="20" height="14" rx="3" fill="#d3ac50"/>
           </svg>
         </a>
       </div>
@@ -244,7 +245,7 @@
           </div>
           <svg class="cat-icon" viewBox="0 0 100 100">
             <path d="M40,12 L48,80 L52,80 L60,12 L56,10 L50,72 L44,10 Z" fill="#1a1a1a"/>
-            <circle cx="50" cy="86" r="6" fill="#e8a0a8"/>
+            <circle cx="50" cy="86" r="6" fill="#d3ac50"/>
           </svg>
         </a>
       </div>
@@ -256,9 +257,9 @@
             <div class="cat-label mt-1">Nail<br>Care</div>
           </div>
           <svg class="cat-icon" viewBox="0 0 100 100">
-            <rect x="30" y="20" width="40" height="60" rx="8" fill="#c8553d"/>
+            <rect x="30" y="20" width="40" height="60" rx="8" fill="#e11d25"/>
             <rect x="38" y="14" width="24" height="12" rx="3" fill="#1a1a1a"/>
-            <rect x="34" y="44" width="32" height="28" rx="3" fill="#fdeef0" opacity="0.4"/>
+            <rect x="34" y="44" width="32" height="28" rx="3" fill="#f8f1e2" opacity="0.4"/>
           </svg>
         </a>
       </div>
@@ -271,7 +272,7 @@
           </div>
           <svg class="cat-icon" viewBox="0 0 100 100">
             <rect x="20" y="32" width="60" height="38" rx="6" fill="#1a1a1a"/>
-            <g fill="#e8a0a8">
+            <g fill="#d3ac50">
               <circle cx="30" cy="42" r="2"/><circle cx="42" cy="42" r="2"/><circle cx="54" cy="42" r="2"/><circle cx="66" cy="42" r="2"/>
               <circle cx="30" cy="52" r="2"/><circle cx="42" cy="52" r="2"/><circle cx="54" cy="52" r="2"/><circle cx="66" cy="52" r="2"/>
               <circle cx="30" cy="62" r="2"/><circle cx="42" cy="62" r="2"/><circle cx="54" cy="62" r="2"/><circle cx="66" cy="62" r="2"/>
@@ -288,8 +289,8 @@
             <div class="cat-label mt-1">Bath<br>Accessories</div>
           </div>
           <svg class="cat-icon" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="34" fill="#f4d4c4"/>
-            <circle cx="50" cy="50" r="34" fill="none" stroke="#c8553d" stroke-width="1" stroke-dasharray="2 4" opacity="0.5"/>
+            <circle cx="50" cy="50" r="34" fill="#f0c2c4"/>
+            <circle cx="50" cy="50" r="34" fill="none" stroke="#e11d25" stroke-width="1" stroke-dasharray="2 4" opacity="0.5"/>
             <rect x="48" y="14" width="4" height="20" fill="#1a1a1a"/>
             <circle cx="50" cy="14" r="6" fill="#1a1a1a"/>
           </svg>
@@ -313,15 +314,15 @@
       </div>
     </div>
 
-    <div class="row g-4 reveal">
-      <!-- Real product 1 -->
-      <div class="col-6 col-lg-3">
+    <div class="row g-4 reveal" id="featuredGrid" data-max="4">
+      <!-- Cards rendered dynamically from Supabase by main.js -->
+      <div class="col-6 col-lg-3" data-placeholder>
         <a href="product.html" class="product-card d-block text-decoration-none">
           <div class="product-img">
             <span class="product-badge badge-sale">40% OFF</span>
             <svg viewBox="0 0 100 100">
               <rect x="20" y="30" width="60" height="50" rx="4" fill="#1a1a1a"/>
-              <rect x="24" y="34" width="52" height="42" rx="3" fill="#fdeef0" opacity="0.7"/>
+              <rect x="24" y="34" width="52" height="42" rx="3" fill="#f8f1e2" opacity="0.7"/>
               <rect x="38" y="22" width="24" height="12" rx="3" fill="#1a1a1a"/>
             </svg>
             <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
@@ -346,8 +347,8 @@
             <svg viewBox="0 0 100 100">
               <rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/>
               <rect x="52" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/>
-              <ellipse cx="45" cy="76" rx="9" ry="18" fill="#e8a0a8"/>
-              <ellipse cx="55" cy="76" rx="9" ry="18" fill="#e8a0a8"/>
+              <ellipse cx="45" cy="76" rx="9" ry="18" fill="#d3ac50"/>
+              <ellipse cx="55" cy="76" rx="9" ry="18" fill="#d3ac50"/>
             </svg>
             <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
           </div>
@@ -369,8 +370,8 @@
           <div class="product-img">
             <span class="product-badge badge-new">NEW</span>
             <svg viewBox="0 0 100 100">
-              <path d="M30,40 C20,40 12,52 14,66 C16,80 26,86 38,86 C46,86 50,80 50,72 C50,64 46,58 38,54 C32,52 30,46 30,40 Z" fill="#f4d4c4"/>
-              <path d="M62,30 C52,30 44,42 46,56 C48,70 58,76 70,76 C78,76 82,70 82,62 C82,54 78,48 70,44 C64,42 62,36 62,30 Z" fill="#f4d4c4"/>
+              <path d="M30,40 C20,40 12,52 14,66 C16,80 26,86 38,86 C46,86 50,80 50,72 C50,64 46,58 38,54 C32,52 30,46 30,40 Z" fill="#f0c2c4"/>
+              <path d="M62,30 C52,30 44,42 46,56 C48,70 58,76 70,76 C78,76 82,70 82,62 C82,54 78,48 70,44 C64,42 62,36 62,30 Z" fill="#f0c2c4"/>
             </svg>
             <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
           </div>
@@ -423,12 +424,12 @@
         <div class="editorial-img">
           <svg class="hero-svg-float" style="top:14%; left:18%; width:38%;" viewBox="0 0 100 200">
             <ellipse cx="50" cy="42" rx="22" ry="32" fill="#1a1a1a"/>
-            <ellipse cx="50" cy="38" rx="18" ry="26" fill="#e8a0a8"/>
-            <rect x="46" y="70" width="8" height="100" rx="2" fill="#c8553d"/>
+            <ellipse cx="50" cy="38" rx="18" ry="26" fill="#d3ac50"/>
+            <rect x="46" y="70" width="8" height="100" rx="2" fill="#e11d25"/>
             <rect x="44" y="160" width="12" height="20" rx="3" fill="#1a1a1a"/>
           </svg>
           <svg class="hero-svg-float" style="bottom:14%; right:18%; width:32%;" viewBox="0 0 100 120">
-            <path d="M50,10 C25,10 10,40 12,70 C14,100 35,115 50,115 C65,115 86,100 88,70 C90,40 75,10 50,10 Z" fill="#f4d4c4"/>
+            <path d="M50,10 C25,10 10,40 12,70 C14,100 35,115 50,115 C65,115 86,100 88,70 C90,40 75,10 50,10 Z" fill="#f0c2c4"/>
           </svg>
         </div>
       </div>
@@ -440,19 +441,19 @@
         </p>
         <ul style="list-style:none; padding:0; margin: 0 0 32px;">
           <li style="padding:12px 0; border-bottom: 1px solid var(--line); display:flex; justify-content:space-between;">
-            <span style="font-family:'Fraunces',serif; font-size:17px;">01 - Real Techniques Brush Set</span>
+            <span style="font-family:'Comfortaa',sans-serif; font-size:17px;">01 - Real Techniques Brush Set</span>
             <span class="mono-label">Rp 425.000</span>
           </li>
           <li style="padding:12px 0; border-bottom: 1px solid var(--line); display:flex; justify-content:space-between;">
-            <span style="font-family:'Fraunces',serif; font-size:17px;">02 - Tammia PCUS52 Cushion Sponge</span>
+            <span style="font-family:'Comfortaa',sans-serif; font-size:17px;">02 - Tammia PCUS52 Cushion Sponge</span>
             <span class="mono-label">Rp 46.900</span>
           </li>
           <li style="padding:12px 0; border-bottom: 1px solid var(--line); display:flex; justify-content:space-between;">
-            <span style="font-family:'Fraunces',serif; font-size:17px;">03 - Sonia Miller Travel Case</span>
+            <span style="font-family:'Comfortaa',sans-serif; font-size:17px;">03 - Sonia Miller Travel Case</span>
             <span class="mono-label">Rp 599.940</span>
           </li>
           <li style="padding:12px 0; display:flex; justify-content:space-between;">
-            <span style="font-family:'Fraunces',serif; font-size:17px;">04 - Tweezerman Slant Tweezer</span>
+            <span style="font-family:'Comfortaa',sans-serif; font-size:17px;">04 - Tweezerman Slant Tweezer</span>
             <span class="mono-label">Rp 285.000</span>
           </li>
         </ul>
@@ -511,7 +512,7 @@
       <div class="row align-items-center">
         <div class="col-lg-7">
           <span class="section-eyebrow" style="color:var(--pink-soft);">Friday Flash Sale · 14 Juni 2026</span>
-          <h2 style="color:#fff; font-size:clamp(2rem, 4vw, 3.2rem); font-family:'Fraunces',serif; font-weight:300; margin-bottom:20px;">Diskon sampai <em style="color:var(--pink); font-style:italic;">70%</em> setiap Jumat.</h2>
+          <h2 style="color:#fff; font-size:clamp(2rem, 4vw, 3.2rem); font-family:'Comfortaa',sans-serif; font-weight:300; margin-bottom:20px;">Diskon sampai <em style="color:var(--pink); font-style:italic;">70%</em> setiap Jumat.</h2>
           <p style="color:#bbb; font-size:16px; max-width:480px; margin-bottom:32px;">Brand-brand pilihan kami pasang harga terbaik setiap minggu. Subscribe newsletter buat dapat early access 2 jam sebelum publik.</p>
           <div class="d-flex gap-2">
             <a href="#newsletter" class="btn btn-peach">Subscribe Sekarang</a>
@@ -522,19 +523,19 @@
           <div class="row g-3">
             <div class="col-4">
               <div style="background:#fff; color:var(--ink); border-radius:14px; padding:24px 14px; text-align:center;">
-                <div style="font-family:'Fraunces',serif; font-size:48px; font-weight:400; line-height:1; color:var(--rouge);">02</div>
+                <div style="font-family:'Comfortaa',sans-serif; font-size:48px; font-weight:400; line-height:1; color:var(--rouge);">02</div>
                 <div class="mono-label mt-2">Hari</div>
               </div>
             </div>
             <div class="col-4">
               <div style="background:#fff; color:var(--ink); border-radius:14px; padding:24px 14px; text-align:center;">
-                <div style="font-family:'Fraunces',serif; font-size:48px; font-weight:400; line-height:1; color:var(--rouge);">14</div>
+                <div style="font-family:'Comfortaa',sans-serif; font-size:48px; font-weight:400; line-height:1; color:var(--rouge);">14</div>
                 <div class="mono-label mt-2">Jam</div>
               </div>
             </div>
             <div class="col-4">
               <div style="background:#fff; color:var(--ink); border-radius:14px; padding:24px 14px; text-align:center;">
-                <div style="font-family:'Fraunces',serif; font-size:48px; font-weight:400; line-height:1; color:var(--rouge);">36</div>
+                <div style="font-family:'Comfortaa',sans-serif; font-size:48px; font-weight:400; line-height:1; color:var(--rouge);">36</div>
                 <div class="mono-label mt-2">Menit</div>
               </div>
             </div>
@@ -613,9 +614,9 @@
             <svg viewBox="0 0 200 200" style="width:240px; margin-left:auto; display:block;">
               <circle cx="100" cy="100" r="80" fill="#fff" opacity="0.4"/>
               <rect x="86" y="40" width="10" height="100" rx="3" fill="#1a1a1a"/>
-              <ellipse cx="91" cy="148" rx="22" ry="32" fill="#c8553d"/>
-              <ellipse cx="91" cy="142" rx="16" ry="24" fill="#e8a0a8"/>
-              <circle cx="140" cy="60" r="22" fill="#c8553d" opacity="0.85"/>
+              <ellipse cx="91" cy="148" rx="22" ry="32" fill="#e11d25"/>
+              <ellipse cx="91" cy="142" rx="16" ry="24" fill="#d3ac50"/>
+              <circle cx="140" cy="60" r="22" fill="#e11d25" opacity="0.85"/>
               <text x="140" y="66" text-anchor="middle" font-family="JetBrains Mono" font-size="14" fill="#fff" font-weight="700">10%</text>
             </svg>
           </div>
@@ -630,7 +631,7 @@
   <div class="container">
     <div class="row g-5">
       <div class="col-lg-4">
-        <a href="index.html" class="brand-logo">tammia<span class="dot-online">.online</span></a>
+        <a href="index.html" class="brand-logo"><img src="assets/img/logos/tammia-white.png" alt="Tammia" class="brand-logo-img"><span class="dot-online">online</span></a>
         <p style="color:#999; font-size:14px; max-width:320px; margin-top:12px;">Premium beauty tools retailer Indonesia. Membawa brand internasional terpercaya untuk MUA profesional dan beauty enthusiast.</p>
         <div class="footer-social">
           <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
@@ -670,7 +671,7 @@
         </form>
         <div style="margin-top:24px;">
           <div class="mono-label" style="color:#888;">Pembayaran</div>
-          <div style="display:flex; gap:12px; margin-top:10px; flex-wrap:wrap; font-family:'Fraunces',serif; font-style:italic; color:#aaa; font-size:14px;">
+          <div style="display:flex; gap:12px; margin-top:10px; flex-wrap:wrap; font-family:'Comfortaa',sans-serif; font-style:italic; color:#aaa; font-size:14px;">
             <span>BCA</span><span>·</span><span>Mandiri</span><span>·</span><span>QRIS</span><span>·</span><span>GoPay</span><span>·</span><span>OVO</span><span>·</span><span>Dana</span>
           </div>
         </div>
@@ -693,7 +694,7 @@
   <div class="drawer-body">
     <div class="drawer-item">
       <div class="drawer-item-img">
-        <svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="4" fill="#1a1a1a"/><rect x="24" y="34" width="52" height="42" rx="3" fill="#fdeef0"/><rect x="38" y="22" width="24" height="12" rx="3" fill="#1a1a1a"/></svg>
+        <svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="4" fill="#1a1a1a"/><rect x="24" y="34" width="52" height="42" rx="3" fill="#f8f1e2"/><rect x="38" y="22" width="24" height="12" rx="3" fill="#1a1a1a"/></svg>
       </div>
       <div>
         <div class="drawer-item-name">Sonia Miller Transparent Travel Case</div>
@@ -708,7 +709,7 @@
     </div>
     <div class="drawer-item">
       <div class="drawer-item-img">
-        <svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><rect x="52" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#e8a0a8"/><ellipse cx="55" cy="76" rx="9" ry="18" fill="#e8a0a8"/></svg>
+        <svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><rect x="52" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#d3ac50"/><ellipse cx="55" cy="76" rx="9" ry="18" fill="#d3ac50"/></svg>
       </div>
       <div>
         <div class="drawer-item-name">Tammia 1310 Deluxe Duo Brow Brush</div>

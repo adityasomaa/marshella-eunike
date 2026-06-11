@@ -2,33 +2,149 @@
    TAMMIA ONLINE - Main JS
    ============================================================ */
 
-/* ---------- Shared product catalog ---------- */
-const TAMMIA_PRODUCTS = [
-  { name: 'Sonia Miller Transparent Travel Case Pouch', brand: 'Sonia Miller', price: 599940, was: 999900, category: 'Beauty Cases', rating: 4.9, svg: 'case' },
-  { name: 'Tammia Professional 1310 Deluxe Duo Brow Brush', brand: 'Tammia', price: 95310, was: 105900, category: 'Makeup Brushes', rating: 4.8, svg: 'brush' },
-  { name: 'Tammia Professional PCUS52 Cushion Sponge (2pc)', brand: 'Tammia', price: 46900, category: 'Makeup Sponges', rating: 4.9, svg: 'sponge' },
-  { name: 'D-UP Lash Focus Eyelash K-POP Idol Edition', brand: 'D-UP', price: 249900, category: 'Eyelash', rating: 5.0, svg: 'lash' },
-  { name: 'Real Techniques Everyday Essentials Brush Set', brand: 'Real Techniques', price: 425000, category: 'Makeup Brushes', rating: 4.8, svg: 'brush' },
-  { name: 'Tweezerman Slant Tweezer Stainless Steel', brand: 'Tweezerman', price: 285000, category: 'Tweezers', rating: 4.9, svg: 'tweezer' },
-  { name: 'Ardell Wispies Natural False Lashes', brand: 'Ardell', price: 75650, was: 89000, category: 'Eyelash', rating: 4.7, svg: 'lash' },
-  { name: 'Ecotools Bamboo Buffer Block 4-Way', brand: 'Ecotools', price: 65000, category: 'Nail Care', rating: 4.5, svg: 'nail' },
-  { name: 'Tangle Teezer Original Detangler Pink', brand: 'Tangle Teezer', price: 175000, category: 'Hair Tools', rating: 4.8, svg: 'hair' },
-  { name: 'Tammia Professional 5-Piece Brush Set Rose Gold', brand: 'Tammia', price: 385000, category: 'Makeup Brushes', rating: 4.9, svg: 'brush' },
-  { name: 'Real Techniques Miracle Complexion Sponge (2pk)', brand: 'Real Techniques', price: 145000, category: 'Makeup Sponges', rating: 4.9, svg: 'sponge' },
-  { name: 'China Glaze Nail Lacquer - Limited Color Sunset', brand: 'China Glaze', price: 62400, was: 78000, category: 'Nail Care', rating: 4.6, svg: 'nail' },
-  { name: 'Goody Quick Style Boar Bristle Brush', brand: 'Goody', price: 195000, category: 'Hair Tools', rating: 4.7, svg: 'hair' },
-  { name: 'DUO Brush-On Lash Adhesive (Clear)', brand: 'DUO', price: 115000, category: 'Eyelash Glue', rating: 4.8, svg: 'lash' },
-  { name: 'Andrea ModLash #21 Triple Pack', brand: 'Andrea', price: 95000, category: 'Eyelash', rating: 4.6, svg: 'lash' },
-  { name: 'Hollywood Fashion Secrets Fashion Tape', brand: 'Hollywood Secrets', price: 125000, category: 'Bath Accessories', rating: 4.7, svg: 'case' },
-  { name: 'Mapepe Foundation Sponge Set (4 pcs)', brand: 'Mapepe', price: 55000, category: 'Makeup Sponges', rating: 4.5, svg: 'sponge' },
-  { name: 'Tammia Pro Contour Brush 1245 Angled', brand: 'Tammia', price: 125000, category: 'Makeup Brushes', rating: 4.8, svg: 'brush' },
-  { name: 'Tweezerman Mini Slant Tweezer Pink', brand: 'Tweezerman', price: 189200, was: 215000, category: 'Tweezers', rating: 4.9, svg: 'tweezer' },
-  { name: 'Naturactor Cover Face Foundation Sponge', brand: 'Naturactor', price: 68000, category: 'Makeup Sponges', rating: 4.7, svg: 'sponge' }
-];
+/* ---------- Shared product catalog ----------
+   Loaded async from Supabase via tammiaLoadProducts().
+   Code that needs the data should `await window.TAMMIA_PRODUCTS_READY`
+   or `await tammiaProductsReady()`. */
+window.TAMMIA_PRODUCTS = [];
+window.TAMMIA_PRODUCTS_READY = new Promise(resolve => { window._resolveProducts = resolve; });
+let TAMMIA_PRODUCTS = window.TAMMIA_PRODUCTS; // local mutable alias used by older code
+
+async function tammiaLoadProducts() {
+  if (!window.tammiaSupabase) {
+    console.warn('Supabase client not initialised. Products will be empty.');
+    window._resolveProducts([]);
+    return [];
+  }
+  try {
+    const { data, error } = await window.tammiaSupabase
+      .from('products')
+      .select('*')
+      .eq('is_active', true)
+      .order('sort_order', { ascending: true });
+    if (error) throw error;
+    const mapped = (data || []).map(p => ({
+      id: p.id,
+      slug: p.slug,
+      name: p.name,
+      brand: p.brand,
+      category: p.category,
+      price: p.price,
+      was: p.was_price || undefined,
+      svg: p.svg_type || 'brush',
+      image_url: p.image_url || null,
+      rating: parseFloat(p.rating) || 4.5,
+      reviewCount: p.review_count || 0,
+      stock: p.stock,
+      featured: p.is_featured,
+      short_description: p.short_description || '',
+      description: p.description || '',
+      created_at: p.created_at,
+    }));
+    window.TAMMIA_PRODUCTS = mapped;
+    TAMMIA_PRODUCTS = mapped;
+    window._resolveProducts(mapped);
+    return mapped;
+  } catch (e) {
+    console.warn('Failed to load products from Supabase:', e);
+    window._resolveProducts([]);
+    return [];
+  }
+}
+
+function tammiaProductsReady() {
+  return window.TAMMIA_PRODUCTS_READY;
+}
 
 /* ---------- Helpers ---------- */
 function tammiaFormatPrice(n) {
   return 'Rp ' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+/* Returns e.g. "40% OFF" or "" if no sale */
+function tammiaCalcSalePercent(price, was) {
+  const p = parseInt(price, 10);
+  const w = parseInt(was, 10);
+  if (!w || !p || w <= p) return '';
+  const pct = Math.round(((w - p) / w) * 100);
+  return pct > 0 ? `${pct}% OFF` : '';
+}
+
+/* Renders an <img> if image_url set, else fallback inline SVG.
+   For card-sized usage the SVG keeps its existing centered styling
+   via .product-img svg. The <img> covers the full square box. */
+function tammiaProductImg(product) {
+  if (product && product.image_url) {
+    const safeAlt = (product.name || '').replace(/"/g, '&quot;');
+    return `<img src="${product.image_url}" alt="${safeAlt}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">`;
+  }
+  return tammiaSearchSvg(product ? product.svg : 'brush');
+}
+
+/* Build one product-cell HTML for shop grid (and reusable for index/related).
+   Wrap in col classes externally. */
+function tammiaProductCardHtml(p) {
+  const wasAttr = p.was ? p.was : '';
+  const saleFlag = p.was ? '1' : '0';
+  const salePct = tammiaCalcSalePercent(p.price, p.was);
+  const isNew = !!p.featured;
+  let badge = '';
+  if (salePct) {
+    badge = `<span class="product-badge badge-sale">${salePct}</span>`;
+  } else if (isNew) {
+    badge = `<span class="product-badge badge-new">NEW</span>`;
+  }
+  const priceHtml = p.was
+    ? `<span class="product-price sale">${tammiaFormatPrice(p.price)}</span><span class="product-price-was">${tammiaFormatPrice(p.was)}</span>`
+    : `<span class="product-price">${tammiaFormatPrice(p.price)}</span>`;
+  const ratingNum = (p.rating || 0).toFixed(1);
+  const slug = p.slug || '';
+  const safeName = (p.name || '').replace(/"/g, '&quot;');
+  const safeBrand = (p.brand || '').replace(/"/g, '&quot;');
+  return `
+    <a href="product.html?slug=${encodeURIComponent(slug)}" class="product-card d-block text-decoration-none">
+      <div class="product-img">
+        ${badge}
+        ${tammiaProductImg(p)}
+        <button class="product-quick" data-open-cart type="button"><i class="bi bi-plus"></i></button>
+      </div>
+      <span class="product-brand">${safeBrand}</span>
+      <div class="product-name">${safeName}</div>
+      <div class="product-price-row">${priceHtml}</div>
+      <div class="product-rating"><span class="stars">★★★★★</span> ${ratingNum} <span class="dot-sep"></span> ${p.reviewCount || 0}</div>
+    </a>`;
+}
+
+function tammiaProductCellHtml(p, colClasses = 'col-6 col-lg-3') {
+  const wasAttr = p.was ? p.was : '';
+  const saleFlag = p.was ? '1' : '0';
+  const safeName = (p.name || '').replace(/"/g, '&quot;');
+  const safeBrand = (p.brand || '').replace(/"/g, '&quot;');
+  const safeCat = (p.category || '').replace(/"/g, '&quot;');
+  return `
+    <div class="${colClasses} product-cell"
+         data-name="${safeName}"
+         data-brand="${safeBrand}"
+         data-price="${p.price}"
+         data-was="${wasAttr}"
+         data-cat="${safeCat}"
+         data-rating="${(p.rating || 0).toFixed(1)}"
+         data-sale="${saleFlag}"
+         data-slug="${p.slug || ''}">
+      ${tammiaProductCardHtml(p)}
+    </div>`;
+}
+
+function tammiaSkeletonCellHtml(colClasses = 'col-6 col-lg-3') {
+  return `
+    <div class="${colClasses}">
+      <div class="product-card-skeleton">
+        <div class="sk-img"></div>
+        <div class="sk-line short"></div>
+        <div class="sk-line"></div>
+        <div class="sk-line med"></div>
+      </div>
+    </div>`;
 }
 
 /* ---------- Custom confirm modal (replaces window.confirm) ---------- */
@@ -99,21 +215,21 @@ function tammiaConfirm({ title = 'Konfirmasi', message = '', confirmText = 'OK',
 function tammiaSearchSvg(type) {
   switch (type) {
     case 'brush':
-      return '<svg viewBox="0 0 100 100"><rect x="46" y="14" width="8" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="50" cy="74" rx="14" ry="18" fill="#e8a0a8"/></svg>';
+      return '<svg viewBox="0 0 100 100"><rect x="46" y="14" width="8" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="50" cy="74" rx="14" ry="18" fill="#d3ac50"/></svg>';
     case 'sponge':
-      return '<svg viewBox="0 0 100 100"><path d="M50,10 C28,10 12,32 14,58 C16,84 36,92 50,92 C64,92 84,84 86,58 C88,32 72,10 50,10 Z" fill="#f4d4c4"/></svg>';
+      return '<svg viewBox="0 0 100 100"><path d="M50,10 C28,10 12,32 14,58 C16,84 36,92 50,92 C64,92 84,84 86,58 C88,32 72,10 50,10 Z" fill="#f0c2c4"/></svg>';
     case 'lash':
       return '<svg viewBox="0 0 140 60"><path d="M10,40 Q70,52 130,40" stroke="#1a1a1a" stroke-width="2.5" fill="none"/><line x1="40" y1="44" x2="38" y2="6" stroke="#1a1a1a" stroke-width="2.5"/><line x1="70" y1="46" x2="70" y2="2" stroke="#1a1a1a" stroke-width="2.7"/><line x1="100" y1="44" x2="102" y2="6" stroke="#1a1a1a" stroke-width="2.5"/></svg>';
     case 'case':
-      return '<svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="4" fill="#1a1a1a"/><rect x="24" y="34" width="52" height="42" rx="3" fill="#fdeef0"/><rect x="38" y="22" width="24" height="12" rx="3" fill="#1a1a1a"/></svg>';
+      return '<svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="4" fill="#1a1a1a"/><rect x="24" y="34" width="52" height="42" rx="3" fill="#f8f1e2"/><rect x="38" y="22" width="24" height="12" rx="3" fill="#1a1a1a"/></svg>';
     case 'tweezer':
-      return '<svg viewBox="0 0 100 100"><path d="M40,12 L48,80 L52,80 L60,12 L56,10 L50,72 L44,10 Z" fill="#1a1a1a"/><circle cx="50" cy="86" r="6" fill="#e8a0a8"/></svg>';
+      return '<svg viewBox="0 0 100 100"><path d="M40,12 L48,80 L52,80 L60,12 L56,10 L50,72 L44,10 Z" fill="#1a1a1a"/><circle cx="50" cy="86" r="6" fill="#d3ac50"/></svg>';
     case 'nail':
-      return '<svg viewBox="0 0 100 100"><rect x="36" y="24" width="28" height="56" rx="6" fill="#c8553d"/><rect x="42" y="18" width="16" height="10" rx="3" fill="#1a1a1a"/></svg>';
+      return '<svg viewBox="0 0 100 100"><rect x="36" y="24" width="28" height="56" rx="6" fill="#e11d25"/><rect x="42" y="18" width="16" height="10" rx="3" fill="#1a1a1a"/></svg>';
     case 'hair':
       return '<svg viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="32" ry="20" fill="#1a1a1a"/><rect x="44" y="68" width="12" height="22" rx="2" fill="#1a1a1a"/></svg>';
     default:
-      return '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30" fill="#e8a0a8"/></svg>';
+      return '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30" fill="#d3ac50"/></svg>';
   }
 }
 
@@ -202,7 +318,7 @@ function tammiaUpdateCartBadge() {
   });
 }
 function tammiaSvgForProductName(name) {
-  const p = TAMMIA_PRODUCTS.find(p => p.name === name);
+  const p = (window.TAMMIA_PRODUCTS || []).find(p => p.name === name);
   return p ? p.svg : 'brush';
 }
 function addToCart(product) {
@@ -260,7 +376,7 @@ function renderCartDrawer() {
     body.innerHTML = `
       <div class="drawer-empty" style="text-align:center; padding:48px 16px;">
         <div style="font-size:48px; margin-bottom:12px; opacity:0.4;"><i class="bi bi-bag"></i></div>
-        <div style="font-family:'Fraunces',serif; font-size:20px; margin-bottom:6px;">Keranjang masih kosong</div>
+        <div style="font-family:'Comfortaa',sans-serif; font-size:20px; margin-bottom:6px;">Keranjang masih kosong</div>
         <div style="color:var(--muted); font-size:14px; margin-bottom:20px;">Yuk pilih beauty tools favoritmu.</div>
         <a href="shop.html" class="btn btn-peach btn-sm">Mulai Belanja</a>
       </div>`;
@@ -510,7 +626,7 @@ function tammiaBuildAuthModal() {
     </div>
     <div class="auth-pane" data-auth-pane="forgot">
       <div class="auth-forgot-head">
-        <h6 style="font-family:'Fraunces',serif; font-weight:400; font-size:22px; margin:0 0 6px;">Reset Password</h6>
+        <h6 style="font-family:'Comfortaa',sans-serif; font-weight:400; font-size:22px; margin:0 0 6px;">Reset Password</h6>
         <p style="color:var(--muted); font-size:13px; margin:0 0 18px;">Masukkan email kamu, link reset akan dikirim.</p>
       </div>
       <div class="auth-field">
@@ -527,7 +643,7 @@ function tammiaBuildAuthModal() {
           font-size:28px; margin:0 auto 14px;">
           <i class="bi bi-check-lg"></i>
         </div>
-        <div style="font-family:'Fraunces',serif; font-size:20px; margin-bottom:6px;">Link reset telah dikirim</div>
+        <div style="font-family:'Comfortaa',sans-serif; font-size:20px; margin-bottom:6px;">Link reset telah dikirim</div>
         <div style="color:var(--muted); font-size:13px;" data-forgot-success-body>Periksa inbox dan folder spam.</div>
         <div class="auth-bottom-link" style="margin-top:18px;"><a data-auth-switch="login"><i class="bi bi-arrow-left"></i> Kembali ke Masuk</a></div>
       </div>
@@ -794,6 +910,7 @@ function tammiaRefreshAuthUi() {
 
     if (user && user.loggedIn) {
       const initials = (user.name || '?').split(' ').map(s => s[0]).filter(Boolean).slice(0, 2).join('').toUpperCase();
+      const isAdmin = !!user.isAdmin;
       const newSlot = document.createElement('div');
       newSlot.className = 'profile-wrap nav-account-slot';
       newSlot.innerHTML = `
@@ -807,6 +924,7 @@ function tammiaRefreshAuthUi() {
           <a href="orders.html"><i class="bi bi-bag-check"></i> Pesanan Saya</a>
           <a href="#" data-open-wishlist><i class="bi bi-heart"></i> Wishlist <span class="badge-mini" data-wishlist-count>0</span></a>
           <a href="contact.html"><i class="bi bi-question-circle"></i> Bantuan</a>
+          ${isAdmin ? `<div class="divider"></div><a href="admin.html" style="color:var(--rouge); font-weight:500;"><i class="bi bi-shield-check"></i> Admin Panel</a>` : ''}
           <div class="divider"></div>
           <button type="button" data-logout><i class="bi bi-box-arrow-right"></i> Keluar</button>
         </div>`;
@@ -903,14 +1021,17 @@ function tammiaBuildWishlistDrawer() {
       return;
     }
     body.innerHTML = list.slice(0, 10).map(name => {
-      const product = TAMMIA_PRODUCTS.find(p => p.name === name);
+      const product = (window.TAMMIA_PRODUCTS || []).find(p => p.name === name);
       if (!product) return '';
       const priceHtml = product.was
         ? `${tammiaFormatPrice(product.price)}`
         : `${tammiaFormatPrice(product.price)}`;
+      const thumb = product.image_url
+        ? `<img src="${product.image_url}" alt="${product.name.replace(/"/g, '&quot;')}" loading="lazy" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;">`
+        : tammiaSearchSvg(product.svg);
       return `
         <div class="wishlist-item" data-name="${product.name}">
-          <div class="wishlist-item-img">${tammiaSearchSvg(product.svg)}</div>
+          <div class="wishlist-item-img">${thumb}</div>
           <div class="wishlist-item-meta">
             <div class="br">${product.brand}</div>
             <div class="nm">${product.name}</div>
@@ -963,7 +1084,7 @@ function tammiaBuildMobileNav() {
   const currentPage = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   drawer.innerHTML = `
     <div class="mobile-nav-head">
-      <a href="index.html" class="brand-logo">tammia<span class="dot-online">.online</span></a>
+      <a href="index.html" class="brand-logo"><img src="assets/img/logos/tammia-red.png" alt="Tammia" class="brand-logo-img"><span class="dot-online">online</span></a>
       <button class="drawer-close" data-close-mobile-nav><i class="bi bi-x-lg"></i></button>
     </div>
     <div class="mobile-nav-body">
@@ -1003,8 +1124,11 @@ function tammiaBuildMobileNav() {
         const priceHtml = m.was
           ? `<span class="sr-price sale">${tammiaFormatPrice(m.price)}</span> <span class="sr-was">${tammiaFormatPrice(m.was)}</span>`
           : `<span class="sr-price">${tammiaFormatPrice(m.price)}</span>`;
-        html += `<a class="search-result-row" href="product.html">
-          <span class="sr-thumb">${tammiaSearchSvg(m.svg)}</span>
+        const thumb = m.image_url
+          ? `<img src="${m.image_url}" alt="${m.name.replace(/"/g, '&quot;')}" loading="lazy" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;">`
+          : tammiaSearchSvg(m.svg);
+        html += `<a class="search-result-row" href="product.html?slug=${encodeURIComponent(m.slug || '')}">
+          <span class="sr-thumb">${thumb}</span>
           <span class="sr-meta">
             <span class="sr-brand">${m.brand}</span>
             <span class="sr-name">${m.name}</span>
@@ -1212,6 +1336,9 @@ function tammiaInitProductDetailWish() {
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ---------- Kick off async product fetch ASAP ---------- */
+  tammiaLoadProducts();
+
   /* ---------- Sticky navbar shrink ---------- */
   const navWrap = document.querySelector('.nav-wrap');
   if (navWrap) {
@@ -1249,42 +1376,48 @@ document.addEventListener('DOMContentLoaded', () => {
   if (backdrop) backdrop.addEventListener('click', closeAllDrawers);
 
   /* ---------- Quick-add buttons on product cards ---------- */
-  document.querySelectorAll('.product-quick').forEach(btn => {
-    btn.addEventListener('click', e => {
-      e.preventDefault();
-      e.stopPropagation();
-      // Read product data from the nearest cell or card
-      const cell = btn.closest('.product-cell, .product-card');
-      let name = '', brand = '', price = 0, was = null, svg = 'brush';
-      if (cell) {
-        // Prefer dataset (shop.html), else fallback to inner text (index.html etc.)
-        if (cell.dataset.name) {
-          name = cell.dataset.name;
-          brand = cell.dataset.brand || '';
-          price = parseInt(cell.dataset.price, 10) || 0;
-          was = cell.dataset.was ? parseInt(cell.dataset.was, 10) : null;
-        } else {
-          const nameEl = cell.querySelector('.product-name');
-          const brandEl = cell.querySelector('.product-brand');
-          const priceEl = cell.querySelector('.product-price.sale, .product-price');
-          const wasEl = cell.querySelector('.product-price-was');
-          if (nameEl) name = nameEl.textContent.trim();
-          if (brandEl) brand = brandEl.textContent.trim();
-          if (priceEl) price = parseInt(priceEl.textContent.replace(/[^\d]/g, ''), 10) || 0;
-          if (wasEl) was = parseInt(wasEl.textContent.replace(/[^\d]/g, ''), 10) || null;
+  function bindProductQuickAddButtons(scope) {
+    (scope || document).querySelectorAll('.product-quick').forEach(btn => {
+      if (btn.dataset.qaBound === '1') return;
+      btn.dataset.qaBound = '1';
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        // Read product data from the nearest cell or card
+        const cell = btn.closest('.product-cell, .product-card');
+        let name = '', brand = '', price = 0, was = null, svg = 'brush';
+        if (cell) {
+          // Prefer dataset (shop.html), else fallback to inner text (index.html etc.)
+          if (cell.dataset.name) {
+            name = cell.dataset.name;
+            brand = cell.dataset.brand || '';
+            price = parseInt(cell.dataset.price, 10) || 0;
+            was = cell.dataset.was ? parseInt(cell.dataset.was, 10) : null;
+          } else {
+            const nameEl = cell.querySelector('.product-name');
+            const brandEl = cell.querySelector('.product-brand');
+            const priceEl = cell.querySelector('.product-price.sale, .product-price');
+            const wasEl = cell.querySelector('.product-price-was');
+            if (nameEl) name = nameEl.textContent.trim();
+            if (brandEl) brand = brandEl.textContent.trim();
+            if (priceEl) price = parseInt(priceEl.textContent.replace(/[^\d]/g, ''), 10) || 0;
+            if (wasEl) was = parseInt(wasEl.textContent.replace(/[^\d]/g, ''), 10) || null;
+          }
+          svg = tammiaSvgForProductName(name);
         }
-        svg = tammiaSvgForProductName(name);
-      }
-      if (!name) {
-        // Nothing identifiable -> just open the drawer
+        if (!name) {
+          // Nothing identifiable -> just open the drawer
+          openCart();
+          return;
+        }
+        addToCart({ name, brand, price, was, svg });
+        tammiaToast('Ditambahkan ke keranjang', 'bi-bag-check-fill');
         openCart();
-        return;
-      }
-      addToCart({ name, brand, price, was, svg });
-      tammiaToast('Ditambahkan ke keranjang', 'bi-bag-check-fill');
-      openCart();
+      });
     });
-  });
+  }
+  window.tammiaBindProductQuickAddButtons = bindProductQuickAddButtons;
+  bindProductQuickAddButtons();
 
   /* ---------- Generic qty steppers (non-cart, non-drawer) ---------- */
   document.querySelectorAll('.qty-stepper').forEach(stepper => {
@@ -1489,7 +1622,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dropdown.innerHTML = '';
         return;
       }
-      const matches = TAMMIA_PRODUCTS.filter(p =>
+      const matches = (window.TAMMIA_PRODUCTS || []).filter(p =>
         p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q)
       ).slice(0, 6);
 
@@ -1501,9 +1634,12 @@ document.addEventListener('DOMContentLoaded', () => {
           const priceHtml = m.was
             ? `<span class="sr-price sale">${tammiaFormatPrice(m.price)}</span> <span class="sr-was">${tammiaFormatPrice(m.was)}</span>`
             : `<span class="sr-price">${tammiaFormatPrice(m.price)}</span>`;
+          const thumb = m.image_url
+            ? `<img src="${m.image_url}" alt="${m.name.replace(/"/g, '&quot;')}" loading="lazy" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;">`
+            : tammiaSearchSvg(m.svg);
           html += `
-            <a class="search-result-row" href="product.html">
-              <span class="sr-thumb">${tammiaSearchSvg(m.svg)}</span>
+            <a class="search-result-row" href="product.html?slug=${encodeURIComponent(m.slug || '')}">
+              <span class="sr-thumb">${thumb}</span>
               <span class="sr-meta">
                 <span class="sr-brand">${m.brand}</span>
                 <span class="sr-name">${m.name}</span>
@@ -1559,11 +1695,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ---------- Shop page: live filtering ---------- */
+  /* ---------- Shop page: render from Supabase + live filtering ---------- */
   const grid = document.getElementById('productGrid');
   const sidebar = document.getElementById('filterSidebar');
   if (grid && sidebar) {
-    const cells = Array.from(grid.querySelectorAll('.product-cell'));
     const countEl = document.getElementById('shopCount');
     const emptyEl = document.getElementById('shopEmpty');
     const pagEl = document.getElementById('paginationWrap');
@@ -1574,6 +1709,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetBtn = document.getElementById('resetAllFilters');
     const emptyResetBtn = document.getElementById('emptyResetBtn');
 
+    // Show 8 skeleton cards while loading
+    grid.innerHTML = Array.from({ length: 8 }).map(() => tammiaSkeletonCellHtml()).join('');
+
+    let cells = []; // populated after products load
+
     function getState() {
       const cats = Array.from(sidebar.querySelectorAll('input[data-filter="cat"]:checked')).map(i => i.value);
       const brands = Array.from(sidebar.querySelectorAll('input[data-filter="brand"]:checked')).map(i => i.value);
@@ -1582,7 +1722,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const minRating = ratingInput ? parseFloat(ratingInput.value) : 0;
       const saleOnly = saleToggle && saleToggle.classList.contains('on');
       const sort = sortSelect ? sortSelect.value : 'featured';
-      return { cats, brands, priceMax, minRating, saleOnly, sort };
+      const q = (new URLSearchParams(window.location.search).get('q') || '').toLowerCase();
+      return { cats, brands, priceMax, minRating, saleOnly, sort, q };
     }
 
     function applyFilters() {
@@ -1591,7 +1732,6 @@ document.addEventListener('DOMContentLoaded', () => {
         priceMaxLabel.textContent = tammiaFormatPrice(parseInt(priceRange.value, 10));
       }
 
-      // Filter
       const visible = [];
       cells.forEach(cell => {
         const cat = cell.dataset.cat || '';
@@ -1599,6 +1739,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const price = parseInt(cell.dataset.price, 10) || 0;
         const rating = parseFloat(cell.dataset.rating) || 0;
         const isSale = cell.dataset.sale === '1';
+        const name = (cell.dataset.name || '').toLowerCase();
 
         let show = true;
         if (s.cats.length && !s.cats.includes(cat)) show = false;
@@ -1606,12 +1747,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (price > s.priceMax) show = false;
         if (s.minRating && rating < s.minRating) show = false;
         if (s.saleOnly && !isSale) show = false;
+        if (s.q && !(name.includes(s.q) || brand.toLowerCase().includes(s.q))) show = false;
 
         if (show) visible.push(cell);
         else cell.style.display = 'none';
       });
 
-      // Sort visible
       visible.sort((a, b) => {
         const pa = parseInt(a.dataset.price, 10) || 0;
         const pb = parseInt(b.dataset.price, 10) || 0;
@@ -1624,21 +1765,16 @@ document.addEventListener('DOMContentLoaded', () => {
           case 'price-desc': return pb - pa;
           case 'name': return na.localeCompare(nb);
           case 'rating': return rb - ra;
-          default: return 0; // featured = stable original order
+          default: return 0;
         }
       });
 
-      // Brief fade on grid
       grid.style.transition = 'opacity 200ms ease';
       grid.style.opacity = '0.4';
-      // Re-attach visible cells in sorted order
       visible.forEach(c => { c.style.display = ''; grid.appendChild(c); });
-      // Hidden cells get re-appended at the end so they stay in DOM
       cells.forEach(c => { if (!visible.includes(c)) grid.appendChild(c); });
-
       setTimeout(() => { grid.style.opacity = '1'; }, 30);
 
-      // Update count and empty state
       const total = cells.length;
       const shown = visible.length;
       if (countEl) countEl.textContent = `Menampilkan ${shown} dari ${total} produk`;
@@ -1659,19 +1795,15 @@ document.addEventListener('DOMContentLoaded', () => {
       applyFilters();
     }
 
-    // Wire up changes
     sidebar.querySelectorAll('input[data-filter]').forEach(inp => {
       inp.addEventListener('change', applyFilters);
     });
     if (priceRange) priceRange.addEventListener('input', applyFilters);
     if (sortSelect) sortSelect.addEventListener('change', applyFilters);
-    if (saleToggle) {
-      saleToggle.addEventListener('click', () => applyFilters());
-    }
+    if (saleToggle) saleToggle.addEventListener('click', () => applyFilters());
     if (resetBtn) resetBtn.addEventListener('click', resetAll);
     if (emptyResetBtn) emptyResetBtn.addEventListener('click', resetAll);
 
-    // Pre-apply URL query: ?q=, ?cat=, ?sale=
     const params = new URLSearchParams(window.location.search);
     const catParam = params.get('cat');
     if (catParam) {
@@ -1683,13 +1815,27 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     if (params.get('sale') === '1' && saleToggle) saleToggle.classList.add('on');
-    const q = params.get('q');
-    if (q) {
+    const qParam = params.get('q');
+    if (qParam) {
       const searchInput = document.querySelector('.nav-search input');
-      if (searchInput) searchInput.value = q;
+      if (searchInput) searchInput.value = qParam;
     }
 
-    applyFilters();
+    // Wait for products, then render cells
+    tammiaProductsReady().then(products => {
+      if (!products || products.length === 0) {
+        grid.innerHTML = '';
+        if (countEl) countEl.textContent = 'Menampilkan 0 dari 0 produk';
+        if (emptyEl) emptyEl.style.display = 'block';
+        return;
+      }
+      grid.innerHTML = products.map(p => tammiaProductCellHtml(p)).join('');
+      cells = Array.from(grid.querySelectorAll('.product-cell'));
+      // Re-bind dynamic UI on freshly rendered cards
+      bindProductQuickAddButtons(grid);
+      tammiaInjectProductHearts();
+      applyFilters();
+    });
   }
 
   /* ---------- TASK 3: Init custom selects ---------- */
@@ -1706,6 +1852,16 @@ document.addEventListener('DOMContentLoaded', () => {
   tammiaInjectProductHearts();
   tammiaInitProductDetailWish();
   tammiaUpdateWishlistBadge();
+
+  /* ---------- STAGE 2: Page-specific async product renderers ---------- */
+  tammiaInitFeaturedSection();
+  tammiaInitProductDetailPage();
+  // Re-render wishlist drawer + re-inject hearts after products arrive
+  tammiaProductsReady().then(() => {
+    const wd = document.getElementById('wishlistDrawer');
+    if (wd && wd._render) wd._render();
+    tammiaInjectProductHearts();
+  });
 
   /* ---------- TASK 8: Mobile nav drawer ---------- */
   tammiaBuildMobileNav();
@@ -1734,6 +1890,209 @@ document.addEventListener('DOMContentLoaded', () => {
   tammiaInitOrderSummaryCollapsible();
 
 }); // End DOMContentLoaded
+
+/* ============================================================
+   STAGE 2 — Featured products on index.html
+   ============================================================ */
+function tammiaInitFeaturedSection() {
+  // Use #featuredGrid as the explicit hook to avoid clobbering related-product
+  // grids on other pages. We add this id to index.html.
+  const grid = document.getElementById('featuredGrid');
+  if (!grid) return;
+  const max = parseInt(grid.dataset.max || '4', 10);
+
+  // Skeletons
+  grid.innerHTML = Array.from({ length: max }).map(() => tammiaSkeletonCellHtml()).join('');
+
+  tammiaProductsReady().then(products => {
+    if (!products || products.length === 0) {
+      grid.innerHTML = '<div class="col-12" style="color:var(--muted); text-align:center; padding:32px;">Belum ada produk untuk ditampilkan.</div>';
+      return;
+    }
+    // Prefer featured, then fall back to newest
+    let pick = products.filter(p => p.featured);
+    if (pick.length < max) {
+      const rest = products.filter(p => !p.featured);
+      pick = pick.concat(rest);
+    }
+    pick = pick.slice(0, max);
+    grid.innerHTML = pick.map(p => `
+      <div class="col-6 col-lg-3">${tammiaProductCardHtml(p)}</div>
+    `).join('');
+    if (window.tammiaBindProductQuickAddButtons) window.tammiaBindProductQuickAddButtons(grid);
+    tammiaInjectProductHearts();
+  });
+}
+
+/* ============================================================
+   STAGE 2 — Product detail page renderer (?slug=...)
+   ============================================================ */
+function tammiaInitProductDetailPage() {
+  const info = document.querySelector('.pd-info');
+  if (!info) return; // not a product page
+
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('slug');
+
+  tammiaProductsReady().then(products => {
+    if (!products || products.length === 0) return;
+
+    let product = null;
+    if (slug) {
+      product = products.find(p => p.slug === slug);
+      if (!product) {
+        // Slug not found -> redirect
+        window.location.replace('shop.html');
+        return;
+      }
+    } else {
+      // Default: keep original hardcoded product (Sonia Miller) — find by name.
+      const defaultName = info.dataset.productName;
+      product = products.find(p => p.name === defaultName) || products[0];
+    }
+
+    if (!product) return;
+    tammiaRenderProductDetail(product, products);
+  });
+}
+
+function tammiaRenderProductDetail(product, allProducts) {
+  const info = document.querySelector('.pd-info');
+  if (!info) return;
+
+  // 1) Update data-attrs (used by add-to-cart logic + wishlist sync)
+  info.dataset.productName = product.name;
+  info.dataset.productBrand = product.brand;
+  info.dataset.productPrice = product.price;
+  info.dataset.productWas = product.was || '';
+  info.dataset.productSvg = product.svg || 'brush';
+
+  // 2) Visible content
+  document.title = `${product.name} - Tammia Online`;
+  const brandTag = info.querySelector('.brand-tag');
+  if (brandTag) brandTag.textContent = `${product.brand}${product.category ? ' · ' + product.category : ''}`;
+  const h1 = info.querySelector('h1');
+  if (h1) h1.textContent = product.name;
+
+  const ratingRow = info.querySelector('.pd-rating-row');
+  if (ratingRow) {
+    const ratingNum = (product.rating || 0).toFixed(1);
+    ratingRow.innerHTML = `
+      <span><span class="stars">★★★★★</span> <strong>${ratingNum}</strong></span>
+      <span><i class="bi bi-chat-square-text"></i> ${product.reviewCount || 0} reviews</span>
+      <span><i class="bi bi-bag-check"></i> ${product.stock || 0} stok</span>`;
+  }
+
+  // Savings + price row
+  const savingsEl = info.querySelector('.pd-savings');
+  const priceRow = info.querySelector('.pd-price-row');
+  if (product.was && product.was > product.price) {
+    const hemat = product.was - product.price;
+    const pct = tammiaCalcSalePercent(product.price, product.was);
+    if (savingsEl) {
+      savingsEl.style.display = '';
+      savingsEl.textContent = `Hemat ${tammiaFormatPrice(hemat)} · ${pct}`;
+    }
+    if (priceRow) {
+      priceRow.innerHTML = `
+        <span class="pd-price">${tammiaFormatPrice(product.price)}</span>
+        <span class="pd-price-was">${tammiaFormatPrice(product.was)}</span>`;
+    }
+  } else {
+    if (savingsEl) savingsEl.style.display = 'none';
+    if (priceRow) {
+      priceRow.innerHTML = `<span class="pd-price">${tammiaFormatPrice(product.price)}</span>`;
+    }
+  }
+
+  // Stock indicator
+  const stockEl = info.querySelector('.pd-stock');
+  if (stockEl) {
+    const stock = product.stock || 0;
+    if (stock <= 0) {
+      stockEl.innerHTML = `<span class="dot" style="background:#e11d25;"></span> Stok Habis`;
+    } else if (stock < 10) {
+      stockEl.innerHTML = `<span class="dot" style="background:#e8b04a;"></span> Stok terbatas · tersisa ${stock}`;
+    } else {
+      stockEl.innerHTML = `<span class="dot"></span> Stok Tersedia · ${stock} unit siap kirim`;
+    }
+  }
+
+  // Description tab content (replace only the lead paragraph if present)
+  const descTab = document.querySelector('.pd-tab-content[data-tab="desc"]');
+  if (descTab) {
+    const lead = descTab.querySelector('h3');
+    const firstP = descTab.querySelector('p');
+    if (lead && product.short_description) lead.textContent = product.short_description;
+    if (firstP && product.description) firstP.textContent = product.description;
+  }
+
+  // Main image + thumbs
+  const mainImg = document.querySelector('.pd-main');
+  if (mainImg) {
+    if (product.image_url) {
+      mainImg.innerHTML = `<img src="${product.image_url}" alt="${product.name.replace(/"/g, '&quot;')}" style="width:100%; height:100%; object-fit:cover;">`;
+    } else {
+      mainImg.innerHTML = tammiaSearchSvg(product.svg || 'brush');
+    }
+  }
+  // Hide all thumbs except first (single image only)
+  const thumbsWrap = document.querySelector('.pd-thumbs');
+  if (thumbsWrap) {
+    const thumbs = thumbsWrap.querySelectorAll('.pd-thumb');
+    thumbs.forEach((t, i) => {
+      if (i === 0) {
+        t.classList.add('active');
+        t.innerHTML = product.image_url
+          ? `<img src="${product.image_url}" alt="thumb" style="width:100%; height:100%; object-fit:cover;">`
+          : tammiaSearchSvg(product.svg || 'brush');
+      } else {
+        t.style.display = 'none';
+      }
+    });
+  }
+
+  // Update breadcrumb's last segment if present
+  const crumb = document.querySelector('section .mono-label span[style*="--rouge"]');
+  if (crumb) crumb.textContent = product.name;
+
+  // Re-sync product-detail wishlist button state
+  if (typeof tammiaInitProductDetailWish === 'function') {
+    // Remove existing wish btn so it rebinds with new name
+    const oldBtn = document.querySelector('[data-pd-wish]');
+    if (oldBtn) oldBtn.remove();
+    tammiaInitProductDetailWish();
+  }
+
+  // Related products: same category, 4 cards
+  tammiaRenderRelatedProducts(product, allProducts);
+}
+
+function tammiaRenderRelatedProducts(product, allProducts) {
+  // Find the "Complete the Look" row by its row.g-4.reveal that's NOT featuredGrid
+  // We add an explicit hook: #relatedGrid -- if not present, fall back to first .row.g-4.reveal under "Complete the Look".
+  let related = document.getElementById('relatedGrid');
+  if (!related) {
+    // Look for a row that contains product-card cells outside our pd-info area
+    const candidates = document.querySelectorAll('section .row.g-4.reveal');
+    candidates.forEach(c => {
+      if (!related && c.querySelector('.product-card')) related = c;
+    });
+  }
+  if (!related) return;
+  const pool = (allProducts || []).filter(p => p.slug !== product.slug);
+  let pick = pool.filter(p => p.category === product.category);
+  if (pick.length < 4) {
+    const rest = pool.filter(p => p.category !== product.category);
+    pick = pick.concat(rest);
+  }
+  pick = pick.slice(0, 4);
+  related.innerHTML = pick.map(p => `
+    <div class="col-6 col-lg-3">${tammiaProductCardHtml(p)}</div>
+  `).join('');
+  if (window.tammiaBindProductQuickAddButtons) window.tammiaBindProductQuickAddButtons(related);
+  tammiaInjectProductHearts();
+}
 
 /* ============================================================
    TASK 4 — Cart page logic (localStorage-driven)
@@ -1791,7 +2150,7 @@ function tammiaInitCartPage() {
             </div>
           </td>
           <td>
-            <div style="font-family:'Fraunces',serif; font-weight:500; font-size:16px; ${priceColor}">${tammiaFormatPrice(it.price)}</div>
+            <div style="font-family:'Comfortaa',sans-serif; font-weight:500; font-size:16px; ${priceColor}">${tammiaFormatPrice(it.price)}</div>
             ${wasHtml}
           </td>
           <td>
@@ -1802,7 +2161,7 @@ function tammiaInitCartPage() {
             </div>
           </td>
           <td>
-            <div style="font-family:'Fraunces',serif; font-size:18px; font-weight:500;">${tammiaFormatPrice(it.price * it.qty)}</div>
+            <div style="font-family:'Comfortaa',sans-serif; font-size:18px; font-weight:500;">${tammiaFormatPrice(it.price * it.qty)}</div>
           </td>
           <td>
             <button class="cart-remove" type="button" aria-label="Hapus"><i class="bi bi-x-lg"></i></button>
@@ -1910,10 +2269,10 @@ function tammiaInitCartPage() {
       const headRow = progress.querySelector('.d-flex');
       if (headRow) {
         if (remaining <= 0) {
-          headRow.innerHTML = `<div><strong style="font-family:'Fraunces',serif; font-size:18px;">Yay! Kamu dapat gratis ongkir</strong> <span style="color:var(--muted); font-size:14px;">untuk pesanan ini.</span></div>
+          headRow.innerHTML = `<div><strong style="font-family:'Comfortaa',sans-serif; font-size:18px;">Yay! Kamu dapat gratis ongkir</strong> <span style="color:var(--muted); font-size:14px;">untuk pesanan ini.</span></div>
           <span class="mono-label">${tammiaFormatPrice(subtotal)} / ${tammiaFormatPrice(SHIPPING_FREE_THRESHOLD)}</span>`;
         } else {
-          headRow.innerHTML = `<div><strong style="font-family:'Fraunces',serif; font-size:18px;">Belanja ${tammiaFormatPrice(remaining)} lagi</strong> <span style="color:var(--muted); font-size:14px;">untuk gratis ongkir!</span></div>
+          headRow.innerHTML = `<div><strong style="font-family:'Comfortaa',sans-serif; font-size:18px;">Belanja ${tammiaFormatPrice(remaining)} lagi</strong> <span style="color:var(--muted); font-size:14px;">untuk gratis ongkir!</span></div>
           <span class="mono-label">${tammiaFormatPrice(subtotal)} / ${tammiaFormatPrice(SHIPPING_FREE_THRESHOLD)}</span>`;
         }
       }
@@ -1968,7 +2327,7 @@ function tammiaInitReviewSection() {
     </div>
 
     <div class="review-form-wrap" id="reviewFormWrap">
-      <h5 style="font-family:'Fraunces',serif; font-weight:400; font-size:20px; margin-bottom:6px;">Tulis ulasan kamu</h5>
+      <h5 style="font-family:'Comfortaa',sans-serif; font-weight:400; font-size:20px; margin-bottom:6px;">Tulis ulasan kamu</h5>
       <p style="color:var(--muted); font-size:13px; margin-bottom:14px;">Bantu beauty enthusiast lain dengan pengalamanmu.</p>
       <label>Rating Kamu</label>
       <div class="star-picker" data-picker>
@@ -2119,7 +2478,7 @@ function tammiaInitOrderSummaryCollapsible() {
   const toggleBtn = document.createElement('button');
   toggleBtn.type = 'button';
   toggleBtn.className = 'summary-toggle';
-  toggleBtn.innerHTML = `<span style="font-family:'Fraunces',serif; font-size:22px;">Ringkasan Pesanan</span><i class="bi bi-chevron-down chevron"></i>`;
+  toggleBtn.innerHTML = `<span style="font-family:'Comfortaa',sans-serif; font-size:22px;">Ringkasan Pesanan</span><i class="bi bi-chevron-down chevron"></i>`;
   const content = document.createElement('div');
   content.className = 'summary-content';
   original.forEach((el, i) => {
@@ -2233,13 +2592,13 @@ function tammiaInitNewsletterForm(form) {
         border-radius:14px; padding:18px 20px;">
         <div style="
           width:44px; height:44px; flex:0 0 44px; border-radius:50%;
-          background:${isFooter ? 'rgba(232,160,168,0.25)' : 'var(--pink-tint)'};
-          color:${isFooter ? '#f4c7cd' : 'var(--rouge)'};
+          background:${isFooter ? 'rgba(225,29,37,0.25)' : 'var(--pink-tint)'};
+          color:${isFooter ? '#e6cfa0' : 'var(--rouge)'};
           display:flex; align-items:center; justify-content:center;
           font-size:20px;
         "><i class="bi bi-check-lg"></i></div>
         <div style="flex:1; min-width:0;">
-          <div style="font-family:'Fraunces',serif; font-size:18px; line-height:1.2; color:${titleColor};">${title}</div>
+          <div style="font-family:'Comfortaa',sans-serif; font-size:18px; line-height:1.2; color:${titleColor};">${title}</div>
           <div style="font-size:13px; color:${bodyColor}; margin-top:4px;">${body}</div>
         </div>
         <button type="button" class="newsletter-close" style="
@@ -2290,6 +2649,8 @@ function tammiaSyncSupabaseSessionToLocal(session) {
     email: displayEmail,
     loggedIn: true,
     supabaseId: u.id,
+    isAdmin: meta.role === 'admin',
+    role: meta.role || null,
   });
 }
 
@@ -2359,7 +2720,7 @@ function tammiaInitOrdersPage() {
   list.querySelectorAll('[data-buy-again]').forEach(btn => {
     btn.addEventListener('click', () => {
       const name = btn.dataset.buyAgain;
-      const product = TAMMIA_PRODUCTS.find(p => p.name === name);
+      const product = (window.TAMMIA_PRODUCTS || []).find(p => p.name === name);
       if (!product) {
         tammiaToast('Produk tidak ditemukan di katalog.', 'bi-exclamation-triangle-fill');
         return;
@@ -2383,3 +2744,96 @@ function tammiaInitOrdersPage() {
   // Initial: show all
   applyFilter('all');
 }
+
+/* ============================================================
+   DEWY blob canvas background — Tammia brand tints
+   ============================================================ */
+(function () {
+  const canvas = document.getElementById('bg-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let bubbles = [];
+  const mouse = { x: -1000, y: -1000 };
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function pickColor() {
+    const palette = [
+      [240, 194, 196],  // blush
+      [230, 207, 160],  // light gold
+      [248, 241, 226],  // gold tint
+      [247, 222, 223],  // soft blush
+      [235, 138, 143]   // soft red
+    ];
+    return palette[Math.floor(Math.random() * palette.length)];
+  }
+
+  function createBubbles() {
+    const w = window.innerWidth, h = window.innerHeight;
+    const count = w < 768 ? 10 : 18;
+    bubbles = [];
+    for (let i = 0; i < count; i++) {
+      bubbles.push({
+        x: Math.random() * w,
+        y: Math.random() * h + h * 0.2,
+        r: 30 + Math.random() * 90,
+        vy: -(0.12 + Math.random() * 0.35),
+        vx: 0,
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.001 + Math.random() * 0.002,
+        amp: 0.3 + Math.random() * 0.7,
+        alpha: 0.18 + Math.random() * 0.35,
+        color: pickColor(),
+        pushX: 0, pushY: 0
+      });
+    }
+  }
+
+  function draw() {
+    const w = window.innerWidth, h = window.innerHeight;
+    if (canvas.width === 0 && w > 0) { resize(); createBubbles(); }
+    ctx.clearRect(0, 0, w, h);
+    bubbles.forEach(b => {
+      b.phase += b.speed * 16;
+      b.vx = Math.sin(b.phase) * b.amp;
+      const dx = b.x - mouse.x, dy = b.y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 200 && dist > 0) {
+        const force = (200 - dist) / 200;
+        b.pushX += (dx / dist) * force * 4;
+        b.pushY += (dy / dist) * force * 4;
+      }
+      b.pushX *= 0.92;
+      b.pushY *= 0.92;
+      b.x += b.vx + b.pushX;
+      b.y += b.vy + b.pushY;
+      if (b.y + b.r < 0) { b.y = h + b.r; b.x = Math.random() * w; }
+      if (b.x < -b.r) b.x = w + b.r;
+      if (b.x > w + b.r) b.x = -b.r;
+      const [r, g, bl] = b.color;
+      const grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+      grad.addColorStop(0, `rgba(${r},${g},${bl},${b.alpha})`);
+      grad.addColorStop(1, `rgba(${r},${g},${bl},0)`);
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    if (!reduced) requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); createBubbles(); });
+  window.addEventListener('load', () => { if (canvas.width === 0) { resize(); createBubbles(); } });
+  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  resize();
+  createBubbles();
+  draw();
+})();

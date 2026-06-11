@@ -9,10 +9,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<canvas id="bg-canvas"></canvas>
 
 <!-- Free shipping bar -->
 <div class="shipping-bar">
@@ -29,7 +30,7 @@
 <div class="nav-wrap">
   <div class="container">
     <div class="navbar-tammia">
-      <a href="index.html" class="brand-logo">tammia<span class="dot-online">.online</span></a>
+      <a href="index.html" class="brand-logo"><img src="assets/img/logos/tammia-red.png" alt="Tammia" class="brand-logo-img"><span class="dot-online">online</span></a>
       <nav>
         <ul class="nav-menu">
           <li><a href="shop.html">Shop</a></li>
@@ -60,7 +61,7 @@
     <div class="mono-label" style="color:var(--muted);">
       <a href="index.html" style="color:inherit;">Home</a> &nbsp;/&nbsp; <a href="cart.html" style="color:inherit;">Keranjang</a> &nbsp;/&nbsp; <span style="color:var(--rouge);">Checkout</span>
     </div>
-    <h1 style="font-family:'Fraunces',serif; font-size:clamp(2.2rem,4vw,3.2rem); font-weight:300; margin-top:14px; letter-spacing:-0.02em;">Selesaikan pembelian <em style="color:var(--rouge); font-style:italic;">kamu.</em></h1>
+    <h1 style="font-family:'Comfortaa',sans-serif; font-size:clamp(2.2rem,4vw,3.2rem); font-weight:300; margin-top:14px; letter-spacing:-0.02em;">Selesaikan pembelian <em style="color:var(--rouge); font-style:italic;">kamu.</em></h1>
   </div>
 </section>
 
@@ -95,7 +96,7 @@
         <div class="checkout-step" data-step="1">
           <div class="card-soft" style="padding: 40px;">
             <span class="section-eyebrow">Langkah 1 dari 4</span>
-            <h2 style="font-family:'Fraunces',serif; font-weight:400; font-size:28px; margin: 10px 0 8px;">Informasi Pengiriman</h2>
+            <h2 style="font-family:'Comfortaa',sans-serif; font-weight:400; font-size:28px; margin: 10px 0 8px;">Informasi Pengiriman</h2>
             <p style="color:var(--muted); font-size:14px; margin-bottom: 32px;">Pastikan alamat yang kamu isi sesuai KTP/identitas penerima.</p>
 
             <form class="checkout-form">
@@ -151,7 +152,7 @@
                   <input type="text" placeholder="Jl. Kemang Selatan Raya No. 24, RT 005/RW 03" required>
                 </div>
                 <div class="col-12">
-                  <label>Catatan untuk Kurir <span style="text-transform:none; letter-spacing:0; font-family:'Plus Jakarta Sans',sans-serif; font-weight:400;">(opsional)</span></label>
+                  <label>Catatan untuk Kurir <span style="text-transform:none; letter-spacing:0; font-family:'Poppins',sans-serif; font-weight:400;">(opsional)</span></label>
                   <textarea rows="3" placeholder="Misal: titip ke security, rumah cat hijau, dll."></textarea>
                 </div>
                 <div class="col-12">
@@ -173,7 +174,7 @@
         <div class="checkout-step" data-step="2" style="display:none;">
           <div class="card-soft" style="padding: 40px;">
             <span class="section-eyebrow">Langkah 2 dari 4</span>
-            <h2 style="font-family:'Fraunces',serif; font-weight:400; font-size:28px; margin: 10px 0 8px;">Pilih Kurir</h2>
+            <h2 style="font-family:'Comfortaa',sans-serif; font-weight:400; font-size:28px; margin: 10px 0 8px;">Pilih Kurir</h2>
             <p style="color:var(--muted); font-size:14px; margin-bottom: 32px;">Estimasi sampai ke alamat: <strong>Jakarta Selatan 12730</strong></p>
 
             <div data-option-group="shipping">
@@ -232,12 +233,12 @@
         <div class="checkout-step" data-step="3" style="display:none;">
           <div class="card-soft" style="padding: 40px;">
             <span class="section-eyebrow">Langkah 3 dari 4</span>
-            <h2 style="font-family:'Fraunces',serif; font-weight:400; font-size:28px; margin: 10px 0 8px;">Pilih Pembayaran</h2>
+            <h2 style="font-family:'Comfortaa',sans-serif; font-weight:400; font-size:28px; margin: 10px 0 8px;">Pilih Pembayaran</h2>
             <p style="color:var(--muted); font-size:14px; margin-bottom: 32px;">Semua pembayaran diproses lewat gateway terverifikasi BI.</p>
 
             <div data-option-group="payment">
               <div class="payment-group">
-                <h6>Transfer Bank <span style="color:var(--muted); text-transform:none; font-family:'Plus Jakarta Sans',sans-serif; letter-spacing:0; font-weight:400; font-size:13px; margin-left:8px;">(virtual account)</span></h6>
+                <h6>Transfer Bank <span style="color:var(--muted); text-transform:none; font-family:'Poppins',sans-serif; letter-spacing:0; font-weight:400; font-size:13px; margin-left:8px;">(virtual account)</span></h6>
                 <div class="payment-option selected" data-option-of="payment">
                   <div>
                     <span class="payment-wordmark"><em>BCA</em></span>
@@ -315,7 +316,7 @@
         <div class="checkout-step" data-step="4" style="display:none;">
           <div class="card-soft" style="padding: 40px;">
             <span class="section-eyebrow">Langkah 4 dari 4</span>
-            <h2 style="font-family:'Fraunces',serif; font-weight:400; font-size:28px; margin: 10px 0 8px;">Review Pesanan</h2>
+            <h2 style="font-family:'Comfortaa',sans-serif; font-weight:400; font-size:28px; margin: 10px 0 8px;">Review Pesanan</h2>
             <p style="color:var(--muted); font-size:14px; margin-bottom: 32px;">Cek detail pesanan sebelum konfirmasi.</p>
 
             <div style="border:1px solid var(--line); border-radius:14px; padding:24px; margin-bottom:20px;">
@@ -340,7 +341,7 @@
                 <div class="mono-label">Metode Pembayaran</div>
                 <button class="btn btn-sm btn-ghost" data-step-back="3">Ubah</button>
               </div>
-              <div style="margin-top:10px;"><strong style="font-family:'Fraunces',serif; font-style:italic; font-size:18px;">BCA</strong> Virtual Account</div>
+              <div style="margin-top:10px;"><strong style="font-family:'Comfortaa',sans-serif; font-style:italic; font-size:18px;">BCA</strong> Virtual Account</div>
             </div>
 
             <label style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--ink-soft); line-height:1.6;">
@@ -372,17 +373,17 @@
                 <div style="font-size:13px; font-weight:500; line-height:1.3;">Sonia Miller Travel Case</div>
                 <div class="mono-label" style="font-size:9px; margin-top:2px;">Qty 1 · Medium</div>
               </div>
-              <div style="font-family:'Fraunces',serif; font-size:13px; font-weight:500;">Rp 599.940</div>
+              <div style="font-family:'Comfortaa',sans-serif; font-size:13px; font-weight:500;">Rp 599.940</div>
             </div>
             <div class="drawer-item" style="grid-template-columns: 56px 1fr auto; padding: 12px 0;">
               <div class="drawer-item-img" style="width:56px; height:56px;">
-                <svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#e8a0a8"/></svg>
+                <svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#d3ac50"/></svg>
               </div>
               <div>
                 <div style="font-size:13px; font-weight:500; line-height:1.3;">Tammia 1310 Duo Brow Brush</div>
                 <div class="mono-label" style="font-size:9px; margin-top:2px;">Qty 1 · Original</div>
               </div>
-              <div style="font-family:'Fraunces',serif; font-size:13px; font-weight:500;">Rp 95.310</div>
+              <div style="font-family:'Comfortaa',sans-serif; font-size:13px; font-weight:500;">Rp 95.310</div>
             </div>
             <div class="drawer-item" style="grid-template-columns: 56px 1fr auto; padding: 12px 0; border-bottom:none;">
               <div class="drawer-item-img" style="width:56px; height:56px;">
@@ -392,7 +393,7 @@
                 <div style="font-size:13px; font-weight:500; line-height:1.3;">D-UP Lash Focus K-POP</div>
                 <div class="mono-label" style="font-size:9px; margin-top:2px;">Qty 1 · Single</div>
               </div>
-              <div style="font-family:'Fraunces',serif; font-size:13px; font-weight:500;">Rp 249.900</div>
+              <div style="font-family:'Comfortaa',sans-serif; font-size:13px; font-weight:500;">Rp 249.900</div>
             </div>
           </div>
 
@@ -425,7 +426,7 @@
 
           <div style="text-align:center; margin-top: 18px;">
             <div class="mono-label">Pembayaran Aman</div>
-            <div style="font-family:'Fraunces',serif; font-style:italic; font-size:14px; color:var(--muted); display:flex; gap:10px; justify-content:center; margin-top:8px; flex-wrap:wrap;">
+            <div style="font-family:'Comfortaa',sans-serif; font-style:italic; font-size:14px; color:var(--muted); display:flex; gap:10px; justify-content:center; margin-top:8px; flex-wrap:wrap;">
               <span>BCA</span><span>·</span><span>Mandiri</span><span>·</span><span>QRIS</span><span>·</span><span>GoPay</span><span>·</span><span>OVO</span>
             </div>
           </div>
@@ -440,7 +441,7 @@
   <div class="container">
     <div class="row g-5">
       <div class="col-lg-4">
-        <a href="index.html" class="brand-logo">tammia<span class="dot-online">.online</span></a>
+        <a href="index.html" class="brand-logo"><img src="assets/img/logos/tammia-white.png" alt="Tammia" class="brand-logo-img"><span class="dot-online">online</span></a>
         <p style="color:#999; font-size:14px; max-width:320px; margin-top:12px;">Premium beauty tools retailer Indonesia. Membawa brand internasional terpercaya untuk MUA profesional dan beauty enthusiast.</p>
         <div class="footer-social">
           <a href="#"><i class="bi bi-instagram"></i></a>
@@ -502,7 +503,7 @@
       <div class="qty-stepper"><button class="qty-minus">−</button><input type="text" value="1" readonly><button class="qty-plus">+</button></div>
     </div>
     <div class="drawer-item">
-      <div class="drawer-item-img"><svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#e8a0a8"/></svg></div>
+      <div class="drawer-item-img"><svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#d3ac50"/></svg></div>
       <div>
         <div class="drawer-item-name">Tammia 1310 Duo Brow Brush</div>
         <div class="drawer-item-brand">Tammia</div>

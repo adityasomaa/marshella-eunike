@@ -5,3 +5,17 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.log
+
+.vercel
+
+# client/project working files (not for publication)
+*.pdf
+*.zip
+LOGOS/
+qr.png
+invoice_generate.py
+invoice_dp_generate.py
+workplan_generate.py
+logo_process.py
+rebrand_apply.py
+.claude/

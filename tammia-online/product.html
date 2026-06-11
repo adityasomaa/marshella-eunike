@@ -9,10 +9,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<canvas id="bg-canvas"></canvas>
 
 <!-- Free shipping bar -->
 <div class="shipping-bar">
@@ -30,7 +31,7 @@
 <div class="nav-wrap">
   <div class="container">
     <div class="navbar-tammia">
-      <a href="index.html" class="brand-logo">tammia<span class="dot-online">.online</span></a>
+      <a href="index.html" class="brand-logo"><img src="assets/img/logos/tammia-red.png" alt="Tammia" class="brand-logo-img"><span class="dot-online">online</span></a>
       <nav>
         <ul class="nav-menu">
           <li><a href="shop.html" class="active">Shop</a></li>
@@ -75,25 +76,25 @@
         <div class="pd-gallery">
           <div class="pd-thumbs">
             <div class="pd-thumb active">
-              <svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="4" fill="#1a1a1a"/><rect x="24" y="34" width="52" height="42" rx="3" fill="#fdeef0"/><rect x="38" y="22" width="24" height="12" rx="3" fill="#1a1a1a"/></svg>
+              <svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="4" fill="#1a1a1a"/><rect x="24" y="34" width="52" height="42" rx="3" fill="#f8f1e2"/><rect x="38" y="22" width="24" height="12" rx="3" fill="#1a1a1a"/></svg>
             </div>
             <div class="pd-thumb">
-              <svg viewBox="0 0 100 100"><rect x="14" y="36" width="72" height="46" rx="6" fill="#e8a0a8"/><rect x="20" y="42" width="60" height="34" rx="4" fill="#fdeef0"/></svg>
+              <svg viewBox="0 0 100 100"><rect x="14" y="36" width="72" height="46" rx="6" fill="#d3ac50"/><rect x="20" y="42" width="60" height="34" rx="4" fill="#f8f1e2"/></svg>
             </div>
             <div class="pd-thumb">
-              <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="34" fill="#f4d4c4"/><rect x="40" y="30" width="20" height="40" rx="3" fill="#1a1a1a"/></svg>
+              <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="34" fill="#f0c2c4"/><rect x="40" y="30" width="20" height="40" rx="3" fill="#1a1a1a"/></svg>
             </div>
             <div class="pd-thumb">
               <svg viewBox="0 0 100 100"><rect x="28" y="40" width="44" height="50" rx="4" fill="#1a1a1a"/><path d="M28,40 L50,18 L72,40 Z" fill="#1a1a1a"/></svg>
             </div>
             <div class="pd-thumb">
-              <svg viewBox="0 0 100 100"><rect x="24" y="34" width="52" height="48" rx="4" fill="#c8553d"/><rect x="30" y="40" width="40" height="36" rx="2" fill="#fff" opacity="0.4"/></svg>
+              <svg viewBox="0 0 100 100"><rect x="24" y="34" width="52" height="48" rx="4" fill="#e11d25"/><rect x="30" y="40" width="40" height="36" rx="2" fill="#fff" opacity="0.4"/></svg>
             </div>
           </div>
           <div class="pd-main">
             <svg viewBox="0 0 100 100">
               <rect x="20" y="30" width="60" height="50" rx="4" fill="#1a1a1a"/>
-              <rect x="24" y="34" width="52" height="42" rx="3" fill="#fdeef0"/>
+              <rect x="24" y="34" width="52" height="42" rx="3" fill="#f8f1e2"/>
               <rect x="38" y="22" width="24" height="12" rx="3" fill="#1a1a1a"/>
             </svg>
           </div>
@@ -184,7 +185,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="pd-tab-content" data-tab="desc">
-          <h3 style="font-family:'Fraunces',serif; font-weight:400; font-size:24px;">Travel-ready beauty case dengan kompartemen transparan.</h3>
+          <h3 style="font-family:'Comfortaa',sans-serif; font-weight:400; font-size:24px;">Travel-ready beauty case dengan kompartemen transparan.</h3>
           <p style="color:var(--muted); line-height:1.8;">Sonia Miller Transparent Travel Case Pouch dirancang khusus untuk MUA profesional dan traveler yang butuh organisasi maksimal. Dengan kompartemen transparan yang memudahkan inspeksi airport, material PVC tebal yang tahan air, dan zipper YKK yang awet, pouch ini jadi pilihan tepat untuk membawa brush, sponge, sampai lipstick favorit kamu.</p>
 
           <ul style="list-style:none; padding:0; margin: 20px 0; font-size:14px;">
@@ -200,7 +201,7 @@
         </div>
 
         <div class="pd-tab-content" data-tab="howto" style="display:none;">
-          <h3 style="font-family:'Fraunces',serif; font-weight:400; font-size:24px;">Tips merawat travel case</h3>
+          <h3 style="font-family:'Comfortaa',sans-serif; font-weight:400; font-size:24px;">Tips merawat travel case</h3>
           <ol style="padding-left: 20px; line-height:1.9; color:var(--ink-soft);">
             <li>Lap bagian dalam dengan kain microfiber lembap setiap 2 minggu untuk mencegah residu makeup menempel.</li>
             <li>Hindari menyimpan brush basah di dalam case, keringkan dulu minimal 6 jam.</li>
@@ -213,7 +214,7 @@
         <div class="pd-tab-content" data-tab="review" style="display:none;">
           <div class="d-flex justify-content-between align-items-end mb-4">
             <div>
-              <h3 style="font-family:'Fraunces',serif; font-weight:400; font-size:48px; margin:0; line-height:1;">4.9<span style="font-size:20px; color:var(--muted);">/5</span></h3>
+              <h3 style="font-family:'Comfortaa',sans-serif; font-weight:400; font-size:48px; margin:0; line-height:1;">4.9<span style="font-size:20px; color:var(--muted);">/5</span></h3>
               <div class="stars" style="color:#e8b04a; font-size:18px;">★★★★★</div>
               <div class="mono-label" style="margin-top:6px;">124 verified reviews</div>
             </div>
@@ -260,7 +261,7 @@
         </div>
 
         <div class="pd-tab-content" data-tab="ship" style="display:none;">
-          <h3 style="font-family:'Fraunces',serif; font-weight:400; font-size:24px;">Pengiriman &amp; Garansi</h3>
+          <h3 style="font-family:'Comfortaa',sans-serif; font-weight:400; font-size:24px;">Pengiriman &amp; Garansi</h3>
           <p style="color:var(--muted); line-height:1.8;">Kami kirim dari warehouse Jakarta &amp; Bali. Pesanan sebelum jam 14:00 WIB dikirim hari yang sama.</p>
           <ul style="padding-left:20px; color:var(--ink-soft); line-height:1.9;">
             <li><strong>JNE REG</strong> - 2-4 hari kerja, mulai Rp 18.000</li>
@@ -276,7 +277,7 @@
       <div class="col-lg-4">
         <div class="card-soft" style="position:sticky; top:120px;">
           <div class="mono-label">Beauty Advisor</div>
-          <h5 style="font-family:'Fraunces',serif; font-weight:400; font-size:22px; margin-top:10px;">Butuh saran sebelum order?</h5>
+          <h5 style="font-family:'Comfortaa',sans-serif; font-weight:400; font-size:22px; margin-top:10px;">Butuh saran sebelum order?</h5>
           <p style="color:var(--muted); font-size:14px;">Tim kami siap bantu pilih ukuran, warna, atau bundel produk lain. Chat langsung di WhatsApp.</p>
           <a href="#" class="btn btn-outline-ink" style="width:100%; justify-content:center;"><i class="bi bi-whatsapp"></i> Chat Beauty Advisor</a>
           <div class="divider-thin" style="margin: 24px 0;"></div>
@@ -303,11 +304,11 @@
       <a href="shop.html" class="btn btn-ghost">Lihat Semua <i class="bi bi-arrow-right"></i></a>
     </div>
 
-    <div class="row g-4 reveal">
-      <div class="col-6 col-lg-3">
+    <div class="row g-4 reveal" id="relatedGrid">
+      <div class="col-6 col-lg-3" data-placeholder>
         <a href="product.html" class="product-card d-block text-decoration-none">
           <div class="product-img">
-            <svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><rect x="52" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#e8a0a8"/><ellipse cx="55" cy="76" rx="9" ry="18" fill="#e8a0a8"/></svg>
+            <svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><rect x="52" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#d3ac50"/><ellipse cx="55" cy="76" rx="9" ry="18" fill="#d3ac50"/></svg>
             <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
           </div>
           <span class="product-brand">Tammia</span>
@@ -318,7 +319,7 @@
       <div class="col-6 col-lg-3">
         <a href="product.html" class="product-card d-block text-decoration-none">
           <div class="product-img">
-            <svg viewBox="0 0 100 100"><path d="M30,40 C20,40 12,52 14,66 C16,80 26,86 38,86 C46,86 50,80 50,72 C50,64 46,58 38,54 C32,52 30,46 30,40 Z" fill="#f4d4c4"/><path d="M62,30 C52,30 44,42 46,56 C48,70 58,76 70,76 C78,76 82,70 82,62 C82,54 78,48 70,44 C64,42 62,36 62,30 Z" fill="#f4d4c4"/></svg>
+            <svg viewBox="0 0 100 100"><path d="M30,40 C20,40 12,52 14,66 C16,80 26,86 38,86 C46,86 50,80 50,72 C50,64 46,58 38,54 C32,52 30,46 30,40 Z" fill="#f0c2c4"/><path d="M62,30 C52,30 44,42 46,56 C48,70 58,76 70,76 C78,76 82,70 82,62 C82,54 78,48 70,44 C64,42 62,36 62,30 Z" fill="#f0c2c4"/></svg>
             <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
           </div>
           <span class="product-brand">Tammia</span>
@@ -329,7 +330,7 @@
       <div class="col-6 col-lg-3">
         <a href="product.html" class="product-card d-block text-decoration-none">
           <div class="product-img">
-            <svg viewBox="0 0 100 100"><path d="M40,12 L48,80 L52,80 L60,12 L56,10 L50,72 L44,10 Z" fill="#1a1a1a"/><circle cx="50" cy="86" r="6" fill="#e8a0a8"/></svg>
+            <svg viewBox="0 0 100 100"><path d="M40,12 L48,80 L52,80 L60,12 L56,10 L50,72 L44,10 Z" fill="#1a1a1a"/><circle cx="50" cy="86" r="6" fill="#d3ac50"/></svg>
             <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
           </div>
           <span class="product-brand">Tweezerman</span>
@@ -340,7 +341,7 @@
       <div class="col-6 col-lg-3">
         <a href="product.html" class="product-card d-block text-decoration-none">
           <div class="product-img">
-            <svg viewBox="0 0 100 100"><g><rect x="20" y="20" width="4" height="48" rx="2" fill="#c8553d"/><rect x="32" y="14" width="4" height="54" rx="2" fill="#c8553d"/><rect x="44" y="10" width="4" height="58" rx="2" fill="#c8553d"/><rect x="56" y="14" width="4" height="54" rx="2" fill="#c8553d"/><rect x="68" y="20" width="4" height="48" rx="2" fill="#c8553d"/><ellipse cx="46" cy="80" rx="7" ry="14" fill="#1a1a1a"/></g></svg>
+            <svg viewBox="0 0 100 100"><g><rect x="20" y="20" width="4" height="48" rx="2" fill="#e11d25"/><rect x="32" y="14" width="4" height="54" rx="2" fill="#e11d25"/><rect x="44" y="10" width="4" height="58" rx="2" fill="#e11d25"/><rect x="56" y="14" width="4" height="54" rx="2" fill="#e11d25"/><rect x="68" y="20" width="4" height="48" rx="2" fill="#e11d25"/><ellipse cx="46" cy="80" rx="7" ry="14" fill="#1a1a1a"/></g></svg>
             <button class="product-quick" data-open-cart><i class="bi bi-plus"></i></button>
           </div>
           <span class="product-brand">Tammia</span>
@@ -357,7 +358,7 @@
   <div class="container">
     <div class="row g-5">
       <div class="col-lg-4">
-        <a href="index.html" class="brand-logo">tammia<span class="dot-online">.online</span></a>
+        <a href="index.html" class="brand-logo"><img src="assets/img/logos/tammia-white.png" alt="Tammia" class="brand-logo-img"><span class="dot-online">online</span></a>
         <p style="color:#999; font-size:14px; max-width:320px; margin-top:12px;">Premium beauty tools retailer Indonesia. Membawa brand internasional terpercaya untuk MUA profesional dan beauty enthusiast.</p>
         <div class="footer-social">
           <a href="#"><i class="bi bi-instagram"></i></a>
@@ -419,7 +420,7 @@
       <div class="qty-stepper"><button class="qty-minus">−</button><input type="text" value="1" readonly><button class="qty-plus">+</button></div>
     </div>
     <div class="drawer-item">
-      <div class="drawer-item-img"><svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#e8a0a8"/></svg></div>
+      <div class="drawer-item-img"><svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#d3ac50"/></svg></div>
       <div>
         <div class="drawer-item-name">Tammia 1310 Duo Brow Brush</div>
         <div class="drawer-item-brand">Tammia</div>
