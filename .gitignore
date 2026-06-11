@@ -11,7 +11,7 @@ Thumbs.db
 # client/project working files (not for publication)
 *.pdf
 *.zip
-LOGOS/
+/LOGOS/
 qr.png
 invoice_generate.py
 invoice_dp_generate.py
