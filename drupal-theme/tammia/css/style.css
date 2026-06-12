@@ -261,7 +261,7 @@ h1 { font-weight: 600; }
 }
 .hero-title {
   font-family: 'Comfortaa', sans-serif;
-  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-size: clamp(2.5rem, 5vw, 4.6rem);
   font-weight: 300;
   line-height: 1.02;
   letter-spacing: -0.025em;
@@ -3771,6 +3771,52 @@ input.form-control[type="search"], .nav-search input {
 
 /* Section blocks breathe over blob canvas */
 .bg-paper { background: transparent; }
+
+/* ---------- Revisi 12 Jun: card padding, flash panel responsive ---------- */
+.product-card {
+  background: var(--card);
+  padding: 12px 12px 18px;
+  box-shadow: var(--shadow-card);
+}
+.product-card .product-img { border-radius: calc(var(--r-lg) - 8px); }
+.product-card .product-brand { margin-top: 14px; }
+.product-card .product-brand,
+.product-card .product-name,
+.product-card .product-price-row,
+.product-card .product-rating { padding: 0 6px; }
+
+.flash-panel {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2b2b2b 100%);
+  color: #fff;
+  border-radius: 24px;
+  padding: 56px 56px;
+  position: relative;
+  overflow: hidden;
+}
+.cd-box {
+  background: #fff;
+  color: var(--ink);
+  border-radius: 14px;
+  padding: 18px 10px;
+  text-align: center;
+}
+.cd-num {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: clamp(26px, 3.4vw, 44px);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--rouge);
+}
+.cd-label { margin-top: 8px; }
+@media (max-width: 991px) {
+  .flash-panel { padding: 36px 28px; border-radius: 20px; }
+}
+@media (max-width: 575px) {
+  .flash-panel { padding: 28px 20px; }
+  .cd-box { padding: 12px 6px; border-radius: 12px; }
+  .cd-num { font-size: 24px; }
+  .cd-label { font-size: 9px; letter-spacing: 0.1em; margin-top: 5px; }
+}
 
 /* ============================================================
    DRUPAL OVERRIDES — map core/Commerce markup to Tammia skin
