@@ -10,6 +10,16 @@ window.TAMMIA_PRODUCTS = [];
 window.TAMMIA_PRODUCTS_READY = new Promise(resolve => { window._resolveProducts = resolve; });
 let TAMMIA_PRODUCTS = window.TAMMIA_PRODUCTS; // local mutable alias used by older code
 
+
+/* Real product photos scraped from d11.tammiaonline.com (others stay SVG until
+   full catalog photos arrive from client). Keyed by product slug. */
+const TAMMIA_LOCAL_IMAGES = {
+  'sonia-miller-transparent-travel-case-pouch': 'assets/img/products/sonia-miller-transparent-travel-case-pouch.jpg',
+  'tammia-professional-1310-deluxe-duo-brow-brush': 'assets/img/products/tammia-professional-1310-deluxe-duo-brow-brush.jpg',
+  'tammia-professional-pcus52-cushion-sponge': 'assets/img/products/tammia-professional-pcus52-cushion-sponge.jpg',
+  'd-up-lash-focus-eyelash-k-pop-idol': 'assets/img/products/d-up-lash-focus-eyelash-k-pop-idol.jpg',
+};
+
 async function tammiaLoadProducts() {
   if (!window.tammiaSupabase) {
     console.warn('Supabase client not initialised. Products will be empty.');
@@ -32,7 +42,7 @@ async function tammiaLoadProducts() {
       price: p.price,
       was: p.was_price || undefined,
       svg: p.svg_type || 'brush',
-      image_url: p.image_url || null,
+      image_url: p.image_url || TAMMIA_LOCAL_IMAGES[p.slug] || null,
       rating: parseFloat(p.rating) || 4.5,
       reviewCount: p.review_count || 0,
       stock: p.stock,

@@ -19,3 +19,5 @@ workplan_generate.py
 logo_process.py
 rebrand_apply.py
 .claude/
+scraped-d11/
+scrape_images*.py
