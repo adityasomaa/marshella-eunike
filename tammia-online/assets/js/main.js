@@ -40,7 +40,7 @@ async function tammiaLoadProducts() {
       brand: p.brand,
       category: p.category,
       price: p.price,
-      was: p.was_price || undefined,
+      was: undefined, // diskon dinonaktifkan (request klien 12 Jun 2026)
       svg: p.svg_type || 'brush',
       image_url: p.image_url || TAMMIA_LOCAL_IMAGES[p.slug] || null,
       rating: parseFloat(p.rating) || 4.5,
@@ -309,7 +309,11 @@ function tammiaSaveUser(user) {
 
 /* ---------- Cart storage + helpers (localStorage-backed) ---------- */
 function getCart() {
-  try { return JSON.parse(localStorage.getItem('tammia_cart') || '[]'); }
+  try {
+    const arr = JSON.parse(localStorage.getItem('tammia_cart') || '[]');
+    arr.forEach(i => { if (i.was) i.was = null; }); // diskon dinonaktifkan
+    return arr;
+  }
   catch (e) { return []; }
 }
 function setCart(arr) {
@@ -1889,6 +1893,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- TASK 4: Cart page interactions ---------- */
   tammiaInitCartPage();
+  tammiaInitCheckoutPage();
+  tammiaInitBuyNowButtons();
 
   /* ---------- TASK 5: Orders page (orders.html) ---------- */
   tammiaInitOrdersPage();
@@ -2297,6 +2303,195 @@ function tammiaInitCartPage() {
   document.addEventListener('tammia:cart-changed', renderRows);
 
   renderRows();
+}
+
+/* ============================================================
+   Checkout page — ringkasan real + buy-now vs cart mode
+   ============================================================ */
+function tammiaGetBuyNowItem() {
+  try { return JSON.parse(sessionStorage.getItem('tammia_buynow') || 'null'); }
+  catch (e) { return null; }
+}
+
+function tammiaInitBuyNowButtons() {
+  document.querySelectorAll('[data-pd-buy-now]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const info = document.querySelector('.pd-info');
+      if (!info) return; // fallback: checkout mode cart
+      const qtyInput = info.querySelector('.qty-stepper input');
+      const h1 = info.querySelector('h1');
+      const item = {
+        name: info.dataset.productName || (h1 ? h1.textContent.trim() : 'Produk'),
+        brand: info.dataset.productBrand || '',
+        price: parseInt(info.dataset.productPrice, 10) || 0,
+        qty: parseInt(qtyInput ? qtyInput.value : '1', 10) || 1,
+        svg: info.dataset.productSvg || 'brush',
+      };
+      sessionStorage.setItem('tammia_buynow', JSON.stringify(item));
+      // anchor href sudah menuju checkout.html?mode=buynow
+    });
+  });
+}
+
+function tammiaInitCheckoutPage() {
+  const itemsEl = document.getElementById('checkoutItems');
+  if (!itemsEl) return;
+
+  const FREE_THRESHOLD = 150000;
+  const params = new URLSearchParams(window.location.search);
+  const buyNow = params.get('mode') === 'buynow' && !!tammiaGetBuyNowItem();
+  if (params.get('mode') !== 'buynow') sessionStorage.removeItem('tammia_buynow');
+
+  let shipName = 'JNE REG';
+  let shipCost = 18000;
+
+  function getItems() {
+    if (buyNow) {
+      const it = tammiaGetBuyNowItem();
+      return it ? [it] : [];
+    }
+    return getCart();
+  }
+  function subtotal() {
+    return getItems().reduce((sum, it) => sum + (parseInt(it.price, 10) || 0) * (parseInt(it.qty, 10) || 1), 0);
+  }
+  function isFreeShip() {
+    return subtotal() >= FREE_THRESHOLD && /JNE REG/i.test(shipName);
+  }
+  function effectiveShip() {
+    const sub = subtotal();
+    if (sub === 0) return 0;
+    return isFreeShip() ? 0 : shipCost;
+  }
+  function itemThumb(it) {
+    const prod = (window.TAMMIA_PRODUCTS || []).find(p => p.name === it.name);
+    if (prod && prod.image_url) {
+      return '<img src="' + prod.image_url + '" alt="" loading="lazy" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;">';
+    }
+    return tammiaSearchSvg(it.svg || 'brush');
+  }
+  function setEl(id, html) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+  }
+
+  function render() {
+    const items = getItems();
+    if (items.length === 0) {
+      itemsEl.innerHTML = '<div style="text-align:center; padding:18px 0; color:var(--muted); font-size:14px;">' +
+        'Belum ada produk untuk di-checkout.<br>' +
+        '<a href="shop.html" style="color:var(--rouge); font-weight:600;">Belanja dulu <i class="bi bi-arrow-right"></i></a></div>';
+    } else {
+      itemsEl.innerHTML = items.map((it, i) => {
+        const line = (parseInt(it.price, 10) || 0) * (parseInt(it.qty, 10) || 1);
+        return '<div class="drawer-item" style="grid-template-columns:56px 1fr auto; padding:12px 0; ' +
+          (i === items.length - 1 ? 'border-bottom:none;' : '') + '">' +
+          '<div class="drawer-item-img" style="width:56px; height:56px;">' + itemThumb(it) + '</div>' +
+          '<div><div style="font-size:13px; font-weight:500; line-height:1.3;">' + it.name + '</div>' +
+          '<div class="mono-label" style="font-size:9px; margin-top:2px;">Qty ' + it.qty + (buyNow ? ' · Beli Langsung' : '') + '</div></div>' +
+          '<div style="font-family:\'Comfortaa\',sans-serif; font-size:13px; font-weight:500;">' + tammiaFormatPrice(line) + '</div></div>';
+      }).join('');
+    }
+    recalc();
+  }
+
+  function recalc() {
+    const sub = subtotal();
+    const ship = effectiveShip();
+    setEl('coSubtotal', tammiaFormatPrice(sub));
+    setEl('coShipLabel', 'Ongkir (' + shipName + ')');
+    setEl('coShipVal', ship === 0 && sub > 0
+      ? '<i class="bi bi-check-circle-fill" style="color:#2d9b5e;"></i> Gratis'
+      : tammiaFormatPrice(ship));
+    setEl('coTotal', tammiaFormatPrice(sub + ship));
+  }
+
+  function syncReview() {
+    const form = document.querySelector('.checkout-form');
+    if (form) {
+      const ins = form.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], textarea');
+      const v = i => (ins[i] && ins[i].value.trim()) || '';
+      // urutan: 0 nama, 1 wa, 2 email, 3 provinsi, 4 kota, 5 kecamatan, 6 kodepos, 7 alamat
+      if (v(0)) setEl('rvName', v(0));
+      if (v(7)) {
+        const wilayah = [v(5), v(4), v(3)].filter(Boolean).join(', ');
+        setEl('rvAddr', [v(1), v(7), (wilayah + ' ' + v(6)).trim()].filter(Boolean).join('<br>'));
+      }
+    }
+    setEl('rvCourier', '<strong>' + shipName + '</strong>' + (isFreeShip()
+      ? ' · <span style="color:#2d7548; font-weight:600;">GRATIS</span>'
+      : ' · ' + tammiaFormatPrice(shipCost)));
+    const paySel = document.querySelector('.payment-option.selected .payment-wordmark');
+    if (paySel) {
+      setEl('rvPayment', '<strong style="font-family:\'Comfortaa\',sans-serif; font-size:18px;">' + paySel.textContent.trim() + '</strong>');
+    }
+  }
+
+  function readShipOption(opt) {
+    const c = opt.querySelector('.courier');
+    shipName = (c ? c.textContent : 'Kurir').trim();
+    const pr = opt.querySelector('.price');
+    const m = (pr ? pr.textContent : '').match(/(\d[\d.]*)/);
+    shipCost = m ? parseInt(m[1].replace(/\./g, ''), 10) : 0;
+  }
+  const selectedShip = document.querySelector('.shipping-option.selected');
+  if (selectedShip) readShipOption(selectedShip);
+  document.querySelectorAll('.shipping-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      readShipOption(opt);
+      recalc();
+      syncReview();
+    });
+  });
+  document.querySelectorAll('.payment-option').forEach(opt => {
+    opt.addEventListener('click', () => setTimeout(syncReview, 30));
+  });
+  document.querySelectorAll('[data-step-next]').forEach(b => {
+    b.addEventListener('click', () => setTimeout(syncReview, 30));
+  });
+
+  const payBtn = document.getElementById('payNowBtn');
+  if (payBtn) payBtn.addEventListener('click', () => {
+    const items = getItems();
+    if (items.length === 0) {
+      tammiaConfirm({
+        title: 'Belum Ada Produk',
+        message: 'Keranjang checkout kamu kosong. Yuk belanja dulu.',
+        confirmText: 'Ke Toko',
+        cancelText: 'Tutup',
+        onConfirm: () => { window.location.href = 'shop.html'; },
+      });
+      return;
+    }
+    const sub = subtotal();
+    const ship = effectiveShip();
+    let orders = [];
+    try { orders = JSON.parse(localStorage.getItem('tammia_orders') || '[]'); } catch (e) {}
+    orders.unshift({
+      id: 'TM-' + Date.now().toString(36).toUpperCase(),
+      date: new Date().toISOString(),
+      items: items,
+      subtotal: sub,
+      shipping: ship,
+      total: sub + ship,
+      courier: shipName,
+    });
+    localStorage.setItem('tammia_orders', JSON.stringify(orders));
+    if (buyNow) sessionStorage.removeItem('tammia_buynow');
+    else setCart([]);
+    tammiaConfirm({
+      title: 'Pesanan Berhasil Dibuat!',
+      message: 'Terima kasih! Pesanan kamu sedang diproses. (Demo checkout, belum ada pembayaran sungguhan.)',
+      confirmText: 'Lihat Pesanan',
+      cancelText: 'Ke Beranda',
+      onConfirm: () => { window.location.href = 'orders.html'; },
+      onCancel: () => { window.location.href = 'index.html'; },
+    });
+  });
+
+  render();
+  tammiaProductsReady().then(render); // re-render thumbs setelah foto produk siap
+  document.addEventListener('tammia:cart-changed', render);
 }
 
 /* ============================================================

@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=20260612">
+<link rel="stylesheet" href="assets/css/style.css?v=20260612b">
 </head>
 <body>
 <canvas id="bg-canvas"></canvas>
@@ -115,33 +115,15 @@
                 </div>
                 <div class="col-md-4">
                   <label>Provinsi</label>
-                  <select class="custom-select-source custom-select-full">
-                    <option>DKI Jakarta</option>
-                    <option>Jawa Barat</option>
-                    <option>Jawa Tengah</option>
-                    <option>Jawa Timur</option>
-                    <option>Bali</option>
-                    <option>Sumatera Utara</option>
-                  </select>
+                  <input type="text" placeholder="DKI Jakarta" required>
                 </div>
                 <div class="col-md-4">
                   <label>Kota / Kabupaten</label>
-                  <select class="custom-select-source custom-select-full">
-                    <option>Jakarta Selatan</option>
-                    <option>Jakarta Pusat</option>
-                    <option>Jakarta Barat</option>
-                    <option>Jakarta Timur</option>
-                    <option>Jakarta Utara</option>
-                  </select>
+                  <input type="text" placeholder="Jakarta Selatan" required>
                 </div>
                 <div class="col-md-4">
                   <label>Kecamatan</label>
-                  <select class="custom-select-source custom-select-full">
-                    <option>Kemang</option>
-                    <option>Cilandak</option>
-                    <option>Kebayoran Baru</option>
-                    <option>Mampang Prapatan</option>
-                  </select>
+                  <input type="text" placeholder="Mampang Prapatan" required>
                 </div>
                 <div class="col-md-4">
                   <label>Kode Pos</label>
@@ -324,8 +306,8 @@
                 <div class="mono-label">Alamat Pengiriman</div>
                 <button class="btn btn-sm btn-ghost" data-step-back="1">Ubah</button>
               </div>
-              <div style="margin-top:10px; font-weight:500;">Marshella Eunike</div>
-              <div style="color:var(--muted); font-size:14px; line-height:1.6;">+62 812 xxxx xxxx<br>Jl. Kemang Selatan Raya No. 24, RT 005/RW 03<br>Kemang, Mampang Prapatan, Jakarta Selatan 12730</div>
+              <div style="margin-top:10px; font-weight:500;" id="rvName">Nama penerima</div>
+              <div style="color:var(--muted); font-size:14px; line-height:1.6;" id="rvAddr">Alamat akan tampil setelah diisi di langkah 1.</div>
             </div>
 
             <div style="border:1px solid var(--line); border-radius:14px; padding:24px; margin-bottom:20px;">
@@ -333,7 +315,7 @@
                 <div class="mono-label">Kurir</div>
                 <button class="btn btn-sm btn-ghost" data-step-back="2">Ubah</button>
               </div>
-              <div style="margin-top:10px;"><strong>JNE REG</strong> · Estimasi 12-14 Juni 2026 · <span style="color:#2d7548; font-weight:600;">GRATIS</span></div>
+              <div style="margin-top:10px;" id="rvCourier"><strong>JNE REG</strong></div>
             </div>
 
             <div style="border:1px solid var(--line); border-radius:14px; padding:24px; margin-bottom:24px;">
@@ -341,7 +323,7 @@
                 <div class="mono-label">Metode Pembayaran</div>
                 <button class="btn btn-sm btn-ghost" data-step-back="3">Ubah</button>
               </div>
-              <div style="margin-top:10px;"><strong style="font-family:'Comfortaa',sans-serif; font-style:italic; font-size:18px;">BCA</strong> Virtual Account</div>
+              <div style="margin-top:10px;" id="rvPayment"><strong style="font-family:'Comfortaa',sans-serif; font-size:18px;">BCA</strong></div>
             </div>
 
             <label style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--ink-soft); line-height:1.6;">
@@ -351,7 +333,7 @@
 
             <div class="d-flex justify-content-between gap-3 mt-4 flex-wrap">
               <button class="btn btn-ghost" data-step-back="3"><i class="bi bi-arrow-left"></i> Kembali</button>
-              <button class="btn btn-peach btn-lg" onclick="alert('Demo: Order berhasil!'); return false;">Bayar Sekarang <i class="bi bi-shield-check"></i></button>
+              <button class="btn btn-peach btn-lg" type="button" id="payNowBtn">Bayar Sekarang <i class="bi bi-shield-check"></i></button>
             </div>
           </div>
         </div>
@@ -363,60 +345,20 @@
         <div class="order-summary">
           <h5>Ringkasan Pesanan</h5>
 
-          <!-- Mini items -->
-          <div style="margin-bottom:20px;">
-            <div class="drawer-item" style="grid-template-columns: 56px 1fr auto; padding: 12px 0;">
-              <div class="drawer-item-img" style="width:56px; height:56px;">
-                <svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="4" fill="#1a1a1a"/></svg>
-              </div>
-              <div>
-                <div style="font-size:13px; font-weight:500; line-height:1.3;">Sonia Miller Travel Case</div>
-                <div class="mono-label" style="font-size:9px; margin-top:2px;">Qty 1 · Medium</div>
-              </div>
-              <div style="font-family:'Comfortaa',sans-serif; font-size:13px; font-weight:500;">Rp 599.940</div>
-            </div>
-            <div class="drawer-item" style="grid-template-columns: 56px 1fr auto; padding: 12px 0;">
-              <div class="drawer-item-img" style="width:56px; height:56px;">
-                <svg viewBox="0 0 100 100"><rect x="42" y="10" width="6" height="50" rx="2" fill="#1a1a1a"/><ellipse cx="45" cy="76" rx="9" ry="18" fill="#d3ac50"/></svg>
-              </div>
-              <div>
-                <div style="font-size:13px; font-weight:500; line-height:1.3;">Tammia 1310 Duo Brow Brush</div>
-                <div class="mono-label" style="font-size:9px; margin-top:2px;">Qty 1 · Original</div>
-              </div>
-              <div style="font-family:'Comfortaa',sans-serif; font-size:13px; font-weight:500;">Rp 95.310</div>
-            </div>
-            <div class="drawer-item" style="grid-template-columns: 56px 1fr auto; padding: 12px 0; border-bottom:none;">
-              <div class="drawer-item-img" style="width:56px; height:56px;">
-                <svg viewBox="0 0 140 60"><path d="M10,40 Q70,52 130,40" stroke="#1a1a1a" stroke-width="2.5" fill="none"/></svg>
-              </div>
-              <div>
-                <div style="font-size:13px; font-weight:500; line-height:1.3;">D-UP Lash Focus K-POP</div>
-                <div class="mono-label" style="font-size:9px; margin-top:2px;">Qty 1 · Single</div>
-              </div>
-              <div style="font-family:'Comfortaa',sans-serif; font-size:13px; font-weight:500;">Rp 249.900</div>
-            </div>
-          </div>
+          <div id="checkoutItems" style="margin-bottom:20px;"></div>
 
           <div class="summary-row">
             <span>Subtotal</span>
-            <span>Rp 1.355.050</span>
+            <span id="coSubtotal">Rp 0</span>
           </div>
           <div class="summary-row">
-            <span>Diskon Produk</span>
-            <span style="color:var(--rouge);">−Rp 410.560</span>
-          </div>
-          <div class="summary-row">
-            <span>Promo (TAMMIAOFF)</span>
-            <span style="color:var(--rouge);">−Rp 50.000</span>
-          </div>
-          <div class="summary-row">
-            <span>Ongkir (JNE REG)</span>
-            <span><i class="bi bi-check-circle-fill" style="color:#2d9b5e;"></i> Gratis</span>
+            <span id="coShipLabel">Ongkir (JNE REG)</span>
+            <span id="coShipVal">Rp 0</span>
           </div>
 
           <div class="summary-row total">
             <span>Total Bayar</span>
-            <span>Rp 894.490</span>
+            <span id="coTotal">Rp 0</span>
           </div>
 
           <div style="background:#dcf5e3; color:#2d7548; padding:14px; border-radius:10px; margin-top:18px; font-size:13px; display:flex; gap:10px; align-items:center;">
@@ -471,7 +413,7 @@
       </div>
       <div class="col-lg-4">
         <h6>Newsletter</h6>
-        <p style="color:#999; font-size:14px;">Subscribe untuk dapat 10% diskon dan info Friday Flash Sale.</p>
+        <p style="color:#999; font-size:14px;">Subscribe untuk info produk baru dan tips beauty tools.</p>
         <form class="footer-newsletter" style="display:flex; gap:8px; margin-top:14px;">
           <input type="email" placeholder="email@kamu.com" style="flex:1; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:12px 16px; color:#fff; font-family:inherit; font-size:14px;">
           <button type="submit" class="btn btn-peach btn-sm">Join</button>
@@ -534,7 +476,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="assets/js/supabase-config.js?v=20260612"></script>
-<script src="assets/js/main.js?v=20260612"></script>
+<script src="assets/js/supabase-config.js?v=20260612b"></script>
+<script src="assets/js/main.js?v=20260612b"></script>
 </body>
 </html>
