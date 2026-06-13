@@ -31,6 +31,148 @@ const TAMMIA_LOCAL_IMAGES = {
   'tammia-pro-contour-brush-1245-angled': 'assets/img/products/tammia-pro-contour-brush-1245-angled.jpg',
 };
 
+
+/* ============================================================
+   Reviews per-produk (maks 10) — pool per kategori, deterministik
+   ============================================================ */
+const TAMMIA_REVIEW_PEOPLE = [
+  ['Fitri R.', 'Surabaya'], ['Adelia P.', 'Jakarta'], ['Mawar S.', 'Bandung'],
+  ['Nadia K.', 'Tangerang'], ['Sari W.', 'Bekasi'], ['Putri A.', 'Depok'],
+  ['Citra L.', 'Yogyakarta'], ['Rani M.', 'Semarang'], ['Vina H.', 'Medan'],
+  ['Dewi S.', 'Bali'], ['Indah P.', 'Malang'], ['Lia F.', 'Bogor'],
+  ['Karina D.', 'Jakarta'], ['Tasya R.', 'Surabaya'], ['Bella N.', 'Makassar'],
+  ['Gita P.', 'Palembang'], ['Maya S.', 'Solo'], ['Rina W.', 'Bandung'],
+  ['Sinta A.', 'Jakarta'], ['Olivia T.', 'Tangerang'], ['Hana K.', 'Bekasi'],
+  ['Zahra M.', 'Depok'], ['Cindy L.', 'Jakarta'], ['Aulia R.', 'Surabaya'],
+];
+
+const TAMMIA_REVIEW_POOL = {
+  'Makeup Brushes': [
+    { r: 5, h: 'Bulu halus, nggak rontok', b: 'Kuasnya lembut banget di kulit, blending jadi gampang dan hasilnya flawless. Udah cuci beberapa kali bulunya tetap rapi, nggak rontok sama sekali.', photo: 1, days: 6 },
+    { r: 5, h: 'Worth banget buat MUA', b: 'Aku MUA freelance dan ini jadi andalan di kit. Pegangannya enak, nggak bikin pegel pas job panjang. Kualitas premium tapi harga masih masuk akal.', photo: 1, days: 12 },
+    { r: 5, h: 'Hasil makeup makin rapi', b: 'Sejak pakai brush ini makeup aku jadi jauh lebih rapi, apalagi buat bagian detail. Pengiriman dari Tammia juga cepet dan dipacking aman.', photo: 0, days: 19 },
+    { r: 4, h: 'Bagus, cuma agak besar', b: 'Kualitas oke banget, bulunya padat. Cuma buat aku yang muka kecil head-nya agak gede, jadi harus hati-hati pas aplikasi. Overall puas.', photo: 0, days: 27 },
+    { r: 5, h: 'Repeat order ke-3', b: 'Ini pembelian ketiga aku, nggak pernah kecewa. Bulunya soft, gampang dibersihkan, dan awet. Recommended buat yang baru mulai belajar makeup.', photo: 0, days: 34 },
+    { r: 5, h: 'Premium feel', b: 'Berasa kaya brush high-end tapi harganya jauh lebih ramah. Finishing-nya rapi, nggak ada bulu yang lepas pas pertama dipakai.', photo: 1, days: 41 },
+    { r: 4, h: 'Sesuai ekspektasi', b: 'Sesuai sama foto dan deskripsi. Nyaman dipakai harian. Bintang 4 karena packaging luarnya agak penyok pas sampai, tapi produknya aman.', photo: 0, days: 52 },
+    { r: 5, h: 'Pemula friendly', b: 'Baru belajar makeup dan brush ini ngebantu banget. Aplikasi foundation jadi lebih merata. CS Tammia juga ramah pas aku tanya-tanya.', photo: 0, days: 63 },
+    { r: 5, h: 'Soft dan gampang dicuci', b: 'Teksturnya lembut, dicuci pakai sabun bayi langsung bersih dan cepet kering. Nggak bau apek. Suka banget!', photo: 1, days: 78 },
+    { r: 5, h: 'Kualitas konsisten', b: 'Beli buat restock kit, kualitasnya tetap konsisten kaya yang lama. Brand lokal favorit aku buat tools.', photo: 0, days: 95 },
+  ],
+  'Makeup Sponges': [
+    { r: 5, h: 'Nggak nyerap foundation', b: 'Sponge-nya empuk dan yang penting nggak rakus nyerap foundation. Hasil akhir natural, nyatu sama kulit. Udah dipakai berkali-kali masih bagus.', photo: 1, days: 5 },
+    { r: 5, h: 'Mengembang sempurna', b: 'Pas dibasahin langsung mengembang gede dan empuk. Blending jadi cepet dan hasilnya dewy. Bakal repeat order lagi.', photo: 1, days: 11 },
+    { r: 5, h: 'Hasil flawless', b: 'Buat aplikasi cushion sama foundation hasilnya flawless banget, nggak cakey. Worth the price, apalagi dapet lebih dari satu.', photo: 0, days: 18 },
+    { r: 4, h: 'Bagus tapi cepet kotor', b: 'Kualitas oke, empuk dan nyaman. Cuma emang harus rajin dicuci karena cepet keliatan kotor. Tapi itu wajar sih buat sponge.', photo: 0, days: 26 },
+    { r: 5, h: 'Lembut di kulit', b: 'Teksturnya lembut banget, nggak bikin iritasi di kulit sensitif aku. Bagus buat naburin bedak juga. Suka!', photo: 0, days: 33 },
+    { r: 5, h: 'Pas buat sehari-hari', b: 'Dipakai harian dan awet. Gampang dibersihin, cepet kering. Harga terjangkau buat kualitas segini.', photo: 1, days: 44 },
+    { r: 5, h: 'Repurchase terus', b: 'Udah langganan beli sponge di sini. Konsisten bagus, nggak gampang sobek. Pengiriman juga rapi.', photo: 0, days: 58 },
+    { r: 4, h: 'Oke buat harga segini', b: 'Lumayan banget buat harganya. Empuk dan ngebantu blending. Minus dikit karena agak cepet mengecil setelah sering dicuci.', photo: 0, days: 71 },
+    { r: 5, h: 'Dewy finish', b: 'Hasilnya selalu dewy dan nyatu. Nggak ninggalin garis. Favorit aku banget buat daily makeup.', photo: 1, days: 89 },
+  ],
+  'Eyelash': [
+    { r: 5, h: 'Natural banget', b: 'Bulu matanya tipis dan natural, cocok buat daily look. Tulang lashnya lentur jadi nyaman dipakai dan gampang nempel. Suka banget!', photo: 1, days: 7 },
+    { r: 5, h: 'Ringan di mata', b: 'Hampir nggak kerasa pas dipakai, ringan banget. Bentuknya cantik bikin mata keliatan lebih hidup. Bisa dipakai ulang juga.', photo: 1, days: 14 },
+    { r: 5, h: 'Reusable dan awet', b: 'Udah dipakai beberapa kali masih bagus bentuknya, asal hati-hati lepasnya. Worth it banget buat harganya.', photo: 0, days: 21 },
+    { r: 4, h: 'Cantik tapi agak panjang', b: 'Bentuknya bagus, cuma buat mata aku agak kepanjangan jadi mesti digunting dikit. Selebihnya nyaman dan natural.', photo: 0, days: 29 },
+    { r: 5, h: 'Cocok buat pemula', b: 'Pertama kali pakai bulu mata palsu dan ini gampang banget nempelnya. Nggak kaku, hasilnya natural. Recommended!', photo: 0, days: 38 },
+    { r: 5, h: 'Ala Korean look', b: 'Hasilnya persis kaya idol Korea, natural tapi tetap bikin mata pop. Bahannya lembut, nggak bikin perih.', photo: 1, days: 49 },
+    { r: 5, h: 'Repeat buyer', b: 'Ini beli lagi karena udah cocok. Bentuk konsisten, packaging rapi, sampai dalam kondisi mulus.', photo: 0, days: 64 },
+    { r: 4, h: 'Bagus, lem nyusul', b: 'Lashnya bagus dan natural. Cuma di paketan ini lemnya tipis jadi aku pakai lem terpisah. Tetap puas kok.', photo: 0, days: 82 },
+  ],
+  'Eyelash Glue': [
+    { r: 5, h: 'Nempel kuat seharian', b: 'Lemnya nempel kuat dari pagi sampai malam, bulu mata nggak lepas walau kena keringat. Pas kering jadi clear, nggak keliatan.', photo: 1, days: 8 },
+    { r: 5, h: 'Clear dan nggak iritasi', b: 'Setelah kering bener-bener bening, jadi rapi banget. Nggak bikin mata perih atau merah. Aplikatornya juga gampang.', photo: 0, days: 16 },
+    { r: 5, h: 'Cepet kering', b: 'Daya rekatnya cepet, jadi nggak perlu nunggu lama buat nempelin lash. Tahan lama dan gampang dibersihin pas mau dilepas.', photo: 0, days: 24 },
+    { r: 4, h: 'Bagus tapi kecil', b: 'Kualitas lem oke banget, tahan seharian. Cuma ukurannya agak kecil jadi cepet habis kalau sering pakai. Worth buat dicoba.', photo: 0, days: 35 },
+    { r: 5, h: 'Andalan buat MUA', b: 'Aku pakai buat klien dan nggak pernah ngecewain. Rekat kuat, aman di kulit sensitif. Bakal restock terus.', photo: 1, days: 47 },
+    { r: 5, h: 'Tahan walau berkeringat', b: 'Dipakai seharian di acara outdoor, bulu mata tetap nempel sempurna. Impressed banget sama dayanya.', photo: 0, days: 61 },
+  ],
+  'Tweezers': [
+    { r: 5, h: 'Jepitannya presisi', b: 'Ujungnya ketemu sempurna, jadi bulu sehalus apapun kejepit. Stainless-nya kokoh dan nggak licin pas dipegang. Best tweezer aku.', photo: 1, days: 6 },
+    { r: 5, h: 'Tajam dan akurat', b: 'Buat rapihin alis jadi gampang banget, sekali jepit langsung kena. Bahannya berkualitas, kerasa awet. Recommended!', photo: 0, days: 13 },
+    { r: 5, h: 'Worth setiap rupiah', b: 'Awalnya ragu sama harganya, tapi pas dipakai langsung paham kenapa worth. Presisi banget, beda jauh sama tweezer murahan.', photo: 0, days: 22 },
+    { r: 4, h: 'Bagus, ujung tajam', b: 'Kualitas mantap, jepitannya akurat. Cuma karena ujungnya tajam banget mesti hati-hati nyimpannya. Overall puas.', photo: 0, days: 31 },
+    { r: 5, h: 'Enteng dan nyaman', b: 'Ringan dipegang, nyaman buat detail. Cocok juga buat aplikasi bulu mata palsu. Packaging aman sampai rumah.', photo: 1, days: 43 },
+    { r: 5, h: 'Premium quality', b: 'Kerasa banget kualitas premiumnya, beda sama yang biasa. Pegasnya pas, nggak terlalu keras. Suka!', photo: 0, days: 57 },
+    { r: 5, h: 'Pas buat alis', b: 'Cabut alis jadi rapi dan cepet. Genggamannya pas, nggak licin. Bakal jadi andalan di pouch aku.', photo: 0, days: 74 },
+  ],
+  'Beauty Cases': [
+    { r: 5, h: 'Muat banyak banget', b: 'Pouchnya luas, semua brush kit aku muat plus masih ada space buat sponge sama lipstick. Materialnya tebal, kelihatan awet.', photo: 1, days: 5 },
+    { r: 5, h: 'Perfect buat travel', b: 'Pakai buat mobile job, gampang cek isi tanpa buka semua zipper karena transparan. Resleting halus, packaging rapi. Repeat fix.', photo: 1, days: 12 },
+    { r: 4, h: 'Bagus, ukuran pas-pasan', b: 'Kualitas oke, cuma menurut aku size M agak kecil kalau bawa brush set lengkap. Next mau coba size L. Overall puas.', photo: 1, days: 20 },
+    { r: 5, h: 'Transparan praktis', b: 'Suka banget karena transparan jadi gampang nyari barang. Bahannya kokoh, nggak gampang penyok. Worth banget.', photo: 0, days: 28 },
+    { r: 5, h: 'Awet dan rapi', b: 'Udah dipakai beberapa bulan, zipper masih lancar dan nggak ada yang sobek. Kualitas jauh di atas harganya.', photo: 0, days: 39 },
+    { r: 5, h: 'Premium look', b: 'Tampilannya premium, nggak murahan. Kompartemennya banyak jadi semua tertata rapi. Senang banget.', photo: 1, days: 53 },
+    { r: 4, h: 'Sesuai foto', b: 'Sesuai sama foto dan deskripsi. Praktis dibawa kemana-mana. Bintang 4 karena baunya agak menyengat pas baru dibuka, tapi hilang sendiri.', photo: 0, days: 68 },
+  ],
+  'Nail Care': [
+    { r: 5, h: 'Hasil kuku halus', b: 'Buat ngehalusin permukaan kuku jadi gampang banget, hasilnya mulus. Materialnya berkualitas, nggak cepet aus. Suka!', photo: 1, days: 7 },
+    { r: 5, h: 'Praktis dan awet', b: 'Ringan, gampang dipakai, dan awet. Kuku jadi rapi tanpa harus ke salon. Worth buat dirawat di rumah.', photo: 0, days: 15 },
+    { r: 5, h: 'Rapi banget', b: 'Hasil akhirnya rapi dan bersih, nggak bikin kuku rusak. Pengiriman cepet dan dipacking aman. Recommended.', photo: 0, days: 23 },
+    { r: 4, h: 'Oke buat harga', b: 'Lumayan banget buat harganya. Berfungsi sesuai ekspektasi. Minus dikit karena packaging sederhana, tapi produknya bagus.', photo: 0, days: 34 },
+    { r: 5, h: 'Wajib punya', b: 'Salah satu tools yang wajib ada di rumah. Gampang dipakai dan hasilnya memuaskan. Bakal repeat.', photo: 1, days: 48 },
+    { r: 5, h: 'Berkualitas', b: 'Kerasa kokoh dan berkualitas. Nggak gampang rusak walau sering dipakai. Senang nemu produk sebagus ini.', photo: 0, days: 66 },
+  ],
+  'Hair Tools': [
+    { r: 5, h: 'Rambut nggak kusut lagi', b: 'Nyisir rambut basah jadi nggak sakit dan nggak rontok. Kusutnya kebuka pelan-pelan tanpa narik. Game changer buat rambut panjang aku.', photo: 1, days: 6 },
+    { r: 5, h: 'Lembut di kulit kepala', b: 'Bristle-nya lembut, nyaman di kulit kepala, nggak bikin perih. Rambut jadi lebih rapi dan berkilau. Suka banget!', photo: 1, days: 14 },
+    { r: 5, h: 'Praktis dibawa', b: 'Ukurannya pas buat dimasukin tas, jadi bisa rapihin rambut kapan aja. Kualitasnya bagus, gigi sisirnya kuat.', photo: 0, days: 22 },
+    { r: 4, h: 'Bagus, warna beda dikit', b: 'Fungsinya mantap, rambut jadi gampang diatur. Warnanya agak beda sama foto tapi nggak masalah. Tetap puas.', photo: 0, days: 30 },
+    { r: 5, h: 'Cocok rambut tebal', b: 'Rambut aku tebal dan sering kusut, sejak pakai ini jadi gampang banget diatur. Nggak ada rambut patah. Recommended.', photo: 0, days: 42 },
+    { r: 5, h: 'Awet dan kokoh', b: 'Udah dipakai lama, gigi sisirnya masih kuat semua, nggak ada yang patah. Worth banget buat harganya.', photo: 1, days: 59 },
+  ],
+  'Bath Accessories': [
+    { r: 5, h: 'Praktis banget', b: 'Ngebantu banget buat kebutuhan sehari-hari, gampang dipakai dan hasilnya rapi. Kualitasnya bagus buat harganya.', photo: 0, days: 9 },
+    { r: 5, h: 'Sesuai ekspektasi', b: 'Sesuai sama deskripsi, berfungsi dengan baik. Pengiriman cepet dan dipacking rapi. Puas belanja di Tammia.', photo: 0, days: 18 },
+    { r: 4, h: 'Lumayan oke', b: 'Berfungsi sesuai kebutuhan. Materialnya lumayan. Minus dikit di packaging, tapi produknya aman sampai rumah.', photo: 0, days: 29 },
+    { r: 5, h: 'Wajib punya', b: 'Salah satu item yang ngebantu banget di rumah. Gampang dipakai, awet. Recommended buat dicoba.', photo: 1, days: 45 },
+    { r: 5, h: 'Kualitas bagus', b: 'Kerasa kokoh dan berkualitas, nggak gampang rusak. Senang nemu produk sepraktis ini di Tammia.', photo: 0, days: 63 },
+  ],
+};
+
+function tammiaReviewHash(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) { h = (h * 31 + str.charCodeAt(i)) | 0; }
+  return Math.abs(h);
+}
+
+function tammiaSeededOrder(seed, total) {
+  const arr = Array.from({ length: total }, (_, i) => i);
+  let s = seed || 1;
+  for (let i = total - 1; i > 0; i--) {
+    s = (s * 9301 + 49297) % 233280;
+    const j = s % (i + 1);
+    const t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+  }
+  return arr;
+}
+
+/* Hasilkan daftar review stabil & relevan untuk satu produk (maks 10). */
+function tammiaReviewsForProduct(product) {
+  const pool = TAMMIA_REVIEW_POOL[product.category] || TAMMIA_REVIEW_POOL['Makeup Brushes'];
+  const seed = tammiaReviewHash(product.slug || product.name || 'x');
+  const count = Math.min(pool.length, 10, 5 + (seed % 6)); // 5..10
+  const order = tammiaSeededOrder(seed, pool.length);
+  const people = tammiaSeededOrder(seed + 7, TAMMIA_REVIEW_PEOPLE.length);
+  const out = [];
+  for (let i = 0; i < count; i++) {
+    const t = pool[order[i]];
+    const who = TAMMIA_REVIEW_PEOPLE[people[i % TAMMIA_REVIEW_PEOPLE.length]];
+    out.push({
+      name: who[0], city: who[1], rating: t.r, headline: t.h,
+      body: t.b, photo: t.photo, days: t.days,
+    });
+  }
+  return out;
+}
+
+function tammiaReviewDateLabel(days) {
+  const d = new Date(Date.now() - days * 86400000);
+  const bln = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+  return `${d.getDate()} ${bln[d.getMonth()]} ${d.getFullYear()}`;
+}
+
 async function tammiaLoadProducts() {
   if (!window.tammiaSupabase) {
     console.warn('Supabase client not initialised. Products will be empty.');
@@ -62,6 +204,13 @@ async function tammiaLoadProducts() {
       description: p.description || '',
       created_at: p.created_at,
     }));
+    // Sinkronkan rating + jumlah review dengan dataset review per-produk (maks 10)
+    mapped.forEach(p => {
+      const rv = tammiaReviewsForProduct(p);
+      p._reviews = rv;
+      p.reviewCount = rv.length;
+      p.rating = rv.length ? Math.round((rv.reduce((a, r) => a + r.rating, 0) / rv.length) * 10) / 10 : p.rating;
+    });
     window.TAMMIA_PRODUCTS = mapped;
     TAMMIA_PRODUCTS = mapped;
     window._resolveProducts(mapped);
@@ -1910,8 +2059,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- TASK 5: Orders page (orders.html) ---------- */
   tammiaInitOrdersPage();
 
-  /* ---------- TASK 7: Reviews on product page ---------- */
-  tammiaInitReviewSection();
+  /* ---------- TASK 7: Reviews dirender per-produk via tammiaRenderProductDetail ---------- */
 
   /* ---------- TASK 8: Checkout summary collapsible on mobile ---------- */
   tammiaInitOrderSummaryCollapsible();
@@ -2090,6 +2238,9 @@ function tammiaRenderProductDetail(product, allProducts) {
     if (oldBtn) oldBtn.remove();
     tammiaInitProductDetailWish();
   }
+
+  // Reviews per-produk
+  tammiaRenderProductReviews(product);
 
   // Related products: same category, 4 cards
   tammiaRenderRelatedProducts(product, allProducts);
@@ -2506,40 +2657,80 @@ function tammiaInitCheckoutPage() {
 }
 
 /* ============================================================
-   TASK 7 — Review section enhancements
+   TASK 7 — Reviews per-produk (render dari product._reviews)
    ============================================================ */
-function tammiaInitReviewSection() {
-  const tabContent = document.querySelector('.pd-tab-content[data-tab="review"]');
-  if (!tabContent) return;
-  // If we've already enhanced this, skip
-  if (tabContent.dataset.enhanced === '1') return;
-  tabContent.dataset.enhanced = '1';
+function tammiaStarsHtml(rating, size) {
+  const full = Math.round(rating);
+  let out = '';
+  for (let i = 1; i <= 5; i++) {
+    out += i <= full ? '★' : '<span style="color:var(--line);">★</span>';
+  }
+  const sz = size ? ` style="color:#e8b04a; font-size:${size};"` : ' style="color:#e8b04a;"';
+  return `<span class="stars"${sz}>${out}</span>`;
+}
 
-  // Build new content
-  tabContent.innerHTML = `
+function tammiaRenderProductReviews(product) {
+  const tab = document.querySelector('.pd-tab-content[data-tab="review"]');
+  if (!tab) return;
+  const reviews = (product && product._reviews) ? product._reviews.slice()
+    : tammiaReviewsForProduct(product || { category: 'Makeup Brushes', slug: 'x' });
+
+  const count = reviews.length;
+  const avg = count ? Math.round((reviews.reduce((a, r) => a + r.rating, 0) / count) * 10) / 10 : 0;
+  const dist = [0, 0, 0, 0, 0]; // index 0 = bintang 1
+  reviews.forEach(r => { dist[r.rating - 1]++; });
+  const pct = n => count ? Math.round((n / count) * 100) : 0;
+  const withPhoto = reviews.filter(r => r.photo).length;
+
+  // Update label tab + rating row
+  const tabBtn = document.querySelector('.pd-tab[data-tab="review"]');
+  if (tabBtn) tabBtn.textContent = `Reviews (${count})`;
+
+  const INITIAL = 3;
+
+  function cardHtml(r) {
+    const photoHtml = r.photo
+      ? `<div class="review-photo-row"><span class="review-photo-chip"><i class="bi bi-camera-fill"></i> Foto pembeli</span></div>`
+      : '';
+    return `
+      <div class="review-card polished" data-review-rating="${r.rating}" data-review-photo="${r.photo ? 1 : 0}" data-review-verified="1">
+        <div class="review-head">
+          <div class="testimonial-avatar">${(r.name || '?').charAt(0)}</div>
+          <div style="flex:1;">
+            <strong style="font-size:14px;">${r.name}</strong>
+            <span class="verified-pill"><i class="bi bi-patch-check-fill"></i> Verified</span>
+            <div class="mono-label" style="font-size:9px; margin-top:2px;">Pembelian Terverifikasi</div>
+          </div>
+          ${tammiaStarsHtml(r.rating)}
+        </div>
+        <h4 class="review-headline">${r.headline}</h4>
+        <p class="review-body">${r.body}</p>
+        ${photoHtml}
+        <div class="review-footer">${r.city} · ${tammiaReviewDateLabel(r.days)}</div>
+      </div>`;
+  }
+
+  const barsHtml = [5, 4, 3, 2, 1].map(star => {
+    const n = dist[star - 1];
+    return `<div class="review-bar-row"><span class="star-num">${star}★</span><div class="track"><div class="fill" style="width:${pct(n)}%"></div></div><span class="pct">${pct(n)}%</span></div>`;
+  }).join('');
+
+  tab.innerHTML = `
     <div class="review-summary">
       <div>
-        <div class="big-rating">4.9<sub>/5</sub></div>
-        <div class="stars-row">★★★★★</div>
-        <div class="meta">124 verified reviews</div>
+        <div class="big-rating">${avg.toFixed(1)}<sub>/5</sub></div>
+        <div class="stars-row">${tammiaStarsHtml(avg)}</div>
+        <div class="meta">${count} ulasan terverifikasi</div>
       </div>
-      <div class="review-bars">
-        <div class="review-bar-row"><span class="star-num">5★</span><div class="track"><div class="fill" style="width:87%"></div></div><span class="pct">87%</span></div>
-        <div class="review-bar-row"><span class="star-num">4★</span><div class="track"><div class="fill" style="width:10%"></div></div><span class="pct">10%</span></div>
-        <div class="review-bar-row"><span class="star-num">3★</span><div class="track"><div class="fill" style="width:2%"></div></div><span class="pct">2%</span></div>
-        <div class="review-bar-row"><span class="star-num">2★</span><div class="track"><div class="fill" style="width:1%"></div></div><span class="pct">1%</span></div>
-        <div class="review-bar-row"><span class="star-num">1★</span><div class="track"><div class="fill" style="width:0%"></div></div><span class="pct">0%</span></div>
-      </div>
+      <div class="review-bars">${barsHtml}</div>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3" style="margin-bottom:18px;">
-      <div class="review-filter-row" id="reviewFilterRow">
-        <button class="review-filter-btn active" data-rfilter="all">Semua</button>
-        <button class="review-filter-btn" data-rfilter="5star">Berbintang 5</button>
-        <button class="review-filter-btn" data-rfilter="photo">Dengan Foto</button>
-        <button class="review-filter-btn" data-rfilter="verified">Terverifikasi</button>
-      </div>
-      <button class="btn btn-peach btn-sm" id="openReviewForm"><i class="bi bi-pencil"></i> Tulis Review</button>
+    <div class="review-filter-row" id="reviewFilterRow">
+      <button class="review-filter-btn active" data-rfilter="all">Semua (${count})</button>
+      <button class="review-filter-btn" data-rfilter="5star">Bintang 5 (${dist[4]})</button>
+      <button class="review-filter-btn" data-rfilter="photo">Dengan Foto (${withPhoto})</button>
+      <button class="review-filter-btn" data-rfilter="verified">Terverifikasi (${count})</button>
+      <button class="btn btn-peach btn-sm ms-auto" id="openReviewForm"><i class="bi bi-pencil"></i> Tulis Review</button>
     </div>
 
     <div class="review-form-wrap" id="reviewFormWrap">
@@ -2547,113 +2738,91 @@ function tammiaInitReviewSection() {
       <p style="color:var(--muted); font-size:13px; margin-bottom:14px;">Bantu beauty enthusiast lain dengan pengalamanmu.</p>
       <label>Rating Kamu</label>
       <div class="star-picker" data-picker>
-        <span class="star" data-star="1">★</span>
-        <span class="star" data-star="2">★</span>
-        <span class="star" data-star="3">★</span>
-        <span class="star" data-star="4">★</span>
-        <span class="star" data-star="5">★</span>
+        <span class="star" data-star="1">★</span><span class="star" data-star="2">★</span><span class="star" data-star="3">★</span><span class="star" data-star="4">★</span><span class="star" data-star="5">★</span>
       </div>
       <label>Nama</label>
-      <input type="text" placeholder="Marshella E.">
+      <input type="text" id="rvFormName" placeholder="Marshella E.">
       <label>Headline Review</label>
-      <input type="text" placeholder="Worth banget!">
+      <input type="text" id="rvFormHeadline" placeholder="Worth banget!">
       <label>Ulasan Lengkap</label>
-      <textarea placeholder="Ceritakan pengalaman kamu..."></textarea>
-      <label>Foto Produk (opsional)</label>
-      <div class="upload-zone"><i class="bi bi-image"></i> Tap atau drag foto di sini · maks 5 foto</div>
+      <textarea id="rvFormBody" placeholder="Ceritakan pengalaman kamu..."></textarea>
       <button type="button" class="btn btn-peach" id="submitReview">Kirim Review</button>
     </div>
 
     <div id="reviewList">
-      <div class="review-card polished" data-review-rating="5" data-review-photo="1" data-review-verified="1">
-        <div class="review-head">
-          <div class="testimonial-avatar">F</div>
-          <div style="flex:1;">
-            <strong style="font-size:14px;">Fitri R.</strong>
-            <span class="verified-pill"><i class="bi bi-patch-check-fill"></i> Verified</span>
-            <div class="mono-label" style="font-size:9px; margin-top:2px;">Pembelian Terverifikasi</div>
-          </div>
-          <div class="stars" style="color:#e8b04a;">★★★★★</div>
-        </div>
-        <h4 class="review-headline">Worth banget pas sale!</h4>
-        <p class="review-body">Pouchnya super luas, semua brush kit aku muat plus masih ada space untuk sponge dan lipstick. PVC-nya tebel banget, kelihatan awet. Repacking dari Tammia juga rapi banget, sampai dalam kondisi sempurna.</p>
-        <div class="review-footer">Surabaya · 12 Mei 2026</div>
-      </div>
-
-      <div class="review-card polished" data-review-rating="5" data-review-photo="0" data-review-verified="1">
-        <div class="review-head">
-          <div class="testimonial-avatar">A</div>
-          <div style="flex:1;">
-            <strong style="font-size:14px;">Adelia P.</strong>
-            <span class="verified-pill"><i class="bi bi-patch-check-fill"></i> Verified</span>
-            <div class="mono-label" style="font-size:9px; margin-top:2px;">Pembelian Terverifikasi</div>
-          </div>
-          <div class="stars" style="color:#e8b04a;">★★★★★</div>
-        </div>
-        <h4 class="review-headline">Perfect untuk wedding job mobile</h4>
-        <p class="review-body">Pakai buat wedding job mobile, gampang banget cek isi tanpa buka semua zipper karena transparan. Resleting halus, packaging dari Tammia juga rapi. Repeat buyer fix.</p>
-        <div class="review-footer">Jakarta · 28 April 2026</div>
-      </div>
-
-      <div class="review-card polished" data-review-rating="4" data-review-photo="1" data-review-verified="1">
-        <div class="review-head">
-          <div class="testimonial-avatar">M</div>
-          <div style="flex:1;">
-            <strong style="font-size:14px;">Mawar S.</strong>
-            <span class="verified-pill"><i class="bi bi-patch-check-fill"></i> Verified</span>
-            <div class="mono-label" style="font-size:9px; margin-top:2px;">Pembelian Terverifikasi</div>
-          </div>
-          <div class="stars" style="color:#e8b04a;">★★★★<span style="color:var(--line);">★</span></div>
-        </div>
-        <h4 class="review-headline">Kualitas oke, ukuran sedikit kecil</h4>
-        <p class="review-body">Kualitas oke, cuma menurut aku ukuran M agak kekecilan kalau bawa brush set lengkap. Next time mau coba size L. Tapi overall puas, harga sale juga ramah.</p>
-        <div class="review-footer">Bandung · 14 April 2026</div>
-      </div>
+      ${reviews.map((r, i) => `<div class="review-item-wrap" data-extra="${i >= INITIAL ? 1 : 0}" ${i >= INITIAL ? 'style="display:none;"' : ''}>${cardHtml(r)}</div>`).join('')}
     </div>
 
-    <div style="text-align:center; padding: 28px 0 0;">
-      <a href="#" style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--rouge);">Lihat semua 124 review <i class="bi bi-arrow-right"></i></a>
-    </div>
+    ${count > INITIAL ? `<div style="text-align:center; padding: 22px 0 0;">
+      <button type="button" class="btn btn-ghost" id="toggleAllReviews">Lihat semua ${count} review <i class="bi bi-chevron-down"></i></button>
+    </div>` : ''}
   `;
 
-  // Filter buttons
-  tabContent.querySelectorAll('.review-filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      tabContent.querySelectorAll('.review-filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const f = btn.dataset.rfilter;
-      tabContent.querySelectorAll('#reviewList .review-card').forEach(c => {
-        let show = true;
-        if (f === '5star') show = c.dataset.reviewRating === '5';
-        if (f === 'photo') show = c.dataset.reviewPhoto === '1';
-        if (f === 'verified') show = c.dataset.reviewVerified === '1';
-        c.style.display = show ? '' : 'none';
+  // ----- Lihat semua / sembunyikan -----
+  const toggleBtn = tab.querySelector('#toggleAllReviews');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const expanded = toggleBtn.classList.toggle('expanded');
+      tab.querySelectorAll('#reviewList .review-item-wrap[data-extra="1"]').forEach(w => {
+        // hanya tampilkan yang lolos filter aktif
+        if (expanded) { if (w.dataset.filtered !== '0') w.style.display = ''; }
+        else { w.style.display = 'none'; }
       });
-    });
-  });
-
-  // Star picker
-  const picker = tabContent.querySelector('[data-picker]');
-  if (picker) {
-    let chosen = 0;
-    picker.querySelectorAll('.star').forEach(star => {
-      star.addEventListener('mouseenter', () => {
-        const v = parseInt(star.dataset.star, 10);
-        picker.querySelectorAll('.star').forEach(s => s.classList.toggle('lit', parseInt(s.dataset.star, 10) <= v));
-      });
-      star.addEventListener('click', () => {
-        chosen = parseInt(star.dataset.star, 10);
-        picker.dataset.value = chosen;
-      });
-    });
-    picker.addEventListener('mouseleave', () => {
-      picker.querySelectorAll('.star').forEach(s => s.classList.toggle('lit', parseInt(s.dataset.star, 10) <= chosen));
+      toggleBtn.innerHTML = expanded
+        ? `Sembunyikan review <i class="bi bi-chevron-up"></i>`
+        : `Lihat semua ${count} review <i class="bi bi-chevron-down"></i>`;
+      if (!expanded) tab.querySelector('.review-summary').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 
-  // Open form
-  const formWrap = tabContent.querySelector('#reviewFormWrap');
-  const openBtn = tabContent.querySelector('#openReviewForm');
+  // ----- Filter -----
+  function applyReviewFilter(f) {
+    const expanded = toggleBtn ? toggleBtn.classList.contains('expanded') : true;
+    let shown = 0;
+    tab.querySelectorAll('#reviewList .review-item-wrap').forEach(w => {
+      const card = w.querySelector('.review-card');
+      let ok = true;
+      if (f === '5star') ok = card.dataset.reviewRating === '5';
+      if (f === 'photo') ok = card.dataset.reviewPhoto === '1';
+      if (f === 'verified') ok = card.dataset.reviewVerified === '1';
+      w.dataset.filtered = ok ? '1' : '0';
+      const isExtra = w.dataset.extra === '1';
+      const visible = ok && (!isExtra || expanded);
+      w.style.display = visible ? '' : 'none';
+      if (ok) shown++;
+    });
+    // sembunyikan tombol toggle kalau filter bikin semua sudah tampil
+    if (toggleBtn) toggleBtn.style.display = (f === 'all') ? '' : 'none';
+  }
+  tab.querySelectorAll('.review-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      tab.querySelectorAll('.review-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyReviewFilter(btn.dataset.rfilter);
+    });
+  });
+
+  // ----- Star picker -----
+  const picker = tab.querySelector('[data-picker]');
+  let chosen = 5;
+  if (picker) {
+    picker.dataset.value = '5';
+    picker.querySelectorAll('.star').forEach(st => st.classList.add('lit'));
+    picker.querySelectorAll('.star').forEach(star => {
+      star.addEventListener('mouseenter', () => {
+        const v = parseInt(star.dataset.star, 10);
+        picker.querySelectorAll('.star').forEach(x => x.classList.toggle('lit', parseInt(x.dataset.star, 10) <= v));
+      });
+      star.addEventListener('click', () => { chosen = parseInt(star.dataset.star, 10); picker.dataset.value = chosen; });
+    });
+    picker.addEventListener('mouseleave', () => {
+      picker.querySelectorAll('.star').forEach(x => x.classList.toggle('lit', parseInt(x.dataset.star, 10) <= chosen));
+    });
+  }
+
+  // ----- Buka form -----
+  const formWrap = tab.querySelector('#reviewFormWrap');
+  const openBtn = tab.querySelector('#openReviewForm');
   if (openBtn && formWrap) {
     openBtn.addEventListener('click', () => {
       formWrap.classList.toggle('open');
@@ -2661,21 +2830,23 @@ function tammiaInitReviewSection() {
     });
   }
 
-  // Fake submit
-  const submitBtn = tabContent.querySelector('#submitReview');
+  // ----- Submit: tambahkan review ke daftar (sesi ini) -----
+  const submitBtn = tab.querySelector('#submitReview');
   if (submitBtn) submitBtn.addEventListener('click', () => {
+    const nm = (tab.querySelector('#rvFormName').value || '').trim() || 'Pelanggan Tammia';
+    const hl = (tab.querySelector('#rvFormHeadline').value || '').trim() || 'Ulasan';
+    const bd = (tab.querySelector('#rvFormBody').value || '').trim();
+    if (!bd) { tammiaToast('Tulis ulasan kamu dulu ya', 'bi-exclamation-circle'); return; }
+    const newReview = { name: nm, city: 'Pembeli Baru', rating: chosen, headline: hl, body: bd, photo: 0, days: 0 };
+    if (product && product._reviews) product._reviews.unshift(newReview);
     submitBtn.innerHTML = 'Review Terkirim ✓';
     submitBtn.disabled = true;
     submitBtn.style.background = '#2d9b5e';
     submitBtn.style.color = '#fff';
     setTimeout(() => {
-      formWrap.classList.remove('open');
-      submitBtn.innerHTML = 'Kirim Review';
-      submitBtn.disabled = false;
-      submitBtn.style.background = '';
-      submitBtn.style.color = '';
+      tammiaRenderProductReviews(product); // render ulang dengan review baru di atas
       tammiaToast('Review berhasil dikirim. Terima kasih!', 'bi-check-circle-fill');
-    }, 1800);
+    }, 900);
   });
 }
 

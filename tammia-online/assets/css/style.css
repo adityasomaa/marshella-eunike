@@ -3830,3 +3830,26 @@ input.form-control[type="search"], .nav-search input {
   accent-color: var(--rouge);
   cursor: pointer;
 }
+
+/* ---------- Review: photo chip + filter row align (revisi 13 Jun) ---------- */
+.review-filter-row .ms-auto { margin-left: auto; }
+@media (max-width: 575px) {
+  .review-filter-row .ms-auto { margin-left: 0; width: 100%; }
+  .review-filter-row #openReviewForm { width: 100%; justify-content: center; }
+}
+.review-photo-row { margin: 10px 0 2px; }
+.review-photo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  background: var(--peach-tint);
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+#toggleAllReviews .bi { transition: transform .25s ease; }
+#toggleAllReviews.expanded .bi-chevron-down { transform: rotate(180deg); }
