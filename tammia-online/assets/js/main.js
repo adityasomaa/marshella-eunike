@@ -14,10 +14,21 @@ let TAMMIA_PRODUCTS = window.TAMMIA_PRODUCTS; // local mutable alias used by old
 /* Real product photos scraped from d11.tammiaonline.com (others stay SVG until
    full catalog photos arrive from client). Keyed by product slug. */
 const TAMMIA_LOCAL_IMAGES = {
+  // foto asli dari katalog lama (d11 + arsip Wayback tammiaonline.com)
   'sonia-miller-transparent-travel-case-pouch': 'assets/img/products/sonia-miller-transparent-travel-case-pouch.jpg',
   'tammia-professional-1310-deluxe-duo-brow-brush': 'assets/img/products/tammia-professional-1310-deluxe-duo-brow-brush.jpg',
   'tammia-professional-pcus52-cushion-sponge': 'assets/img/products/tammia-professional-pcus52-cushion-sponge.jpg',
   'd-up-lash-focus-eyelash-k-pop-idol': 'assets/img/products/d-up-lash-focus-eyelash-k-pop-idol.jpg',
+  'real-techniques-everyday-essentials-brush-set': 'assets/img/products/real-techniques-everyday-essentials-brush-set.jpg',
+  'real-techniques-miracle-complexion-sponge': 'assets/img/products/real-techniques-miracle-complexion-sponge.jpg',
+  'tweezerman-slant-tweezer-stainless': 'assets/img/products/tweezerman-slant-tweezer-stainless.jpg',
+  'tweezerman-mini-slant-tweezer-pink': 'assets/img/products/tweezerman-mini-slant-tweezer-pink.jpg',
+  'ardell-wispies-natural-false-lashes': 'assets/img/products/ardell-wispies-natural-false-lashes.jpg',
+  'duo-brush-on-lash-adhesive-clear': 'assets/img/products/duo-brush-on-lash-adhesive-clear.jpg',
+  'tangle-teezer-original-detangler-pink': 'assets/img/products/tangle-teezer-original-detangler-pink.jpg',
+  'ecotools-bamboo-buffer-block': 'assets/img/products/ecotools-bamboo-buffer-block.jpg',
+  'goody-quick-style-boar-bristle-brush': 'assets/img/products/goody-quick-style-boar-bristle-brush.jpg',
+  'tammia-pro-contour-brush-1245-angled': 'assets/img/products/tammia-pro-contour-brush-1245-angled.jpg',
 };
 
 async function tammiaLoadProducts() {
