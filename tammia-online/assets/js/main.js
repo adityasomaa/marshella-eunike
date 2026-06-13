@@ -2644,6 +2644,44 @@ function tammiaInitCheckoutPage() {
     b.addEventListener('click', () => setTimeout(syncReview, 30));
   });
 
+  /* ----- Simpan alamat untuk pesanan berikutnya ----- */
+  const ADDR_FIELDS = ['coName', 'coWa', 'coEmail', 'coProv', 'coKota', 'coKec', 'coPos', 'coAlamat', 'coCatatan'];
+  const saveBox = document.getElementById('coSaveAddr');
+
+  function persistAddress(silent) {
+    if (!saveBox) return;
+    if (saveBox.checked) {
+      const data = {};
+      ADDR_FIELDS.forEach(id => { const el = document.getElementById(id); data[id] = el ? el.value : ''; });
+      // hanya simpan kalau minimal nama + alamat terisi
+      if ((data.coName || '').trim() && (data.coAlamat || '').trim()) {
+        localStorage.setItem('tammia_address', JSON.stringify(data));
+        if (!silent) tammiaToast('Alamat disimpan untuk pesanan berikutnya', 'bi-check-circle-fill');
+      }
+    } else {
+      localStorage.removeItem('tammia_address');
+    }
+  }
+
+  // Prefill dari alamat tersimpan
+  let savedAddr = null;
+  try { savedAddr = JSON.parse(localStorage.getItem('tammia_address') || 'null'); } catch (e) {}
+  if (savedAddr) {
+    ADDR_FIELDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && savedAddr[id] != null) el.value = savedAddr[id];
+    });
+    if (saveBox) saveBox.checked = true;
+    setTimeout(syncReview, 0);
+  }
+
+  if (saveBox) saveBox.addEventListener('change', () => persistAddress(false));
+  // Update alamat tersimpan saat field diubah (kalau checkbox aktif)
+  ADDR_FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', () => { if (saveBox && saveBox.checked) persistAddress(true); });
+  });
+
   const payBtn = document.getElementById('payNowBtn');
   if (payBtn) payBtn.addEventListener('click', () => {
     const items = getItems();
@@ -2657,6 +2695,7 @@ function tammiaInitCheckoutPage() {
       });
       return;
     }
+    persistAddress(true);
     const sub = subtotal();
     const ship = effectiveShip();
     let orders = [];
