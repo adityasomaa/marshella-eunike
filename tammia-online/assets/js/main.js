@@ -227,6 +227,12 @@ function tammiaProductsReady() {
 }
 
 /* ---------- Helpers ---------- */
+/* ---------- WhatsApp Tammia Online + template per konteks ---------- */
+const TAMMIA_WA_NUMBER = '62818883349';
+function tammiaWaLink(message) {
+  return 'https://wa.me/' + TAMMIA_WA_NUMBER + '?text=' + encodeURIComponent(message);
+}
+
 function tammiaFormatPrice(n) {
   return 'Rp ' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
@@ -2237,6 +2243,32 @@ function tammiaRenderProductDetail(product, allProducts) {
     const oldBtn = document.querySelector('[data-pd-wish]');
     if (oldBtn) oldBtn.remove();
     tammiaInitProductDetailWish();
+  }
+
+  // WhatsApp produk-aware: sebut nama produk di pesan
+  const waAdvisor = document.getElementById('waAdvisorBtn');
+  if (waAdvisor) {
+    waAdvisor.href = tammiaWaLink(
+      'Halo Tammia Online 👋 Saya tertarik dengan produk "' + product.name +
+      '". Boleh info ketersediaan, varian, dan detailnya?');
+  }
+  const waShare = document.getElementById('waShareBtn');
+  if (waShare) {
+    waShare.href = tammiaWaLink(
+      'Cek produk ini dari Tammia Online: ' + product.name + ' — ' + window.location.href);
+  }
+  const copyLinkBtn = document.getElementById('copyLinkBtn');
+  if (copyLinkBtn && !copyLinkBtn._bound) {
+    copyLinkBtn._bound = 1;
+    copyLinkBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = window.location.href;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(function () { tammiaToast('Link produk disalin', 'bi-link-45deg'); });
+      } else {
+        tammiaToast('Link: ' + url, 'bi-link-45deg');
+      }
+    });
   }
 
   // Reviews per-produk
