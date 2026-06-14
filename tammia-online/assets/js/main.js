@@ -2730,6 +2730,52 @@ function tammiaInitCheckoutPage() {
 /* ============================================================
    TASK 7 — Reviews per-produk (render dari product._reviews)
    ============================================================ */
+/* ---------- Review v2: penyimpanan review user + util foto ---------- */
+const TAMMIA_REVIEW_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+function tammiaReviewTsLabel(ts) {
+  const d = new Date(ts);
+  return d.getDate() + ' ' + TAMMIA_REVIEW_MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+}
+function tammiaGetUserReviews(slug) {
+  try {
+    const all = JSON.parse(localStorage.getItem('tammia_reviews') || '{}');
+    return Array.isArray(all[slug]) ? all[slug] : [];
+  } catch (e) { return []; }
+}
+function tammiaSaveUserReviews(slug, arr) {
+  let all = {};
+  try { all = JSON.parse(localStorage.getItem('tammia_reviews') || '{}'); } catch (e) {}
+  all[slug] = arr;
+  localStorage.setItem('tammia_reviews', JSON.stringify(all)); // bisa throw quota
+}
+function tammiaReviewHasPhoto(r) {
+  return !!(r.photo || (r.photos && r.photos.length));
+}
+/* Kompres gambar di browser jadi data URL kecil untuk penyimpanan demo. */
+function tammiaDownscaleImage(file, maxDim, quality) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        if (Math.max(w, h) > maxDim) {
+          const sc = maxDim / Math.max(w, h);
+          w = Math.round(w * sc); h = Math.round(h * sc);
+        }
+        const cv = document.createElement('canvas');
+        cv.width = w; cv.height = h;
+        cv.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(cv.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
 function tammiaStarsHtml(rating, size) {
   const full = Math.round(rating);
   let out = '';
@@ -2743,91 +2789,105 @@ function tammiaStarsHtml(rating, size) {
 function tammiaRenderProductReviews(product) {
   const tab = document.querySelector('.pd-tab-content[data-tab="review"]');
   if (!tab) return;
-  const reviews = (product && product._reviews) ? product._reviews.slice()
+  const slug = (product && product.slug) || 'x';
+  const generated = (product && product._reviews) ? product._reviews
     : tammiaReviewsForProduct(product || { category: 'Makeup Brushes', slug: 'x' });
+  const userReviews = tammiaGetUserReviews(slug);       // tersimpan (punya user)
+  const reviews = userReviews.concat(generated);         // review user di atas
+
+  const user = tammiaGetUser();
+  const loggedIn = !!(user && user.loggedIn);
 
   const count = reviews.length;
   const avg = count ? Math.round((reviews.reduce((a, r) => a + r.rating, 0) / count) * 10) / 10 : 0;
-  const dist = [0, 0, 0, 0, 0]; // index 0 = bintang 1
+  const dist = [0, 0, 0, 0, 0];
   reviews.forEach(r => { dist[r.rating - 1]++; });
   const pct = n => count ? Math.round((n / count) * 100) : 0;
-  const withPhoto = reviews.filter(r => r.photo).length;
+  const withPhoto = reviews.filter(tammiaReviewHasPhoto).length;
 
-  // Update label tab + rating row
   const tabBtn = document.querySelector('.pd-tab[data-tab="review"]');
-  if (tabBtn) tabBtn.textContent = `Reviews (${count})`;
+  if (tabBtn) tabBtn.textContent = 'Reviews (' + count + ')';
+  // sinkronkan jumlah di rating row atas
+  const rrCount = document.querySelector('.pd-rating-row span:nth-child(2)');
+  if (rrCount) rrCount.innerHTML = '<i class="bi bi-chat-square-text"></i> ' + count + ' reviews';
 
   const INITIAL = 3;
 
   function cardHtml(r) {
-    const photoHtml = r.photo
-      ? `<div class="review-photo-row"><span class="review-photo-chip"><i class="bi bi-camera-fill"></i> Foto pembeli</span></div>`
-      : '';
-    return `
-      <div class="review-card polished" data-review-rating="${r.rating}" data-review-photo="${r.photo ? 1 : 0}" data-review-verified="1">
-        <div class="review-head">
-          <div class="testimonial-avatar">${(r.name || '?').charAt(0)}</div>
-          <div style="flex:1;">
-            <strong style="font-size:14px;">${r.name}</strong>
-            <span class="verified-pill"><i class="bi bi-patch-check-fill"></i> Verified</span>
-            <div class="mono-label" style="font-size:9px; margin-top:2px;">Pembelian Terverifikasi</div>
-          </div>
-          ${tammiaStarsHtml(r.rating)}
-        </div>
-        <h4 class="review-headline">${r.headline}</h4>
-        <p class="review-body">${r.body}</p>
-        ${photoHtml}
-        <div class="review-footer">${r.city} · ${tammiaReviewDateLabel(r.days)}</div>
-      </div>`;
+    const isOwn = loggedIn && r.ownerEmail && user.email === r.ownerEmail;
+    let photoHtml = '';
+    if (r.photos && r.photos.length) {
+      photoHtml = '<div class="review-photo-row">' +
+        r.photos.map(p => '<img class="rv-photo" src="' + p + '" alt="foto review" loading="lazy">').join('') +
+        '</div>';
+    } else if (r.photo) {
+      photoHtml = '<div class="review-photo-row"><span class="review-photo-chip"><i class="bi bi-camera-fill"></i> Foto pembeli</span></div>';
+    }
+    const ownBadge = isOwn ? '<span class="rv-own-badge">Ulasan kamu</span>' : '';
+    const delBtn = isOwn ? '<button type="button" class="rv-delete" data-del="' + r.id + '"><i class="bi bi-trash3"></i> Hapus</button>' : '';
+    const dateLabel = r.ts ? tammiaReviewTsLabel(r.ts) : tammiaReviewDateLabel(r.days);
+    return '' +
+      '<div class="review-card polished" data-review-rating="' + r.rating + '" data-review-photo="' + (tammiaReviewHasPhoto(r) ? 1 : 0) + '" data-review-verified="1">' +
+        '<div class="review-head">' +
+          '<div class="testimonial-avatar">' + (r.name || '?').charAt(0) + '</div>' +
+          '<div style="flex:1;">' +
+            '<strong style="font-size:14px;">' + r.name + '</strong>' + ownBadge +
+            '<span class="verified-pill"><i class="bi bi-patch-check-fill"></i> Verified</span>' +
+            '<div class="mono-label" style="font-size:9px; margin-top:2px;">Pembelian Terverifikasi</div>' +
+          '</div>' +
+          tammiaStarsHtml(r.rating) +
+        '</div>' +
+        '<h4 class="review-headline">' + r.headline + '</h4>' +
+        '<p class="review-body">' + r.body + '</p>' +
+        photoHtml +
+        '<div class="review-footer">' + r.city + ' · ' + dateLabel + (delBtn ? '</div>' + '<div class="review-actions">' + delBtn + '</div>' : '</div>') +
+      '</div>';
   }
 
   const barsHtml = [5, 4, 3, 2, 1].map(star => {
     const n = dist[star - 1];
-    return `<div class="review-bar-row"><span class="star-num">${star}★</span><div class="track"><div class="fill" style="width:${pct(n)}%"></div></div><span class="pct">${pct(n)}%</span></div>`;
+    return '<div class="review-bar-row"><span class="star-num">' + star + '★</span><div class="track"><div class="fill" style="width:' + pct(n) + '%"></div></div><span class="pct">' + pct(n) + '%</span></div>';
   }).join('');
 
-  tab.innerHTML = `
-    <div class="review-summary">
-      <div>
-        <div class="big-rating">${avg.toFixed(1)}<sub>/5</sub></div>
-        <div class="stars-row">${tammiaStarsHtml(avg)}</div>
-        <div class="meta">${count} ulasan terverifikasi</div>
-      </div>
-      <div class="review-bars">${barsHtml}</div>
-    </div>
+  const writeBtnLabel = loggedIn ? '<i class="bi bi-pencil"></i> Tulis Review' : '<i class="bi bi-lock"></i> Login untuk Review';
 
-    <div class="review-filter-row" id="reviewFilterRow">
-      <button class="review-filter-btn active" data-rfilter="all">Semua (${count})</button>
-      <button class="review-filter-btn" data-rfilter="5star">Bintang 5 (${dist[4]})</button>
-      <button class="review-filter-btn" data-rfilter="photo">Dengan Foto (${withPhoto})</button>
-      <button class="review-filter-btn" data-rfilter="verified">Terverifikasi (${count})</button>
-      <button class="btn btn-peach btn-sm ms-auto" id="openReviewForm"><i class="bi bi-pencil"></i> Tulis Review</button>
-    </div>
-
-    <div class="review-form-wrap" id="reviewFormWrap">
-      <h5 style="font-family:'Comfortaa',sans-serif; font-weight:400; font-size:20px; margin-bottom:6px;">Tulis ulasan kamu</h5>
-      <p style="color:var(--muted); font-size:13px; margin-bottom:14px;">Bantu beauty enthusiast lain dengan pengalamanmu.</p>
-      <label>Rating Kamu</label>
-      <div class="star-picker" data-picker>
-        <span class="star" data-star="1">★</span><span class="star" data-star="2">★</span><span class="star" data-star="3">★</span><span class="star" data-star="4">★</span><span class="star" data-star="5">★</span>
-      </div>
-      <label>Nama</label>
-      <input type="text" id="rvFormName" placeholder="Marshella E.">
-      <label>Headline Review</label>
-      <input type="text" id="rvFormHeadline" placeholder="Worth banget!">
-      <label>Ulasan Lengkap</label>
-      <textarea id="rvFormBody" placeholder="Ceritakan pengalaman kamu..."></textarea>
-      <button type="button" class="btn btn-peach" id="submitReview">Kirim Review</button>
-    </div>
-
-    <div id="reviewList">
-      ${reviews.map((r, i) => `<div class="review-item-wrap" data-extra="${i >= INITIAL ? 1 : 0}" ${i >= INITIAL ? 'style="display:none;"' : ''}>${cardHtml(r)}</div>`).join('')}
-    </div>
-
-    ${count > INITIAL ? `<div style="text-align:center; padding: 22px 0 0;">
-      <button type="button" class="btn btn-ghost" id="toggleAllReviews">Lihat semua ${count} review <i class="bi bi-chevron-down"></i></button>
-    </div>` : ''}
-  `;
+  tab.innerHTML =
+    '<div class="review-summary">' +
+      '<div>' +
+        '<div class="big-rating">' + avg.toFixed(1) + '<sub>/5</sub></div>' +
+        '<div class="stars-row">' + tammiaStarsHtml(avg) + '</div>' +
+        '<div class="meta">' + count + ' ulasan terverifikasi</div>' +
+      '</div>' +
+      '<div class="review-bars">' + barsHtml + '</div>' +
+    '</div>' +
+    '<div class="review-filter-row" id="reviewFilterRow">' +
+      '<button class="review-filter-btn active" data-rfilter="all">Semua (' + count + ')</button>' +
+      '<button class="review-filter-btn" data-rfilter="5star">Bintang 5 (' + dist[4] + ')</button>' +
+      '<button class="review-filter-btn" data-rfilter="photo">Dengan Foto (' + withPhoto + ')</button>' +
+      '<button class="review-filter-btn" data-rfilter="mine">Punya Saya</button>' +
+      '<button class="btn btn-peach btn-sm ms-auto" id="openReviewForm">' + writeBtnLabel + '</button>' +
+    '</div>' +
+    '<div class="review-form-wrap" id="reviewFormWrap">' +
+      '<h5 style="font-family:\'Comfortaa\',sans-serif; font-weight:400; font-size:20px; margin-bottom:6px;">Tulis ulasan kamu</h5>' +
+      '<p style="color:var(--muted); font-size:13px; margin-bottom:14px;">Bantu beauty enthusiast lain dengan pengalamanmu.</p>' +
+      '<label>Rating Kamu</label>' +
+      '<div class="star-picker" data-picker><span class="star" data-star="1">★</span><span class="star" data-star="2">★</span><span class="star" data-star="3">★</span><span class="star" data-star="4">★</span><span class="star" data-star="5">★</span></div>' +
+      '<label>Nama</label>' +
+      '<input type="text" id="rvFormName" placeholder="Nama kamu" value="' + (loggedIn ? (user.name || '').replace(/"/g, '&quot;') : '') + '" readonly>' +
+      '<label>Headline Review</label>' +
+      '<input type="text" id="rvFormHeadline" placeholder="Worth banget!">' +
+      '<label>Ulasan Lengkap</label>' +
+      '<textarea id="rvFormBody" placeholder="Ceritakan pengalaman kamu..."></textarea>' +
+      '<label>Foto Produk (opsional, maks 5 foto · 2MB per foto)</label>' +
+      '<input type="file" id="rvFormPhotos" accept="image/*" multiple style="display:none;">' +
+      '<div class="upload-zone" id="rvUploadZone"><i class="bi bi-image"></i> Tap untuk pilih foto · maks 5 foto, 2MB/foto</div>' +
+      '<div class="review-photo-preview" id="rvPhotoPreview"></div>' +
+      '<button type="button" class="btn btn-peach" id="submitReview">Kirim Review</button>' +
+    '</div>' +
+    '<div id="reviewList">' +
+      reviews.map((r, i) => '<div class="review-item-wrap" data-mine="' + ((loggedIn && r.ownerEmail && user.email === r.ownerEmail) ? 1 : 0) + '" data-extra="' + (i >= INITIAL ? 1 : 0) + '"' + (i >= INITIAL ? ' style="display:none;"' : '') + '>' + cardHtml(r) + '</div>').join('') +
+    '</div>' +
+    (count > INITIAL ? '<div style="text-align:center; padding: 22px 0 0;"><button type="button" class="btn btn-ghost" id="toggleAllReviews">Lihat semua ' + count + ' review <i class="bi bi-chevron-down"></i></button></div>' : '');
 
   // ----- Lihat semua / sembunyikan -----
   const toggleBtn = tab.querySelector('#toggleAllReviews');
@@ -2835,13 +2895,12 @@ function tammiaRenderProductReviews(product) {
     toggleBtn.addEventListener('click', () => {
       const expanded = toggleBtn.classList.toggle('expanded');
       tab.querySelectorAll('#reviewList .review-item-wrap[data-extra="1"]').forEach(w => {
-        // hanya tampilkan yang lolos filter aktif
         if (expanded) { if (w.dataset.filtered !== '0') w.style.display = ''; }
         else { w.style.display = 'none'; }
       });
       toggleBtn.innerHTML = expanded
-        ? `Sembunyikan review <i class="bi bi-chevron-up"></i>`
-        : `Lihat semua ${count} review <i class="bi bi-chevron-down"></i>`;
+        ? 'Sembunyikan review <i class="bi bi-chevron-up"></i>'
+        : 'Lihat semua ' + count + ' review <i class="bi bi-chevron-down"></i>';
       if (!expanded) tab.querySelector('.review-summary').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
@@ -2849,20 +2908,16 @@ function tammiaRenderProductReviews(product) {
   // ----- Filter -----
   function applyReviewFilter(f) {
     const expanded = toggleBtn ? toggleBtn.classList.contains('expanded') : true;
-    let shown = 0;
     tab.querySelectorAll('#reviewList .review-item-wrap').forEach(w => {
       const card = w.querySelector('.review-card');
       let ok = true;
       if (f === '5star') ok = card.dataset.reviewRating === '5';
       if (f === 'photo') ok = card.dataset.reviewPhoto === '1';
-      if (f === 'verified') ok = card.dataset.reviewVerified === '1';
+      if (f === 'mine') ok = w.dataset.mine === '1';
       w.dataset.filtered = ok ? '1' : '0';
       const isExtra = w.dataset.extra === '1';
-      const visible = ok && (!isExtra || expanded);
-      w.style.display = visible ? '' : 'none';
-      if (ok) shown++;
+      w.style.display = (ok && (!isExtra || expanded)) ? '' : 'none';
     });
-    // sembunyikan tombol toggle kalau filter bikin semua sudah tampil
     if (toggleBtn) toggleBtn.style.display = (f === 'all') ? '' : 'none';
   }
   tab.querySelectorAll('.review-filter-btn').forEach(btn => {
@@ -2870,6 +2925,24 @@ function tammiaRenderProductReviews(product) {
       tab.querySelectorAll('.review-filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       applyReviewFilter(btn.dataset.rfilter);
+    });
+  });
+
+  // ----- Hapus review sendiri (hanya pemilik; admin tidak punya tombol ini) -----
+  tab.querySelectorAll('[data-del]').forEach(b => {
+    b.addEventListener('click', () => {
+      const id = b.dataset.del;
+      tammiaConfirm({
+        title: 'Hapus Review?',
+        message: 'Ulasan kamu akan dihapus permanen.',
+        confirmText: 'Hapus', cancelText: 'Batal', danger: true,
+        onConfirm: () => {
+          const arr = tammiaGetUserReviews(slug).filter(x => x.id !== id);
+          try { tammiaSaveUserReviews(slug, arr); } catch (e) {}
+          tammiaRenderProductReviews(product);
+          tammiaToast('Review kamu dihapus', 'bi-check-circle-fill');
+        },
+      });
     });
   });
 
@@ -2891,33 +2964,88 @@ function tammiaRenderProductReviews(product) {
     });
   }
 
-  // ----- Buka form -----
+  // ----- Upload foto (maks 5, maks 2MB) -----
+  const pendingPhotos = [];
+  const fileInput = tab.querySelector('#rvFormPhotos');
+  const uploadZone = tab.querySelector('#rvUploadZone');
+  const previewBox = tab.querySelector('#rvPhotoPreview');
+  function renderPhotoPreview() {
+    if (!previewBox) return;
+    previewBox.innerHTML = pendingPhotos.map((p, i) =>
+      '<div class="rv-photo-thumb"><img src="' + p + '" alt="preview"><button type="button" data-rmphoto="' + i + '" aria-label="Hapus foto">&times;</button></div>').join('');
+    previewBox.querySelectorAll('[data-rmphoto]').forEach(btn => {
+      btn.addEventListener('click', () => { pendingPhotos.splice(parseInt(btn.dataset.rmphoto, 10), 1); renderPhotoPreview(); });
+    });
+    if (uploadZone) uploadZone.innerHTML = pendingPhotos.length
+      ? '<i class="bi bi-image"></i> ' + pendingPhotos.length + '/5 foto · tap untuk tambah'
+      : '<i class="bi bi-image"></i> Tap untuk pilih foto · maks 5 foto, 2MB/foto';
+  }
+  if (uploadZone && fileInput) {
+    uploadZone.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', async () => {
+      const files = Array.from(fileInput.files || []);
+      for (const f of files) {
+        if (pendingPhotos.length >= 5) { tammiaToast('Maksimal 5 foto per review', 'bi-exclamation-circle'); break; }
+        if (!f.type || f.type.indexOf('image/') !== 0) { tammiaToast('"' + f.name + '" bukan gambar', 'bi-exclamation-circle'); continue; }
+        if (f.size > 2 * 1024 * 1024) { tammiaToast('"' + f.name + '" lebih dari 2MB', 'bi-exclamation-circle'); continue; }
+        try { pendingPhotos.push(await tammiaDownscaleImage(f, 900, 0.72)); } catch (e) {}
+      }
+      fileInput.value = '';
+      renderPhotoPreview();
+    });
+  }
+
+  // ----- Buka form (gated login) -----
   const formWrap = tab.querySelector('#reviewFormWrap');
   const openBtn = tab.querySelector('#openReviewForm');
+  function requireLogin() {
+    tammiaToast('Login dulu untuk menulis review', 'bi-lock');
+    if (window.tammiaOpenAuth) window.tammiaOpenAuth();
+  }
   if (openBtn && formWrap) {
     openBtn.addEventListener('click', () => {
+      if (!loggedIn) { requireLogin(); return; }
       formWrap.classList.toggle('open');
       if (formWrap.classList.contains('open')) formWrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   }
 
-  // ----- Submit: tambahkan review ke daftar (sesi ini) -----
+  // ----- Submit (gated login + simpan + foto) -----
   const submitBtn = tab.querySelector('#submitReview');
   if (submitBtn) submitBtn.addEventListener('click', () => {
-    const nm = (tab.querySelector('#rvFormName').value || '').trim() || 'Pelanggan Tammia';
-    const hl = (tab.querySelector('#rvFormHeadline').value || '').trim() || 'Ulasan';
+    if (!loggedIn) { requireLogin(); return; }
+    const hl = (tab.querySelector('#rvFormHeadline').value || '').trim();
     const bd = (tab.querySelector('#rvFormBody').value || '').trim();
     if (!bd) { tammiaToast('Tulis ulasan kamu dulu ya', 'bi-exclamation-circle'); return; }
-    const newReview = { name: nm, city: 'Pembeli Baru', rating: chosen, headline: hl, body: bd, photo: 0, days: 0 };
-    if (product && product._reviews) product._reviews.unshift(newReview);
+    const review = {
+      id: 'rv-' + Date.now().toString(36) + Math.floor(Math.random() * 1000),
+      name: user.name || 'Pelanggan Tammia',
+      city: 'Pembeli Terverifikasi',
+      rating: chosen,
+      headline: hl || 'Ulasan',
+      body: bd,
+      photos: pendingPhotos.slice(),
+      ts: Date.now(),
+      ownerEmail: user.email || '',
+    };
+    const arr = tammiaGetUserReviews(slug);
+    arr.unshift(review);
+    try {
+      tammiaSaveUserReviews(slug, arr);
+    } catch (e) {
+      // kuota localStorage penuh -> simpan tanpa foto
+      review.photos = [];
+      try { tammiaSaveUserReviews(slug, arr); } catch (e2) {}
+      tammiaToast('Review tersimpan, tapi foto terlalu besar untuk demo ini', 'bi-exclamation-circle');
+    }
     submitBtn.innerHTML = 'Review Terkirim ✓';
     submitBtn.disabled = true;
     submitBtn.style.background = '#2d9b5e';
     submitBtn.style.color = '#fff';
     setTimeout(() => {
-      tammiaRenderProductReviews(product); // render ulang dengan review baru di atas
+      tammiaRenderProductReviews(product);
       tammiaToast('Review berhasil dikirim. Terima kasih!', 'bi-check-circle-fill');
-    }, 900);
+    }, 700);
   });
 }
 
