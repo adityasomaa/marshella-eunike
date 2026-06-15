@@ -1264,7 +1264,7 @@ function tammiaBuildMobileNav() {
   const currentPage = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   drawer.innerHTML = `
     <div class="mobile-nav-head">
-      <a href="index.html" class="brand-logo"><img src="assets/img/logos/tammia-red.png" alt="Tammia" class="brand-logo-img"><span class="dot-online">online</span></a>
+      <a href="index.html" class="brand-logo"><img src="assets/img/logos/tammia-red.png" alt="Tammia" class="brand-logo-img"></a>
       <button class="drawer-close" data-close-mobile-nav><i class="bi bi-x-lg"></i></button>
     </div>
     <div class="mobile-nav-body">
@@ -2035,6 +2035,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- STAGE 2: Page-specific async product renderers ---------- */
   tammiaInitFeaturedSection();
+  tammiaInitHeroSlider();
   tammiaInitProductDetailPage();
   // Re-render wishlist drawer + re-inject hearts after products arrive
   tammiaProductsReady().then(() => {
@@ -2075,6 +2076,53 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ============================================================
    STAGE 2 — Featured products on index.html
    ============================================================ */
+function tammiaInitHeroSlider() {
+  const slider = document.getElementById('heroSlider');
+  if (!slider) return;
+  const slides = Array.from(slider.querySelectorAll('.hero-slide'));
+  if (slides.length <= 1) return;
+  const dotsWrap = document.getElementById('heroDots');
+  const prev = document.getElementById('heroPrev');
+  const next = document.getElementById('heroNext');
+  let i = 0, timer = null;
+  const delay = parseInt(slider.dataset.autoplay, 10) || 5000;
+
+  // dots
+  const dots = slides.map((_, idx) => {
+    const b = document.createElement('button');
+    b.setAttribute('aria-label', 'Slide ' + (idx + 1));
+    if (idx === 0) b.classList.add('active');
+    b.addEventListener('click', () => { go(idx); restart(); });
+    if (dotsWrap) dotsWrap.appendChild(b);
+    return b;
+  });
+
+  function go(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach((sl, idx) => sl.classList.toggle('active', idx === i));
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+  }
+  function nextSlide() { go(i + 1); }
+  function start() { timer = setInterval(nextSlide, delay); }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+  function restart() { stop(); start(); }
+
+  if (prev) prev.addEventListener('click', () => { go(i - 1); restart(); });
+  if (next) next.addEventListener('click', () => { go(i + 1); restart(); });
+  slider.addEventListener('mouseenter', stop);
+  slider.addEventListener('mouseleave', start);
+
+  // swipe (mobile)
+  let sx = 0;
+  slider.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+  slider.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 40) { go(dx < 0 ? i + 1 : i - 1); restart(); }
+  }, { passive: true });
+
+  start();
+}
+
 function tammiaInitFeaturedSection() {
   // Use #featuredGrid as the explicit hook to avoid clobbering related-product
   // grids on other pages. We add this id to index.html.
