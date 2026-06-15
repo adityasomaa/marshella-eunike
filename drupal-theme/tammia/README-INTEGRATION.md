@@ -54,6 +54,28 @@ jadi tidak ada data hilang saat field name beda.
 Preview yang sudah diapprove klien: https://marshella-eunike.vercel.app/tammia-online/
 Gunakan itu sebagai acuan 1:1 untuk hasil akhir.
 
+## Status sinkron theme vs preview (per 13 Juni 2026)
+
+Theme ini = **design shell** (CSS design system + layout Twig + behavior dasar).
+CSS sudah disinkronkan **penuh** dengan preview terbaru (termasuk komponen
+review v2, fix checkbox, photo chip). Sebagian fitur interaktif di preview
+sengaja TIDAK diport sebagai JS theme karena di produksi ditangani modul
+Drupal Commerce. Pemetaannya:
+
+| Fitur di preview | Di Drupal jadi |
+|---|---|
+| Cart, checkout, ongkir, pembayaran | Drupal Commerce (cart + checkout flow + shipping + payment) — porsi Bion |
+| Login / register / akun | Drupal user + Commerce; review hanya untuk user login = permission |
+| Simpan alamat | Commerce **address book** (bawaan), bukan localStorage |
+| Review + rating + upload foto | modul **review Commerce / contrib** + field image; lihat catatan permission di bawah |
+| Hapus review sendiri, admin tak bisa hapus | permission Drupal: customer = "delete own review", admin JANGAN diberi "delete any review" |
+| Social links footer | sudah ada di `page.html.twig`; idealnya jadi block/menu agar editable admin |
+| WhatsApp template per konteks | link statis; untuk product page sertakan judul produk via Twig/JS kecil |
+| Foto produk asli (14/20) | field image produk Commerce (data asli sudah di backend Bion) |
+
+Yang **visual/CSS/layout** sudah 1:1 dengan preview. Yang **logika commerce**
+mengikuti modul Drupal, bukan JS demo.
+
 ## Brand guideline cepat
 
 - Merah primary `#e11d25` · off-white `#f4f2f0` · gold accent `#d3ac50`
