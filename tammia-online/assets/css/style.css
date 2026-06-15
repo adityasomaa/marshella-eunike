@@ -1192,7 +1192,9 @@ section { padding: 100px 0; }
 }
 .pd-variant.active { border-color: var(--ink); background: var(--ink); color: #fff; }
 .pd-cta-row { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
-.pd-cta-row .btn { flex: 1; justify-content: center; min-width: 200px; }
+.pd-cta-row .btn { flex: 1 1 0; justify-content: center; min-width: 160px; }
+/* Wishlist tampil full-width di baris sendiri agar proporsional */
+.pd-cta-row .pd-wish-btn { flex: 1 1 100%; min-width: 0; }
 .pd-stock {
   display: inline-flex;
   align-items: center;
@@ -2695,8 +2697,8 @@ section { padding: 100px 0; }
 }
 .pd-wish-btn.liked i { color: var(--rouge); }
 @media (max-width: 575px) {
-  .pd-cta-row { flex-wrap: wrap; }
-  .pd-cta-row > * { flex: 1 1 100%; }
+  .pd-cta-row { flex-direction: column; gap: 10px; }
+  .pd-cta-row .btn { flex: 1 1 auto; width: 100%; min-width: 0; }
 }
 
 /* ---------- Checkout summary collapsible (mobile) ---------- */
