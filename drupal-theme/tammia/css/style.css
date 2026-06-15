@@ -47,14 +47,14 @@ a { color: inherit; text-decoration: none; transition: color .2s ease; }
 a:hover { color: var(--rouge); }
 
 h1, h2, h3, h4, h5 {
-  font-family: 'Comfortaa', 'Poppins', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', 'Poppins', sans-serif;
   font-weight: 600;
   letter-spacing: 0.01em;
   color: var(--ink);
   margin: 0 0 .6em 0;
 }
 h1 { font-weight: 600; }
-.font-serif { font-family: 'Comfortaa', 'Poppins', sans-serif !important; }
+.font-serif { font-family: 'Product Sans', 'Comfortaa', 'Poppins', sans-serif !important; }
 .font-mono { font-family: 'JetBrains Mono', monospace !important; }
 .mono-label {
   font-family: 'JetBrains Mono', monospace;
@@ -260,7 +260,7 @@ h1 { font-weight: 600; }
   background: var(--rouge);
 }
 .hero-title {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: clamp(2.5rem, 5vw, 4.6rem);
   font-weight: 300;
   line-height: 1.02;
@@ -288,7 +288,7 @@ h1 { font-weight: 600; }
   flex-wrap: wrap;
 }
 .hero-meta-item .num {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 36px;
   font-weight: 400;
   display: block;
@@ -424,7 +424,7 @@ section { padding: 100px 0; }
   display: inline-block;
 }
 .section-title {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: clamp(2rem, 4.5vw, 3.4rem);
   font-weight: 300;
   line-height: 1.05;
@@ -472,7 +472,7 @@ section { padding: 100px 0; }
 }
 .cat-card:hover .cat-icon { transform: scale(1.06) rotate(-4deg); }
 .cat-card .cat-label {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 20px;
   font-weight: 400;
   letter-spacing: -0.01em;
@@ -599,7 +599,7 @@ section { padding: 100px 0; }
   flex-wrap: wrap;
 }
 .product-price {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 18px;
   font-weight: 500;
   color: var(--ink);
@@ -703,7 +703,7 @@ section { padding: 100px 0; }
   margin-bottom: 22px;
 }
 .pillar-title {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 20px;
   font-weight: 400;
   margin-bottom: 10px;
@@ -723,7 +723,7 @@ section { padding: 100px 0; }
   height: 100%;
 }
 .testimonial-quote {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 19px;
   font-weight: 300;
   line-height: 1.5;
@@ -733,7 +733,7 @@ section { padding: 100px 0; }
 }
 .testimonial-quote::before {
   content: '"';
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 60px;
   line-height: 0;
   color: var(--pink);
@@ -756,7 +756,7 @@ section { padding: 100px 0; }
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-weight: 500;
 }
 .testimonial-name {
@@ -906,7 +906,7 @@ section { padding: 100px 0; }
   align-items: center;
 }
 .drawer-head h5 {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 22px;
   margin: 0;
 }
@@ -944,7 +944,7 @@ section { padding: 100px 0; }
 .drawer-item-img svg { position: absolute; inset: 0; margin: auto; width: 60%; height: 60%; }
 .drawer-item-name { font-size: 13px; font-weight: 500; line-height: 1.3; }
 .drawer-item-brand { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
-.drawer-item-price { font-family: 'Comfortaa', sans-serif; font-size: 14px; font-weight: 500; margin-top: 6px; }
+.drawer-item-price { font-family: 'Product Sans', 'Comfortaa', sans-serif; font-size: 14px; font-weight: 500; margin-top: 6px; }
 .drawer-foot {
   border-top: 1px solid var(--line);
   padding: 22px 24px;
@@ -957,7 +957,7 @@ section { padding: 100px 0; }
   margin-bottom: 16px;
 }
 .drawer-total .lbl { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-.drawer-total .val { font-family: 'Comfortaa', sans-serif; font-size: 24px; font-weight: 500; }
+.drawer-total .val { font-family: 'Product Sans', 'Comfortaa', sans-serif; font-size: 24px; font-weight: 500; }
 .drawer-actions { display: flex; gap: 10px; }
 .drawer-actions .btn { flex: 1; justify-content: center; }
 
@@ -1166,7 +1166,7 @@ section { padding: 100px 0; }
   margin-bottom: 8px;
 }
 .pd-price {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 38px;
   font-weight: 500;
   color: var(--rouge);
@@ -1252,7 +1252,7 @@ section { padding: 100px 0; }
   padding: 100px 0;
 }
 .story-block {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: clamp(1.4rem, 2.5vw, 2rem);
   font-weight: 300;
   line-height: 1.4;
@@ -1276,7 +1276,7 @@ section { padding: 100px 0; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 20px;
   font-style: italic;
   color: var(--ink);
@@ -1407,7 +1407,7 @@ section { padding: 100px 0; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 18px;
   font-weight: 400;
   color: var(--ink);
@@ -1493,7 +1493,7 @@ section { padding: 100px 0; }
   top: 100px;
 }
 .order-summary h5 {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 22px;
   margin: 0 0 24px;
   font-weight: 400;
@@ -1509,7 +1509,7 @@ section { padding: 100px 0; }
   border-top: 1px solid var(--line);
   margin-top: 14px;
   padding-top: 18px;
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 22px;
   font-weight: 500;
   color: var(--ink);
@@ -1604,7 +1604,7 @@ section { padding: 100px 0; }
   color: var(--ink);
 }
 .shipping-option .eta { font-size: 12px; color: var(--muted); margin-top: 4px; }
-.shipping-option .price { font-family: 'Comfortaa', sans-serif; font-size: 18px; font-weight: 500; }
+.shipping-option .price { font-family: 'Product Sans', 'Comfortaa', sans-serif; font-size: 18px; font-weight: 500; }
 
 .payment-group { margin-bottom: 32px; }
 .payment-group h6 {
@@ -1616,7 +1616,7 @@ section { padding: 100px 0; }
   margin-bottom: 14px;
 }
 .payment-wordmark {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 17px;
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -1720,7 +1720,7 @@ section { padding: 100px 0; }
   gap: 8px;
 }
 .sr-price {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 14px;
   font-weight: 500;
   color: var(--ink);
@@ -1918,7 +1918,7 @@ section { padding: 100px 0; }
   align-items: center;
 }
 .auth-modal-head h5 {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 24px;
   font-weight: 400;
   margin: 0;
@@ -2062,7 +2062,7 @@ section { padding: 100px 0; }
   border-radius: 50%;
   background: linear-gradient(135deg, var(--peach), var(--pink));
   color: #fff;
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-weight: 500;
   font-size: 14px;
   display: inline-flex;
@@ -2099,7 +2099,7 @@ section { padding: 100px 0; }
   margin-bottom: 6px;
 }
 .profile-menu-greet .name {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 16px;
   color: var(--ink);
 }
@@ -2230,7 +2230,7 @@ section { padding: 100px 0; }
   color: var(--muted);
 }
 .wishlist-item-meta .pr {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 13px;
   font-weight: 500;
   color: var(--rouge);
@@ -2304,7 +2304,7 @@ section { padding: 100px 0; }
   margin-bottom: 16px;
 }
 .cart-empty-state h3 {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-weight: 400;
   font-size: 24px;
   margin-bottom: 8px;
@@ -2330,7 +2330,7 @@ section { padding: 100px 0; }
   .review-summary { grid-template-columns: 1fr; gap: 18px; }
 }
 .review-summary .big-rating {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 64px;
   font-weight: 400;
   line-height: 1;
@@ -2428,7 +2428,7 @@ section { padding: 100px 0; }
   margin-left: 6px;
 }
 .review-headline {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 16px;
   font-weight: 500;
   margin: 10px 0 6px;
@@ -2570,7 +2570,7 @@ section { padding: 100px 0; }
 .mobile-nav-links a {
   display: block;
   padding: 12px 0;
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 22px;
   font-weight: 400;
   color: var(--ink);
@@ -2615,7 +2615,7 @@ section { padding: 100px 0; }
   .filter-sidebar.open { transform: translateX(0); }
   .filter-sidebar::before {
     content: 'Filter';
-    font-family: 'Comfortaa', sans-serif;
+    font-family: 'Product Sans', 'Comfortaa', sans-serif;
     font-size: 22px;
     display: block;
     margin-bottom: 18px;
@@ -2842,7 +2842,7 @@ section { padding: 100px 0; }
   color: var(--rouge);
 }
 .tammia-confirm-title {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 22px;
   font-weight: 400;
   color: var(--ink);
@@ -3049,7 +3049,7 @@ section { padding: 100px 0; }
   flex-wrap: wrap;
 }
 .order-number {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 20px;
   font-weight: 500;
   letter-spacing: 0.01em;
@@ -3195,7 +3195,7 @@ section { padding: 100px 0; }
   gap: 2px;
 }
 .order-total-val {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 22px;
   font-weight: 500;
   color: var(--ink);
@@ -3224,7 +3224,7 @@ section { padding: 100px 0; }
   margin-bottom: 18px;
 }
 .orders-empty h3 {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-weight: 400;
   font-size: 26px;
   margin-bottom: 8px;
@@ -3576,7 +3576,7 @@ section { padding: 100px 0; }
   margin: 0 auto 24px;
 }
 .admin-denied h2 {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-weight: 400;
   font-size: 32px;
   margin-bottom: 12px;
@@ -3614,7 +3614,7 @@ section { padding: 100px 0; }
   border-bottom: 1px solid var(--line);
 }
 .admin-modal-head h5 {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 24px;
   font-weight: 400;
   margin: 0;
@@ -3803,7 +3803,7 @@ input.form-control[type="search"], .nav-search input {
   text-align: center;
 }
 .cd-num {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: clamp(26px, 3.4vw, 44px);
   font-weight: 400;
   line-height: 1;
@@ -3933,6 +3933,82 @@ input.form-control[type="search"], .nav-search input {
   transition: all .2s ease;
 }
 .rv-delete:hover { background: var(--peach-tint); border-color: var(--rouge); }
+
+/* ============================================================
+   Revisi tim Marshella (13 Jun) — slider, foto kategori/lifestyle,
+   logo brand grid, button mobile, font pembayaran mobile
+   ============================================================ */
+
+/* ---- Header photo slider ---- */
+.hero-slider { position: absolute; inset: 0; z-index: 1; }
+.hero-slide {
+  position: absolute; inset: 0;
+  opacity: 0; transition: opacity .8s ease;
+}
+.hero-slide.active { opacity: 1; }
+.hero-slide img { width: 100%; height: 100%; object-fit: cover; }
+.hero-visual .hero-tag { z-index: 4; }
+.hero-slider-dots {
+  position: absolute; bottom: 16px; left: 0; right: 0;
+  display: flex; gap: 8px; justify-content: center; z-index: 4;
+}
+.hero-slider-dots button {
+  width: 8px; height: 8px; border-radius: 999px; border: none; padding: 0;
+  background: rgba(255,255,255,0.55); cursor: pointer; transition: all .25s ease;
+}
+.hero-slider-dots button.active { background: #fff; width: 22px; }
+.hero-slider-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 40px; border-radius: 999px; border: none;
+  background: rgba(255,255,255,0.85); color: var(--ink); font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 4; opacity: 0; transition: opacity .25s ease;
+}
+.hero-visual:hover .hero-slider-arrow { opacity: 1; }
+.hero-slider-arrow.prev { left: 12px; }
+.hero-slider-arrow.next { right: 12px; }
+@media (max-width: 991px) { .hero-slider-arrow { opacity: 1; } }
+
+/* ---- Foto kategori (ganti cat-icon) ---- */
+.cat-card .cat-photo {
+  position: absolute;
+  right: -6px; bottom: -6px;
+  width: 56%; aspect-ratio: 1/1;
+  border-radius: var(--r-md) 0 var(--r-lg) 0;
+  overflow: hidden;
+  transition: transform .4s ease;
+  box-shadow: -6px -6px 20px -10px rgba(26,26,26,0.18);
+}
+.cat-card .cat-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cat-card:hover .cat-photo { transform: scale(1.05); }
+
+/* ---- Foto lifestyle top picks ---- */
+.editorial-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---- Brand grid pakai logo ---- */
+.brand-cell img {
+  max-width: 64%; max-height: 42%;
+  object-fit: contain;
+  opacity: 0.78;
+  transition: opacity .25s ease, transform .25s ease;
+}
+.brand-cell:hover img { opacity: 1; transform: scale(1.05); }
+
+/* ---- Button lebih kecil di mobile ---- */
+@media (max-width: 575px) {
+  .btn { padding: 11px 20px; font-size: 13px; }
+  .btn-lg { padding: 13px 24px; font-size: 14px; }
+  .btn-sm { padding: 8px 16px; font-size: 12px; }
+  .hero-actions .btn { flex: 1 1 auto; }
+}
+
+/* ---- Font Pembayaran & Pengiriman lebih kecil di mobile ---- */
+@media (max-width: 767px) {
+  .pay-method-list { font-size: 15px !important; gap: 6px 14px !important; }
+}
+@media (max-width: 575px) {
+  .pay-method-list { font-size: 13px !important; }
+}
 
 /* ============================================================
    DRUPAL OVERRIDES — map core/Commerce markup to Tammia skin
