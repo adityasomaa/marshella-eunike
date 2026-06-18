@@ -4042,7 +4042,9 @@ input.form-control[type="search"], .nav-search input {
 .hb-dots button.active { width: 30px; background: var(--rouge); }
 @media (max-width: 600px) { .hb-dots { bottom: 12px; } }
 
-/* ---- FAQ (pengganti Top Picks) — accordion beranimasi ---- */
+/* ---- FAQ (pengganti Top Picks) — accordion beranimasi ----
+   Visual (ikon/border/warna) digerakkan class .is-open yang di-toggle SEKETIKA
+   oleh JS (tammiaInitFaq), supaya ikon langsung balik ke + saat ditutup. */
 .faq-wrap {
   display: grid; grid-template-columns: 0.82fr 1.18fr;
   gap: clamp(32px, 5vw, 72px); align-items: start;
@@ -4051,35 +4053,35 @@ input.form-control[type="search"], .nav-search input {
 .faq-list { display: flex; flex-direction: column; gap: 14px; }
 .faq-item {
   background: #fff; border: 1px solid var(--line); border-radius: 18px;
-  padding: 0 24px;
+  padding: 4px 30px;
   transition: box-shadow .3s ease, border-color .3s ease;
 }
-.faq-item[open] {
+.faq-item.is-open {
   border-color: var(--rouge);
-  box-shadow: 0 20px 44px -26px rgba(225,29,37,0.38);
+  box-shadow: 0 16px 38px -28px rgba(225,29,37,0.32);
 }
 .faq-q {
   list-style: none; cursor: pointer;
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  padding: 19px 0;
-  font-family: 'Product Sans','Comfortaa',sans-serif; font-weight: 600;
-  font-size: clamp(16px, 1.7vw, 19px); color: var(--ink);
+  display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  padding: 21px 0;
+  font-family: 'Product Sans','Comfortaa',sans-serif; font-weight: 500;
+  font-size: clamp(15px, 1.55vw, 18px); color: var(--ink);
   transition: color .25s ease;
 }
-.faq-item[open] .faq-q { color: var(--rouge); }
+.faq-item.is-open .faq-q { color: var(--rouge); }
 .faq-q::-webkit-details-marker { display: none; }
 .faq-q::marker { content: ''; }
 .faq-ic {
   flex: 0 0 auto; font-size: 22px; line-height: 1; color: var(--rouge);
-  transition: transform .35s cubic-bezier(.4,0,.2,1);
+  transition: transform .3s cubic-bezier(.4,0,.2,1);
 }
-.faq-item[open] .faq-ic { transform: rotate(45deg); }
-/* .faq-a animasinya dikontrol JS (tammiaInitFaq): height + opacity */
+.faq-item.is-open .faq-ic { transform: rotate(45deg); }
+/* .faq-a tinggi+fade dianimasikan JS (tammiaInitFaq) */
 .faq-a {
   overflow: hidden; box-sizing: border-box;
-  padding: 0 0 20px; color: var(--muted);
-  font-size: 15.5px; line-height: 1.72; max-width: 620px;
-  transition: height .36s cubic-bezier(.4,0,.2,1), opacity .3s ease;
+  padding: 2px 0 24px; color: var(--muted);
+  font-size: 15px; line-height: 1.74; max-width: 560px;
+  transition: height .32s cubic-bezier(.4,0,.2,1), opacity .26s ease;
 }
 .faq-a strong { color: var(--ink); font-weight: 600; }
 @media (max-width: 860px) {

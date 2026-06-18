@@ -2188,45 +2188,55 @@ function tammiaInitFaq() {
     const body = item.querySelector('.faq-a');
     if (!summary || !body) return;
 
-    // State awal: kalau sudah open di HTML, biarkan tampil penuh (tanpa animasi)
-    if (!item.open) { body.style.height = '0px'; body.style.opacity = '0'; }
+    // Sinkron state awal — visual via .is-open (instan), konten via height
+    const startOpen = item.open;
+    item.classList.toggle('is-open', startOpen);
+    body.style.height = startOpen ? 'auto' : '0px';
+    body.style.opacity = startOpen ? '1' : '0';
 
     summary.addEventListener('click', e => {
       e.preventDefault();
-      if (body.dataset.animating === '1') return;
-      body.dataset.animating = '1';
 
-      if (item.open) {
-        // ---- Tutup: dari tinggi sekarang -> 0 ----
-        body.style.height = body.scrollHeight + 'px';
-        void body.offsetHeight; // force reflow
-        body.style.height = '0px';
-        body.style.opacity = '0';
-        const done = () => {
-          item.open = false;
-          body.removeEventListener('transitionend', onEnd);
-          body.dataset.animating = '0';
-        };
-        const onEnd = ev => { if (ev.propertyName === 'height') done(); };
-        body.addEventListener('transitionend', onEnd);
-        setTimeout(() => { if (body.dataset.animating === '1') done(); }, 480);
-      } else {
-        // ---- Buka: set open dulu (konten terukur), animasikan 0 -> tinggi konten ----
-        item.open = true;
-        body.style.height = '0px';
-        body.style.opacity = '0';
-        void body.offsetHeight; // force reflow
-        body.style.height = body.scrollHeight + 'px';
-        body.style.opacity = '1';
-        const done = () => {
-          body.style.height = 'auto'; // responsif kalau viewport berubah
-          body.removeEventListener('transitionend', onEnd);
-          body.dataset.animating = '0';
-        };
-        const onEnd = ev => { if (ev.propertyName === 'height') done(); };
-        body.addEventListener('transitionend', onEnd);
-        setTimeout(() => { if (body.dataset.animating === '1') done(); }, 480);
+      // bersihkan animasi yang masih jalan (anti klik-cepat)
+      if (body._faqEnd) { body.removeEventListener('transitionend', body._faqEnd); body._faqEnd = null; }
+      if (body._faqTimer) { clearTimeout(body._faqTimer); body._faqTimer = null; }
+
+      const opening = !item.classList.contains('is-open');
+      // feedback INSTAN: ikon + border + warna (tak menunggu animasi tinggi)
+      item.classList.toggle('is-open', opening);
+      item.open = true; // konten tetap render selama animasi
+
+      // ukur tinggi awal & target seakurat mungkin (hindari patah/jump)
+      const current = body.getBoundingClientRect().height;
+      body.style.height = current + 'px';
+      void body.offsetHeight; // reflow
+
+      let target = 0;
+      if (opening) {
+        body.style.height = 'auto';
+        target = body.getBoundingClientRect().height;
+        body.style.height = current + 'px';
+        void body.offsetHeight; // reflow lagi sebelum animasi
       }
+
+      requestAnimationFrame(() => {
+        body.style.height = target + 'px';
+        body.style.opacity = opening ? '1' : '0';
+      });
+
+      const finish = () => {
+        if (body._faqEnd) { body.removeEventListener('transitionend', body._faqEnd); body._faqEnd = null; }
+        if (body._faqTimer) { clearTimeout(body._faqTimer); body._faqTimer = null; }
+        if (opening) {
+          body.style.height = 'auto'; // responsif saat viewport berubah
+        } else {
+          body.style.height = '0px';
+          item.open = false; // tutup semantics setelah animasi selesai
+        }
+      };
+      body._faqEnd = ev => { if (ev.propertyName === 'height') finish(); };
+      body.addEventListener('transitionend', body._faqEnd);
+      body._faqTimer = setTimeout(finish, 420); // fallback
     });
   });
 }

@@ -194,35 +194,48 @@
         const summary = item.querySelector('.faq-q');
         const body = item.querySelector('.faq-a');
         if (!summary || !body) return;
-        if (!item.open) { body.style.height = '0px'; body.style.opacity = '0'; }
+
+        // Sinkron state awal — visual via .is-open (instan), konten via height
+        const startOpen = item.open;
+        item.classList.toggle('is-open', startOpen);
+        body.style.height = startOpen ? 'auto' : '0px';
+        body.style.opacity = startOpen ? '1' : '0';
 
         summary.addEventListener('click', (e) => {
           e.preventDefault();
-          if (body.dataset.animating === '1') return;
-          body.dataset.animating = '1';
-          const finishOpen = () => { body.style.height = 'auto'; cleanup(); };
-          const finishClose = () => { item.open = false; cleanup(); };
-          function cleanup() { body.removeEventListener('transitionend', onEnd); body.dataset.animating = '0'; }
+          if (body._faqEnd) { body.removeEventListener('transitionend', body._faqEnd); body._faqEnd = null; }
+          if (body._faqTimer) { clearTimeout(body._faqTimer); body._faqTimer = null; }
 
-          if (item.open) {
-            body.style.height = body.scrollHeight + 'px';
+          const opening = !item.classList.contains('is-open');
+          item.classList.toggle('is-open', opening); // feedback instan: ikon/border
+          item.open = true;
+
+          const current = body.getBoundingClientRect().height;
+          body.style.height = current + 'px';
+          void body.offsetHeight;
+
+          let target = 0;
+          if (opening) {
+            body.style.height = 'auto';
+            target = body.getBoundingClientRect().height;
+            body.style.height = current + 'px';
             void body.offsetHeight;
-            body.style.height = '0px';
-            body.style.opacity = '0';
-            var onEnd = (ev) => { if (ev.propertyName === 'height') finishClose(); };
-            body.addEventListener('transitionend', onEnd);
-            setTimeout(() => { if (body.dataset.animating === '1') finishClose(); }, 480);
-          } else {
-            item.open = true;
-            body.style.height = '0px';
-            body.style.opacity = '0';
-            void body.offsetHeight;
-            body.style.height = body.scrollHeight + 'px';
-            body.style.opacity = '1';
-            var onEnd = (ev) => { if (ev.propertyName === 'height') finishOpen(); };
-            body.addEventListener('transitionend', onEnd);
-            setTimeout(() => { if (body.dataset.animating === '1') finishOpen(); }, 480);
           }
+
+          requestAnimationFrame(() => {
+            body.style.height = target + 'px';
+            body.style.opacity = opening ? '1' : '0';
+          });
+
+          const finish = () => {
+            if (body._faqEnd) { body.removeEventListener('transitionend', body._faqEnd); body._faqEnd = null; }
+            if (body._faqTimer) { clearTimeout(body._faqTimer); body._faqTimer = null; }
+            if (opening) { body.style.height = 'auto'; }
+            else { body.style.height = '0px'; item.open = false; }
+          };
+          body._faqEnd = (ev) => { if (ev.propertyName === 'height') finish(); };
+          body.addEventListener('transitionend', body._faqEnd);
+          body._faqTimer = setTimeout(finish, 420);
         });
       });
     }
