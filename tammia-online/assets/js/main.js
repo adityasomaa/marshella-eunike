@@ -1643,8 +1643,9 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCartDrawer();
   tammiaUpdateCartBadge();
 
-  /* ---------- FAQ accordion ---------- */
-  document.querySelectorAll('.faq-item').forEach(item => {
+  /* ---------- FAQ accordion LAMA (contact.html, div-based) ----------
+     Scope ke div.faq-item supaya tidak bentrok dgn FAQ baru (<details> di .faq-wrap) */
+  document.querySelectorAll('div.faq-item').forEach(item => {
     const q = item.querySelector('.faq-q');
     if (q) q.addEventListener('click', () => item.classList.toggle('open'));
   });
@@ -2180,7 +2181,8 @@ function tammiaInitHomeBanner() {
    FAQ accordion — animasi buka/tutup (height + fade), bukan popping up
    ============================================================ */
 function tammiaInitFaq() {
-  const items = Array.from(document.querySelectorAll('.faq-item'));
+  // Scope ke .faq-wrap (FAQ baru index, <details>) — jangan kena FAQ lama contact.html
+  const items = Array.from(document.querySelectorAll('.faq-wrap .faq-item'));
   if (!items.length) return;
 
   items.forEach(item => {

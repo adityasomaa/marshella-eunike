@@ -4042,25 +4042,26 @@ input.form-control[type="search"], .nav-search input {
 .hb-dots button.active { width: 30px; background: var(--rouge); }
 @media (max-width: 600px) { .hb-dots { bottom: 12px; } }
 
-/* ---- FAQ (pengganti Top Picks) — accordion beranimasi ----
-   Visual (ikon/border/warna) digerakkan class .is-open yang di-toggle SEKETIKA
-   oleh JS (tammiaInitFaq), supaya ikon langsung balik ke + saat ditutup. */
+/* ---- FAQ baru (index, pengganti Top Picks) — accordion beranimasi ----
+   SEMUA di-scope ke .faq-wrap supaya TIDAK bentrok dgn FAQ lama contact.html
+   (yang pakai div.faq-item + .open + max-height). Visual digerakkan class
+   .is-open yang di-toggle SEKETIKA oleh JS (tammiaInitFaq). */
 .faq-wrap {
   display: grid; grid-template-columns: 0.82fr 1.18fr;
   gap: clamp(32px, 5vw, 72px); align-items: start;
 }
-.faq-intro { position: sticky; top: 110px; }
-.faq-list { display: flex; flex-direction: column; gap: 14px; }
-.faq-item {
+.faq-wrap .faq-intro { position: sticky; top: 110px; }
+.faq-wrap .faq-list { display: flex; flex-direction: column; gap: 14px; }
+.faq-wrap .faq-item {
   background: #fff; border: 1px solid var(--line); border-radius: 18px;
-  padding: 4px 30px;
+  padding: 4px 30px; cursor: default;
   transition: box-shadow .3s ease, border-color .3s ease;
 }
-.faq-item.is-open {
+.faq-wrap .faq-item.is-open {
   border-color: var(--rouge);
   box-shadow: 0 16px 38px -28px rgba(225,29,37,0.32);
 }
-.faq-q {
+.faq-wrap .faq-q {
   list-style: none; cursor: pointer;
   display: flex; align-items: center; justify-content: space-between; gap: 18px;
   padding: 21px 0;
@@ -4068,25 +4069,26 @@ input.form-control[type="search"], .nav-search input {
   font-size: clamp(15px, 1.55vw, 18px); color: var(--ink);
   transition: color .25s ease;
 }
-.faq-item.is-open .faq-q { color: var(--rouge); }
-.faq-q::-webkit-details-marker { display: none; }
-.faq-q::marker { content: ''; }
-.faq-ic {
+.faq-wrap .faq-item.is-open .faq-q { color: var(--rouge); }
+.faq-wrap .faq-q::-webkit-details-marker { display: none; }
+.faq-wrap .faq-q::marker { content: ''; }
+.faq-wrap .faq-ic {
   flex: 0 0 auto; font-size: 22px; line-height: 1; color: var(--rouge);
   transition: transform .3s cubic-bezier(.4,0,.2,1);
 }
-.faq-item.is-open .faq-ic { transform: rotate(45deg); }
-/* .faq-a tinggi+fade dianimasikan JS (tammiaInitFaq) */
-.faq-a {
-  overflow: hidden; box-sizing: border-box;
+.faq-wrap .faq-item.is-open .faq-ic { transform: rotate(45deg); }
+/* .faq-a tinggi+fade dianimasikan JS (tammiaInitFaq); max-height:none
+   menetralisir aturan FAQ lama `.faq-a{max-height:0}` yang unscoped */
+.faq-wrap .faq-a {
+  max-height: none; overflow: hidden; box-sizing: border-box;
   padding: 2px 0 24px; color: var(--muted);
   font-size: 15px; line-height: 1.74; max-width: 560px;
   transition: height .32s cubic-bezier(.4,0,.2,1), opacity .26s ease;
 }
-.faq-a strong { color: var(--ink); font-weight: 600; }
+.faq-wrap .faq-a strong { color: var(--ink); font-weight: 600; }
 @media (max-width: 860px) {
   .faq-wrap { grid-template-columns: 1fr; }
-  .faq-intro { position: static; }
+  .faq-wrap .faq-intro { position: static; }
 }
 
 /* ============================================================

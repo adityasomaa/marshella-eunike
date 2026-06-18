@@ -190,7 +190,7 @@
   /* ---------- FAQ accordion — animasi buka/tutup (height + fade) ---------- */
   Drupal.behaviors.tammiaFaq = {
     attach(context) {
-      once('tammia-faq', '.faq-item', context).forEach((item) => {
+      once('tammia-faq', '.faq-wrap .faq-item', context).forEach((item) => {
         const summary = item.querySelector('.faq-q');
         const body = item.querySelector('.faq-a');
         if (!summary || !body) return;
