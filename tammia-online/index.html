@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=20260614">
+<link rel="stylesheet" href="assets/css/style.css?v=20260616">
 </head>
 <body>
 <canvas id="bg-canvas"></canvas>
@@ -59,6 +59,19 @@
     </div>
   </div>
 </div>
+
+<!-- HOME BANNER (memanjang) — swappable: cukup ganti banner-1.jpg, atau drop banner desain-jadi & hapus .home-banner-overlay -->
+<section class="home-banner reveal" aria-label="Promo Tammia">
+  <a href="shop.html" class="home-banner-link">
+    <img src="assets/img/placeholders/banner-1.jpg?v=20260616" alt="Promo Tammia — koleksi beauty tools original" class="home-banner-img" loading="eager">
+    <div class="home-banner-overlay">
+      <span class="home-banner-eyebrow">Koleksi 2026</span>
+      <h2 class="home-banner-title">Beauty tools original,<br>tanpa ragu.</h2>
+      <p class="home-banner-sub">Gratis ongkir 150K+ · Cicilan 0% · Garansi authentic</p>
+      <span class="btn btn-peach home-banner-cta">Belanja Sekarang <i class="bi bi-arrow-right"></i></span>
+    </div>
+  </a>
+</section>
 
 <!-- HERO -->
 <section class="hero">
@@ -322,41 +335,41 @@
   </div>
 </section>
 
-<!-- EDITORIAL FEATURE: Top Picks -->
-<section class="bg-cream">
+<!-- FAQ (pengganti Top Picks of the Week) -->
+<section class="bg-cream" id="faq">
   <div class="container">
-    <div class="editorial-feature">
-      <div class="reveal">
-        <div class="editorial-img">
-          <!-- Foto lifestyle (placeholder; foto akan dikirim klien) -->
-          <img src="assets/img/placeholders/lifestyle-1.jpg?v=20260615" alt="Tammia lifestyle" loading="lazy">
-        </div>
+    <div class="faq-wrap">
+      <div class="faq-intro reveal">
+        <span class="section-eyebrow">Bantuan</span>
+        <h2 class="section-title">Pertanyaan yang <em>sering ditanya.</em></h2>
+        <p class="section-sub">Belum nemu jawabannya? Tim kami siap bantu langsung lewat WhatsApp.</p>
+        <a href="https://wa.me/62818883349?text=Halo%20Tammia%20%F0%9F%91%8B%20Saya%20ada%20pertanyaan%20seputar%20produk%2Fpesanan%2C%20boleh%20dibantu%3F" target="_blank" rel="noopener" class="btn btn-peach mt-2">Chat WhatsApp <i class="bi bi-whatsapp"></i></a>
       </div>
-      <div class="reveal">
-        <span class="section-eyebrow">Editor's Choice · Vol 04</span>
-        <h2 class="section-title">Top picks of the <em>week.</em></h2>
-        <p style="color:var(--muted); font-size:16px; max-width:480px; margin-bottom:24px;">
-          Setiap minggu tim kurator Tammia memilih 6 produk yang paling layak masuk ke kit kamu. Minggu ini fokus ke <strong>setup kit untuk MUA pengantin</strong>, brush blending halus, cushion sponge yang nggak makan foundation, dan beauty case yang muat semua tanpa makan space.
-        </p>
-        <ul style="list-style:none; padding:0; margin: 0 0 32px;">
-          <li style="padding:12px 0; border-bottom: 1px solid var(--line); display:flex; justify-content:space-between;">
-            <span style="font-family:'Product Sans','Comfortaa',sans-serif; font-size:17px;">01 - Real Techniques Brush Set</span>
-            <span class="mono-label">Rp 425.000</span>
-          </li>
-          <li style="padding:12px 0; border-bottom: 1px solid var(--line); display:flex; justify-content:space-between;">
-            <span style="font-family:'Product Sans','Comfortaa',sans-serif; font-size:17px;">02 - Tammia PCUS52 Cushion Sponge</span>
-            <span class="mono-label">Rp 46.900</span>
-          </li>
-          <li style="padding:12px 0; border-bottom: 1px solid var(--line); display:flex; justify-content:space-between;">
-            <span style="font-family:'Product Sans','Comfortaa',sans-serif; font-size:17px;">03 - Sonia Miller Travel Case</span>
-            <span class="mono-label">Rp 599.940</span>
-          </li>
-          <li style="padding:12px 0; display:flex; justify-content:space-between;">
-            <span style="font-family:'Product Sans','Comfortaa',sans-serif; font-size:17px;">04 - Tweezerman Slant Tweezer</span>
-            <span class="mono-label">Rp 285.000</span>
-          </li>
-        </ul>
-        <a href="shop.html" class="btn btn-peach">Belanja Pilihan Editor <i class="bi bi-arrow-right"></i></a>
+      <div class="faq-list reveal">
+        <details class="faq-item" open>
+          <summary class="faq-q">Apakah semua produk dijamin original?<i class="bi bi-plus faq-ic"></i></summary>
+          <div class="faq-a">Iya, <strong>100% original</strong>. Semua produk kami ambil dari distributor resmi tiap brand. Kalau sampai terbukti palsu, kami ganti <strong>2x lipat</strong> — itu komitmen authentic guarantee Tammia.</div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Berapa lama pengiriman dan pakai kurir apa?<i class="bi bi-plus faq-ic"></i></summary>
+          <div class="faq-a">Pesanan diproses <strong>1–2 hari kerja</strong>, lalu dikirim via JNE, J&amp;T, atau SiCepat ke seluruh Indonesia. Estimasi tiba menyesuaikan kota tujuan, dan ongkir otomatis terhitung saat checkout.</div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Ada gratis ongkir?<i class="bi bi-plus faq-ic"></i></summary>
+          <div class="faq-a">Ada. <strong>Gratis ongkir</strong> untuk setiap pesanan minimal <strong>Rp 150.000</strong> ke seluruh Indonesia, tanpa kode khusus — potongannya langsung muncul di ringkasan pesanan.</div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Bisa retur atau tukar barang?<i class="bi bi-plus faq-ic"></i></summary>
+          <div class="faq-a">Bisa, dalam <strong>7 hari</strong> setelah barang diterima, selama produk belum dipakai dan kemasan masih utuh. Cukup chat WhatsApp kami dengan foto produk &amp; nomor pesanan, nanti tim bantu prosesnya.</div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Metode pembayaran apa saja yang tersedia?<i class="bi bi-plus faq-ic"></i></summary>
+          <div class="faq-a">Transfer bank, Virtual Account, kartu kredit/debit, dan e-wallet populer. Tersedia juga <strong>cicilan 0%</strong> via BCA &amp; Mandiri untuk transaksi yang memenuhi syarat.</div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Bagaimana cara memesan?<i class="bi bi-plus faq-ic"></i></summary>
+          <div class="faq-a">Pilih produk &rarr; tambah ke keranjang &rarr; checkout dan isi data pengiriman. Lebih nyaman lewat chat? Tim kami siap bantu pesanan kamu langsung di <strong>WhatsApp</strong>.</div>
+        </details>
       </div>
     </div>
   </div>

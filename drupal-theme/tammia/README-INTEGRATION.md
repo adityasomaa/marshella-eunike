@@ -76,6 +76,35 @@ Drupal Commerce. Pemetaannya:
 Yang **visual/CSS/layout** sudah 1:1 dengan preview. Yang **logika commerce**
 mengikuti modul Drupal, bukan JS demo.
 
+## Revisi home 18 Juni 2026 (banner memanjang, ticker, FAQ)
+
+Tiga perubahan halaman depan yang CSS-nya sudah ada di `css/style.css`:
+
+1. **Banner memanjang di header** — full-bleed di atas hero. Di Drupal:
+   buat **Block** custom (region `content` paling atas, atau region baru
+   `home_banner`) berisi markup:
+   ```html
+   <section class="home-banner">
+     <a href="/shop" class="home-banner-link">
+       <img src="/themes/custom/tammia/img/placeholders/banner-1.jpg" class="home-banner-img" alt="Promo">
+       <div class="home-banner-overlay">
+         <span class="home-banner-eyebrow">Koleksi 2026</span>
+         <h2 class="home-banner-title">Beauty tools original, tanpa ragu.</h2>
+         <p class="home-banner-sub">Gratis ongkir 150K+ · Cicilan 0% · Garansi authentic</p>
+         <span class="btn btn-peach home-banner-cta">Belanja Sekarang</span>
+       </div>
+     </a>
+   </section>
+   ```
+   `banner-1.jpg` masih **placeholder graphic** — ganti dengan banner desain-jadi
+   dari klien (boleh hapus `.home-banner-overlay` kalau bannernya sudah berteks).
+2. **Ticker announcement diperlambat** — `.shipping-bar .ticker` animasi
+   `28s → 56s` + pause saat hover. Murni CSS, sudah ikut tersinkron.
+3. **Section "Top Picks of the Week" diganti FAQ** — accordion pakai
+   `<details>/<summary>` native (kelas `.faq-wrap/.faq-item/.faq-q/.faq-a`),
+   tanpa JS. Di Drupal bisa jadi **Block** custom atau view "FAQ" (judul =
+   `.faq-q`, isi = `.faq-a`). Markup contoh ada di preview `index.html`.
+
 ## Brand guideline cepat
 
 - Merah primary `#e11d25` · off-white `#f4f2f0` · gold accent `#d3ac50`
