@@ -1,0 +1,13 @@
+# Bukan bagian dari situs preview statis — jangan di-upload ke Vercel
+tools/
+scraped-d11/
+LOGOS/
+IMAGES/
+node_modules/
+**/node_modules/
+
+# Artefak kerja lokal & deliverable non-publik
+*.zip
+*.pdf
+*.py
+qr.png
