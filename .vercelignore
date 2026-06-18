@@ -1,8 +1,10 @@
 # Bukan bagian dari situs preview statis — jangan di-upload ke Vercel
-tools/
-scraped-d11/
-LOGOS/
-IMAGES/
+# CATATAN: anchor /LOGOS/ & /IMAGES/ ke ROOT — tanpa anchor, pola "LOGOS/"
+# match case-insensitive ke assets/img/logos/ dan menghapus semua logo (gotcha!)
+/tools/
+/scraped-d11/
+/LOGOS/
+/IMAGES/
 node_modules/
 **/node_modules/
 

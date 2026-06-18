@@ -144,4 +144,88 @@
     }
   };
 
+  /* ---------- Home banner slideshow (gambar saja, transisi fade) ---------- */
+  Drupal.behaviors.tammiaHomeBanner = {
+    attach(context) {
+      once('tammia-home-banner', '#homeBanner', context).forEach((slider) => {
+        const slides = Array.from(slider.querySelectorAll('.hb-slide'));
+        if (!slides.length) return;
+        const dotsWrap = slider.querySelector('.hb-dots');
+        let i = 0, timer = null;
+        const delay = parseInt(slider.dataset.autoplay, 10) || 5000;
+
+        const dots = slides.map((_, idx) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('aria-label', 'Banner ' + (idx + 1));
+          if (idx === 0) b.classList.add('active');
+          b.addEventListener('click', () => { go(idx); restart(); });
+          if (dotsWrap) dotsWrap.appendChild(b);
+          return b;
+        });
+
+        function go(n) {
+          i = (n + slides.length) % slides.length;
+          slides.forEach((sl, idx) => sl.classList.toggle('active', idx === i));
+          dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+        }
+        function next() { go(i + 1); }
+        function start() { if (slides.length > 1) timer = setInterval(next, delay); }
+        function stop() { if (timer) { clearInterval(timer); timer = null; } }
+        function restart() { stop(); start(); }
+
+        slider.addEventListener('mouseenter', stop);
+        slider.addEventListener('mouseleave', start);
+        let sx = 0;
+        slider.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
+        slider.addEventListener('touchend', (e) => {
+          const dx = e.changedTouches[0].clientX - sx;
+          if (Math.abs(dx) > 40) { go(dx < 0 ? i + 1 : i - 1); restart(); }
+        }, { passive: true });
+        start();
+      });
+    }
+  };
+
+  /* ---------- FAQ accordion — animasi buka/tutup (height + fade) ---------- */
+  Drupal.behaviors.tammiaFaq = {
+    attach(context) {
+      once('tammia-faq', '.faq-item', context).forEach((item) => {
+        const summary = item.querySelector('.faq-q');
+        const body = item.querySelector('.faq-a');
+        if (!summary || !body) return;
+        if (!item.open) { body.style.height = '0px'; body.style.opacity = '0'; }
+
+        summary.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (body.dataset.animating === '1') return;
+          body.dataset.animating = '1';
+          const finishOpen = () => { body.style.height = 'auto'; cleanup(); };
+          const finishClose = () => { item.open = false; cleanup(); };
+          function cleanup() { body.removeEventListener('transitionend', onEnd); body.dataset.animating = '0'; }
+
+          if (item.open) {
+            body.style.height = body.scrollHeight + 'px';
+            void body.offsetHeight;
+            body.style.height = '0px';
+            body.style.opacity = '0';
+            var onEnd = (ev) => { if (ev.propertyName === 'height') finishClose(); };
+            body.addEventListener('transitionend', onEnd);
+            setTimeout(() => { if (body.dataset.animating === '1') finishClose(); }, 480);
+          } else {
+            item.open = true;
+            body.style.height = '0px';
+            body.style.opacity = '0';
+            void body.offsetHeight;
+            body.style.height = body.scrollHeight + 'px';
+            body.style.opacity = '1';
+            var onEnd = (ev) => { if (ev.propertyName === 'height') finishOpen(); };
+            body.addEventListener('transitionend', onEnd);
+            setTimeout(() => { if (body.dataset.animating === '1') finishOpen(); }, 480);
+          }
+        });
+      });
+    }
+  };
+
 })(Drupal, once);

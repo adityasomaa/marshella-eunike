@@ -80,30 +80,32 @@ mengikuti modul Drupal, bukan JS demo.
 
 Tiga perubahan halaman depan yang CSS-nya sudah ada di `css/style.css`:
 
-1. **Banner memanjang di header** — full-bleed di atas hero. Di Drupal:
-   buat **Block** custom (region `content` paling atas, atau region baru
+1. **Banner memanjang di header** — full-bleed **slideshow gambar saja**
+   (transisi fade + pagination dots), tanpa teks/CTA. JS = behavior
+   `Drupal.behaviors.tammiaHomeBanner` (sudah di `js/tammia.js`). Di Drupal:
+   buat **Block** custom (region `content` paling atas / region baru
    `home_banner`) berisi markup:
    ```html
    <section class="home-banner">
-     <a href="/shop" class="home-banner-link">
-       <img src="/themes/custom/tammia/img/placeholders/banner-1.jpg" class="home-banner-img" alt="Promo">
-       <div class="home-banner-overlay">
-         <span class="home-banner-eyebrow">Koleksi 2026</span>
-         <h2 class="home-banner-title">Beauty tools original, tanpa ragu.</h2>
-         <p class="home-banner-sub">Gratis ongkir 150K+ · Cicilan 0% · Garansi authentic</p>
-         <span class="btn btn-peach home-banner-cta">Belanja Sekarang</span>
-       </div>
-     </a>
+     <div class="home-banner-slider" id="homeBanner" data-autoplay="5000">
+       <div class="hb-slide active"><img src="/themes/custom/tammia/img/placeholders/banner-1.jpg" alt="Promo 1"></div>
+       <div class="hb-slide"><img src="/themes/custom/tammia/img/placeholders/banner-2.jpg" alt="Promo 2"></div>
+       <!-- banner-3..5.jpg -->
+       <div class="hb-dots" id="homeBannerDots"></div>
+     </div>
    </section>
    ```
-   `banner-1.jpg` masih **placeholder graphic** — ganti dengan banner desain-jadi
-   dari klien (boleh hapus `.home-banner-overlay` kalau bannernya sudah berteks).
+   `banner-1..5.jpg` masih **placeholder graphic** — ganti dengan banner
+   desain-jadi dari klien (jumlah slide bebas; dots auto-generate via JS).
 2. **Ticker announcement diperlambat** — `.shipping-bar .ticker` animasi
    `28s → 56s` + pause saat hover. Murni CSS, sudah ikut tersinkron.
-3. **Section "Top Picks of the Week" diganti FAQ** — accordion pakai
-   `<details>/<summary>` native (kelas `.faq-wrap/.faq-item/.faq-q/.faq-a`),
-   tanpa JS. Di Drupal bisa jadi **Block** custom atau view "FAQ" (judul =
-   `.faq-q`, isi = `.faq-a`). Markup contoh ada di preview `index.html`.
+3. **Section "Top Picks of the Week" diganti FAQ** — accordion
+   `<details>/<summary>` (kelas `.faq-wrap/.faq-item/.faq-q/.faq-a`) dengan
+   **animasi buka/tutup** (height + fade) via `Drupal.behaviors.tammiaFaq`
+   (di `js/tammia.js`; tanpa JS pun tetap toggle native). Di Drupal bisa jadi
+   **Block** custom atau view "FAQ" (judul = `.faq-q`, isi = `.faq-a`). Markup
+   contoh ada di preview `index.html`. Tiap `.faq-q` wajib punya
+   `<i class="bi bi-plus faq-ic"></i>` di akhir (ikon +/× yang berotasi).
 
 ## Brand guideline cepat
 

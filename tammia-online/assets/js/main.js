@@ -2036,6 +2036,8 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- STAGE 2: Page-specific async product renderers ---------- */
   tammiaInitFeaturedSection();
   tammiaInitHeroSlider();
+  tammiaInitHomeBanner();
+  tammiaInitFaq();
   tammiaInitProductDetailPage();
   // Re-render wishlist drawer + re-inject hearts after products arrive
   tammiaProductsReady().then(() => {
@@ -2121,6 +2123,112 @@ function tammiaInitHeroSlider() {
   }, { passive: true });
 
   start();
+}
+
+/* ============================================================
+   Home banner slideshow (memanjang) — gambar saja, transisi fade
+   ============================================================ */
+function tammiaInitHomeBanner() {
+  const slider = document.getElementById('homeBanner');
+  if (!slider) return;
+  const slides = Array.from(slider.querySelectorAll('.hb-slide'));
+  if (!slides.length) return;
+  const dotsWrap = document.getElementById('homeBannerDots');
+  let i = 0, timer = null;
+  const delay = parseInt(slider.dataset.autoplay, 10) || 5000;
+
+  const dots = slides.map((_, idx) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-label', 'Banner ' + (idx + 1));
+    if (idx === 0) { b.classList.add('active'); b.setAttribute('aria-selected', 'true'); }
+    b.addEventListener('click', () => { go(idx); restart(); });
+    if (dotsWrap) dotsWrap.appendChild(b);
+    return b;
+  });
+
+  function go(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach((sl, idx) => sl.classList.toggle('active', idx === i));
+    dots.forEach((d, idx) => {
+      const on = idx === i;
+      d.classList.toggle('active', on);
+      d.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+  }
+  function next() { go(i + 1); }
+  function start() { if (slides.length > 1) timer = setInterval(next, delay); }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+  function restart() { stop(); start(); }
+
+  slider.addEventListener('mouseenter', stop);
+  slider.addEventListener('mouseleave', start);
+
+  // swipe (mobile)
+  let sx = 0;
+  slider.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+  slider.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 40) { go(dx < 0 ? i + 1 : i - 1); restart(); }
+  }, { passive: true });
+
+  start();
+}
+
+/* ============================================================
+   FAQ accordion — animasi buka/tutup (height + fade), bukan popping up
+   ============================================================ */
+function tammiaInitFaq() {
+  const items = Array.from(document.querySelectorAll('.faq-item'));
+  if (!items.length) return;
+
+  items.forEach(item => {
+    const summary = item.querySelector('.faq-q');
+    const body = item.querySelector('.faq-a');
+    if (!summary || !body) return;
+
+    // State awal: kalau sudah open di HTML, biarkan tampil penuh (tanpa animasi)
+    if (!item.open) { body.style.height = '0px'; body.style.opacity = '0'; }
+
+    summary.addEventListener('click', e => {
+      e.preventDefault();
+      if (body.dataset.animating === '1') return;
+      body.dataset.animating = '1';
+
+      if (item.open) {
+        // ---- Tutup: dari tinggi sekarang -> 0 ----
+        body.style.height = body.scrollHeight + 'px';
+        void body.offsetHeight; // force reflow
+        body.style.height = '0px';
+        body.style.opacity = '0';
+        const done = () => {
+          item.open = false;
+          body.removeEventListener('transitionend', onEnd);
+          body.dataset.animating = '0';
+        };
+        const onEnd = ev => { if (ev.propertyName === 'height') done(); };
+        body.addEventListener('transitionend', onEnd);
+        setTimeout(() => { if (body.dataset.animating === '1') done(); }, 480);
+      } else {
+        // ---- Buka: set open dulu (konten terukur), animasikan 0 -> tinggi konten ----
+        item.open = true;
+        body.style.height = '0px';
+        body.style.opacity = '0';
+        void body.offsetHeight; // force reflow
+        body.style.height = body.scrollHeight + 'px';
+        body.style.opacity = '1';
+        const done = () => {
+          body.style.height = 'auto'; // responsif kalau viewport berubah
+          body.removeEventListener('transitionend', onEnd);
+          body.dataset.animating = '0';
+        };
+        const onEnd = ev => { if (ev.propertyName === 'height') done(); };
+        body.addEventListener('transitionend', onEnd);
+        setTimeout(() => { if (body.dataset.animating === '1') done(); }, 480);
+      }
+    });
+  });
 }
 
 function tammiaInitFeaturedSection() {

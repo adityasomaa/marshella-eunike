@@ -4012,51 +4012,37 @@ input.form-control[type="search"], .nav-search input {
 }
 
 /* ============================================================
-   Revisi tim Marshella — Banner memanjang + FAQ
+   Revisi tim Marshella — Banner slideshow + FAQ beranimasi
    ============================================================ */
 
-/* ---- Home banner memanjang (full-bleed, swappable) ---- */
+/* ---- Home banner slideshow (full-bleed, gambar saja, transisi fade) ---- */
 .home-banner { padding: 0; margin: 0; }
-.home-banner .home-banner-link {
-  position: relative; display: block; width: 100%; overflow: hidden;
-  text-decoration: none;
+.home-banner-slider {
+  position: relative; width: 100%;
+  height: clamp(190px, 30vw, 420px);
+  overflow: hidden; background: var(--paper);
 }
-.home-banner-img {
-  width: 100%; height: clamp(190px, 30vw, 420px);
-  object-fit: cover; display: block;
-}
-.home-banner-overlay {
+.hb-slide {
   position: absolute; inset: 0;
-  display: flex; flex-direction: column; justify-content: center; gap: 12px;
-  padding: 0 clamp(24px, 7vw, 110px);
-  background: linear-gradient(90deg,
-    rgba(244,242,240,0.94) 0%, rgba(244,242,240,0.78) 34%,
-    rgba(244,242,240,0.30) 60%, rgba(244,242,240,0) 80%);
+  opacity: 0; transition: opacity .9s ease; pointer-events: none;
 }
-.home-banner-eyebrow {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--rouge);
+.hb-slide.active { opacity: 1; pointer-events: auto; }
+.hb-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hb-dots {
+  position: absolute; left: 0; right: 0; bottom: 18px; z-index: 3;
+  display: flex; justify-content: center; gap: 9px;
 }
-.home-banner-title {
-  font-family: 'Product Sans','Comfortaa',sans-serif; font-weight: 700;
-  font-size: clamp(26px, 4.3vw, 50px); line-height: 1.04;
-  color: var(--ink); margin: 0;
+.hb-dots button {
+  width: 9px; height: 9px; padding: 0; border: none; cursor: pointer;
+  border-radius: 999px; background: rgba(26,26,26,0.25);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  transition: width .45s cubic-bezier(.4,0,.2,1), background .3s ease;
 }
-.home-banner-sub {
-  font-size: clamp(13px, 1.5vw, 17px); color: var(--muted); margin: 0;
-}
-.home-banner-cta { align-self: flex-start; margin-top: 6px; }
-@media (max-width: 600px) {
-  .home-banner-overlay {
-    background: linear-gradient(90deg,
-      rgba(244,242,240,0.95) 0%, rgba(244,242,240,0.82) 55%, rgba(244,242,240,0.45) 100%);
-    padding: 0 22px;
-  }
-  .home-banner-sub { display: none; }
-}
+.hb-dots button:hover { background: rgba(26,26,26,0.45); }
+.hb-dots button.active { width: 30px; background: var(--rouge); }
+@media (max-width: 600px) { .hb-dots { bottom: 12px; } }
 
-/* ---- FAQ (pengganti Top Picks) ---- */
+/* ---- FAQ (pengganti Top Picks) — accordion beranimasi ---- */
 .faq-wrap {
   display: grid; grid-template-columns: 0.82fr 1.18fr;
   gap: clamp(32px, 5vw, 72px); align-items: start;
@@ -4065,7 +4051,8 @@ input.form-control[type="search"], .nav-search input {
 .faq-list { display: flex; flex-direction: column; gap: 14px; }
 .faq-item {
   background: #fff; border: 1px solid var(--line); border-radius: 18px;
-  padding: 2px 24px; transition: box-shadow .25s ease, border-color .25s ease;
+  padding: 0 24px;
+  transition: box-shadow .3s ease, border-color .3s ease;
 }
 .faq-item[open] {
   border-color: var(--rouge);
@@ -4074,20 +4061,25 @@ input.form-control[type="search"], .nav-search input {
 .faq-q {
   list-style: none; cursor: pointer;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  padding: 20px 0;
+  padding: 19px 0;
   font-family: 'Product Sans','Comfortaa',sans-serif; font-weight: 600;
   font-size: clamp(16px, 1.7vw, 19px); color: var(--ink);
+  transition: color .25s ease;
 }
+.faq-item[open] .faq-q { color: var(--rouge); }
 .faq-q::-webkit-details-marker { display: none; }
 .faq-q::marker { content: ''; }
 .faq-ic {
-  flex: 0 0 auto; font-size: 22px; color: var(--rouge);
-  transition: transform .3s ease;
+  flex: 0 0 auto; font-size: 22px; line-height: 1; color: var(--rouge);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
 }
 .faq-item[open] .faq-ic { transform: rotate(45deg); }
+/* .faq-a animasinya dikontrol JS (tammiaInitFaq): height + opacity */
 .faq-a {
-  padding: 0 0 22px; color: var(--muted);
-  font-size: 15.5px; line-height: 1.72; max-width: 580px;
+  overflow: hidden; box-sizing: border-box;
+  padding: 0 0 20px; color: var(--muted);
+  font-size: 15.5px; line-height: 1.72; max-width: 620px;
+  transition: height .36s cubic-bezier(.4,0,.2,1), opacity .3s ease;
 }
 .faq-a strong { color: var(--ink); font-weight: 600; }
 @media (max-width: 860px) {

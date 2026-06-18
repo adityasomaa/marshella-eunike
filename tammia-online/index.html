@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=20260616">
+<link rel="stylesheet" href="assets/css/style.css?v=20260617">
 </head>
 <body>
 <canvas id="bg-canvas"></canvas>
@@ -60,17 +60,16 @@
   </div>
 </div>
 
-<!-- HOME BANNER (memanjang) — swappable: cukup ganti banner-1.jpg, atau drop banner desain-jadi & hapus .home-banner-overlay -->
+<!-- HOME BANNER SLIDESHOW (memanjang) — gambar saja, transisi fade. Swappable: ganti banner-1..5.jpg -->
 <section class="home-banner reveal" aria-label="Promo Tammia">
-  <a href="shop.html" class="home-banner-link">
-    <img src="assets/img/placeholders/banner-1.jpg?v=20260616" alt="Promo Tammia — koleksi beauty tools original" class="home-banner-img" loading="eager">
-    <div class="home-banner-overlay">
-      <span class="home-banner-eyebrow">Koleksi 2026</span>
-      <h2 class="home-banner-title">Beauty tools original,<br>tanpa ragu.</h2>
-      <p class="home-banner-sub">Gratis ongkir 150K+ · Cicilan 0% · Garansi authentic</p>
-      <span class="btn btn-peach home-banner-cta">Belanja Sekarang <i class="bi bi-arrow-right"></i></span>
-    </div>
-  </a>
+  <div class="home-banner-slider" id="homeBanner" data-autoplay="5000">
+    <div class="hb-slide active"><img src="assets/img/placeholders/banner-1.jpg?v=20260617" alt="Promo Tammia 1" loading="eager"></div>
+    <div class="hb-slide"><img src="assets/img/placeholders/banner-2.jpg?v=20260617" alt="Promo Tammia 2" loading="lazy"></div>
+    <div class="hb-slide"><img src="assets/img/placeholders/banner-3.jpg?v=20260617" alt="Promo Tammia 3" loading="lazy"></div>
+    <div class="hb-slide"><img src="assets/img/placeholders/banner-4.jpg?v=20260617" alt="Promo Tammia 4" loading="lazy"></div>
+    <div class="hb-slide"><img src="assets/img/placeholders/banner-5.jpg?v=20260617" alt="Promo Tammia 5" loading="lazy"></div>
+    <div class="hb-dots" id="homeBannerDots" role="tablist" aria-label="Navigasi banner"></div>
+  </div>
 </section>
 
 <!-- HERO -->
@@ -627,6 +626,6 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-config.js?v=20260614"></script>
-<script src="assets/js/main.js?v=20260614"></script>
+<script src="assets/js/main.js?v=20260617"></script>
 </body>
 </html>
