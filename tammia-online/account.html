@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akun Saya - Tammia Online</title>
+<meta name="description" content="Kelola profil, alamat pengiriman, dan preferensi akun Tammia Online kamu.">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css?v=20260620">
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+
+<!-- Free shipping bar -->
+<div class="shipping-bar">
+  <div class="ticker">
+    <span><i class="bi bi-truck"></i>&nbsp;&nbsp;Gratis Ongkir untuk pesanan diatas Rp 150.000</span>
+    <span><i class="bi bi-shield-check"></i>&nbsp;&nbsp;100% Original, Garansi Authentic</span>
+    <span><i class="bi bi-stars"></i>&nbsp;&nbsp;Beauty starts with the right tools</span>
+    <span><i class="bi bi-truck"></i>&nbsp;&nbsp;Gratis Ongkir untuk pesanan diatas Rp 150.000</span>
+    <span><i class="bi bi-shield-check"></i>&nbsp;&nbsp;100% Original, Garansi Authentic</span>
+  </div>
+</div>
+
+<!-- Navbar -->
+<div class="nav-wrap">
+  <div class="container">
+    <div class="navbar-tammia">
+      <a href="index.html" class="brand-logo"><img src="assets/img/logos/tammia-red.png" alt="Tammia" class="brand-logo-img"></a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-search">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Cari produk, brand...">
+      </div>
+      <div class="nav-icons ms-auto">
+        <button class="nav-icon-btn d-lg-none nav-mobile-toggle"><i class="bi bi-list"></i></button>
+        <a href="contact.html" class="nav-icon-btn"><i class="bi bi-person"></i></a>
+        <a href="#" class="nav-icon-btn"><i class="bi bi-heart"></i></a>
+        <button class="nav-icon-btn" data-open-cart>
+          <i class="bi bi-bag"></i>
+          <span class="cart-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page header -->
+<section style="padding: 60px 0 20px;">
+  <div class="container">
+    <div class="mono-label">
+      <a href="index.html" style="color:inherit;">Home</a> &nbsp;/&nbsp; <span style="color:var(--rouge);">Akun Saya</span>
+    </div>
+    <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mt-3">
+      <div>
+        <span class="hero-eyebrow">Profil &amp; Preferensi</span>
+        <h1 style="font-family:'Product Sans','Comfortaa',sans-serif; font-size:clamp(2.2rem,4vw,3.2rem); font-weight:300; margin-top:14px; letter-spacing:-0.02em;">Akun <em style="color:var(--rouge); font-style:italic;">Saya</em></h1>
+      </div>
+      <a href="orders.html" class="btn btn-ghost">Pesanan Saya <i class="bi bi-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- Account content (dirender oleh tammiaInitAccountPage di main.js) -->
+<section style="padding: 30px 0 100px;">
+  <div class="container" id="accountPage">
+
+    <!-- Login gate (default; disembunyikan JS kalau sudah login) -->
+    <div class="orders-empty" id="accountGate">
+      <div class="icon-big"><i class="bi bi-person-lock"></i></div>
+      <h3>Masuk untuk melihat akunmu</h3>
+      <p>Login dulu ya untuk kelola profil, alamat pengiriman, dan pesanan kamu.</p>
+      <button class="btn btn-peach" id="accountGateLogin"><i class="bi bi-box-arrow-in-right"></i> Masuk / Daftar</button>
+    </div>
+
+    <!-- Logged-in view -->
+    <div id="accountContent" class="account-grid" style="display:none;">
+
+      <!-- Profil -->
+      <div class="card-soft account-card">
+        <div class="mono-label">Profil</div>
+        <div class="account-profile">
+          <div class="account-avatar" id="accProfileAvatar">?</div>
+          <div>
+            <div class="account-name" id="accProfileName">-</div>
+            <div class="account-sub" id="accProfileUsername">-</div>
+            <div class="account-sub" id="accProfileEmail"></div>
+            <span class="account-role-badge" id="accProfileRole">Customer</span>
+          </div>
+        </div>
+        <div class="divider-thin" style="margin:20px 0;"></div>
+        <p style="color:var(--muted); font-size:13px; margin:0;">
+          Data profil tersinkron dengan akun login kamu. Untuk ganti nama atau password, hubungi CS kami.
+        </p>
+      </div>
+
+      <!-- Alamat tersimpan -->
+      <div class="card-soft account-card">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="mono-label">Alamat Pengiriman Tersimpan</div>
+          <a href="checkout.html" class="btn btn-ghost btn-sm">Ubah <i class="bi bi-pencil"></i></a>
+        </div>
+        <div id="accAddress" style="margin-top:14px; font-size:14px; line-height:1.8; color:var(--ink-soft);">
+          <em style="color:var(--muted);">Belum ada alamat tersimpan. Centang "Simpan alamat" saat checkout untuk menyimpannya di sini.</em>
+        </div>
+      </div>
+
+      <!-- Shortcut -->
+      <div class="card-soft account-card">
+        <div class="mono-label">Menu Cepat</div>
+        <div class="account-links" style="margin-top:14px;">
+          <a href="orders.html"><i class="bi bi-bag-check"></i> Pesanan Saya <i class="bi bi-chevron-right ms-auto"></i></a>
+          <a href="#" data-open-wishlist-acc><i class="bi bi-heart"></i> Wishlist <i class="bi bi-chevron-right ms-auto"></i></a>
+          <a href="contact.html"><i class="bi bi-question-circle"></i> Bantuan &amp; FAQ <i class="bi bi-chevron-right ms-auto"></i></a>
+          <a href="admin.html" id="accAdminLink" style="display:none; color:var(--rouge);"><i class="bi bi-shield-check"></i> Admin Panel <i class="bi bi-chevron-right ms-auto"></i></a>
+        </div>
+        <div class="divider-thin" style="margin:18px 0;"></div>
+        <button class="btn btn-outline-ink btn-sm" id="accLogout" style="width:100%; justify-content:center;"><i class="bi bi-box-arrow-right"></i> Keluar dari Akun</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <a href="index.html" class="brand-logo"><img src="assets/img/logos/tammia-white.png" alt="Tammia" class="brand-logo-img"></a>
+        <p style="color:#999; font-size:14px; max-width:320px; margin-top:12px;">Premium beauty tools retailer Indonesia. Membawa brand internasional terpercaya untuk MUA profesional dan beauty enthusiast.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/tammia_indonesia/" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.facebook.com/TammiaOnline" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.tiktok.com/@tammiaonline" target="_blank" rel="noopener"><i class="bi bi-tiktok"></i></a>
+          <a href="https://wa.me/62818883349?text=Halo%20Tammia%20Online%20%F0%9F%91%8B%20Saya%20mau%20tanya-tanya%20seputar%20produk%20beauty%20tools-nya." target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i></a>
+          <a href="#"><i class="bi bi-bag-heart"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Belanja</h6>
+        <ul>
+          <li><a href="shop.html">Semua Produk</a></li>
+          <li><a href="shop.html?cat=brush">Makeup Brushes</a></li>
+          <li><a href="shop.html?cat=sponge">Sponges</a></li>
+          <li><a href="shop.html?cat=lash">Eyelash</a></li>
+          <li><a href="shop.html?cat=case">Beauty Cases</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Customer</h6>
+        <ul>
+          <li><a href="contact.html">Hubungi Kami</a></li>
+          <li><a href="contact.html#faq">FAQ</a></li>
+          <li><a href="orders.html">Pesanan Saya</a></li>
+          <li><a href="cart.html">Keranjang</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6>Newsletter</h6>
+        <p style="color:#999; font-size:14px;">Subscribe untuk info produk baru dan tips beauty tools.</p>
+        <form class="footer-newsletter" style="display:flex; gap:8px; margin-top:14px;">
+          <input type="email" placeholder="email@kamu.com" style="flex:1; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:12px 16px; color:#fff; font-family:inherit; font-size:14px;">
+          <button type="submit" class="btn btn-peach btn-sm">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tammia Online · PT Tammia Beauty Indonesia</span>
+      <span>Made with care in Jakarta &amp; Bali</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart drawer (rendered from localStorage by main.js) -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h5>Keranjang <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);">(0)</span></h5>
+    <button class="drawer-close" data-close-cart><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="drawer-body"></div>
+  <div class="drawer-foot">
+    <div class="drawer-total"><span class="lbl">Subtotal</span><span class="val">Rp 0</span></div>
+    <div class="drawer-actions">
+      <a href="cart.html" class="btn btn-ghost">Lihat Keranjang</a>
+      <a href="checkout.html" class="btn btn-peach">Checkout</a>
+    </div>
+  </div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js?v=20260620"></script>
+<script src="assets/js/main.js?v=20260620"></script>
+</body>
+</html>

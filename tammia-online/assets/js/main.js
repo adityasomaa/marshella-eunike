@@ -202,6 +202,7 @@ async function tammiaLoadProducts() {
       featured: p.is_featured,
       short_description: p.short_description || '',
       description: p.description || '',
+      details: p.details || null, // Product Details terstruktur (jsonb)
       created_at: p.created_at,
     }));
     // Sinkronkan rating + jumlah review dengan dataset review per-produk (maks 10)
@@ -982,7 +983,8 @@ function tammiaBuildAuthModal() {
         const { error } = await window.tammiaSupabase.auth.signUp({
           email,
           password: pass,
-          options: { data: { full_name: name, username, phone } }
+          // Role default: customer. Admin hanya di-set manual dari dashboard/SQL.
+          options: { data: { full_name: name, username, phone, role: 'customer' } }
         });
         if (error) throw error;
         closeAuth();
@@ -2069,6 +2071,9 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- TASK 5: Orders page (orders.html) ---------- */
   tammiaInitOrdersPage();
 
+  /* ---------- Account page (account.html) ---------- */
+  tammiaInitAccountPage();
+
   /* ---------- TASK 7: Reviews dirender per-produk via tammiaRenderProductDetail ---------- */
 
   /* ---------- TASK 8: Checkout summary collapsible on mobile ---------- */
@@ -2439,11 +2444,59 @@ function tammiaRenderProductDetail(product, allProducts) {
     });
   }
 
+  // Product Details terstruktur (products.details / jsonb) → isi tab
+  tammiaRenderProductDetailsTabs(product);
+
   // Reviews per-produk
   tammiaRenderProductReviews(product);
 
   // Related products: same category, 4 cards
   tammiaRenderRelatedProducts(product, allProducts);
+}
+
+/* Isi tab Deskripsi / Cara Pakai / Pengiriman dari products.details.
+   Kalau details kosong, konten statis fallback di product.html dibiarkan. */
+function tammiaRenderProductDetailsTabs(product) {
+  const d = product && product.details;
+  if (!d) return;
+  const esc = s => (s == null ? '' : String(s)).replace(/</g, '&lt;');
+  const setText = (id, val) => {
+    const el = document.getElementById(id);
+    if (el && val) el.textContent = val;
+  };
+
+  setText('pdDescHeading', d.desc_heading);
+  setText('pdDescText', d.description || product.description);
+
+  const specList = document.getElementById('pdSpecList');
+  if (specList) {
+    const specs = [
+      ['Material', d.material], ['Dimensi', d.dimensi], ['Berat', d.berat],
+      ['Kompartemen', d.kompartemen], ['Compliant', d.compliant], ['Country', d.country],
+    ].filter(s => s[1]);
+    if (specs.length) {
+      specList.innerHTML = specs.map((s, i) => `
+        <li style="padding: 10px 0;${i < specs.length - 1 ? ' border-bottom: 1px solid var(--line);' : ''}">
+          <strong>${s[0]}:</strong> ${esc(s[1])}
+        </li>`).join('');
+    }
+  }
+
+  const suit = document.getElementById('pdSuitable');
+  if (suit && d.cocok) suit.innerHTML = '<strong>Cocok untuk:</strong> ' + esc(d.cocok);
+
+  setText('pdHowtoHeading', d.howto_heading);
+  const howtoList = document.getElementById('pdHowtoList');
+  if (howtoList && Array.isArray(d.howto) && d.howto.length) {
+    howtoList.innerHTML = d.howto.map(step => `<li>${esc(step)}</li>`).join('');
+  }
+
+  setText('pdShipText', d.shipping);
+  if (d.shipping) {
+    // Blob shipping dari DB sudah lengkap (kurir + garansi) — sembunyikan list statis
+    const shipTab = document.querySelector('.pd-tab-content[data-tab="ship"]');
+    if (shipTab) shipTab.querySelectorAll('ul, p:not(#pdShipText)').forEach(el => { el.style.display = 'none'; });
+  }
 }
 
 function tammiaRenderRelatedProducts(product, allProducts) {
@@ -3423,6 +3476,96 @@ function tammiaInitSupabaseAuthSync() {
 }
 
 /* ============================================================
+   Account page (account.html) — profil, alamat tersimpan, shortcut
+   ============================================================ */
+function tammiaInitAccountPage() {
+  const page = document.getElementById('accountPage');
+  if (!page) return;
+
+  const gate = document.getElementById('accountGate');
+  const content = document.getElementById('accountContent');
+
+  function render() {
+    const user = tammiaGetUser();
+    const loggedIn = !!(user && user.loggedIn);
+    if (gate) gate.style.display = loggedIn ? 'none' : '';
+    if (content) content.style.display = loggedIn ? '' : 'none';
+    if (!loggedIn) return;
+
+    const initials = (user.name || '?').split(' ').map(s => s[0]).filter(Boolean).slice(0, 2).join('').toUpperCase();
+    const av = document.getElementById('accProfileAvatar');
+    if (av) av.textContent = initials || 'U';
+    const nm = document.getElementById('accProfileName');
+    if (nm) nm.textContent = user.name || 'Tammia';
+    const un = document.getElementById('accProfileUsername');
+    if (un) un.textContent = user.username ? '@' + user.username : '';
+    const em = document.getElementById('accProfileEmail');
+    if (em) em.textContent = user.email || '';
+    const role = document.getElementById('accProfileRole');
+    if (role) {
+      role.textContent = user.isAdmin ? 'Admin' : 'Customer';
+      role.classList.toggle('is-admin', !!user.isAdmin);
+    }
+    const adminLink = document.getElementById('accAdminLink');
+    if (adminLink) adminLink.style.display = user.isAdmin ? '' : 'none';
+
+    // Alamat tersimpan (dari checkout "simpan alamat")
+    const addrEl = document.getElementById('accAddress');
+    if (addrEl) {
+      let a = null;
+      try { a = JSON.parse(localStorage.getItem('tammia_address') || 'null'); } catch (e) {}
+      if (a && (a.coName || a.coAlamat)) {
+        const esc = s => (s || '').replace(/</g, '&lt;');
+        addrEl.innerHTML = `
+          <strong>${esc(a.coName)}</strong>${a.coWa ? ' · ' + esc(a.coWa) : ''}<br>
+          ${esc(a.coAlamat)}<br>
+          ${[a.coKec, a.coKota, a.coProv, a.coPos].filter(Boolean).map(esc).join(', ')}
+          ${a.coCatatan ? `<br><span style="color:var(--muted);">Catatan: ${esc(a.coCatatan)}</span>` : ''}`;
+      }
+    }
+  }
+
+  // Gate: buka modal auth
+  const gateBtn = document.getElementById('accountGateLogin');
+  if (gateBtn) gateBtn.addEventListener('click', () => { if (window.tammiaOpenAuth) window.tammiaOpenAuth(); });
+
+  // Wishlist shortcut → buka drawer
+  const wl = page.querySelector('[data-open-wishlist-acc]');
+  if (wl) {
+    wl.addEventListener('click', e => {
+      e.preventDefault();
+      const wd = document.getElementById('wishlistDrawer');
+      if (wd) {
+        if (wd._render) wd._render();
+        wd.classList.add('open');
+        document.getElementById('drawerBackdrop').classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  }
+
+  // Logout
+  const lo = document.getElementById('accLogout');
+  if (lo) {
+    lo.addEventListener('click', async () => {
+      if (tammiaUseRealAuth()) {
+        try { await window.tammiaSupabase.auth.signOut(); } catch (e) {}
+      }
+      tammiaSaveUser(null);
+      tammiaToast('Berhasil keluar dari akun.', 'bi-box-arrow-right');
+      tammiaRefreshAuthUi();
+      render();
+    });
+  }
+
+  render();
+  // Re-render saat sesi Supabase siap/berubah (auth async saat load)
+  if (tammiaUseRealAuth()) {
+    window.tammiaSupabase.auth.onAuthStateChange(() => setTimeout(render, 50));
+  }
+}
+
+/* ============================================================
    TASK 5 — Orders page (status filters + tracking + buy again)
    ============================================================ */
 function tammiaInitOrdersPage() {
@@ -3470,8 +3613,73 @@ function tammiaInitOrdersPage() {
     });
   });
 
+  /* ---- Pembatalan pesanan (persist di localStorage) ---- */
+  function getCancelled() {
+    try { return JSON.parse(localStorage.getItem('tammia_cancelled_orders') || '[]'); } catch (e) { return []; }
+  }
+  function markCancelledUi(card) {
+    card.dataset.orderStatus = 'dibatalkan';
+    const badge = card.querySelector('.order-status');
+    if (badge) {
+      badge.className = 'order-status status-dibatalkan';
+      badge.innerHTML = '<i class="bi bi-x-circle-fill"></i> Dibatalkan';
+    }
+    const cancelBtn = card.querySelector('[data-cancel-order]');
+    if (cancelBtn) cancelBtn.remove();
+    // Tawarkan beli ulang produk pertama di pesanan yang dibatalkan
+    const firstName = card.querySelector('.order-item .name-mini');
+    const actions = card.querySelector('.order-actions');
+    if (firstName && actions && !actions.querySelector('[data-buy-again]')) {
+      const b = document.createElement('button');
+      b.className = 'btn btn-peach btn-sm';
+      b.dataset.buyAgain = firstName.textContent.trim();
+      b.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Beli Ulang';
+      actions.prepend(b);
+      wireBuyAgain(b);
+    }
+  }
+  // Terapkan status batal tersimpan saat load
+  const cancelled = getCancelled();
+  cards.forEach(card => {
+    if (cancelled.includes(card.dataset.orderNo)) markCancelledUi(card);
+  });
+
+  list.querySelectorAll('[data-cancel-order]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.order-card');
+      const no = card ? card.dataset.orderNo : '';
+      tammiaConfirm({
+        title: 'Batalkan pesanan?',
+        message: `Pesanan <strong>${no}</strong> akan dibatalkan. Dana akan dikembalikan sesuai metode pembayaran dalam 1-3 hari kerja.`,
+        confirmText: 'Ya, Batalkan',
+        cancelText: 'Kembali',
+        danger: true,
+        onConfirm: () => {
+          const arr = getCancelled();
+          if (!arr.includes(no)) { arr.push(no); localStorage.setItem('tammia_cancelled_orders', JSON.stringify(arr)); }
+          markCancelledUi(card);
+          const activeFilter = filterRow ? filterRow.querySelector('[data-order-filter].active') : null;
+          applyFilter(activeFilter ? activeFilter.dataset.orderFilter : 'all');
+          tammiaToast(`Pesanan ${no} dibatalkan`, 'bi-x-circle');
+        },
+      });
+    });
+  });
+
+  /* ---- Hubungi CS via WhatsApp (template per pesanan) ---- */
+  list.querySelectorAll('[data-cs-order]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.order-card');
+      const no = card ? card.dataset.orderNo : '';
+      const statusEl = card ? card.querySelector('.order-status') : null;
+      const status = statusEl ? statusEl.textContent.trim() : '';
+      const msg = `Halo Tammia Online \u{1F44B} Saya mau bertanya tentang pesanan *${no}*${status ? ` (status: ${status})` : ''}. Mohon bantuannya ya.`;
+      window.open(tammiaWaLink(msg), '_blank', 'noopener');
+    });
+  });
+
   // Buy again — add product to cart by product name lookup
-  list.querySelectorAll('[data-buy-again]').forEach(btn => {
+  function wireBuyAgain(btn) {
     btn.addEventListener('click', () => {
       const name = btn.dataset.buyAgain;
       const product = (window.TAMMIA_PRODUCTS || []).find(p => p.name === name);
@@ -3493,7 +3701,8 @@ function tammiaInitOrdersPage() {
       if (bd) bd.classList.add('open');
       document.body.style.overflow = 'hidden';
     });
-  });
+  }
+  list.querySelectorAll('[data-buy-again]').forEach(wireBuyAgain);
 
   // Initial: show all
   applyFilter('all');

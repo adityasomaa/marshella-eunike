@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=20260614">
+<link rel="stylesheet" href="assets/css/style.css?v=20260620">
 </head>
 <body>
 <canvas id="bg-canvas"></canvas>
@@ -166,11 +166,13 @@
 
     <div class="row g-5">
       <div class="col-lg-8">
+        <!-- Konten tab diisi dari products.details (Supabase) oleh tammiaRenderProductDetail;
+             isi statis di bawah = fallback kalau details kosong -->
         <div class="pd-tab-content" data-tab="desc">
-          <h3 style="font-family:'Product Sans','Comfortaa',sans-serif; font-weight:400; font-size:24px;">Travel-ready beauty case dengan kompartemen transparan.</h3>
-          <p style="color:var(--muted); line-height:1.8;">Sonia Miller Transparent Travel Case Pouch dirancang khusus untuk MUA profesional dan traveler yang butuh organisasi maksimal. Dengan kompartemen transparan yang memudahkan inspeksi airport, material PVC tebal yang tahan air, dan zipper YKK yang awet, pouch ini jadi pilihan tepat untuk membawa brush, sponge, sampai lipstick favorit kamu.</p>
+          <h3 id="pdDescHeading" style="font-family:'Product Sans','Comfortaa',sans-serif; font-weight:400; font-size:24px;">Travel-ready beauty case dengan kompartemen transparan.</h3>
+          <p id="pdDescText" style="color:var(--muted); line-height:1.8;">Sonia Miller Transparent Travel Case Pouch dirancang khusus untuk MUA profesional dan traveler yang butuh organisasi maksimal. Dengan kompartemen transparan yang memudahkan inspeksi airport, material PVC tebal yang tahan air, dan zipper YKK yang awet, pouch ini jadi pilihan tepat untuk membawa brush, sponge, sampai lipstick favorit kamu.</p>
 
-          <ul style="list-style:none; padding:0; margin: 20px 0; font-size:14px;">
+          <ul id="pdSpecList" style="list-style:none; padding:0; margin: 20px 0; font-size:14px;">
             <li style="padding: 10px 0; border-bottom: 1px solid var(--line);"><strong>Material:</strong> Premium PVC + nylon lining, water resistant</li>
             <li style="padding: 10px 0; border-bottom: 1px solid var(--line);"><strong>Dimensi:</strong> 24 × 16 × 8 cm (Medium)</li>
             <li style="padding: 10px 0; border-bottom: 1px solid var(--line);"><strong>Berat:</strong> 320 gram</li>
@@ -179,12 +181,12 @@
             <li style="padding: 10px 0;"><strong>Country:</strong> Designed in USA, manufactured in Vietnam</li>
           </ul>
 
-          <p style="color:var(--muted); line-height:1.8;">Cocok untuk: MUA freelance yang sering travel, beauty content creator, mahasiswa beauty school, atau siapa saja yang butuh tas kosmetik premium tanpa harus bayar harga designer.</p>
+          <p id="pdSuitable" style="color:var(--muted); line-height:1.8;">Cocok untuk: MUA freelance yang sering travel, beauty content creator, mahasiswa beauty school, atau siapa saja yang butuh tas kosmetik premium tanpa harus bayar harga designer.</p>
         </div>
 
         <div class="pd-tab-content" data-tab="howto" style="display:none;">
-          <h3 style="font-family:'Product Sans','Comfortaa',sans-serif; font-weight:400; font-size:24px;">Tips merawat travel case</h3>
-          <ol style="padding-left: 20px; line-height:1.9; color:var(--ink-soft);">
+          <h3 id="pdHowtoHeading" style="font-family:'Product Sans','Comfortaa',sans-serif; font-weight:400; font-size:24px;">Tips merawat travel case</h3>
+          <ol id="pdHowtoList" style="padding-left: 20px; line-height:1.9; color:var(--ink-soft);">
             <li>Lap bagian dalam dengan kain microfiber lembap setiap 2 minggu untuk mencegah residu makeup menempel.</li>
             <li>Hindari menyimpan brush basah di dalam case, keringkan dulu minimal 6 jam.</li>
             <li>Untuk noda lipstick atau cushion, gunakan baby wipes free-alcohol, hindari sabun keras.</li>
@@ -244,7 +246,7 @@
 
         <div class="pd-tab-content" data-tab="ship" style="display:none;">
           <h3 style="font-family:'Product Sans','Comfortaa',sans-serif; font-weight:400; font-size:24px;">Pengiriman &amp; Garansi</h3>
-          <p style="color:var(--muted); line-height:1.8;">Kami kirim dari warehouse Jakarta &amp; Bali. Pesanan sebelum jam 14:00 WIB dikirim hari yang sama.</p>
+          <p id="pdShipText" style="color:var(--muted); line-height:1.8;">Kami kirim dari warehouse Jakarta &amp; Bali. Pesanan sebelum jam 14:00 WIB dikirim hari yang sama.</p>
           <ul style="padding-left:20px; color:var(--ink-soft); line-height:1.9;">
             <li><strong>JNE REG</strong> - 2-4 hari kerja, mulai Rp 18.000</li>
             <li><strong>JNE YES</strong> - 1 hari kerja, mulai Rp 25.000</li>
@@ -434,7 +436,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="assets/js/supabase-config.js?v=20260614"></script>
-<script src="assets/js/main.js?v=20260614"></script>
+<script src="assets/js/supabase-config.js?v=20260620"></script>
+<script src="assets/js/main.js?v=20260620"></script>
 </body>
 </html>

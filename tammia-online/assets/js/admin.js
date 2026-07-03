@@ -382,10 +382,65 @@ function adminBuildModal() {
         <label>Short Description (≤ 200 karakter)</label>
         <textarea id="adminFieldShort" maxlength="200" placeholder="Tagline singkat untuk preview produk..."></textarea>
       </div>
+
+      <!-- ===== PRODUCT DETAILS (struktur mutlak — tampil di tab produk) ===== -->
+      <div class="admin-section-label">Product Details</div>
       <div class="admin-field">
-        <label>Deskripsi Lengkap</label>
-        <textarea id="adminFieldDescription" placeholder="Deskripsi panjang..."></textarea>
+        <label>Deskripsi Heading *</label>
+        <input type="text" id="adminFieldDescHeading" placeholder="Judul singkat di tab deskripsi, mis. 'Travel-ready beauty case...'">
       </div>
+      <div class="admin-field">
+        <label>Deskripsi *</label>
+        <textarea id="adminFieldDescription" placeholder="Paragraf deskripsi produk..."></textarea>
+      </div>
+      <div class="admin-grid-2">
+        <div class="admin-field">
+          <label>Material</label>
+          <input type="text" id="adminFieldMaterial" placeholder="mis. Premium PVC + nylon lining">
+        </div>
+        <div class="admin-field">
+          <label>Dimensi</label>
+          <input type="text" id="adminFieldDimensi" placeholder="mis. 24 x 16 x 8 cm">
+        </div>
+      </div>
+      <div class="admin-grid-2">
+        <div class="admin-field">
+          <label>Berat</label>
+          <input type="text" id="adminFieldBerat" placeholder="mis. 320 gram">
+        </div>
+        <div class="admin-field">
+          <label>Kompartemen</label>
+          <input type="text" id="adminFieldKompartemen" placeholder="mis. 3 main pockets + 2 brush slots">
+        </div>
+      </div>
+      <div class="admin-grid-2">
+        <div class="admin-field">
+          <label>Compliant</label>
+          <input type="text" id="adminFieldCompliant" placeholder="mis. TSA-approved, cruelty-free">
+        </div>
+        <div class="admin-field">
+          <label>Country</label>
+          <input type="text" id="adminFieldCountry" placeholder="mis. Made in Japan">
+        </div>
+      </div>
+      <div class="admin-field">
+        <label>Cocok Untuk</label>
+        <textarea id="adminFieldCocok" style="min-height:60px;" placeholder="mis. MUA freelance yang sering travel, beauty content creator..."></textarea>
+      </div>
+      <div class="admin-field">
+        <label>Heading Cara Pakai</label>
+        <input type="text" id="adminFieldHowtoHeading" placeholder="mis. 'Tips merawat travel case'">
+      </div>
+      <div class="admin-field">
+        <label>Detail Cara Pakai <span style="color:var(--muted); font-weight:400;">(1 langkah per baris)</span></label>
+        <textarea id="adminFieldHowto" style="min-height:120px;" placeholder="Langkah 1&#10;Langkah 2&#10;Langkah 3"></textarea>
+      </div>
+      <div class="admin-field">
+        <label>Pengiriman &amp; Garansi</label>
+        <textarea id="adminFieldShipping" placeholder="Info kurir, estimasi, dan garansi..."></textarea>
+      </div>
+      <!-- ===== /PRODUCT DETAILS ===== -->
+
       <div class="admin-grid-2">
         <div class="admin-field">
           <label>Rating (0-5)</label>
@@ -505,7 +560,9 @@ function adminClearForm() {
   m.querySelector('#adminFieldStock').value = '100';
   m.querySelector('#adminFieldSvg').value = 'brush';
   m.querySelector('#adminFieldShort').value = '';
-  m.querySelector('#adminFieldDescription').value = '';
+  ['DescHeading', 'Description', 'Material', 'Dimensi', 'Berat', 'Kompartemen',
+   'Compliant', 'Country', 'Cocok', 'HowtoHeading', 'Howto', 'Shipping']
+    .forEach(k => { const el = m.querySelector('#adminField' + k); if (el) el.value = ''; });
   m.querySelector('#adminFieldRating').value = '4.5';
   m.querySelector('#adminFieldReviewCount').value = '0';
   m.querySelector('#adminFieldImage').value = '';
@@ -541,7 +598,20 @@ function adminOpenEditModal(id) {
   m.querySelector('#adminFieldStock').value = (p.stock != null) ? p.stock : 100;
   m.querySelector('#adminFieldSvg').value = p.svg_type || 'brush';
   m.querySelector('#adminFieldShort').value = p.short_description || '';
-  m.querySelector('#adminFieldDescription').value = p.description || '';
+  // Prefill Product Details dari kolom details (jsonb); fallback deskripsi lama
+  const d = p.details || {};
+  m.querySelector('#adminFieldDescHeading').value = d.desc_heading || '';
+  m.querySelector('#adminFieldDescription').value = d.description || p.description || '';
+  m.querySelector('#adminFieldMaterial').value = d.material || '';
+  m.querySelector('#adminFieldDimensi').value = d.dimensi || '';
+  m.querySelector('#adminFieldBerat').value = d.berat || '';
+  m.querySelector('#adminFieldKompartemen').value = d.kompartemen || '';
+  m.querySelector('#adminFieldCompliant').value = d.compliant || '';
+  m.querySelector('#adminFieldCountry').value = d.country || '';
+  m.querySelector('#adminFieldCocok').value = d.cocok || '';
+  m.querySelector('#adminFieldHowtoHeading').value = d.howto_heading || '';
+  m.querySelector('#adminFieldHowto').value = Array.isArray(d.howto) ? d.howto.join('\n') : (d.howto || '');
+  m.querySelector('#adminFieldShipping').value = d.shipping || '';
   m.querySelector('#adminFieldRating').value = p.rating || 4.5;
   m.querySelector('#adminFieldReviewCount').value = p.review_count || 0;
   m.querySelector('#adminFieldActive').checked = !!p.is_active;
@@ -578,7 +648,23 @@ async function adminSubmitForm() {
     const stock = parseInt(m.querySelector('#adminFieldStock').value, 10) || 0;
     const svg = m.querySelector('#adminFieldSvg').value;
     const shortD = m.querySelector('#adminFieldShort').value.trim();
-    const description = m.querySelector('#adminFieldDescription').value.trim();
+    // Product Details terstruktur
+    const gv = k => (m.querySelector('#adminField' + k) || { value: '' }).value.trim();
+    const description = gv('Description');
+    const details = {
+      desc_heading: gv('DescHeading'),
+      description: description,
+      material: gv('Material'),
+      dimensi: gv('Dimensi'),
+      berat: gv('Berat'),
+      kompartemen: gv('Kompartemen'),
+      compliant: gv('Compliant'),
+      country: gv('Country'),
+      cocok: gv('Cocok'),
+      howto_heading: gv('HowtoHeading'),
+      howto: gv('Howto').split('\n').map(s => s.trim()).filter(Boolean),
+      shipping: gv('Shipping'),
+    };
     const rating = parseFloat(m.querySelector('#adminFieldRating').value) || 0;
     const reviewCount = parseInt(m.querySelector('#adminFieldReviewCount').value, 10) || 0;
     const isActive = m.querySelector('#adminFieldActive').checked;
@@ -614,6 +700,7 @@ async function adminSubmitForm() {
       svg_type: svg,
       short_description: shortD || null,
       description: description || null,
+      details: details,
       rating, review_count: reviewCount,
       is_active: isActive, is_featured: isFeatured,
     };

@@ -4090,3 +4090,67 @@ input.form-control[type="search"], .nav-search input {
   .faq-wrap { grid-template-columns: 1fr; }
   .faq-wrap .faq-intro { position: static; }
 }
+
+/* ---- Akun Saya (account.html) ---- */
+.account-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 20px; align-items: start;
+}
+@media (max-width: 991px) { .account-grid { grid-template-columns: 1fr; } }
+.account-card { height: 100%; }
+.account-profile { display: flex; gap: 16px; align-items: center; margin-top: 14px; }
+.account-avatar {
+  flex: 0 0 auto; width: 64px; height: 64px; border-radius: 999px;
+  background: var(--rouge); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Product Sans','Comfortaa',sans-serif; font-size: 24px; font-weight: 600;
+  box-shadow: 0 12px 26px -12px rgba(225,29,37,0.5);
+}
+.account-name { font-family: 'Product Sans','Comfortaa',sans-serif; font-size: 20px; font-weight: 600; }
+.account-sub { font-size: 13px; color: var(--muted); }
+.account-role-badge {
+  display: inline-block; margin-top: 8px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 999px;
+  background: var(--cream-1, #f6f1ea); color: var(--ink-soft); border: 1px solid var(--line);
+}
+.account-role-badge.is-admin { background: var(--pink-tint, #fdeaea); color: var(--rouge); border-color: rgba(225,29,37,0.25); }
+.account-links { display: flex; flex-direction: column; gap: 4px; }
+.account-links a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 12px; border-radius: 12px;
+  font-size: 14px; color: var(--ink-soft); text-decoration: none;
+  transition: background .15s ease, color .15s ease;
+}
+.account-links a:hover { background: var(--cream-1, #f6f1ea); color: var(--ink); }
+.account-links a i:first-child { font-size: 16px; color: var(--muted); }
+
+/* ---- Admin modal: label section Product Details ---- */
+.admin-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--rouge);
+  margin: 26px 0 14px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--line);
+}
+
+/* ---- Admin panel: menu manajemen sticky top + konten full width ---- */
+.admin-layout { display: block; }
+.admin-sidebar {
+  position: sticky; top: 86px; z-index: 60;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  padding: 10px 14px; margin-bottom: 24px;
+  border-radius: 18px;
+}
+.admin-sidebar h6 { margin: 0 10px 0 4px; }
+.admin-sidebar h6 + a { margin-left: 0; }
+.admin-sidebar a { padding: 9px 16px; border-radius: 999px; white-space: nowrap; }
+.admin-sidebar a:last-child { margin-left: auto; }
+.admin-main { width: 100%; }
+@media (max-width: 767px) {
+  .admin-sidebar { position: static; overflow-x: auto; flex-wrap: nowrap; }
+  .admin-sidebar h6 { display: none; }
+  .admin-sidebar a:last-child { margin-left: 0; }
+}
