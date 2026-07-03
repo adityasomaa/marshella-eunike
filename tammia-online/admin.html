@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=20260620">
+<link rel="stylesheet" href="assets/css/style.css?v=20260621">
 </head>
 <body>
 <canvas id="bg-canvas"></canvas>
@@ -85,18 +85,15 @@
 
       <!-- Menu manajemen (bar horizontal, sticky di atas) -->
       <aside class="admin-sidebar">
-        <h6>Manajemen</h6>
-        <a href="#" class="active"><i class="bi bi-box-seam"></i> Produk</a>
-        <a href="#" class="soon"><i class="bi bi-bag-check"></i> Pesanan <span class="soon-pill">SOON</span></a>
-        <a href="#" class="soon"><i class="bi bi-people"></i> Pelanggan <span class="soon-pill">SOON</span></a>
-        <a href="#" class="soon"><i class="bi bi-envelope-paper"></i> Newsletter <span class="soon-pill">SOON</span></a>
-        <h6>Sistem</h6>
-        <a href="#" class="soon"><i class="bi bi-gear"></i> Settings <span class="soon-pill">SOON</span></a>
+        <a href="#" class="active" data-admin-tab="produk"><i class="bi bi-box-seam"></i> Produk</a>
+        <a href="#" data-admin-tab="pesanan"><i class="bi bi-bag-check"></i> Pesanan</a>
+        <a href="#" data-admin-tab="pelanggan"><i class="bi bi-people"></i> Pelanggan</a>
+        <a href="#" data-admin-tab="newsletter"><i class="bi bi-envelope-paper"></i> Newsletter</a>
         <a href="index.html"><i class="bi bi-arrow-left"></i> Kembali ke Toko</a>
       </aside>
 
-      <!-- Main (full width di bawah menu) -->
-      <div class="admin-main">
+      <!-- Main: PRODUK (full width di bawah menu) -->
+      <div class="admin-main" data-admin-section="produk">
         <div class="admin-toolbar">
           <div class="left-grp">
             <h3 style="font-family:'Product Sans','Comfortaa',sans-serif; font-weight:400; font-size:22px; margin:0;">Produk <span id="adminProductCount" style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);">(0)</span></h3>
@@ -155,6 +152,96 @@
             <button id="adminPrevPage"><i class="bi bi-chevron-left"></i> Sebelumnya</button>
             <button id="adminNextPage">Berikutnya <i class="bi bi-chevron-right"></i></button>
           </div>
+        </div>
+      </div>
+
+      <!-- Main: PESANAN -->
+      <div class="admin-main" data-admin-section="pesanan" style="display:none;">
+        <div class="admin-toolbar">
+          <div class="left-grp">
+            <h3 style="font-family:'Product Sans','Comfortaa',sans-serif; font-weight:400; font-size:22px; margin:0;">Pesanan <span id="adminOrderCount" style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);">(0)</span></h3>
+          </div>
+        </div>
+
+        <div class="admin-status-row" id="adminOrderFilters">
+          <button class="admin-pill active" data-order-status-filter="all">Semua</button>
+          <button class="admin-pill" data-order-status-filter="diproses">Diproses</button>
+          <button class="admin-pill" data-order-status-filter="dikirim">Dikirim</button>
+          <button class="admin-pill" data-order-status-filter="selesai">Selesai</button>
+          <button class="admin-pill" data-order-status-filter="dibatalkan">Dibatalkan</button>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>No. Pesanan</th>
+                <th>Tanggal</th>
+                <th>Customer</th>
+                <th>Item</th>
+                <th>Total</th>
+                <th style="width:150px;">Status</th>
+                <th style="width:60px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="adminOrdersBody">
+              <tr><td colspan="7" style="text-align:center; padding:60px 12px; color:var(--muted);"><i class="bi bi-hourglass-split"></i> Memuat pesanan...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Main: PELANGGAN -->
+      <div class="admin-main" data-admin-section="pelanggan" style="display:none;">
+        <div class="admin-toolbar">
+          <div class="left-grp">
+            <h3 style="font-family:'Product Sans','Comfortaa',sans-serif; font-weight:400; font-size:22px; margin:0;">Pelanggan <span id="adminCustomerCount" style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);">(0)</span></h3>
+          </div>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Terdaftar</th>
+              </tr>
+            </thead>
+            <tbody id="adminCustomersBody">
+              <tr><td colspan="5" style="text-align:center; padding:60px 12px; color:var(--muted);"><i class="bi bi-hourglass-split"></i> Memuat pelanggan...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:12px; color:var(--muted); margin-top:12px;"><i class="bi bi-info-circle"></i> Ubah role user dilakukan dari Supabase dashboard (butuh akses server). Pendaftar baru otomatis role <code>customer</code>.</p>
+      </div>
+
+      <!-- Main: NEWSLETTER -->
+      <div class="admin-main" data-admin-section="newsletter" style="display:none;">
+        <div class="admin-toolbar">
+          <div class="left-grp">
+            <h3 style="font-family:'Product Sans','Comfortaa',sans-serif; font-weight:400; font-size:22px; margin:0;">Newsletter Subscriber <span id="adminSubCount" style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);">(0)</span></h3>
+          </div>
+          <div class="right-grp">
+            <button class="btn btn-ghost btn-sm" id="adminSubExport"><i class="bi bi-download"></i> Export CSV</button>
+          </div>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Subscribe Sejak</th>
+                <th style="width:60px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="adminSubsBody">
+              <tr><td colspan="3" style="text-align:center; padding:60px 12px; color:var(--muted);"><i class="bi bi-hourglass-split"></i> Memuat subscriber...</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -217,8 +304,8 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="assets/js/supabase-config.js?v=20260620"></script>
-<script src="assets/js/main.js?v=20260620"></script>
-<script src="assets/js/admin.js?v=20260620"></script>
+<script src="assets/js/supabase-config.js?v=20260621"></script>
+<script src="assets/js/main.js?v=20260621"></script>
+<script src="assets/js/admin.js?v=20260621"></script>
 </body>
 </html>

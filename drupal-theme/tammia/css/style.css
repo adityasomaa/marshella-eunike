@@ -4136,6 +4136,21 @@ input.form-control[type="search"], .nav-search input {
   border-top: 1px dashed var(--line);
 }
 
+/* ---- Admin: dropdown status pesanan inline ---- */
+.admin-status-select {
+  width: 100%; padding: 7px 10px; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  background: #fff; color: var(--ink-soft);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.admin-status-select:focus { outline: none; border-color: var(--pink); box-shadow: 0 0 0 3px rgba(211,172,80,0.18); }
+.admin-status-select.status-diproses { background: #fdf6e4; color: #9a7716; border-color: #ecd9a0; }
+.admin-status-select.status-dikirim { background: #e8f1fd; color: #2b5f9e; border-color: #bcd5f2; }
+.admin-status-select.status-selesai { background: #e9f7ee; color: #2d7a4f; border-color: #bfe3cc; }
+.admin-status-select.status-dibatalkan { background: #fcebe6; color: #a8442f; border-color: #f3c9be; }
+
 /* ---- Admin panel: menu manajemen sticky top + konten full width ---- */
 .admin-layout { display: block; }
 .admin-sidebar {

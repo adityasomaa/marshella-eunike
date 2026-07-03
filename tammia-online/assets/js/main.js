@@ -2921,8 +2921,9 @@ function tammiaInitCheckoutPage() {
     const ship = effectiveShip();
     let orders = [];
     try { orders = JSON.parse(localStorage.getItem('tammia_orders') || '[]'); } catch (e) {}
+    const orderNo = 'TM-' + Date.now().toString(36).toUpperCase();
     orders.unshift({
-      id: 'TM-' + Date.now().toString(36).toUpperCase(),
+      id: orderNo,
       date: new Date().toISOString(),
       items: items,
       subtotal: sub,
@@ -2931,6 +2932,21 @@ function tammiaInitCheckoutPage() {
       courier: shipName,
     });
     localStorage.setItem('tammia_orders', JSON.stringify(orders));
+
+    // Kirim juga ke Supabase (tabel tammia_orders — muncul di Admin Panel > Pesanan).
+    // Best-effort: kalau gagal, demo checkout tetap jalan.
+    if (window.TAMMIA_USE_REAL_AUTH && window.tammiaSupabase) {
+      const nameEl = document.getElementById('coName');
+      const waEl = document.getElementById('coWa');
+      window.tammiaSupabase.from('tammia_orders').insert({
+        order_no: orderNo,
+        customer_name: nameEl ? nameEl.value.trim() : '',
+        customer_wa: waEl ? waEl.value.trim() : '',
+        items: items.map(it => ({ name: it.name, brand: it.brand || '', qty: it.qty || 1, price: it.price || 0 })),
+        total: sub + ship,
+        status: 'diproses',
+      }).then(() => {}, err => console.warn('Order insert failed:', err));
+    }
     if (buyNow) sessionStorage.removeItem('tammia_buynow');
     else setCart([]);
     tammiaConfirm({
@@ -3373,11 +3389,11 @@ function tammiaInitNewsletterForm(form) {
     list.push(email.toLowerCase());
     tammiaSaveNewsletter(list);
 
-    // Optional: send to Supabase
+    // Kirim ke Supabase (tabel tammia_newsletter — muncul di Admin Panel > Newsletter)
     if (window.TAMMIA_USE_REAL_AUTH && window.tammiaSupabase) {
       window.tammiaSupabase
-        .from('newsletter_subscribers')
-        .insert({ email })
+        .from('tammia_newsletter')
+        .insert({ email: email.toLowerCase() })
         .then(() => {}, err => console.warn('Newsletter insert failed:', err));
     }
     showSuccess(form, isFooter);

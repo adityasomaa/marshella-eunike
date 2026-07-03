@@ -75,6 +75,7 @@ async function adminBoot() {
     }
     await adminInitProducts();
     adminWireToolbar();
+    adminWireTabs();
   } catch (e) {
     console.error('Admin boot failed:', e);
     showDenied('Gagal verifikasi sesi. Coba refresh halaman.');
@@ -755,5 +756,249 @@ function adminAskDelete(id) {
         tammiaToast('Gagal hapus: ' + (e.message || e), 'bi-exclamation-triangle-fill');
       }
     },
+  });
+}
+
+/* ============================================================
+   Tabs: Produk / Pesanan / Pelanggan / Newsletter
+   ============================================================ */
+function adminWireTabs() {
+  document.querySelectorAll('[data-admin-tab]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const tab = link.dataset.adminTab;
+      document.querySelectorAll('[data-admin-tab]').forEach(l => l.classList.toggle('active', l === link));
+      document.querySelectorAll('[data-admin-section]').forEach(sec => {
+        sec.style.display = sec.dataset.adminSection === tab ? '' : 'none';
+      });
+      if (tab === 'pesanan') adminLoadOrders();
+      if (tab === 'pelanggan') adminLoadCustomers();
+      if (tab === 'newsletter') adminLoadSubs();
+    });
+  });
+}
+
+const adminEsc = s => (s == null ? '' : String(s)).replace(/</g, '&lt;');
+const adminDateLabel = ts => {
+  const d = new Date(ts);
+  return isNaN(d) ? '-' : d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+};
+
+/* ----------------- PESANAN ----------------- */
+let adminOrders = [];
+let adminOrderFilter = 'all';
+const ADMIN_ORDER_STATUSES = ['diproses', 'dikirim', 'selesai', 'dibatalkan'];
+
+async function adminLoadOrders() {
+  const tbody = document.getElementById('adminOrdersBody');
+  tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:60px 12px; color:var(--muted);"><i class="bi bi-hourglass-split"></i> Memuat pesanan...</td></tr>`;
+  try {
+    const { data, error } = await window.tammiaSupabase
+      .from('tammia_orders').select('*').order('created_at', { ascending: false });
+    if (error) throw error;
+    adminOrders = data || [];
+  } catch (e) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:60px 12px; color:var(--rouge);"><i class="bi bi-exclamation-triangle"></i> Gagal memuat: ${adminEsc(e.message || e)}</td></tr>`;
+    return;
+  }
+  adminWireOrderFilters();
+  adminRenderOrders();
+}
+
+function adminWireOrderFilters() {
+  const row = document.getElementById('adminOrderFilters');
+  if (!row || row.dataset.wired === '1') return;
+  row.dataset.wired = '1';
+  row.querySelectorAll('[data-order-status-filter]').forEach(b => {
+    b.addEventListener('click', () => {
+      row.querySelectorAll('[data-order-status-filter]').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      adminOrderFilter = b.dataset.orderStatusFilter;
+      adminRenderOrders();
+    });
+  });
+}
+
+function adminRenderOrders() {
+  const tbody = document.getElementById('adminOrdersBody');
+  const list = adminOrders.filter(o => adminOrderFilter === 'all' || o.status === adminOrderFilter);
+  document.getElementById('adminOrderCount').textContent = `(${list.length})`;
+  if (!list.length) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:60px 12px; color:var(--muted);"><i class="bi bi-inbox"></i> Tidak ada pesanan.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = list.map(o => {
+    const items = Array.isArray(o.items) ? o.items : [];
+    const itemLabel = items.length
+      ? `${adminEsc(items[0].name)}${items.length > 1 ? ` <span style="color:var(--muted);">+${items.length - 1} lainnya</span>` : ''}`
+      : '-';
+    const options = ADMIN_ORDER_STATUSES.map(s =>
+      `<option value="${s}" ${s === o.status ? 'selected' : ''}>${s.charAt(0).toUpperCase() + s.slice(1)}</option>`).join('');
+    return `
+      <tr data-id="${o.id}">
+        <td><div class="row-name" style="font-family:'JetBrains Mono',monospace; font-size:13px;">${adminEsc(o.order_no)}</div></td>
+        <td>${adminDateLabel(o.created_at)}</td>
+        <td>
+          <div class="row-name">${adminEsc(o.customer_name || '-')}</div>
+          <div class="row-brand">${adminEsc(o.customer_wa || '')}</div>
+        </td>
+        <td style="max-width:260px;">${itemLabel}</td>
+        <td style="font-family:'Comfortaa',sans-serif; font-weight:500;">${tammiaFormatPrice(o.total)}</td>
+        <td><select class="admin-status-select status-${o.status}" data-order-status-id="${o.id}">${options}</select></td>
+        <td><button class="admin-action-btn danger" data-order-delete="${o.id}" title="Hapus"><i class="bi bi-trash3"></i></button></td>
+      </tr>`;
+  }).join('');
+
+  // Ubah status inline
+  tbody.querySelectorAll('[data-order-status-id]').forEach(sel => {
+    sel.addEventListener('change', async () => {
+      const id = sel.dataset.orderStatusId;
+      const status = sel.value;
+      try {
+        const { error } = await window.tammiaSupabase
+          .from('tammia_orders').update({ status }).eq('id', id);
+        if (error) throw error;
+        const o = adminOrders.find(x => x.id === id);
+        if (o) o.status = status;
+        sel.className = `admin-status-select status-${status}`;
+        tammiaToast(`Status ${o ? o.order_no : ''} → ${status}`, 'bi-check-circle-fill');
+        if (adminOrderFilter !== 'all') adminRenderOrders();
+      } catch (e) {
+        tammiaToast('Gagal ubah status: ' + (e.message || e), 'bi-exclamation-triangle-fill');
+        adminRenderOrders(); // balikin tampilan
+      }
+    });
+  });
+  // Hapus pesanan
+  tbody.querySelectorAll('[data-order-delete]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const o = adminOrders.find(x => x.id === btn.dataset.orderDelete);
+      if (!o) return;
+      tammiaConfirm({
+        title: 'Hapus pesanan?',
+        message: `Pesanan <strong>${adminEsc(o.order_no)}</strong> akan dihapus permanen dari daftar.`,
+        confirmText: 'Hapus',
+        cancelText: 'Batal',
+        danger: true,
+        onConfirm: async () => {
+          try {
+            const { error } = await window.tammiaSupabase
+              .from('tammia_orders').delete().eq('id', o.id);
+            if (error) throw error;
+            adminOrders = adminOrders.filter(x => x.id !== o.id);
+            tammiaToast('Pesanan dihapus', 'bi-trash3');
+            adminRenderOrders();
+          } catch (e) {
+            tammiaToast('Gagal hapus: ' + (e.message || e), 'bi-exclamation-triangle-fill');
+          }
+        },
+      });
+    });
+  });
+}
+
+/* ----------------- PELANGGAN ----------------- */
+async function adminLoadCustomers() {
+  const tbody = document.getElementById('adminCustomersBody');
+  tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:60px 12px; color:var(--muted);"><i class="bi bi-hourglass-split"></i> Memuat pelanggan...</td></tr>`;
+  try {
+    const { data, error } = await window.tammiaSupabase.rpc('tammia_list_customers');
+    if (error) throw error;
+    const users = data || [];
+    document.getElementById('adminCustomerCount').textContent = `(${users.length})`;
+    if (!users.length) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:60px 12px; color:var(--muted);"><i class="bi bi-inbox"></i> Belum ada pelanggan.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = users.map(u => {
+      const isAdmin = u.role === 'admin';
+      const email = (u.email || '').endsWith('@tammia.users.id')
+        ? `<span style="color:var(--muted);">(username only)</span>` : adminEsc(u.email);
+      return `
+        <tr>
+          <td><div class="row-name" style="font-family:'JetBrains Mono',monospace; font-size:13px;">@${adminEsc(u.username || '-')}</div></td>
+          <td>${adminEsc(u.full_name || '-')}</td>
+          <td>${email}</td>
+          <td><span class="admin-status-pill ${isAdmin ? 'featured' : 'active'}">${isAdmin ? 'Admin' : 'Customer'}</span></td>
+          <td>${adminDateLabel(u.created_at)}</td>
+        </tr>`;
+    }).join('');
+  } catch (e) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:60px 12px; color:var(--rouge);"><i class="bi bi-exclamation-triangle"></i> Gagal memuat: ${adminEsc(e.message || e)}</td></tr>`;
+  }
+}
+
+/* ----------------- NEWSLETTER ----------------- */
+let adminSubs = [];
+async function adminLoadSubs() {
+  const tbody = document.getElementById('adminSubsBody');
+  tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:60px 12px; color:var(--muted);"><i class="bi bi-hourglass-split"></i> Memuat subscriber...</td></tr>`;
+  try {
+    const { data, error } = await window.tammiaSupabase
+      .from('tammia_newsletter').select('*').order('created_at', { ascending: false });
+    if (error) throw error;
+    adminSubs = data || [];
+  } catch (e) {
+    tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:60px 12px; color:var(--rouge);"><i class="bi bi-exclamation-triangle"></i> Gagal memuat: ${adminEsc(e.message || e)}</td></tr>`;
+    return;
+  }
+  adminWireSubExport();
+  adminRenderSubs();
+}
+
+function adminRenderSubs() {
+  const tbody = document.getElementById('adminSubsBody');
+  document.getElementById('adminSubCount').textContent = `(${adminSubs.length})`;
+  if (!adminSubs.length) {
+    tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:60px 12px; color:var(--muted);"><i class="bi bi-inbox"></i> Belum ada subscriber.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = adminSubs.map(s => `
+    <tr>
+      <td><div class="row-name">${adminEsc(s.email)}</div></td>
+      <td>${adminDateLabel(s.created_at)}</td>
+      <td><button class="admin-action-btn danger" data-sub-delete="${s.id}" title="Hapus"><i class="bi bi-trash3"></i></button></td>
+    </tr>`).join('');
+  tbody.querySelectorAll('[data-sub-delete]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const s = adminSubs.find(x => x.id === btn.dataset.subDelete);
+      if (!s) return;
+      tammiaConfirm({
+        title: 'Hapus subscriber?',
+        message: `<strong>${adminEsc(s.email)}</strong> akan dihapus dari daftar newsletter.`,
+        confirmText: 'Hapus',
+        cancelText: 'Batal',
+        danger: true,
+        onConfirm: async () => {
+          try {
+            const { error } = await window.tammiaSupabase
+              .from('tammia_newsletter').delete().eq('id', s.id);
+            if (error) throw error;
+            adminSubs = adminSubs.filter(x => x.id !== s.id);
+            tammiaToast('Subscriber dihapus', 'bi-trash3');
+            adminRenderSubs();
+          } catch (e) {
+            tammiaToast('Gagal hapus: ' + (e.message || e), 'bi-exclamation-triangle-fill');
+          }
+        },
+      });
+    });
+  });
+}
+
+function adminWireSubExport() {
+  const btn = document.getElementById('adminSubExport');
+  if (!btn || btn.dataset.wired === '1') return;
+  btn.dataset.wired = '1';
+  btn.addEventListener('click', () => {
+    if (!adminSubs.length) { tammiaToast('Belum ada subscriber untuk diexport.', 'bi-exclamation-circle'); return; }
+    const csv = 'email,subscribed_at\n' + adminSubs.map(s => `${s.email},${s.created_at}`).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'tammia-newsletter-subscribers.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    tammiaToast('CSV terdownload', 'bi-download');
   });
 }
