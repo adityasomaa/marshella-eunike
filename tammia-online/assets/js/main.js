@@ -649,6 +649,18 @@ function initCustomSelect(selectEl) {
   btn.setAttribute('role', 'combobox');
   btn.setAttribute('aria-expanded', 'false');
 
+  // Opt-in: mirror class dari <select> sumber ke tombol custom
+  // (dipakai admin-status-select supaya warna per-status ikut ke tombol)
+  const mirror = selectEl.dataset.mirrorClass === '1';
+  function mirrorClasses() {
+    if (!mirror) return;
+    const wasOpen = btn.classList.contains('open');
+    btn.className = 'custom-select' + (wasOpen ? ' open' : '');
+    selectEl.classList.forEach(c => {
+      if (c !== 'custom-select-source' && c !== 'custom-select-full') btn.classList.add(c);
+    });
+  }
+
   const list = document.createElement('ul');
   list.className = 'custom-select-list';
   list.setAttribute('role', 'listbox');
@@ -678,8 +690,18 @@ function initCustomSelect(selectEl) {
   }
   syncLabel();
   buildList();
+  mirrorClasses();
   wrap.appendChild(btn);
   wrap.appendChild(list);
+
+  // Sinkron manual setelah value di-set programatik (tanpa memicu event 'change')
+  selectEl._customSync = () => {
+    syncLabel();
+    mirrorClasses();
+    Array.from(list.children).forEach((c, i) => {
+      c.classList.toggle('selected', i === selectEl.selectedIndex);
+    });
+  };
 
   function open() {
     btn.classList.add('open');
@@ -710,6 +732,7 @@ function initCustomSelect(selectEl) {
   // Re-sync if select changed externally
   selectEl.addEventListener('change', () => {
     syncLabel();
+    mirrorClasses();
     Array.from(list.children).forEach((c, i) => {
       c.classList.toggle('selected', i === selectEl.selectedIndex);
     });

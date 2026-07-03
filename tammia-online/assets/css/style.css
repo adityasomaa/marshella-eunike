@@ -4136,9 +4136,16 @@ input.form-control[type="search"], .nav-search input {
   border-top: 1px dashed var(--line);
 }
 
-/* ---- Admin: dropdown status pesanan inline ---- */
+/* ---- Admin: tombol aksi sejajar rapi ---- */
+.row-actions {
+  display: flex; align-items: center; gap: 6px;
+  flex-wrap: nowrap; white-space: nowrap;
+}
+.row-actions .admin-action-btn { margin: 0; flex: 0 0 auto; }
+
+/* ---- Admin: dropdown status pesanan (via custom select, bukan native) ---- */
 .admin-status-select {
-  width: 100%; padding: 7px 10px; cursor: pointer;
+  width: 100%; padding: 7px 28px 7px 12px; cursor: pointer;
   border: 1px solid var(--line); border-radius: 999px;
   font-family: 'JetBrains Mono', monospace; font-size: 11px;
   letter-spacing: 0.06em; text-transform: uppercase;
@@ -4150,6 +4157,32 @@ input.form-control[type="search"], .nav-search input {
 .admin-status-select.status-dikirim { background: #e8f1fd; color: #2b5f9e; border-color: #bcd5f2; }
 .admin-status-select.status-selesai { background: #e9f7ee; color: #2d7a4f; border-color: #bfe3cc; }
 .admin-status-select.status-dibatalkan { background: #fcebe6; color: #a8442f; border-color: #f3c9be; }
+/* Panah custom select mengikuti ukuran kompak pill status */
+.custom-select.admin-status-select { line-height: 1.4; min-width: 0; }
+.custom-select.admin-status-select::after {
+  right: 11px; width: 7px; height: 7px; border-color: currentColor;
+}
+/* Wrap custom select di dalam sel tabel = full width sel */
+.admin-table td .custom-select-wrap { display: block; width: 100%; }
+.admin-table td .custom-select-wrap .custom-select { width: 100%; }
+.admin-table td .custom-select-list { min-width: 100%; font-size: 12px; }
+/* Desktop: biarkan dropdown keluar dari area tabel (mobile tetap scroll-x) */
+@media (min-width: 992px) {
+  .admin-table-wrap { overflow-x: visible; }
+}
+
+/* Custom select di bulkbar gelap: kompak */
+.admin-bulkbar .custom-select {
+  padding: 8px 32px 8px 14px; font-size: 13px;
+  background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.18);
+  color: #fff;
+}
+.admin-bulkbar .custom-select::after { right: 12px; border-color: #fff; }
+.admin-bulkbar .custom-select-list { font-size: 13px; }
+
+/* Custom select di modal admin: full width field */
+.admin-modal .custom-select-wrap { display: block; width: 100%; }
+.admin-modal .custom-select-wrap .custom-select { width: 100%; }
 
 /* ---- Admin panel: menu manajemen sticky top + konten full width ---- */
 .admin-layout { display: block; }

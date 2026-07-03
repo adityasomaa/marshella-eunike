@@ -189,8 +189,10 @@ function adminRenderTable() {
         <td><span class="admin-stock-pill ${stockClass}">${stockLabel}</span></td>
         <td>${statusPills.join(' ')}</td>
         <td>
-          <button class="admin-action-btn" data-admin-edit="${p.id}" title="Edit"><i class="bi bi-pencil"></i></button>
-          <button class="admin-action-btn danger" data-admin-delete="${p.id}" title="Hapus"><i class="bi bi-trash3"></i></button>
+          <div class="row-actions">
+            <button class="admin-action-btn" data-admin-edit="${p.id}" title="Edit"><i class="bi bi-pencil"></i></button>
+            <button class="admin-action-btn danger" data-admin-delete="${p.id}" title="Hapus"><i class="bi bi-trash3"></i></button>
+          </div>
         </td>
       </tr>`;
   }).join('');
@@ -517,6 +519,17 @@ function adminBuildModal() {
 
   // Submit
   m.querySelector('#adminFieldSubmit').addEventListener('click', adminSubmitForm);
+
+  // Dropdown pakai custom select (bukan native)
+  if (typeof initCustomSelect === 'function') {
+    initCustomSelect(m.querySelector('#adminFieldCategory'));
+    initCustomSelect(m.querySelector('#adminFieldSvg'));
+  }
+}
+
+/* Sinkronkan UI custom select setelah value <select> di-set programatik */
+function adminSyncSelect(sel) {
+  if (sel && typeof sel._customSync === 'function') sel._customSync();
 }
 
 function adminSlugify(text) {
@@ -555,11 +568,13 @@ function adminClearForm() {
   m.querySelector('#adminFieldName').value = '';
   m.querySelector('#adminFieldBrand').value = '';
   m.querySelector('#adminFieldCategory').value = TAMMIA_CATEGORIES[0];
+  adminSyncSelect(m.querySelector('#adminFieldCategory'));
   m.querySelector('#adminFieldSlug').value = '';
   m.querySelector('#adminFieldPrice').value = '';
   m.querySelector('#adminFieldWas').value = '';
   m.querySelector('#adminFieldStock').value = '100';
   m.querySelector('#adminFieldSvg').value = 'brush';
+  adminSyncSelect(m.querySelector('#adminFieldSvg'));
   m.querySelector('#adminFieldShort').value = '';
   ['DescHeading', 'Description', 'Material', 'Dimensi', 'Berat', 'Kompartemen',
    'Compliant', 'Country', 'Cocok', 'HowtoHeading', 'Howto', 'Shipping']
@@ -593,11 +608,13 @@ function adminOpenEditModal(id) {
   m.querySelector('#adminFieldName').value = p.name || '';
   m.querySelector('#adminFieldBrand').value = p.brand || '';
   m.querySelector('#adminFieldCategory').value = p.category || TAMMIA_CATEGORIES[0];
+  adminSyncSelect(m.querySelector('#adminFieldCategory'));
   m.querySelector('#adminFieldSlug').value = p.slug || '';
   m.querySelector('#adminFieldPrice').value = p.price || 0;
   m.querySelector('#adminFieldWas').value = p.was_price || '';
   m.querySelector('#adminFieldStock').value = (p.stock != null) ? p.stock : 100;
   m.querySelector('#adminFieldSvg').value = p.svg_type || 'brush';
+  adminSyncSelect(m.querySelector('#adminFieldSvg'));
   m.querySelector('#adminFieldShort').value = p.short_description || '';
   // Prefill Product Details dari kolom details (jsonb); fallback deskripsi lama
   const d = p.details || {};
@@ -844,10 +861,15 @@ function adminRenderOrders() {
         </td>
         <td style="max-width:260px;">${itemLabel}</td>
         <td style="font-family:'Comfortaa',sans-serif; font-weight:500;">${tammiaFormatPrice(o.total)}</td>
-        <td><select class="admin-status-select status-${o.status}" data-order-status-id="${o.id}">${options}</select></td>
-        <td><button class="admin-action-btn danger" data-order-delete="${o.id}" title="Hapus"><i class="bi bi-trash3"></i></button></td>
+        <td><select class="admin-status-select status-${o.status} custom-select-source" data-mirror-class="1" data-order-status-id="${o.id}">${options}</select></td>
+        <td><div class="row-actions"><button class="admin-action-btn danger" data-order-delete="${o.id}" title="Hapus"><i class="bi bi-trash3"></i></button></div></td>
       </tr>`;
   }).join('');
+
+  // Native select -> custom select bergaya (warna per-status ikut via data-mirror-class)
+  if (typeof initCustomSelect === 'function') {
+    tbody.querySelectorAll('select.custom-select-source').forEach(initCustomSelect);
+  }
 
   // Ubah status inline
   tbody.querySelectorAll('[data-order-status-id]').forEach(sel => {
@@ -860,7 +882,8 @@ function adminRenderOrders() {
         if (error) throw error;
         const o = adminOrders.find(x => x.id === id);
         if (o) o.status = status;
-        sel.className = `admin-status-select status-${status}`;
+        sel.className = `admin-status-select status-${status} custom-select-source`;
+        adminSyncSelect(sel); // warna tombol custom ikut berubah
         tammiaToast(`Status ${o ? o.order_no : ''} → ${status}`, 'bi-check-circle-fill');
         if (adminOrderFilter !== 'all') adminRenderOrders();
       } catch (e) {
@@ -957,7 +980,7 @@ function adminRenderSubs() {
     <tr>
       <td><div class="row-name">${adminEsc(s.email)}</div></td>
       <td>${adminDateLabel(s.created_at)}</td>
-      <td><button class="admin-action-btn danger" data-sub-delete="${s.id}" title="Hapus"><i class="bi bi-trash3"></i></button></td>
+      <td><div class="row-actions"><button class="admin-action-btn danger" data-sub-delete="${s.id}" title="Hapus"><i class="bi bi-trash3"></i></button></div></td>
     </tr>`).join('');
   tbody.querySelectorAll('[data-sub-delete]').forEach(btn => {
     btn.addEventListener('click', () => {
