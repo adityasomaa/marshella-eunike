@@ -75,6 +75,9 @@ Drupal Commerce. Pemetaannya:
 | Role admin vs customer | Drupal roles + permissions (customer JANGAN diberi akses admin); di preview: user_metadata.role Supabase + RLS |
 | Halaman "Akun Saya" | Drupal user page (`/user`) — preview punya account.html sebagai acuan visual |
 | Tombol pesanan per status (Batalkan/Lacak/CS/Beli Ulang) | Commerce order states + view riwayat pesanan; acuan visual di orders.html |
+| Admin: kelola Pesanan (ubah status/hapus) | Commerce order admin bawaan (`/admin/commerce/orders`); preview: tabel `tammia_orders` |
+| Admin: daftar Pelanggan | Drupal people admin (`/admin/people`); preview: function `tammia_list_customers` |
+| Admin: Newsletter subscriber + export CSV | modul **Simplenews** / webform + views export; preview: tabel `tammia_newsletter` |
 | **Product Details terstruktur** (deskripsi heading, deskripsi, material, dimensi, berat, kompartemen, compliant, country, cocok untuk, heading+detail cara pakai, pengiriman & garansi) | **field terpisah di product type Commerce** (bukan satu body). Di preview: kolom jsonb `products.details`, dirender `tammiaRenderProductDetailsTabs` ke tab produk, diedit via Admin Panel > Edit Produk |
 
 Yang **visual/CSS/layout** sudah 1:1 dengan preview. Yang **logika commerce**
