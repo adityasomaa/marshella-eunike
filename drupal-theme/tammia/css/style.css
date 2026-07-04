@@ -57,7 +57,7 @@ h1 { font-weight: 600; }
 .font-serif { font-family: 'Product Sans', 'Comfortaa', 'Poppins', sans-serif !important; }
 .font-mono { font-family: 'JetBrains Mono', monospace !important; }
 .mono-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -244,7 +244,8 @@ h1 { font-weight: 600; }
   overflow: hidden;
 }
 .hero-eyebrow {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
+  font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -416,7 +417,8 @@ h1 { font-weight: 600; }
 /* ---------- Section spacing ---------- */
 section { padding: 100px 0; }
 .section-eyebrow {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
+  font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
