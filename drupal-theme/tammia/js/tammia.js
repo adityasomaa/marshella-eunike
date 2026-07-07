@@ -10,6 +10,8 @@
   Drupal.behaviors.tammiaBlobCanvas = {
     attach(context) {
       once('tammia-blob', '#bg-canvas', context).forEach((canvas) => {
+        // Dimatikan via CSS (display:none) — jangan jalankan animasi kalau tak tampil
+        if (getComputedStyle(canvas).display === 'none') return;
         const ctx = canvas.getContext('2d');
         const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         let bubbles = [];

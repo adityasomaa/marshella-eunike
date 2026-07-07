@@ -3712,14 +3712,9 @@ section { padding: 100px 0; }
    DEWY SKIN — design language port (Tammia brand guideline)
    Pillow buttons, pill nav, blob canvas, soft deep shadows
    ============================================================ */
-#bg-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.65;
-  filter: blur(2px);
-}
+/* Ambient blob canvas dimatikan — request klien: hilangkan kesan vignette
+   (tengah lebih terang dari sisi kiri/kanan). Background jadi flat --paper. */
+#bg-canvas { display: none; }
 
 /* Pillow buttons */
 .btn {
