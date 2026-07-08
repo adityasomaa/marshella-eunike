@@ -4,7 +4,7 @@
    ============================================================ */
 
 :root {
-  --paper: #fbfaf9;
+  --paper: #f4f2f0;
   --card: #ffffff;
   --ink: #1a1a1a;
   --ink-soft: #2b2b2b;
@@ -18,8 +18,8 @@
   --peach-tint: #fcf0f0;
   --rouge: #e11d25;
   --rouge-soft: #a22a34;
-  --cream-1: #fdfdfc;
-  --cream-2: #f3f1ee;
+  --cream-1: #faf9f7;
+  --cream-2: #efedea;
   --shadow-soft: 0 10px 40px -10px rgba(225,29,37,0.14);
   --shadow-hover: 0 20px 60px -20px rgba(225,29,37,0.26);
   --shadow-card: 0 8px 30px -12px rgba(26,26,26,0.07);
@@ -102,7 +102,7 @@ h1 { font-weight: 600; }
   position: sticky;
   top: 0;
   z-index: 1040;
-  background: rgba(251,250,249,0.92);
+  background: rgba(244,242,240,0.92);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
@@ -3710,9 +3710,16 @@ section { padding: 100px 0; }
    DEWY SKIN — design language port (Tammia brand guideline)
    Pillow buttons, pill nav, blob canvas, soft deep shadows
    ============================================================ */
-/* Ambient blob canvas dimatikan — request klien: hilangkan kesan vignette
-   (tengah lebih terang dari sisi kiri/kanan). Background jadi flat --paper. */
-#bg-canvas { display: none; }
+/* Ambient blob canvas (tekstur DEWY) — dihidupkan lagi. Vignette sisi kiri/kanan
+   ternyata dari box-shadow drawer tertutup (sudah difix), bukan dari canvas ini. */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: blur(2px);
+}
 
 /* Pillow buttons */
 .btn {
