@@ -4,7 +4,7 @@
    ============================================================ */
 
 :root {
-  --paper: #f4f2f0;
+  --paper: #fbfaf9;
   --card: #ffffff;
   --ink: #1a1a1a;
   --ink-soft: #2b2b2b;
@@ -18,8 +18,8 @@
   --peach-tint: #fcf0f0;
   --rouge: #e11d25;
   --rouge-soft: #a22a34;
-  --cream-1: #faf9f7;
-  --cream-2: #efedea;
+  --cream-1: #fdfdfc;
+  --cream-2: #f3f1ee;
   --shadow-soft: 0 10px 40px -10px rgba(225,29,37,0.14);
   --shadow-hover: 0 20px 60px -20px rgba(225,29,37,0.26);
   --shadow-card: 0 8px 30px -12px rgba(26,26,26,0.07);
@@ -102,7 +102,7 @@ h1 { font-weight: 600; }
   position: sticky;
   top: 0;
   z-index: 1040;
-  background: rgba(244,242,240,0.92);
+  background: rgba(251,250,249,0.92);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
