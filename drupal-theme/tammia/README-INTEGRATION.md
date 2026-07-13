@@ -78,10 +78,19 @@ Drupal Commerce. Pemetaannya:
 | Admin: kelola Pesanan (ubah status/hapus) | Commerce order admin bawaan (`/admin/commerce/orders`); preview: tabel `tammia_orders` |
 | Admin: daftar Pelanggan | Drupal people admin (`/admin/people`); preview: function `tammia_list_customers` |
 | Admin: Newsletter subscriber + export CSV | modul **Simplenews** / webform + views export; preview: tabel `tammia_newsletter` |
-| **Product Details terstruktur** (deskripsi heading, deskripsi, material, dimensi, berat, kompartemen, compliant, country, cocok untuk, heading+detail cara pakai, pengiriman & garansi) | **field terpisah di product type Commerce** (bukan satu body). Di preview: kolom jsonb `products.details`, dirender `tammiaRenderProductDetailsTabs` ke tab produk, diedit via Admin Panel > Edit Produk |
+| **Product Details terstruktur** (deskripsi heading, deskripsi, material, dimensi, berat, kompartemen, compliant, country, cocok untuk, heading+detail cara pakai, pengiriman & garansi) | **field terpisah di product type Commerce** (bukan satu body). **Template + CSS-nya SUDAH SIAP** di `templates/commerce/commerce-product.html.twig` (section `.pd-details`) — Bion tinggal buat field-nya & samakan nama: `field_desc_heading`, `body`, `field_material`, `field_dimensi`, `field_berat`, `field_kompartemen`, `field_compliant`, `field_country`, `field_cocok`, `field_howto_heading`, `field_howto` (multivalue), `field_shipping`. Kalau nama field beda, edit variabel di twig itu. |
 
 Yang **visual/CSS/layout** sudah 1:1 dengan preview. Yang **logika commerce**
 mengikuti modul Drupal, bukan JS demo.
+
+> **Ringkasan buat Bion — template mana yang sudah jadi vs perlu dibuat:**
+> SUDAH JADI (design shell): layout global (`page.html.twig`, `html.html.twig` —
+> nav pill, shipping bar, footer, canvas), halaman produk terstruktur
+> (`commerce-product.html.twig`), + seluruh design-system CSS (`css/style.css`)
+> yang men-skin markup Commerce bawaan (tombol, form, tabel cart, grid produk).
+> PERLU BION BUAT di Drupal: product type + field, katalog + foto, store/checkout/
+> ongkir/payment, role & permission, block homepage (banner/kategori/FAQ/
+> newsletter), reviews, halaman About/Contact. Semua ada di tabel pemetaan atas.
 
 ## Revisi home 18 Juni 2026 (banner memanjang, ticker, FAQ)
 

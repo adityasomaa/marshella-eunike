@@ -73,15 +73,68 @@
       </div>
     </div>
 
-    {# ---------- Deskripsi Produk ---------- #}
-    {% if product.body %}
-      <section class="pd-desc-section mt-5">
-        <h2 class="section-title"><i class="bi bi-info-circle"></i> Deskripsi Produk</h2>
-        <div class="pd-desc-body">{{ product.body }}</div>
-      </section>
-    {% endif %}
+    {# ---------- PRODUCT DETAILS (terstruktur — revisi wajib klien, samakan preview) ----------
+       Buat field-field ini di product type, sesuaikan NAMA-nya lalu render di sini:
+         field_desc_heading   : judul singkat deskripsi
+         body                 : paragraf deskripsi (rich text)
+         field_material, field_dimensi, field_berat, field_kompartemen,
+         field_compliant, field_country   : spesifikasi (teks pendek)
+         field_cocok          : "Cocok untuk ..." (teks panjang)
+         field_howto_heading  : judul cara pakai
+         field_howto          : langkah cara pakai (field teks MULTIVALUE → tiap value = 1 langkah)
+         field_shipping       : info pengiriman & garansi (teks panjang)
+       Acuan visual: tab "Deskripsi / Cara Pakai / Pengiriman" di preview product.html. #}
+    <section class="pd-details mt-5">
+      <div class="row g-5">
+        <div class="col-lg-8">
+
+          {% if product_entity.field_desc_heading.value %}
+            <h3 class="pd-details-heading">{{ product_entity.field_desc_heading.value }}</h3>
+          {% endif %}
+          {% if product.body %}<div class="pd-desc-body">{{ product.body }}</div>{% endif %}
+
+          {% set specs = {
+            'Material': product_entity.field_material.value,
+            'Dimensi': product_entity.field_dimensi.value,
+            'Berat': product_entity.field_berat.value,
+            'Kompartemen': product_entity.field_kompartemen.value,
+            'Compliant': product_entity.field_compliant.value,
+            'Country': product_entity.field_country.value
+          } %}
+          {% set specs = specs|filter(v => v) %}
+          {% if specs is not empty %}
+            <ul class="pd-spec-list">
+              {% for label, val in specs %}<li><strong>{{ label }}:</strong> {{ val }}</li>{% endfor %}
+            </ul>
+          {% endif %}
+
+          {% if product_entity.field_cocok.value %}
+            <p class="pd-suitable"><strong>Cocok untuk:</strong> {{ product_entity.field_cocok.value }}</p>
+          {% endif %}
+
+          {% if product_entity.field_howto is not empty %}
+            <h3 class="pd-details-heading mt-4">{{ product_entity.field_howto_heading.value|default('Cara Pakai') }}</h3>
+            <ol class="pd-howto-list">
+              {% for step in product_entity.field_howto %}<li>{{ step.value }}</li>{% endfor %}
+            </ol>
+          {% endif %}
+
+          {% if product_entity.field_shipping.value %}
+            <h3 class="pd-details-heading mt-4">Pengiriman &amp; Garansi</h3>
+            <div class="pd-ship-body">{{ product_entity.field_shipping.value }}</div>
+          {% endif %}
+
+        </div>
+      </div>
+    </section>
 
     {# Field lain yang belum dipetakan tetap dirender agar tidak hilang #}
-    {{ product|without('field_brand', 'title', 'variation_price', 'field_teaser', 'variations', 'body', 'field_images', 'field_image', 'uid', 'created') }}
+    {{ product|without(
+      'field_brand', 'title', 'variation_price', 'field_teaser', 'variations',
+      'body', 'field_images', 'field_image', 'uid', 'created',
+      'field_desc_heading', 'field_material', 'field_dimensi', 'field_berat',
+      'field_kompartemen', 'field_compliant', 'field_country', 'field_cocok',
+      'field_howto_heading', 'field_howto', 'field_shipping'
+    ) }}
   </div>
 </article>

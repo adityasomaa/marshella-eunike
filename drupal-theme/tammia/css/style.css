@@ -4319,6 +4319,20 @@ select.form-select {
   font-size: 14px;
 }
 
+/* Product Details terstruktur (commerce-product.html.twig) */
+.pd-details-heading {
+  font-family: 'Product Sans', 'Comfortaa', sans-serif;
+  font-weight: 400; font-size: 24px; margin: 0 0 12px; color: var(--ink);
+}
+.pd-desc-body { color: var(--muted); line-height: 1.8; }
+.pd-spec-list { list-style: none; padding: 0; margin: 20px 0; font-size: 14px; }
+.pd-spec-list li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.pd-spec-list li:last-child { border-bottom: none; }
+.pd-spec-list strong { color: var(--ink); }
+.pd-suitable { color: var(--muted); line-height: 1.8; }
+.pd-howto-list { padding-left: 20px; line-height: 1.9; color: var(--ink-soft); }
+.pd-ship-body { color: var(--muted); line-height: 1.8; white-space: pre-line; }
+
 /* Drupal messages */
 .messages {
   border-radius: var(--r-md);
