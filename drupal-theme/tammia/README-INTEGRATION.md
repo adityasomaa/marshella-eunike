@@ -8,11 +8,13 @@ Frontend: Aditya Soma · Juni 2026
 ## Install
 
 1. Copy folder `tammia/` ke `web/themes/custom/tammia`
-2. ```
-   drush theme:enable tammia
-   drush config:set system.theme default tammia -y
-   drush cr
-   ```
+2. Aktifkan lalu bersihkan cache:
+
+```
+drush theme:enable tammia
+drush config:set system.theme default tammia -y
+drush cr
+```
 
 ## Struktur
 
